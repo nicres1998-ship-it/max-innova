@@ -755,7 +755,7 @@ async function consult(folio){
  const {data,error}=await db.rpc("max_innova_consultar_folio",{p_folio:folio});
  if(error||!data||!data.length){r.innerHTML="<strong>Folio no localizado.</strong><p class='help'>Verifica que esté escrito correctamente.</p>";return}
  const a=data[0];
- r.innerHTML=`<small>FOLIO</small><div class="folio">${safe(a.folio)}</div><strong>${safe(a.nombre)}</strong><p class="help">${safe(a.tipo_financiamiento)}<br>Modalidad de documentos: ${safe(a.modalidad_documentos)}</p><span class="status">${safe(a.estatus)}</span><p class="help">${safe(a.indicaciones_cliente||"")}</p>${a.fecha_cita?`<p><strong>Fecha de cita:</strong> ${safe(a.fecha_cita)}${a.hora_cita?`<br><strong>Hora:</strong> ${safe(a.hora_cita):""}</p>`:""}${a.indicaciones_cita?`<p class="help">${safe(a.indicaciones_cita)}</p>`:""}`;
+ r.innerHTML=`<small>FOLIO</small><div class="folio">${safe(a.folio)}</div><strong>${safe(a.nombre)}</strong><p class="help">${safe(a.tipo_financiamiento)}<br>Modalidad de documentos: ${safe(a.modalidad_documentos)}</p><span class="status">${safe(a.estatus)}</span><p class="help">${safe(a.indicaciones_cliente||"")}</p>${a.fecha_cita?`<p><strong>Fecha de cita:</strong> ${safe(a.fecha_cita)}${a.hora_cita?`<br><strong>Hora:</strong> ${safe(a.hora_cita)}`:""}</p>`:""}${a.indicaciones_cita?`<p class="help">${safe(a.indicaciones_cita)}</p>`:""}`;
 }
 
 /* =========================
