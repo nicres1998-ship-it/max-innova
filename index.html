@@ -9,14 +9,17 @@
 <style>
 :root{
   --navy:#00345f;
-  --navy-dark:#002744;
+  --navy2:#002744;
   --blue:#006da6;
   --cyan:#16bce8;
   --light:#f3faff;
   --line:#d8eaf3;
   --text:#07385f;
-  --muted:#5e788b;
+  --muted:#607b8e;
   --white:#fff;
+  --green:#15936c;
+  --red:#c94b4b;
+  --orange:#d98a21;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -30,7 +33,7 @@ body{
 }
 
 a{text-decoration:none;color:inherit}
-button,input,select{font:inherit}
+button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 img{max-width:100%;display:block}
 
@@ -39,9 +42,7 @@ img{max-width:100%;display:block}
   margin:auto;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 header{
   height:86px;
@@ -59,11 +60,11 @@ header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:22px;
+  gap:20px;
 }
 
 .logo{
-  width:220px;
+  width:215px;
   height:72px;
   display:flex;
   align-items:center;
@@ -79,9 +80,9 @@ header{
 .menu{
   display:flex;
   align-items:center;
-  gap:25px;
-  font-size:13px;
-  font-weight:800;
+  gap:22px;
+  font-size:12px;
+  font-weight:900;
 }
 
 .menu a{
@@ -100,26 +101,19 @@ header{
   transition:.25s;
 }
 
-.menu a:hover:after{
-  left:0;
-  right:0;
-}
+.menu a:hover:after{left:0;right:0}
 
 .account{
+  border:0;
   background:var(--navy);
   color:#fff;
   border-radius:9px;
-  padding:14px 22px;
+  padding:14px 20px;
   font-size:12px;
   font-weight:900;
-  display:flex;
-  align-items:center;
-  gap:8px;
 }
 
-/* =========================
-   BOTONES
-========================= */
+/* BOTONES */
 
 .btn{
   min-height:51px;
@@ -132,21 +126,14 @@ header{
   font-size:12px;
   font-weight:900;
   border:0;
-  cursor:pointer;
   transition:.25s;
 }
 
 .btn:hover{transform:translateY(-2px)}
 
-.btn-white{
-  background:#fff;
-  color:#064772;
-}
-
-.btn-blue{
-  background:var(--navy);
-  color:#fff;
-}
+.btn-white{background:#fff;color:#064772}
+.btn-blue{background:var(--navy);color:#fff}
+.btn-cyan{background:#08aeda;color:#fff}
 
 .btn-outline{
   color:#fff;
@@ -154,9 +141,7 @@ header{
   background:transparent;
 }
 
-/* =========================
-   HERO
-========================= */
+/* HERO */
 
 .hero{
   min-height:600px;
@@ -176,9 +161,7 @@ header{
     linear-gradient(135deg,#002c53,#006294);
 }
 
-.hero-copy{
-  max-width:660px;
-}
+.hero-copy{max-width:660px}
 
 .eyebrow{
   font-size:11px;
@@ -214,26 +197,25 @@ header{
 .hero-benefits{
   display:flex;
   gap:25px;
-  margin-top:40px;
+  margin-top:38px;
   flex-wrap:wrap;
 }
 
 .hero-benefit{
-  display:flex;
-  align-items:center;
-  gap:9px;
   font-size:11px;
   font-weight:800;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
-.hero-benefit-icon{
-  width:37px;
-  height:37px;
-  border-radius:50%;
+.check{
+  width:27px;
+  height:27px;
   border:1px solid rgba(255,255,255,.45);
+  border-radius:50%;
   display:grid;
   place-items:center;
-  font-size:17px;
 }
 
 .hero-image{
@@ -241,9 +223,7 @@ header{
   background:url("edificio.png") center/cover no-repeat;
 }
 
-/* =========================
-   CINTA FRASE
-========================= */
+/* FRASE */
 
 .statement{
   padding:0 4%;
@@ -269,21 +249,17 @@ header{
 .statement-main{
   font-size:25px;
   font-weight:900;
-  line-height:1.15;
 }
 
 .statement-secondary{
   font-family:Georgia,serif;
-  font-size:21px;
+  font-size:20px;
   font-style:italic;
-  line-height:1.35;
 }
 
-/* =========================
-   TITULOS
-========================= */
+/* GENERALES */
 
-.section{padding:75px 0}
+.section{padding:78px 0}
 .center{text-align:center}
 
 .kicker{
@@ -303,16 +279,14 @@ header{
 .title span{color:#05afe0}
 
 .subtitle{
-  max-width:750px;
+  max-width:760px;
   margin:16px auto 0;
   color:var(--muted);
   line-height:1.65;
   font-size:14px;
 }
 
-/* =========================
-   PRODUCTOS
-========================= */
+/* PRODUCTOS */
 
 .products{
   display:grid;
@@ -322,7 +296,7 @@ header{
 }
 
 .product{
-  min-height:275px;
+  min-height:270px;
   background:linear-gradient(145deg,#f3fbff,#e3f6fd);
   border:1px solid #d9edf6;
   border-radius:18px;
@@ -333,7 +307,7 @@ header{
 }
 
 .product:hover{
-  transform:translateY(-8px);
+  transform:translateY(-7px);
   box-shadow:0 17px 35px rgba(0,79,125,.14);
 }
 
@@ -349,17 +323,14 @@ header{
 }
 
 .product-icon svg{
-  width:33px;
-  height:33px;
+  width:34px;
+  height:34px;
   stroke:#00669c;
   fill:none;
   stroke-width:1.7;
 }
 
-.product h3{
-  font-size:17px;
-  margin-bottom:10px;
-}
+.product h3{font-size:17px;margin-bottom:10px}
 
 .product p{
   font-size:12px;
@@ -379,97 +350,16 @@ header{
   font-weight:900;
 }
 
-/* =========================
-   PERFIL
-========================= */
-
-.profile{
-  background:#f4fbff;
-  padding:75px 0;
-}
-
-.profile-tabs{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin:30px 0;
-}
-
-.profile-tab{
-  border:1px solid #c5dfe9;
-  background:#fff;
-  color:#07517e;
-  border-radius:30px;
-  padding:14px 30px;
-  font-weight:900;
-  font-size:12px;
-}
-
-.profile-tab.active{
-  background:var(--navy);
-  color:#fff;
-}
-
-.profile-box{
-  background:#fff;
-  border-radius:20px;
-  padding:43px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:45px;
-  align-items:center;
-  box-shadow:0 15px 45px rgba(0,70,110,.08);
-}
-
-.profile-copy h3{
-  font-size:34px;
-  margin-bottom:14px;
-}
-
-.profile-copy p{
-  color:var(--muted);
-  line-height:1.65;
-  margin-bottom:23px;
-}
-
-.profile-options{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-
-.profile-option{
-  padding:18px;
-  border-radius:12px;
-  background:#edf9fe;
-  display:flex;
-  align-items:center;
-  gap:13px;
-  font-size:13px;
-  font-weight:800;
-}
-
-.profile-option .visual{
-  width:42px;
-  height:42px;
-  background:#fff;
-  border-radius:10px;
-  display:grid;
-  place-items:center;
-  font-size:22px;
-}
-
-/* =========================
-   SECTORES / CINTAS
-========================= */
+/* CINTAS */
 
 .credit-center{
   padding:80px 0;
+  background:#f5fbfe;
 }
 
 .sector-block{
   width:min(1180px,94%);
-  margin:0 auto 35px;
+  margin:0 auto 34px;
   border:1px solid #dcebf2;
   border-radius:20px;
   overflow:hidden;
@@ -479,287 +369,156 @@ header{
 
 .sector-heading{
   padding:22px 30px;
-  display:flex;
-  align-items:center;
-  gap:15px;
-  background:linear-gradient(90deg,#f1faff,#fff);
+  background:linear-gradient(90deg,#edf9fe,#fff);
   border-bottom:1px solid #e3eff4;
 }
 
-.sector-heading-visual{
-  width:50px;
-  height:50px;
-  flex:0 0 auto;
-  border-radius:13px;
-  background:#00699f;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-size:25px;
-}
-
-.sector-heading h3{
-  font-size:21px;
-  margin-bottom:3px;
-}
-
-.sector-heading p{
-  font-size:12px;
-  color:#688294;
-}
+.sector-heading h3{font-size:21px;margin-bottom:5px}
+.sector-heading p{font-size:12px;color:#688294}
 
 .ticker{
   overflow:hidden;
-  padding:17px 0;
+  padding:18px 0;
   position:relative;
-}
-
-.ticker:before,
-.ticker:after{
-  content:"";
-  position:absolute;
-  top:0;
-  bottom:0;
-  width:55px;
-  z-index:5;
-  pointer-events:none;
-}
-
-.ticker:before{
-  left:0;
-  background:linear-gradient(90deg,#fff,transparent);
-}
-
-.ticker:after{
-  right:0;
-  background:linear-gradient(-90deg,#fff,transparent);
 }
 
 .ticker-track{
   display:flex;
   width:max-content;
-  animation:tickerMove 38s linear infinite;
+  animation:tickerMove 40s linear infinite;
 }
 
-.ticker.fast .ticker-track{
-  animation-duration:32s;
-}
-
-.ticker.reverse .ticker-track{
-  animation-direction:reverse;
-}
-
-.ticker:hover .ticker-track{
-  animation-play-state:paused;
-}
+.ticker.reverse .ticker-track{animation-direction:reverse}
+.ticker.fast .ticker-track{animation-duration:32s}
+.ticker:hover .ticker-track{animation-play-state:paused}
 
 @keyframes tickerMove{
   from{transform:translateX(0)}
   to{transform:translateX(-50%)}
 }
 
-.credit-option{
-  width:185px;
+.brand-card{
+  width:175px;
   min-height:125px;
   margin:0 7px;
   padding:14px;
   border:1px solid #dceaf1;
   background:#fff;
-  border-radius:13px;
+  border-radius:14px;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
   transition:.25s;
-  color:var(--text);
 }
 
-.credit-option:hover{
-  border-color:#42bde2;
-  background:#f1fbff;
+.brand-card:hover{
+  border-color:#39b9df;
   transform:translateY(-3px);
-  box-shadow:0 8px 20px rgba(0,87,130,.10);
+  box-shadow:0 8px 20px rgba(0,87,130,.11);
 }
 
-.option-visual{
-  width:58px;
-  height:58px;
-  border-radius:14px;
-  background:#eef9fd;
+.brand-logo{
+  width:105px;
+  height:57px;
   display:flex;
   align-items:center;
   justify-content:center;
-  margin-bottom:9px;
-  overflow:hidden;
+  margin-bottom:8px;
 }
 
-.option-visual img{
-  max-width:46px;
-  max-height:40px;
+.brand-logo img{
+  max-width:100%;
+  max-height:48px;
   object-fit:contain;
 }
 
-.option-visual svg{
-  width:32px;
-  height:32px;
-  stroke:#00699f;
-  fill:none;
-  stroke-width:1.7;
+.brand-fallback{
+  font-size:17px;
+  font-weight:900;
+  color:#07517e;
 }
 
-.credit-option strong{
-  font-size:12px;
+.brand-card strong{
+  font-size:11px;
   line-height:1.25;
 }
 
-.credit-option small{
-  font-size:9px;
-  color:#79909e;
-  margin-top:4px;
-}
-
-/* =========================
-   PANEL DESPLEGABLE
-========================= */
-
-.credit-detail{
-  display:none;
-  border-top:1px solid #dceaf1;
-  background:#f5fbfe;
-  padding:30px;
-}
-
-.credit-detail.open{
-  display:block;
-  animation:detailIn .3s ease;
-}
-
-@keyframes detailIn{
-  from{opacity:0;transform:translateY(-8px)}
-  to{opacity:1;transform:none}
-}
-
-.detail-top{
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-}
-
-.detail-badge{
-  display:inline-block;
-  padding:7px 12px;
-  border-radius:30px;
-  background:#dff6fd;
-  color:#006793;
+.brand-note{
+  width:min(1100px,90%);
+  margin:5px auto 0;
+  color:#718795;
   font-size:10px;
-  font-weight:900;
-  letter-spacing:1px;
-  margin-bottom:9px;
+  line-height:1.5;
+  text-align:center;
 }
 
-.detail-top h3{
-  font-size:29px;
-}
+/* PERFIL */
 
-.detail-top p{
-  color:var(--muted);
-  margin-top:9px;
-  line-height:1.55;
-  max-width:760px;
-  font-size:13px;
-}
-
-.close-detail{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  border:1px solid #c9dfe8;
-  background:#fff;
-  color:#00618e;
-  font-size:18px;
-}
-
-.detail-grid{
+.profile-box{
+  margin-top:35px;
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  margin-top:25px;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
 }
 
-.detail-card{
+.profile-card{
+  padding:35px;
+  border:1px solid var(--line);
+  border-radius:18px;
   background:#fff;
-  border:1px solid #dcebf2;
-  border-radius:14px;
-  padding:21px;
+  box-shadow:0 12px 35px rgba(0,70,110,.07);
 }
 
-.detail-card h4{
-  font-size:13px;
-  margin-bottom:11px;
-  color:#005d8f;
+.profile-card h3{
+  font-size:26px;
+  margin-bottom:12px;
 }
 
-.detail-card ul{
-  padding-left:17px;
-  color:#577385;
-  font-size:12px;
-  line-height:1.65;
-}
-
-.detail-legal{
-  margin-top:17px;
-  padding:17px 20px;
-  border-left:4px solid #00acd9;
-  background:#eaf8fd;
-  font-size:11px;
-  color:#577386;
+.profile-card p{
+  color:var(--muted);
   line-height:1.6;
+  font-size:13px;
 }
 
-.detail-actions{
-  margin-top:20px;
-}
-
-/* =========================
-   MI CUENTA
-========================= */
+/* PORTAL */
 
 .portal{
-  padding:80px 0;
-  background:linear-gradient(135deg,#002f56,#00638f);
+  padding:85px 0;
+  background:linear-gradient(135deg,#002b50,#006797);
   color:#fff;
 }
 
 .portal-grid{
   display:grid;
   grid-template-columns:.9fr 1.1fr;
-  gap:35px;
+  gap:45px;
+  align-items:start;
 }
 
-.portal-intro h2{
+.portal-copy h2{
   font-size:42px;
-  margin:10px 0 15px;
+  margin-bottom:16px;
 }
 
-.portal-intro p{
-  color:#d9edf5;
+.portal-copy>p{
+  color:#d8edf6;
   line-height:1.65;
+  margin-bottom:25px;
 }
 
-.portal-list{
-  margin-top:25px;
+.portal-features{
   display:grid;
-  grid-template-columns:1fr 1fr;
   gap:10px;
 }
 
-.portal-list div{
-  background:rgba(255,255,255,.10);
-  border:1px solid rgba(255,255,255,.14);
-  padding:13px;
+.portal-feature{
+  padding:13px 15px;
+  border:1px solid rgba(255,255,255,.17);
   border-radius:10px;
-  font-size:11px;
+  background:rgba(255,255,255,.07);
+  font-size:12px;
   font-weight:800;
 }
 
@@ -767,23 +526,25 @@ header{
   background:#fff;
   color:var(--text);
   border-radius:20px;
-  padding:30px;
+  padding:32px;
+  box-shadow:0 20px 50px rgba(0,0,0,.18);
 }
 
 .portal-tabs{
-  display:flex;
+  display:grid;
+  grid-template-columns:1fr 1fr;
   gap:8px;
-  margin-bottom:22px;
+  margin-bottom:25px;
 }
 
 .portal-tab{
-  flex:1;
-  border:1px solid #c9e0e9;
-  background:#f5fbfe;
-  padding:13px;
-  border-radius:10px;
-  font-weight:900;
+  border:1px solid #cfe2ec;
+  background:#f3f9fc;
+  padding:14px;
+  border-radius:9px;
   color:#07517e;
+  font-size:12px;
+  font-weight:900;
 }
 
 .portal-tab.active{
@@ -797,85 +558,107 @@ header{
 .form-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:13px;
 }
 
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.field.full{
-  grid-column:1/-1;
-}
+.field.full{grid-column:1/-1}
 
 .field label{
+  display:block;
   font-size:10px;
   font-weight:900;
-  color:#4d7188;
+  margin-bottom:6px;
+  color:#42687e;
 }
 
 .field input,
-.field select{
-  height:43px;
-  border:1px solid #cfe1e9;
+.field select,
+.field textarea{
+  width:100%;
+  border:1px solid #cfe0e8;
   border-radius:8px;
-  padding:0 12px;
+  padding:13px;
+  outline:none;
   background:#fff;
 }
 
-.pending-note{
-  margin-top:14px;
-  background:#edf9fe;
-  border-radius:10px;
-  padding:13px;
-  font-size:11px;
+.field textarea{
+  min-height:85px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:#0daed8;
+}
+
+.form-help{
+  font-size:10px;
+  color:#78909d;
   line-height:1.5;
-  color:#587589;
+  margin:12px 0;
 }
 
-/* =========================
-   INFORMACION
-========================= */
-
-.info-public{
-  padding:75px 0;
+.result-box{
+  display:none;
+  margin-top:20px;
+  padding:22px;
+  border-radius:13px;
+  background:#effaff;
+  border:1px solid #c8eaf5;
 }
+
+.result-box.show{display:block}
+
+.folio{
+  font-size:25px;
+  font-weight:900;
+  color:#00679c;
+  margin:8px 0;
+}
+
+.status{
+  display:inline-flex;
+  align-items:center;
+  border-radius:30px;
+  padding:8px 13px;
+  font-size:11px;
+  font-weight:900;
+  margin-top:8px;
+}
+
+.status-recibida{background:#dff5ff;color:#006793}
+.status-revision{background:#fff2d9;color:#a56b10}
+.status-proceso{background:#e8edff;color:#455db3}
+.status-aceptada{background:#def6eb;color:#147454}
+.status-rechazada{background:#ffe5e5;color:#ad3b3b}
+.status-sucursal{background:#eee6ff;color:#6541a5}
+
+/* INFORMACIÓN */
 
 .info-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:16px;
-  margin-top:35px;
+  margin-top:38px;
 }
 
 .info-card{
-  border:1px solid #dceaf1;
-  border-radius:16px;
+  border:1px solid var(--line);
+  border-radius:15px;
   padding:25px;
   background:#fff;
 }
 
-.info-card-icon{
-  width:48px;
-  height:48px;
-  border-radius:12px;
-  background:#edf9fe;
-  display:grid;
-  place-items:center;
-  font-size:23px;
-  margin-bottom:15px;
-}
-
 .info-card h3{
-  font-size:17px;
-  margin-bottom:10px;
+  font-size:16px;
+  margin-bottom:9px;
 }
 
 .info-card p{
+  color:var(--muted);
   font-size:12px;
-  color:#617d90;
   line-height:1.6;
 }
 
@@ -884,287 +667,320 @@ header{
   margin-top:12px;
   padding:6px 10px;
   border-radius:20px;
-  background:#fff5d9;
-  color:#8a6500;
+  background:#edf7fb;
+  color:#487489;
   font-size:9px;
   font-weight:900;
 }
 
-/* =========================
-   RESTO PAGINA
-========================= */
+/* NOSOTROS */
 
-.ally{padding:80px 0}
+.ally{
+  background:#f2faff;
+}
 
 .ally-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:60px;
+  gap:45px;
+  align-items:center;
 }
 
-.benefits{
+.ally-copy h2{
+  font-size:42px;
+  margin-bottom:18px;
+}
+
+.ally-copy p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:20px;
+}
+
+.ally-points{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:16px;
+  gap:12px;
 }
 
-.benefit{
-  border-radius:15px;
-  background:#f2faff;
-  padding:21px;
+.ally-point{
+  background:#fff;
+  padding:17px;
+  border-radius:11px;
+  font-size:12px;
+  font-weight:800;
+  border:1px solid #dcecf3;
 }
 
-.benefit-icon{
-  font-size:25px;
-  margin-bottom:10px;
-}
-
-.benefit p{
-  font-size:11px;
-  color:#668093;
-  margin-top:6px;
-  line-height:1.5;
-}
+/* IMAGEN PAREJA */
 
 .couple{
-  min-height:430px;
   display:grid;
-  grid-template-columns:52% 48%;
+  grid-template-columns:1fr 1fr;
+  min-height:470px;
 }
 
 .couple-photo{
-  background:url("pareja.png") center 38%/cover no-repeat;
+  background:url("pareja.png") center/cover no-repeat;
   position:relative;
 }
 
-.couple-label{
+.couple-overlay{
   position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  padding:19px 8%;
-  background:rgba(0,49,88,.84);
+  left:7%;
+  bottom:8%;
+  background:rgba(0,45,80,.86);
   color:#fff;
-  letter-spacing:5px;
+  padding:20px 25px;
+  border-radius:12px;
+  font-size:25px;
   font-weight:900;
 }
 
 .couple-copy{
-  padding:65px 9%;
-  background:linear-gradient(135deg,#00335c,#006a9e);
+  background:linear-gradient(135deg,#006496,#04acd6);
   color:#fff;
   display:flex;
   flex-direction:column;
   justify-content:center;
+  padding:60px 8%;
 }
 
 .couple-copy h2{
-  font-size:44px;
+  font-size:42px;
+  margin-bottom:18px;
 }
 
 .couple-copy p{
-  margin:20px 0 26px;
-  line-height:1.65;
-  color:#e4f4fa;
+  line-height:1.7;
+  color:#e7f8fd;
+  margin-bottom:25px;
 }
 
-.laptop{
+/* LAPTOP */
+
+.laptop-grid{
   display:grid;
-  grid-template-columns:66% 34%;
-  min-height:320px;
-}
-
-.laptop-photo{
-  background:url("laptop.png") center/cover no-repeat;
-}
-
-.laptop-copy{
-  background:#e9f8fd;
-  padding:55px;
-  display:flex;
+  grid-template-columns:1fr 1fr;
+  gap:45px;
   align-items:center;
 }
 
-.laptop-copy h2{
-  font-size:38px;
+.laptop-image img{
+  width:100%;
+  border-radius:20px;
 }
+
+.laptop-copy h2{
+  font-size:40px;
+  margin-bottom:18px;
+}
+
+.laptop-copy p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:22px;
+}
+
+/* PROCESO */
 
 .process{
-  padding:70px 0;
-  background:linear-gradient(135deg,#00325b,#00618e);
+  background:#002c50;
   color:#fff;
-}
-
-.process-grid{
-  display:grid;
-  grid-template-columns:2fr .85fr;
-  gap:45px;
 }
 
 .steps{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  margin-top:35px;
+  gap:14px;
+  margin-top:40px;
 }
 
 .step{
-  text-align:center;
-  padding:0 8px;
+  padding:27px 20px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:15px;
+  background:rgba(255,255,255,.06);
 }
 
 .step-num{
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  background:#fff;
-  color:#00679a;
+  width:40px;
+  height:40px;
   display:grid;
   place-items:center;
-  margin:0 auto 12px;
+  background:#09add9;
+  border-radius:50%;
   font-weight:900;
+  margin-bottom:15px;
+}
+
+.step h3{
+  font-size:16px;
+  margin-bottom:8px;
 }
 
 .step p{
-  font-size:10px;
-  color:#d7edf5;
-  margin-top:6px;
-  line-height:1.5;
-}
-
-.phone-card{
-  min-height:315px;
-  background:url("telefono.png") center/cover no-repeat;
-  border-radius:18px;
-  position:relative;
-  display:flex;
-  align-items:flex-end;
-  overflow:hidden;
-}
-
-.phone-card:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(0deg,rgba(0,53,91,.97),transparent);
-}
-
-.phone-info{
-  padding:28px;
-  position:relative;
-  z-index:2;
-}
-
-.contact{
-  background:#f4fbfe;
-  padding:75px 0;
-}
-
-.contact-box{
-  max-width:1000px;
-  margin:auto;
-  background:#fff;
-  border-radius:20px;
-  padding:45px;
-  box-shadow:0 15px 45px rgba(0,67,105,.09);
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:40px;
-}
-
-.contact-box h2{font-size:36px}
-
-.contact-box p{
-  color:var(--muted);
+  color:#cde4ef;
+  font-size:11px;
   line-height:1.6;
-  margin-top:12px;
 }
 
-.contact-actions{
-  display:flex;
-  flex-direction:column;
-  gap:11px;
+/* CONTACTO */
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  align-items:center;
 }
+
+.phone-image img{
+  max-height:480px;
+  margin:auto;
+}
+
+.contact-copy h2{
+  font-size:42px;
+  margin-bottom:16px;
+}
+
+.contact-copy p{
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:25px;
+}
+
+/* FOOTER */
 
 footer{
-  background:#002f55;
+  background:#001f38;
   color:#fff;
+  padding:50px 0 25px;
 }
 
-.footer-main{
-  width:min(1180px,92%);
-  min-height:155px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:30px;
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.3fr 1fr 1fr;
+  gap:45px;
 }
 
 .footer-logo{
-  width:235px;
-  height:95px;
-  background:#fff;
-  border-radius:13px;
-  padding:9px 14px;
+  width:220px;
+  margin-bottom:15px;
 }
 
-.footer-logo img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-
-.footer-links{
-  display:flex;
-  gap:18px;
-  flex-wrap:wrap;
+.footer-copy{
+  color:#a9c3d0;
   font-size:11px;
+  line-height:1.7;
+}
+
+.footer-col h4{
+  margin-bottom:13px;
+  font-size:13px;
+}
+
+.footer-col a{
+  display:block;
+  color:#bcd0da;
+  font-size:11px;
+  margin:9px 0;
 }
 
 .footer-bottom{
-  background:#002642;
-  padding:18px 5%;
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  font-size:9px;
-  color:#bad1dd;
+  border-top:1px solid rgba(255,255,255,.12);
+  margin-top:35px;
+  padding-top:20px;
+  color:#87a5b4;
+  font-size:10px;
+  text-align:center;
 }
+
+/* RESPONSIVE */
 
 @media(max-width:950px){
   .menu{display:none}
-  .hero,
-  .profile-box,
+  .hero{grid-template-columns:1fr}
+  .hero-image{min-height:420px}
+  .products{grid-template-columns:repeat(2,1fr)}
   .portal-grid,
   .ally-grid,
   .couple,
-  .laptop,
-  .process-grid,
-  .contact-box{grid-template-columns:1fr}
-
-  .hero-image{min-height:480px}
-  .products{grid-template-columns:repeat(2,1fr)}
-  .detail-grid,.info-grid{grid-template-columns:1fr}
-  .laptop-photo{min-height:350px}
+  .laptop-grid,
+  .contact-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .info-grid{grid-template-columns:1fr 1fr}
 }
 
 @media(max-width:600px){
-  .logo{width:165px}
-  .account{padding:11px;font-size:10px}
-  .hero-left{padding:55px 25px 75px}
-  .hero h1{font-size:44px}
-  .statement-inner{display:block;padding:25px}
-  .statement-secondary{margin-top:12px}
-  .products,
-  .profile-options,
-  .benefits,
-  .form-grid,
-  .portal-list{grid-template-columns:1fr}
-  .field.full{grid-column:auto}
+  header{height:74px}
+  .logo{width:170px;height:62px}
+  .account{padding:11px 13px}
+  .hero-left{padding:55px 7%;min-height:570px}
+  .hero h1{font-size:47px}
+  .hero-image{min-height:340px}
+  .statement-inner{margin:-20px auto 0;padding:24px;display:block}
+  .statement-secondary{margin-top:10px}
   .title{font-size:34px}
-  .steps{grid-template-columns:1fr 1fr;gap:25px}
-  .footer-main{flex-direction:column;padding:35px 0}
-  .footer-bottom{flex-direction:column;text-align:center}
+  .products{grid-template-columns:1fr}
+  .profile-box{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .info-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .ally-points{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+}
+
+/* MODAL */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  background:rgba(0,28,49,.75);
+  padding:25px;
+  overflow:auto;
+}
+
+.modal.open{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-card{
+  width:min(720px,100%);
+  background:#fff;
+  border-radius:18px;
+  padding:30px;
+  position:relative;
+  color:var(--text);
+}
+
+.modal-close{
+  position:absolute;
+  right:18px;
+  top:18px;
+  width:36px;
+  height:36px;
+  border:0;
+  border-radius:50%;
+  background:#edf7fb;
+  color:#07517e;
+  font-weight:900;
+}
+
+.modal-card h2{
+  font-size:30px;
+  margin-bottom:12px;
+}
+
+.modal-card p{
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:18px;
 }
 </style>
 </head>
@@ -1173,132 +989,98 @@ footer{
 
 <header>
   <div class="nav">
-
     <a class="logo" href="#inicio">
-      <img src="logo%20maxinnova.png" alt="MAX INNOVA Servicios Financieros">
+      <img src="logo%20maxinnova.png" alt="MAX INNOVA">
     </a>
 
     <nav class="menu">
-      <a href="#inicio">Inicio</a>
-      <a href="#soluciones">Soluciones</a>
-      <a href="#sectores">Sectores</a>
-      <a href="#proceso">Cómo funciona</a>
-      <a href="#nosotros">Nosotros</a>
-      <a href="#informacion">Información</a>
-      <a href="#contacto">Contacto</a>
+      <a href="#inicio">INICIO</a>
+      <a href="#soluciones">SOLUCIONES</a>
+      <a href="#sectores">SECTORES</a>
+      <a href="#como-funciona">CÓMO FUNCIONA</a>
+      <a href="#nosotros">NOSOTROS</a>
+      <a href="#informacion">INFORMACIÓN</a>
+      <a href="#contacto">CONTACTO</a>
     </nav>
 
-    <a class="account" href="#mi-cuenta">
-      👤 MI CUENTA
-    </a>
-
+    <button class="account" onclick="goPortal('consulta')">♙ MI CUENTA</button>
   </div>
 </header>
 
-<section class="hero" id="inicio">
+<main>
 
+<section class="hero" id="inicio">
   <div class="hero-left">
     <div class="hero-copy">
-
       <div class="eyebrow">FINANCIAMIENTO PARA TU FUTURO</div>
 
-      <h1>
-        Más que crédito,<br>
-        <span>posibilidades.</span>
-      </h1>
+      <h1>Más que crédito,<br><span>posibilidades.</span></h1>
 
       <p>
-        Soluciones financieras para personas, comerciantes,
-        emprendedores, conductores de plataformas, PyMEs y empresas
-        que buscan impulsar sus proyectos, adquirir bienes o fortalecer
-        su actividad.
+        Soluciones financieras para personas, comercios y empresas.
+        Analizamos cada solicitud para encontrar una alternativa de acuerdo
+        con el proyecto que quieres realizar.
       </p>
 
       <div class="hero-buttons">
-        <a class="btn btn-white" href="#sectores">
-          CONOCE TUS OPCIONES →
-        </a>
+        <button class="btn btn-white" onclick="goPortal('nuevo')">
+          INICIAR SOLICITUD →
+        </button>
 
-        <a class="btn btn-outline" href="#mi-cuenta">
-          NUEVO CLIENTE
-        </a>
+        <button class="btn btn-outline" onclick="goPortal('consulta')">
+          CONSULTAR SOLICITUD
+        </button>
       </div>
 
       <div class="hero-benefits">
-
-        <div class="hero-benefit">
-          <div class="hero-benefit-icon">✓</div>
-          Información clara
-        </div>
-
-        <div class="hero-benefit">
-          <div class="hero-benefit-icon">👤</div>
-          Atención personalizada
-        </div>
-
-        <div class="hero-benefit">
-          <div class="hero-benefit-icon">↗</div>
-          Seguimiento
-        </div>
-
+        <div class="hero-benefit"><span class="check">✓</span> Evaluación personalizada</div>
+        <div class="hero-benefit"><span class="check">✓</span> Diversas alternativas</div>
+        <div class="hero-benefit"><span class="check">✓</span> Seguimiento por folio</div>
       </div>
-
     </div>
   </div>
 
-  <div class="hero-image"></div>
-
+  <div class="hero-image" aria-label="Edificio MAX INNOVA"></div>
 </section>
 
 <section class="statement">
   <div class="statement-inner">
-
     <div class="statement-main">
-      MÁS OPCIONES.<br>
-      MÁS OPORTUNIDADES.
+      MÁS OPCIONES.<br>MÁS OPORTUNIDADES.
     </div>
 
     <div class="statement-secondary">
-      Encuentra una alternativa de acuerdo con el proyecto
-      que quieres realizar.
+      Encuentra una alternativa de acuerdo con el proyecto que quieres realizar.
     </div>
-
   </div>
 </section>
 
 <section class="section" id="soluciones">
+  <div class="container center">
+    <div class="kicker">SOLUCIONES FINANCIERAS</div>
+    <h2 class="title">Una alternativa para <span>cada proyecto.</span></h2>
 
-  <div class="container">
-
-    <div class="center">
-      <div class="kicker">SOLUCIONES MAX INNOVA</div>
-
-      <h2 class="title">
-        Una opción para <span>cada proyecto.</span>
-      </h2>
-
-      <p class="subtitle">
-        Selecciona el tipo de financiamiento que te interesa
-        y conoce las opciones disponibles.
-      </p>
-    </div>
+    <p class="subtitle">
+      Selecciona el tipo de financiamiento que te interesa para conocer
+      información general y comenzar tu solicitud.
+    </p>
 
     <div class="products">
 
-      <div class="product" onclick="goSector('auto')">
+      <div class="product" onclick="showProduct('vehicular')">
         <div class="product-icon">
           <svg viewBox="0 0 24 24">
             <path d="M3 14l2-5h14l2 5v5h-2v-2H5v2H3z"/>
-            <circle cx="7" cy="14" r="1.5"/>
-            <circle cx="17" cy="14" r="1.5"/>
+            <circle cx="7" cy="14" r="1"/>
+            <circle cx="17" cy="14" r="1"/>
           </svg>
         </div>
         <h3>Vehicular</h3>
-        <p>Vehículos para uso personal, profesional o comercial.</p>
+        <p>Alternativas para adquisición de vehículos de acuerdo con evaluación.</p>
         <div class="circle-arrow">→</div>
       </div>
 
-      <div class="product" onclick="goSector('casa')">
+      <div class="product" onclick="showProduct('patrimonial')">
         <div class="product-icon">
           <svg viewBox="0 0 24 24">
             <path d="M3 11l9-7 9 7"/>
@@ -1307,11 +1089,11 @@ footer{
           </svg>
         </div>
         <h3>Patrimonial</h3>
-        <p>Vivienda, inmuebles, construcción y patrimonio.</p>
+        <p>Opciones relacionadas con vivienda, patrimonio y proyectos inmobiliarios.</p>
         <div class="circle-arrow">→</div>
       </div>
 
-      <div class="product" onclick="goSector('personal')">
+      <div class="product" onclick="showProduct('personal')">
         <div class="product-icon">
           <svg viewBox="0 0 24 24">
             <circle cx="12" cy="8" r="4"/>
@@ -1319,1563 +1101,953 @@ footer{
           </svg>
         </div>
         <h3>Personal</h3>
-        <p>Proyectos, adquisiciones y necesidades personales.</p>
+        <p>Financiamiento para necesidades, bienes y proyectos personales.</p>
         <div class="circle-arrow">→</div>
       </div>
 
-      <div class="product" onclick="goSector('pyme')">
+      <div class="product" onclick="showProduct('pyme')">
         <div class="product-icon">
           <svg viewBox="0 0 24 24">
-            <path d="M4 10h16v10H4z"/>
-            <path d="M3 10l2-5h14l2 5"/>
-            <path d="M8 20v-5h4v5"/>
+            <path d="M4 21V7h16v14"/>
+            <path d="M2 7l2-4h16l2 4"/>
+            <path d="M8 21v-6h8v6"/>
           </svg>
         </div>
         <h3>Negocio / PyME</h3>
-        <p>Capital de trabajo, equipamiento y expansión.</p>
+        <p>Capital para operación, equipo, expansión y necesidades de negocio.</p>
         <div class="circle-arrow">→</div>
       </div>
 
-      <div class="product" onclick="goSector('empresa')">
+      <div class="product" onclick="showProduct('empresarial')">
         <div class="product-icon">
           <svg viewBox="0 0 24 24">
-            <path d="M5 21V4h10v17"/>
-            <path d="M15 9h4v12"/>
-            <path d="M8 8h4M8 12h4M8 16h4"/>
+            <path d="M4 21V3h11v18"/>
+            <path d="M15 9h5v12"/>
+            <path d="M8 7h3M8 11h3M8 15h3"/>
           </svg>
         </div>
         <h3>Empresarial</h3>
-        <p>Proyectos y necesidades financieras de empresas.</p>
+        <p>Alternativas para proyectos, inversión y necesidades corporativas.</p>
         <div class="circle-arrow">→</div>
       </div>
 
     </div>
-
   </div>
-
 </section>
 
-<section class="profile">
-
-  <div class="container">
-
-    <div class="center">
-      <div class="kicker">ENCUENTRA TU PERFIL</div>
-
-      <h2 class="title">
-        ¿Qué necesitas <span>impulsar?</span>
-      </h2>
-    </div>
-
-    <div class="profile-tabs">
-      <button class="profile-tab active"
-        onclick="changeProfile('persona',this)">
-        PERSONAS
-      </button>
-
-      <button class="profile-tab"
-        onclick="changeProfile('empresa',this)">
-        NEGOCIOS Y EMPRESAS
-      </button>
-    </div>
-
-    <div class="profile-box">
-
-      <div class="profile-copy">
-
-        <h3 id="profileTitle">
-          Opciones para tus planes personales.
-        </h3>
-
-        <p id="profileText">
-          Conoce alternativas para vehículo, patrimonio,
-          proyectos personales o actividades de movilidad.
-        </p>
-
-        <a href="#sectores" class="btn btn-blue">
-          VER OPCIONES →
-        </a>
-
-      </div>
-
-      <div class="profile-options" id="profileOptions">
-
-        <div class="profile-option">
-          <span class="visual">🚘</span>
-          Vehículo
-        </div>
-
-        <div class="profile-option">
-          <span class="visual">🏠</span>
-          Patrimonio
-        </div>
-
-        <div class="profile-option">
-          <span class="visual">👤</span>
-          Proyecto personal
-        </div>
-
-        <div class="profile-option">
-          <span class="visual">🚕</span>
-          Movilidad / plataformas
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section class="credit-center" id="sectores">
-
-  <div class="container center" style="margin-bottom:45px">
-
-    <div class="kicker">
-      FINANCIAMIENTO POR SECTOR
-    </div>
-
-    <h2 class="title">
-      Explora opciones según <span>tu proyecto.</span>
-    </h2>
+<section class="section" id="sectores">
+  <div class="container center">
+    <div class="kicker">MARCAS Y SECTORES</div>
+    <h2 class="title">Opciones para distintos <span>mercados.</span></h2>
 
     <p class="subtitle">
-      Las opciones se desplazan automáticamente.
-      Haz clic en cualquiera para consultar información general,
-      documentación y aspectos que pueden revisarse.
+      Las marcas mostradas son referencias de los sectores en los que puede
+      destinarse un financiamiento. Su aparición no implica afiliación,
+      representación, convenio o aprobación por parte de dichas marcas.
     </p>
-
   </div>
 
-  <div id="sectorMount"></div>
-
-  <p class="subtitle"
-     style="font-size:10px;text-align:center;padding:0 20px">
-
-    Las marcas y nombres mostrados se utilizan únicamente
-    como referencias de sectores, vehículos, plataformas,
-    bienes o actividades. Su aparición no implica convenio,
-    patrocinio, afiliación, autorización o relación comercial
-    con MAX INNOVA. Las marcas pertenecen a sus respectivos titulares.
-
-  </p>
-
+  <div class="credit-center" id="sectorMount"></div>
 </section>
-<!-- =========================
-     PORTAL MI CUENTA
-========================= -->
+<section class="section" id="perfiles">
+  <div class="container center">
+    <div class="kicker">¿QUÉ NECESITAS?</div>
+    <h2 class="title">Soluciones para <span>personas y negocios.</span></h2>
+
+    <div class="profile-box">
+      <div class="profile-card">
+        <h3>Personas</h3>
+        <p>
+          Vehículo, vivienda, proyectos personales, patrimonio y otras
+          necesidades sujetas a evaluación.
+        </p>
+        <br>
+        <button class="btn btn-blue" onclick="goPortal('nuevo')">
+          INICIAR SOLICITUD
+        </button>
+      </div>
+
+      <div class="profile-card">
+        <h3>Negocios y empresas</h3>
+        <p>
+          Capital de trabajo, equipamiento, expansión, movilidad,
+          operación y proyectos empresariales.
+        </p>
+        <br>
+        <button class="btn btn-blue" onclick="goPortal('nuevo')">
+          SOLICITAR EVALUACIÓN
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="portal" id="mi-cuenta">
   <div class="container portal-grid">
 
-    <div class="portal-intro">
-      <div class="eyebrow">PORTAL DE CLIENTES</div>
-
-      <h2>Tu información en un solo lugar.</h2>
+    <div class="portal-copy">
+      <div class="eyebrow">PORTAL MAX INNOVA</div>
+      <h2>Tu solicitud, siempre identificada.</h2>
 
       <p>
-        MAX INNOVA contará con un espacio para que nuestros clientes
-        puedan consultar y dar seguimiento a su relación financiera.
+        Registra una solicitud y obtén un folio para darle seguimiento.
+        También podrás consultar el estatus registrado en este dispositivo.
       </p>
 
-      <div class="portal-list">
-        <div>📋 Estatus de solicitud</div>
-        <div>📁 Expediente</div>
-        <div>📅 Próximas fechas</div>
-        <div>💳 Pagos realizados</div>
-        <div>📄 Documentos</div>
-        <div>💬 Aclaraciones</div>
-        <div>🔔 Notificaciones</div>
-        <div>🏦 Datos para pago</div>
+      <div class="portal-features">
+        <div class="portal-feature">✓ Folio de solicitud</div>
+        <div class="portal-feature">✓ Estatus de evaluación</div>
+        <div class="portal-feature">✓ Seguimiento del trámite</div>
+        <div class="portal-feature">✓ Documentación y observaciones</div>
+        <div class="portal-feature">✓ Próximas fechas</div>
+        <div class="portal-feature">✓ Aclaraciones</div>
       </div>
     </div>
 
     <div class="portal-card">
 
       <div class="portal-tabs">
-        <button class="portal-tab active"
-          onclick="portalTab('nuevo',this)">
+        <button id="tabNuevo" class="portal-tab active"
+          onclick="portalTab('nuevo')">
           SOY NUEVO
         </button>
 
-        <button class="portal-tab"
-          onclick="portalTab('cliente',this)">
-          YA SOY CLIENTE
+        <button id="tabConsulta" class="portal-tab"
+          onclick="portalTab('consulta')">
+          CONSULTAR SOLICITUD
         </button>
       </div>
 
-      <div id="portal-nuevo" class="portal-panel active">
+      <div id="panelNuevo" class="portal-panel active">
+        <h3>Nueva solicitud</h3>
 
-        <h3>Inicia tu solicitud</h3>
-
-        <p class="subtitle" style="margin:8px 0 20px">
-          Cuéntanos qué tipo de financiamiento buscas.
+        <p class="form-help">
+          Completa los datos generales. Al registrar la solicitud
+          se generará un folio de seguimiento.
         </p>
 
-        <div class="form-grid">
+        <form id="applicationForm" onsubmit="createApplication(event)">
+          <div class="form-grid">
 
-          <div class="field">
-            <label>NOMBRE COMPLETO</label>
-            <input type="text" placeholder="Nombre del solicitante">
+            <div class="field full">
+              <label>NOMBRE COMPLETO *</label>
+              <input id="appName" required autocomplete="name">
+            </div>
+
+            <div class="field">
+              <label>TELÉFONO *</label>
+              <input id="appPhone"
+                required
+                inputmode="tel"
+                maxlength="15"
+                autocomplete="tel">
+            </div>
+
+            <div class="field">
+              <label>CORREO ELECTRÓNICO</label>
+              <input id="appEmail"
+                type="email"
+                autocomplete="email">
+            </div>
+
+            <div class="field">
+              <label>TIPO DE FINANCIAMIENTO *</label>
+              <select id="appType" required>
+                <option value="">Selecciona</option>
+                <option>Vehicular</option>
+                <option>Patrimonial / Vivienda</option>
+                <option>Personal</option>
+                <option>Negocio / PyME</option>
+                <option>Empresarial</option>
+                <option>Movilidad / Plataformas</option>
+                <option>Financiamiento de gastos jurídicos</option>
+                <option>Otro proyecto</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>CIUDAD / ESTADO</label>
+              <input id="appCity">
+            </div>
+
+            <div class="field full">
+              <label>¿QUÉ DESEAS FINANCIAR?</label>
+              <textarea id="appProject"
+                placeholder="Describe brevemente tu proyecto o necesidad."></textarea>
+            </div>
+
           </div>
 
-          <div class="field">
-            <label>TELÉFONO</label>
-            <input type="tel" placeholder="10 dígitos">
-          </div>
+          <p class="form-help">
+            El registro de una solicitud no representa aprobación de
+            financiamiento. La solicitud queda sujeta a revisión,
+            documentación y evaluación.
+          </p>
 
-          <div class="field">
-            <label>CORREO ELECTRÓNICO</label>
-            <input type="email" placeholder="correo@ejemplo.com">
-          </div>
+          <button class="btn btn-blue" type="submit">
+            REGISTRAR SOLICITUD Y GENERAR FOLIO
+          </button>
+        </form>
 
-          <div class="field">
-            <label>TIPO DE FINANCIAMIENTO</label>
-
-            <select>
-              <option>Selecciona una opción</option>
-              <option>Vehicular</option>
-              <option>Patrimonial</option>
-              <option>Personal</option>
-              <option>Negocio / PyME</option>
-              <option>Empresarial</option>
-              <option>Movilidad / plataformas</option>
-              <option>Gastos jurídicos</option>
-            </select>
-          </div>
-
-          <div class="field full">
-            <button class="btn btn-blue"
-              onclick="pendingSystem()">
-              CONTINUAR SOLICITUD →
-            </button>
-          </div>
-
-        </div>
-
-        <div class="pending-note">
-          El formulario ya está preparado visualmente.
-          La captura real de información se habilitará al conectar
-          la base de datos y el sistema seguro de clientes.
-        </div>
-
+        <div class="result-box" id="newApplicationResult"></div>
       </div>
 
-      <div id="portal-cliente" class="portal-panel">
+      <div id="panelConsulta" class="portal-panel">
+        <h3>Consulta tu solicitud</h3>
 
-        <h3>Acceso de clientes</h3>
-
-        <p class="subtitle" style="margin:8px 0 20px">
-          Consulta tu cuenta y el seguimiento de tu financiamiento.
+        <p class="form-help">
+          Ingresa el folio que recibiste al registrar tu solicitud.
         </p>
 
-        <div class="form-grid">
-
-          <div class="field full">
-            <label>USUARIO / CORREO</label>
-            <input type="text" placeholder="Ingresa tu usuario">
+        <form onsubmit="searchApplication(event)">
+          <div class="field">
+            <label>FOLIO *</label>
+            <input id="searchFolio"
+              placeholder="Ej. MI-2026-000123"
+              required>
           </div>
 
-          <div class="field full">
-            <label>CONTRASEÑA</label>
-            <input type="password" placeholder="••••••••">
-          </div>
+          <br>
 
-          <div class="field full">
-            <button class="btn btn-blue"
-              onclick="pendingSystem()">
-              INGRESAR →
-            </button>
-          </div>
+          <button class="btn btn-blue" type="submit">
+            CONSULTAR ESTATUS
+          </button>
+        </form>
 
-        </div>
-
-        <div class="pending-note">
-          Este acceso se conectará posteriormente al sistema privado.
-          No se almacenan contraseñas ni expedientes dentro de esta
-          página pública.
-        </div>
-
+        <div class="result-box" id="searchResult"></div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<section class="section ally" id="nosotros">
+  <div class="container ally-grid">
+
+    <div class="ally-copy">
+      <div class="kicker">TU ALIADO FINANCIERO</div>
+      <h2>Alternativas para impulsar tus planes.</h2>
+
+      <p>
+        MAX INNOVA busca ofrecer soluciones de financiamiento adaptadas
+        al perfil y proyecto de cada solicitante, sujetas al análisis
+        correspondiente.
+      </p>
+
+      <div class="ally-points">
+        <div class="ally-point">Evaluación personalizada</div>
+        <div class="ally-point">Seguimiento por folio</div>
+        <div class="ally-point">Diversidad de destinos</div>
+        <div class="ally-point">Atención durante el proceso</div>
+      </div>
+    </div>
+
+    <div>
+      <div style="
+        background:white;
+        border-radius:20px;
+        padding:40px;
+        box-shadow:0 15px 45px rgba(0,70,110,.09);
+      ">
+        <h3 style="font-size:27px;margin-bottom:15px;">
+          Un proceso claro desde el inicio.
+        </h3>
+
+        <p style="color:#607b8e;line-height:1.7;font-size:13px;">
+          Cada solicitud puede requerir condiciones y documentación
+          distintas. Antes de continuar se revisará la información
+          proporcionada y la viabilidad del financiamiento solicitado.
+        </p>
+
+        <br>
+
+        <button class="btn btn-blue" onclick="goPortal('nuevo')">
+          COMENZAR SOLICITUD
+        </button>
+      </div>
     </div>
 
   </div>
 </section>
 
+<section class="couple">
+  <div class="couple-photo">
+    <div class="couple-overlay">TUS PLANES TAMBIÉN CUENTAN</div>
+  </div>
 
-<!-- =========================
-     INFORMACION CORPORATIVA
-========================= -->
+  <div class="couple-copy">
+    <h2>Da el siguiente paso.</h2>
 
-<section class="info-public" id="informacion">
+    <p>
+      Cuéntanos qué proyecto quieres realizar. Registra tu solicitud
+      para obtener un folio y comenzar el proceso de evaluación.
+    </p>
 
-  <div class="container">
+    <div>
+      <button class="btn btn-white" onclick="goPortal('nuevo')">
+        SOLICITAR EVALUACIÓN →
+      </button>
+    </div>
+  </div>
+</section>
 
-    <div class="center">
+<section class="section">
+  <div class="container laptop-grid">
 
-      <div class="kicker">
-        TRANSPARENCIA
-      </div>
+    <div class="laptop-image">
+      <img src="laptop.png" alt="Atención y seguimiento MAX INNOVA">
+    </div>
 
-      <h2 class="title">
-        Información <span>corporativa y legal.</span>
-      </h2>
+    <div class="laptop-copy">
+      <div class="kicker">SEGUIMIENTO DIGITAL</div>
+      <h2>Consulta el avance de tu solicitud.</h2>
 
-      <p class="subtitle">
-        Aquí podrás consultar información oficial de MAX INNOVA.
-        Los datos pendientes se incorporarán una vez confirmados.
+      <p>
+        Conserva tu folio. Con él podrás identificar tu solicitud
+        y consultar el estado registrado durante el proceso.
       </p>
 
+      <button class="btn btn-blue" onclick="goPortal('consulta')">
+        CONSULTAR MI SOLICITUD
+      </button>
     </div>
+
+  </div>
+</section>
+
+<section class="section process" id="como-funciona">
+  <div class="container center">
+    <div class="eyebrow">CÓMO FUNCIONA</div>
+
+    <h2 class="title" style="color:white;">
+      Un proceso <span>paso a paso.</span>
+    </h2>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Registra tu solicitud</h3>
+        <p>Completa tus datos y describe el proyecto que deseas financiar.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Recibe tu folio</h3>
+        <p>El sistema genera un identificador para el seguimiento de tu solicitud.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Evaluación</h3>
+        <p>La información y documentación correspondiente deberán ser revisadas.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Seguimiento</h3>
+        <p>Consulta si la solicitud continúa en revisión, proceso o requiere otra acción.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="informacion">
+  <div class="container center">
+
+    <div class="kicker">INFORMACIÓN</div>
+    <h2 class="title">Información y <span>transparencia.</span></h2>
+
+    <p class="subtitle">
+      Estos apartados quedarán disponibles para incorporar los datos
+      corporativos y documentos oficiales correspondientes.
+    </p>
 
     <div class="info-grid">
 
       <div class="info-card">
-        <div class="info-card-icon">🏢</div>
         <h3>Información fiscal</h3>
-        <p>
-          Razón social, RFC y demás información fiscal
-          correspondiente.
-        </p>
-        <span class="pending">DATOS PENDIENTES</span>
+        <p>Razón social, RFC y datos fiscales de la empresa.</p>
+        <span class="pending">PENDIENTE DE INTEGRAR</span>
       </div>
 
       <div class="info-card">
-        <div class="info-card-icon">🔒</div>
         <h3>Aviso de privacidad</h3>
-        <p>
-          Información relacionada con el tratamiento y protección
-          de datos personales.
-        </p>
-        <span class="pending">DOCUMENTO PENDIENTE</span>
+        <p>Información sobre tratamiento y protección de datos personales.</p>
+        <span class="pending">PENDIENTE DE INTEGRAR</span>
       </div>
 
       <div class="info-card">
-        <div class="info-card-icon">✓</div>
         <h3>Información regulatoria</h3>
         <p>
-          Se incorporarán únicamente registros y referencias
-          regulatorias que correspondan y hayan sido verificadas.
+          Se incorporará únicamente la información que corresponda
+          legalmente a la operación y figura de la empresa.
         </p>
-        <span class="pending">VALIDACIÓN PENDIENTE</span>
+        <span class="pending">PENDIENTE DE VALIDAR</span>
       </div>
 
       <div class="info-card">
-        <div class="info-card-icon">📍</div>
         <h3>Domicilio</h3>
-        <p>
-          Domicilio corporativo y, en su caso,
-          oficinas o puntos de atención.
-        </p>
-        <span class="pending">DATO PENDIENTE</span>
+        <p>Datos de oficina o sucursal para atención presencial.</p>
+        <span class="pending">PENDIENTE DE INTEGRAR</span>
       </div>
 
       <div class="info-card">
-        <div class="info-card-icon">☎</div>
         <h3>Contacto</h3>
-        <p>
-          Teléfono, correo electrónico y horarios oficiales
-          de atención.
-        </p>
-        <span class="pending">DATOS PENDIENTES</span>
+        <p>Teléfonos, correo y canales oficiales de atención.</p>
+        <span class="pending">PENDIENTE DE INTEGRAR</span>
       </div>
 
       <div class="info-card">
-        <div class="info-card-icon">💬</div>
         <h3>Aclaraciones</h3>
-        <p>
-          Canal de atención para seguimiento,
-          comentarios y aclaraciones.
-        </p>
-        <span class="pending">CANAL PENDIENTE</span>
+        <p>Canal destinado a dudas, aclaraciones y seguimiento.</p>
+        <span class="pending">PENDIENTE DE INTEGRAR</span>
       </div>
 
     </div>
-
   </div>
-
 </section>
 
+<section class="section" id="contacto">
+  <div class="container contact-grid">
 
-<!-- =========================
-     NOSOTROS
-========================= -->
+    <div class="phone-image">
+      <img src="telefono.png" alt="Contacto MAX INNOVA">
+    </div>
 
-<section class="ally" id="nosotros">
+    <div class="contact-copy">
+      <div class="kicker">CONTACTO</div>
+      <h2>¿Quieres comenzar?</h2>
 
-  <div class="container ally-grid">
-
-    <div>
-
-      <div class="kicker">
-        TU ALIADO FINANCIERO
-      </div>
-
-      <h2 class="title">
-        Soluciones pensadas
-        <span>para avanzar.</span>
-      </h2>
-
-      <p class="subtitle" style="margin:18px 0">
-        Cada proyecto tiene características diferentes.
-        MAX INNOVA busca conocer la necesidad del solicitante,
-        revisar la información disponible y presentar,
-        cuando corresponda, una alternativa de financiamiento.
+      <p>
+        Registra tu solicitud para obtener tu folio.
+        Si ya tienes uno, consulta el seguimiento desde MI CUENTA.
       </p>
 
-      <a href="#proceso" class="btn btn-blue">
-        CONOCE EL PROCESO →
-      </a>
+      <button class="btn btn-blue" onclick="goPortal('nuevo')">
+        NUEVA SOLICITUD
+      </button>
 
-    </div>
-
-    <div class="benefits">
-
-      <div class="benefit">
-        <div class="benefit-icon">📄</div>
-        <strong>Información clara</strong>
-        <p>
-          Conoce las características generales antes de continuar.
-        </p>
-      </div>
-
-      <div class="benefit">
-        <div class="benefit-icon">📊</div>
-        <strong>Seguimiento</strong>
-        <p>
-          Consulta las distintas etapas de tu solicitud.
-        </p>
-      </div>
-
-      <div class="benefit">
-        <div class="benefit-icon">👤</div>
-        <strong>Atención personalizada</strong>
-        <p>
-          Orientación de acuerdo con el perfil y destino.
-        </p>
-      </div>
-
-      <div class="benefit">
-        <div class="benefit-icon">💼</div>
-        <strong>Diferentes proyectos</strong>
-        <p>
-          Personas, comercios, PyMEs y empresas.
-        </p>
-      </div>
-
+      <button class="btn btn-cyan"
+        style="margin-left:8px"
+        onclick="goPortal('consulta')">
+        CONSULTAR FOLIO
+      </button>
     </div>
 
   </div>
-
 </section>
 
-
-<!-- =========================
-     PAREJA
-========================= -->
-
-<section class="couple">
-
-  <div class="couple-photo">
-    <div class="couple-label">
-      TUS PLANES TAMBIÉN CUENTAN
-    </div>
-  </div>
-
-  <div class="couple-copy">
-
-    <div class="eyebrow">
-      UNA OPCIÓN PARA CADA ETAPA
-    </div>
-
-    <h2>
-      Financiamiento que acompaña tu proyecto.
-    </h2>
-
-    <p>
-      Un vehículo, una vivienda, equipamiento para tu negocio,
-      capital para continuar creciendo o recursos para
-      un proyecto específico.
-    </p>
-
-    <a href="#sectores" class="btn btn-white">
-      EXPLORAR OPCIONES →
-    </a>
-
-  </div>
-
-</section>
-
-
-<!-- =========================
-     LAPTOP
-========================= -->
-
-<section class="laptop">
-
-  <div class="laptop-photo"></div>
-
-  <div class="laptop-copy">
-    <h2>
-      Tus proyectos<br>
-      pueden seguir<br>
-      avanzando.
-    </h2>
-  </div>
-
-</section>
-
-
-<!-- =========================
-     PROCESO
-========================= -->
-
-<section class="process" id="proceso">
-
-  <div class="container process-grid">
-
-    <div>
-
-      <div class="eyebrow">
-        ¿CÓMO FUNCIONA?
-      </div>
-
-      <h2>
-        Tu solicitud, paso a paso.
-      </h2>
-
-      <div class="steps">
-
-        <div class="step">
-          <div class="step-num">1</div>
-          <strong>Solicita</strong>
-          <p>
-            Comparte tus datos y el tipo de financiamiento
-            que buscas.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-num">2</div>
-          <strong>Evaluación</strong>
-          <p>
-            Se revisa la información y documentación
-            correspondiente.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-num">3</div>
-          <strong>Conoce tu opción</strong>
-          <p>
-            Consulta las características y condiciones
-            que correspondan.
-          </p>
-        </div>
-
-        <div class="step">
-          <div class="step-num">4</div>
-          <strong>Continúa</strong>
-          <p>
-            En caso de proceder, se formalizan
-            las siguientes etapas.
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="phone-card">
-
-      <div class="phone-info">
-
-        <h3>¿Tienes dudas?</h3>
-
-        <p style="margin:9px 0 20px">
-          Consulta información sobre tu solicitud.
-        </p>
-
-        <a href="#contacto" class="btn btn-white">
-          SOLICITAR INFORMACIÓN →
-        </a>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================
-     CONTACTO
-========================= -->
-
-<section class="contact" id="contacto">
-
-  <div class="container">
-
-    <div class="contact-box">
-
-      <div>
-
-        <div class="kicker">
-          CONTACTO
-        </div>
-
-        <h2>
-          Cuéntanos qué quieres financiar.
-        </h2>
-
-        <p>
-          Los datos oficiales de teléfono, correo,
-          domicilio y horarios de atención se incorporarán
-          en esta sección una vez confirmados.
-        </p>
-
-      </div>
-
-      <div class="contact-actions">
-
-        <a href="#mi-cuenta" class="btn btn-blue">
-          INICIAR SOLICITUD →
-        </a>
-
-        <a href="#sectores"
-           class="btn"
-           style="border:1px solid #bad8e5;color:#07517e">
-          VER TIPOS DE FINANCIAMIENTO
-        </a>
-
-        <a href="#informacion"
-           class="btn"
-           style="border:1px solid #bad8e5;color:#07517e">
-          INFORMACIÓN CORPORATIVA
-        </a>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
+</main>
 
 <footer>
+  <div class="container">
 
-  <div class="footer-main">
+    <div class="footer-grid">
 
-    <div class="footer-logo">
-      <img src="logo%20maxinnova.png"
-           alt="MAX INNOVA Servicios Financieros">
+      <div>
+        <img class="footer-logo"
+          src="logo%20maxinnova.png"
+          alt="MAX INNOVA">
+
+        <p class="footer-copy">
+          Soluciones de financiamiento sujetas a evaluación,
+          documentación, condiciones y viabilidad de cada solicitud.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>NAVEGACIÓN</h4>
+        <a href="#inicio">Inicio</a>
+        <a href="#soluciones">Soluciones</a>
+        <a href="#sectores">Sectores</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#mi-cuenta">Mi cuenta</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>INFORMACIÓN</h4>
+        <a href="#informacion">Información fiscal</a>
+        <a href="#informacion">Aviso de privacidad</a>
+        <a href="#informacion">Información regulatoria</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+
     </div>
 
-    <div class="footer-links">
-      <a href="#inicio">Inicio</a>
-      <a href="#soluciones">Soluciones</a>
-      <a href="#sectores">Sectores</a>
-      <a href="#proceso">Cómo funciona</a>
-      <a href="#mi-cuenta">Mi cuenta</a>
-      <a href="#informacion">Información fiscal</a>
-      <a href="#informacion">Aviso de privacidad</a>
-      <a href="#contacto">Contacto</a>
+    <div class="footer-bottom">
+      MAX INNOVA · Servicios Financieros · Información general sujeta a validación.
     </div>
 
   </div>
-
-  <div class="footer-bottom">
-
-    <span>
-      © 2026 MAX INNOVA Servicios Financieros.
-      Todos los derechos reservados.
-    </span>
-
-    <span>
-      Información fiscal · Aviso de privacidad ·
-      Términos y condiciones
-    </span>
-
-  </div>
-
 </footer>
 
+<!-- MODAL PRODUCTOS -->
+
+<div class="modal" id="productModal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal()">×</button>
+
+    <div class="kicker">INFORMACIÓN GENERAL</div>
+    <h2 id="modalTitle">Financiamiento</h2>
+    <p id="modalText"></p>
+
+    <div style="
+      background:#eff9fd;
+      border-radius:12px;
+      padding:18px;
+      margin:20px 0;
+      font-size:12px;
+      line-height:1.7;
+      color:#496c7f;
+    ">
+      La disponibilidad, características, requisitos, condiciones y
+      aprobación dependen de la evaluación correspondiente.
+    </div>
+
+    <button class="btn btn-blue" onclick="modalToApplication()">
+      INICIAR SOLICITUD
+    </button>
+  </div>
+</div>
 
 <script>
 
-/* ==================================================
-   ICONOS SVG PARA LAS CINTAS
-================================================== */
+/* ==========================
+   CINTAS DE MARCAS
+========================== */
 
-const icons = {
+const brandSectors = [
 
-car:
-`<svg viewBox="0 0 24 24">
-<path d="M3 14l2-5h14l2 5v5h-2v-2H5v2H3z"/>
-<circle cx="7" cy="14" r="1.5"/>
-<circle cx="17" cy="14" r="1.5"/>
-</svg>`,
+  {
+    title:"Automotriz",
+    subtitle:"Marcas de vehículos como referencia del sector automotriz.",
+    reverse:false,
+    brands:[
+      ["Toyota","https://cdn.simpleicons.org/toyota"],
+      ["Nissan","https://cdn.simpleicons.org/nissan"],
+      ["Volkswagen","https://cdn.simpleicons.org/volkswagen"],
+      ["Kia","https://cdn.simpleicons.org/kia"],
+      ["Chevrolet","https://cdn.simpleicons.org/chevrolet"],
+      ["Mazda","https://cdn.simpleicons.org/mazda"],
+      ["Honda","https://cdn.simpleicons.org/honda"],
+      ["Hyundai","https://cdn.simpleicons.org/hyundai"]
+    ]
+  },
 
-house:
-`<svg viewBox="0 0 24 24">
-<path d="M3 11l9-7 9 7"/>
-<path d="M5 10v10h14V10"/>
-<path d="M9 20v-6h6v6"/>
-</svg>`,
+  {
+    title:"Vivienda y patrimonio",
+    subtitle:"Desarrolladoras y empresas inmobiliarias como referencia del sector.",
+    reverse:true,
+    brands:[
+      ["Vinte","https://logo.clearbit.com/vinte.com"],
+      ["JAVER","https://logo.clearbit.com/javer.com.mx"],
+      ["Casas ARA","https://logo.clearbit.com/ara.com.mx"],
+      ["CADU","https://logo.clearbit.com/caduinmobiliaria.com"],
+      ["GFA","https://logo.clearbit.com/gfa.com.mx"],
+      ["Century 21","https://logo.clearbit.com/century21.com.mx"],
+      ["RE/MAX","https://logo.clearbit.com/remax.com.mx"],
+      ["Coldwell Banker","https://logo.clearbit.com/coldwellbanker.com.mx"]
+    ]
+  },
 
-land:
-`<svg viewBox="0 0 24 24">
-<path d="M3 18l5-6 4 3 4-7 5 10"/>
-<path d="M3 20h18"/>
-</svg>`,
+  {
+    title:"Comercio, negocio y PyME",
+    subtitle:"Marcas relacionadas con equipamiento, insumos, tecnología y operación de negocios.",
+    reverse:false,
+    brands:[
+      ["The Home Depot","https://cdn.simpleicons.org/homedepot"],
+      ["Office Depot","https://logo.clearbit.com/officedepot.com.mx"],
+      ["Costco","https://cdn.simpleicons.org/costco"],
+      ["Sam's Club","https://cdn.simpleicons.org/samsclub"],
+      ["Walmart","https://cdn.simpleicons.org/walmart"],
+      ["Mercado Libre","https://cdn.simpleicons.org/mercadolibre"],
+      ["Amazon","https://cdn.simpleicons.org/amazon"],
+      ["Coppel","https://logo.clearbit.com/coppel.com"]
+    ]
+  },
 
-construction:
-`<svg viewBox="0 0 24 24">
-<path d="M4 20h16"/>
-<path d="M6 20V8h8v12"/>
-<path d="M14 11h4v9"/>
-<path d="M8 11h4M8 14h4"/>
-</svg>`,
+  {
+    title:"Movilidad y plataformas",
+    subtitle:"Plataformas y marcas relacionadas con movilidad y trabajo independiente.",
+    reverse:true,
+    brands:[
+      ["Uber","https://cdn.simpleicons.org/uber"],
+      ["DiDi","https://logo.clearbit.com/didi-global.com"],
+      ["inDrive","https://logo.clearbit.com/indrive.com"],
+      ["Rappi","https://cdn.simpleicons.org/rappi"],
+      ["Uber Eats","https://cdn.simpleicons.org/ubereats"],
+      ["Cabify","https://cdn.simpleicons.org/cabify"]
+    ]
+  },
 
-tools:
-`<svg viewBox="0 0 24 24">
-<path d="M14 6a4 4 0 0 0 4 4l-8 8-4-4 8-8z"/>
-<path d="M5 5l4 4"/>
-</svg>`,
-
-store:
-`<svg viewBox="0 0 24 24">
-<path d="M4 10h16v10H4z"/>
-<path d="M3 10l2-5h14l2 5"/>
-<path d="M8 20v-5h4v5"/>
-</svg>`,
-
-building:
-`<svg viewBox="0 0 24 24">
-<path d="M5 21V4h10v17"/>
-<path d="M15 9h4v12"/>
-<path d="M8 8h4M8 12h4M8 16h4"/>
-</svg>`,
-
-bread:
-`<svg viewBox="0 0 24 24">
-<path d="M5 18c-3-1-3-7 1-8 0-4 6-5 8-2 4-1 7 4 4 7-1 1-2 2-4 3z"/>
-<path d="M8 10l2 2M12 9l2 2"/>
-</svg>`,
-
-restaurant:
-`<svg viewBox="0 0 24 24">
-<path d="M7 3v8M4 3v5c0 2 6 2 6 0V3M7 11v10"/>
-<path d="M16 3v18M16 3c5 2 5 8 0 9"/>
-</svg>`,
-
-coffee:
-`<svg viewBox="0 0 24 24">
-<path d="M5 8h11v6a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5z"/>
-<path d="M16 10h2a3 3 0 0 1 0 6h-2"/>
-<path d="M8 3v2M12 3v2"/>
-</svg>`,
-
-washer:
-`<svg viewBox="0 0 24 24">
-<rect x="5" y="3" width="14" height="18" rx="2"/>
-<circle cx="12" cy="13" r="5"/>
-<path d="M8 6h1M11 6h5"/>
-</svg>`,
-
-wrench:
-`<svg viewBox="0 0 24 24">
-<path d="M14 6a4 4 0 0 0 4 4l-8 8-4-4 8-8z"/>
-<path d="M5 5l4 4"/>
-</svg>`,
-
-cart:
-`<svg viewBox="0 0 24 24">
-<path d="M3 4h2l2 11h10l3-7H6"/>
-<circle cx="9" cy="19" r="1"/>
-<circle cx="17" cy="19" r="1"/>
-</svg>`,
-
-scissors:
-`<svg viewBox="0 0 24 24">
-<circle cx="6" cy="7" r="3"/>
-<circle cx="6" cy="17" r="3"/>
-<path d="M8 9l12 8M8 15l12-8"/>
-</svg>`,
-
-medical:
-`<svg viewBox="0 0 24 24">
-<path d="M9 4h6v5h5v6h-5v5H9v-5H4V9h5z"/>
-</svg>`,
-
-book:
-`<svg viewBox="0 0 24 24">
-<path d="M4 5c4-1 6 0 8 2v13c-2-2-4-3-8-2z"/>
-<path d="M20 5c-4-1-6 0-8 2v13c2-2 4-3 8-2z"/>
-</svg>`,
-
-tech:
-`<svg viewBox="0 0 24 24">
-<rect x="4" y="4" width="16" height="12" rx="2"/>
-<path d="M2 20h20M9 16v4M15 16v4"/>
-</svg>`,
-
-taxi:
-`<svg viewBox="0 0 24 24">
-<path d="M3 14l2-5h14l2 5v5h-2v-2H5v2H3z"/>
-<path d="M9 6h6l1 3H8z"/>
-<circle cx="7" cy="14" r="1.5"/>
-<circle cx="17" cy="14" r="1.5"/>
-</svg>`,
-
-delivery:
-`<svg viewBox="0 0 24 24">
-<path d="M3 7h11v10H3z"/>
-<path d="M14 11h4l3 3v3h-7z"/>
-<circle cx="7" cy="18" r="2"/>
-<circle cx="18" cy="18" r="2"/>
-</svg>`,
-
-scale:
-`<svg viewBox="0 0 24 24">
-<path d="M12 3v18M7 21h10M5 6h14"/>
-<path d="M5 6l-3 6h6zM19 6l-3 6h6z"/>
-</svg>`,
-
-document:
-`<svg viewBox="0 0 24 24">
-<path d="M6 3h8l4 4v14H6z"/>
-<path d="M14 3v5h5M9 12h6M9 16h6"/>
-</svg>`,
-
-money:
-`<svg viewBox="0 0 24 24">
-<rect x="3" y="6" width="18" height="12" rx="2"/>
-<circle cx="12" cy="12" r="3"/>
-<path d="M6 9h1M17 15h1"/>
-</svg>`,
-
-shield:
-`<svg viewBox="0 0 24 24">
-<path d="M12 3l8 3v6c0 5-3 8-8 10-5-2-8-5-8-10V6z"/>
-<path d="M9 12l2 2 4-5"/>
-</svg>`,
-
-person:
-`<svg viewBox="0 0 24 24">
-<circle cx="12" cy="8" r="4"/>
-<path d="M4 21c1-5 4-7 8-7s7 2 8 7"/>
-</svg>`
-
-};
-
-
-/* ==================================================
-   DATOS DE SECTORES
-================================================== */
-
-const sectors = [
-
-{
- key:"auto",
- title:"Vehículos y movilidad",
- desc:"Selecciona una marca como referencia para consultar información de financiamiento vehicular.",
- icon:"🚘",
- items:[
-   ["Toyota","logo","https://cdn.simpleicons.org/toyota"],
-   ["Nissan","logo","https://cdn.simpleicons.org/nissan"],
-   ["Volkswagen","logo","https://cdn.simpleicons.org/volkswagen"],
-   ["Kia","logo","https://cdn.simpleicons.org/kia"],
-   ["Chevrolet","logo","https://cdn.simpleicons.org/chevrolet"],
-   ["Mazda","logo","https://cdn.simpleicons.org/mazda"],
-   ["Honda","logo","https://cdn.simpleicons.org/honda"],
-   ["Hyundai","logo","https://cdn.simpleicons.org/hyundai"],
-   ["Ford","logo","https://cdn.simpleicons.org/ford"]
- ]
-},
-
-{
- key:"casa",
- title:"Vivienda y patrimonio",
- desc:"Alternativas para proyectos relacionados con vivienda, inmuebles y patrimonio.",
- icon:"🏠",
- reverse:true,
- items:[
-   ["Vivienda nueva","icon","house"],
-   ["Vivienda usada","icon","house"],
-   ["Terreno","icon","land"],
-   ["Construcción","icon","construction"],
-   ["Remodelación","icon","tools"],
-   ["Local comercial","icon","store"],
-   ["Desarrollo inmobiliario","icon","building"]
- ]
-},
-
-{
- key:"pyme",
- title:"Negocios, comercios y PyMEs",
- desc:"Opciones para diferentes actividades comerciales y productivas.",
- icon:"🏪",
- items:[
-   ["Panadería","icon","bread"],
-   ["Restaurante","icon","restaurant"],
-   ["Cafetería","icon","coffee"],
-   ["Lavandería","icon","washer"],
-   ["Taller mecánico","icon","wrench"],
-   ["Abarrotes","icon","cart"],
-   ["Ferretería","icon","tools"],
-   ["Estética","icon","scissors"],
-   ["Consultorio","icon","medical"],
-   ["Papelería","icon","book"],
-   ["Farmacia","icon","medical"],
-   ["Tienda de ropa","icon","store"],
-   ["Tecnología","icon","tech"],
-   ["Emprendimiento","icon","building"]
- ]
-},
-
-{
- key:"plataforma",
- title:"Conductores y plataformas",
- desc:"Alternativas para actividades de conducción, movilidad, reparto y transporte.",
- icon:"🚕",
- reverse:true,
- items:[
-   ["Uber","logo","https://cdn.simpleicons.org/uber"],
-   ["DiDi","text","DiDi"],
-   ["inDrive","text","inDrive"],
-   ["Reparto","icon","delivery"],
-   ["Taxi","icon","taxi"],
-   ["Transporte local","icon","car"]
- ]
-},
-
-{
- key:"juridico",
- title:"Proyectos y gastos jurídicos",
- desc:"Alternativas sujetas a evaluación para determinados gastos relacionados con servicios o procedimientos jurídicos.",
- icon:"⚖",
- items:[
-   ["Amparo","icon","shield"],
-   ["Proceso jurídico","icon","scale"],
-   ["Honorarios jurídicos","icon","money"],
-   ["Garantía patrimonial","icon","house"],
-   ["Trámite legal","icon","document"]
- ]
-}
+  {
+    title:"Equipamiento y tecnología",
+    subtitle:"Marcas de tecnología y equipamiento como referencia para proyectos personales o empresariales.",
+    reverse:false,
+    brands:[
+      ["Apple","https://cdn.simpleicons.org/apple"],
+      ["Samsung","https://cdn.simpleicons.org/samsung"],
+      ["HP","https://cdn.simpleicons.org/hp"],
+      ["Dell","https://cdn.simpleicons.org/dell"],
+      ["Lenovo","https://cdn.simpleicons.org/lenovo"],
+      ["LG","https://cdn.simpleicons.org/lg"],
+      ["Microsoft","https://cdn.simpleicons.org/microsoft"],
+      ["Canon","https://cdn.simpleicons.org/canon"]
+    ]
+  }
 
 ];
 
+function brandCard(brand){
+  const name=brand[0];
+  const logo=brand[1];
 
-/* ==================================================
-   INFORMACION DE CADA TIPO
-================================================== */
-
-const creditData = {
-
-auto:{
- badge:"FINANCIAMIENTO VEHICULAR",
-
- description:
- "Alternativa orientada a la adquisición de una unidad para uso personal, profesional, comercial o para una actividad productiva.",
-
- uses:[
-   "Adquisición de vehículo",
-   "Unidad para actividad profesional",
-   "Vehículo para negocio o comercio",
-   "Unidad para movilidad, sujeto a evaluación"
- ],
-
- requirements:[
-   "Identificación oficial vigente",
-   "Comprobante de domicilio",
-   "Información y comprobación de ingresos cuando corresponda",
-   "Información del vehículo o cotización",
-   "Documentación adicional necesaria"
- ],
-
- review:[
-   "Perfil del solicitante",
-   "Capacidad de pago",
-   "Características y valor de la unidad",
-   "Plazo y condiciones aplicables",
-   "Documentación proporcionada"
- ]
-},
-
-casa:{
- badge:"FINANCIAMIENTO PATRIMONIAL",
-
- description:
- "Alternativa para proyectos relacionados con vivienda, inmuebles, construcción, remodelación o patrimonio.",
-
- uses:[
-   "Adquisición de vivienda",
-   "Construcción",
-   "Remodelación",
-   "Terreno o inmueble",
-   "Proyecto patrimonial"
- ],
-
- requirements:[
-   "Identificación oficial vigente",
-   "Comprobante de domicilio",
-   "Información sobre ingresos",
-   "Documentación del inmueble o proyecto",
-   "Información adicional para evaluación"
- ],
-
- review:[
-   "Características del proyecto",
-   "Situación documental",
-   "Capacidad de pago",
-   "Valor o presupuesto",
-   "Condiciones aplicables"
- ]
-},
-
-pyme:{
- badge:"FINANCIAMIENTO PARA NEGOCIO / PYME",
-
- description:
- "Financiamiento orientado a necesidades productivas de comerciantes, emprendedores, negocios y PyMEs.",
-
- uses:[
-   "Capital de trabajo",
-   "Maquinaria o equipo",
-   "Inventario e insumos",
-   "Adecuación o ampliación",
-   "Expansión"
- ],
-
- requirements:[
-   "Identificación oficial vigente",
-   "Comprobante de domicilio",
-   "Información de la actividad económica",
-   "Comprobación de ingresos o movimientos",
-   "Documentación del negocio cuando corresponda",
-   "Destino solicitado"
- ],
-
- review:[
-   "Características de la actividad",
-   "Flujo e ingresos",
-   "Destino del financiamiento",
-   "Capacidad de pago",
-   "Documentación"
- ]
-},
-
-plataforma:{
- badge:"FINANCIAMIENTO PARA MOVILIDAD",
-
- description:
- "Alternativa para personas cuya actividad se relaciona con conducción, reparto, transporte o movilidad.",
-
- uses:[
-   "Adquisición o sustitución de unidad",
-   "Equipamiento",
-   "Necesidades vinculadas con movilidad",
-   "Proyecto productivo de transporte"
- ],
-
- requirements:[
-   "Identificación oficial vigente",
-   "Comprobante de domicilio",
-   "Información sobre ingresos o actividad",
-   "Documentación de la unidad cuando corresponda",
-   "Información adicional"
- ],
-
- review:[
-   "Actividad e ingresos",
-   "Capacidad de pago",
-   "Unidad y destino",
-   "Documentación",
-   "Condiciones aplicables"
- ]
-},
-
-juridico:{
- badge:"FINANCIAMIENTO PARA GASTOS JURÍDICOS",
-
- description:
- "Alternativa sujeta a evaluación para determinados gastos relacionados con servicios o procedimientos jurídicos. El financiamiento no determina la procedencia, estrategia ni resultado del asunto legal.",
-
- uses:[
-   "Honorarios profesionales cuando sean elegibles",
-   "Gastos de determinados procedimientos",
-   "Trámites o gestiones elegibles",
-   "Necesidades vinculadas con un asunto jurídico"
- ],
-
- requirements:[
-   "Identificación oficial vigente",
-   "Comprobante de domicilio",
-   "Información sobre ingresos o capacidad de pago",
-   "Información del destino",
-   "Presupuesto, contrato o documentación relacionada cuando corresponda"
- ],
-
- review:[
-   "Destino solicitado",
-   "Capacidad de pago",
-   "Documentación presentada",
-   "Características de la operación",
-   "Condiciones aplicables"
- ]
+  return `
+    <div class="brand-card" title="${name}">
+      <div class="brand-logo">
+        <img
+          src="${logo}"
+          alt="${name}"
+          loading="lazy"
+          onerror="
+            this.style.display='none';
+            this.nextElementSibling.style.display='block';
+          ">
+        <div class="brand-fallback" style="display:none">${name}</div>
+      </div>
+      <strong>${name}</strong>
+    </div>
+  `;
 }
 
+function renderBrands(){
+  const mount=document.getElementById("sectorMount");
+
+  mount.innerHTML=brandSectors.map((sector,index)=>{
+    const original=sector.brands.map(brandCard).join("");
+    const duplicate=sector.brands.map(brandCard).join("");
+
+    return `
+      <div class="sector-block">
+        <div class="sector-heading">
+          <h3>${sector.title}</h3>
+          <p>${sector.subtitle}</p>
+        </div>
+
+        <div class="ticker
+          ${sector.reverse ? "reverse" : ""}
+          ${index%2 ? "fast" : ""}">
+          <div class="ticker-track">
+            ${original}${duplicate}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("") + `
+    <p class="brand-note">
+      Las marcas, nombres y logotipos pertenecen a sus respectivos titulares
+      y se muestran únicamente como referencias de mercado. Su aparición
+      no representa afiliación, convenio, patrocinio o autorización de
+      MAX INNOVA por parte de dichas empresas.
+    </p>
+  `;
+}
+
+/* ==========================
+   PRODUCTOS
+========================== */
+
+const productInfo={
+  vehicular:{
+    title:"Financiamiento vehicular",
+    text:"Alternativas destinadas a la adquisición de vehículos. La unidad, proveedor, documentación y perfil del solicitante podrán formar parte de la evaluación.",
+    type:"Vehicular"
+  },
+
+  patrimonial:{
+    title:"Financiamiento patrimonial",
+    text:"Alternativas relacionadas con vivienda, patrimonio, adquisición, construcción, remodelación u otros proyectos inmobiliarios sujetos a evaluación.",
+    type:"Patrimonial / Vivienda"
+  },
+
+  personal:{
+    title:"Financiamiento personal",
+    text:"Alternativas para necesidades, bienes o proyectos personales de acuerdo con el perfil y capacidad del solicitante.",
+    type:"Personal"
+  },
+
+  pyme:{
+    title:"Financiamiento para Negocio / PyME",
+    text:"Alternativas para capital de trabajo, inventario, equipamiento, operación, expansión u otras necesidades del negocio.",
+    type:"Negocio / PyME"
+  },
+
+  empresarial:{
+    title:"Financiamiento empresarial",
+    text:"Alternativas para proyectos corporativos, inversión, operación, equipamiento y crecimiento empresarial.",
+    type:"Empresarial"
+  }
 };
 
+let selectedProduct="";
 
-/* ==================================================
-   CREA LOS LOGOS / ICONOS DE CADA TARJETA
-================================================== */
+function showProduct(key){
+  selectedProduct=key;
 
-function optionVisual(item){
+  document.getElementById("modalTitle").textContent=
+    productInfo[key].title;
 
- const type=item[1];
- const value=item[2];
+  document.getElementById("modalText").textContent=
+    productInfo[key].text;
 
- if(type==="logo"){
-
-   return `
-   <div class="option-visual">
-     <img src="${value}"
-          alt="${item[0]}"
-          loading="lazy"
-          onerror="this.style.display='none';this.parentElement.innerHTML='<strong>${item[0]}</strong>';">
-   </div>
-   `;
- }
-
- if(type==="icon"){
-
-   return `
-   <div class="option-visual">
-     ${icons[value] || icons.document}
-   </div>
-   `;
- }
-
- return `
- <div class="option-visual">
-   <strong style="font-size:15px;color:#00699f">
-     ${value}
-   </strong>
- </div>
- `;
-
+  document.getElementById("productModal").classList.add("open");
 }
 
-
-/* ==================================================
-   CREA CADA TARJETA
-================================================== */
-
-function createCreditCard(type,item){
-
- const name=item[0];
-
- return `
- <button class="credit-option"
-   onclick="openCredit('${type}','${name}')">
-
-   ${optionVisual(item)}
-
-   <strong>${name}</strong>
-
-   <small>Ver información</small>
-
- </button>
- `;
-
+function closeModal(){
+  document.getElementById("productModal").classList.remove("open");
 }
 
+function modalToApplication(){
+  const item=productInfo[selectedProduct];
 
-/* ==================================================
-   GENERA LAS CINTAS
-================================================== */
+  closeModal();
+  goPortal("nuevo");
 
-const sectorMount =
- document.getElementById("sectorMount");
-
-sectorMount.innerHTML =
- sectors.map(function(sector){
-
-   const cards =
-     sector.items
-       .map(item => createCreditCard(sector.key,item))
-       .join("");
-
-   return `
-
-   <div class="sector-block"
-        id="sector-${sector.key}">
-
-     <div class="sector-heading">
-
-       <div class="sector-heading-visual">
-         ${sector.icon}
-       </div>
-
-       <div>
-         <h3>${sector.title}</h3>
-         <p>${sector.desc}</p>
-       </div>
-
-     </div>
-
-     <div class="ticker
-       ${sector.reverse ? "reverse" : ""}
-       ${sector.key==="pyme" ? "fast" : ""}">
-
-       <div class="ticker-track">
-         ${cards}
-         ${cards}
-       </div>
-
-     </div>
-
-     <div class="credit-detail"
-          id="detail-${sector.key}">
-     </div>
-
-   </div>
-
-   `;
-
- }).join("");
-
-
-/* ==================================================
-   ABRIR INFORMACION
-================================================== */
-
-function openCredit(type,name){
-
- const data=creditData[type];
-
- if(!data) return;
-
- const panel=
-   document.getElementById("detail-"+type);
-
- document
-   .querySelectorAll(".credit-detail")
-   .forEach(function(other){
-
-     if(other!==panel){
-       other.classList.remove("open");
-       other.innerHTML="";
-     }
-
-   });
-
- const makeList =
-   items =>
-     items.map(item=>`<li>${item}</li>`).join("");
-
- panel.innerHTML = `
-
- <div class="detail-top">
-
-   <div>
-
-     <span class="detail-badge">
-       ${data.badge}
-     </span>
-
-     <h3>${name}</h3>
-
-     <p>${data.description}</p>
-
-   </div>
-
-   <button class="close-detail"
-     onclick="closeCredit('${type}')">
-     ×
-   </button>
-
- </div>
-
- <div class="detail-grid">
-
-   <div class="detail-card">
-
-     <h4>
-       ¿QUÉ PUEDE FINANCIARSE?
-     </h4>
-
-     <ul>
-       ${makeList(data.uses)}
-     </ul>
-
-   </div>
-
-   <div class="detail-card">
-
-     <h4>
-       DOCUMENTACIÓN GENERAL
-     </h4>
-
-     <ul>
-       ${makeList(data.requirements)}
-     </ul>
-
-   </div>
-
-   <div class="detail-card">
-
-     <h4>
-       ¿QUÉ SE REVISA?
-     </h4>
-
-     <ul>
-       ${makeList(data.review)}
-     </ul>
-
-   </div>
-
- </div>
-
- <div class="detail-legal">
-
-   <strong>Información importante:</strong>
-
-   La información mostrada es de carácter general y no
-   constituye una aprobación, oferta definitiva ni garantía
-   de otorgamiento.
-
-   La disponibilidad y características del financiamiento
-   dependerán del producto aplicable, análisis de la solicitud,
-   documentación, capacidad de pago y demás condiciones
-   correspondientes.
-
-   ${
-     type==="juridico"
-     ?
-     `<br><br>
-      <strong>Asuntos jurídicos:</strong>
-      el financiamiento, cuando resulte elegible, se refiere
-      exclusivamente a recursos destinados a determinados gastos.
-      No garantiza la procedencia, admisión, resolución favorable,
-      plazo ni resultado de procedimiento jurídico alguno.`
-     :
-     ""
-   }
-
- </div>
-
- <div class="detail-actions">
-
-   <a href="#mi-cuenta"
-      class="btn btn-blue">
-      INICIAR SOLICITUD →
-   </a>
-
- </div>
-
- `;
-
- panel.classList.add("open");
-
- panel.scrollIntoView({
-   behavior:"smooth",
-   block:"nearest"
- });
-
+  setTimeout(()=>{
+    const select=document.getElementById("appType");
+    if(item && select){
+      select.value=item.type;
+    }
+  },300);
 }
 
+document.getElementById("productModal").addEventListener("click",function(e){
+  if(e.target===this) closeModal();
+});
 
-/* ==================================================
-   CERRAR INFORMACION
-================================================== */
+/* ==========================
+   PORTAL
+========================== */
 
-function closeCredit(type){
+function portalTab(tab){
+  const nuevo=document.getElementById("panelNuevo");
+  const consulta=document.getElementById("panelConsulta");
+  const tabNuevo=document.getElementById("tabNuevo");
+  const tabConsulta=document.getElementById("tabConsulta");
 
- const panel =
-   document.getElementById("detail-"+type);
-
- panel.classList.remove("open");
- panel.innerHTML="";
-
+  if(tab==="nuevo"){
+    nuevo.classList.add("active");
+    consulta.classList.remove("active");
+    tabNuevo.classList.add("active");
+    tabConsulta.classList.remove("active");
+  }else{
+    consulta.classList.add("active");
+    nuevo.classList.remove("active");
+    tabConsulta.classList.add("active");
+    tabNuevo.classList.remove("active");
+  }
 }
 
+function goPortal(tab){
+  portalTab(tab);
 
-/* ==================================================
-   PERSONAS / NEGOCIOS
-================================================== */
-
-function changeProfile(type,button){
-
- document
-   .querySelectorAll(".profile-tab")
-   .forEach(tab=>tab.classList.remove("active"));
-
- button.classList.add("active");
-
- const title =
-   document.getElementById("profileTitle");
-
- const text =
-   document.getElementById("profileText");
-
- const options =
-   document.getElementById("profileOptions");
-
-
- if(type==="persona"){
-
-   title.textContent =
-     "Opciones para tus planes personales.";
-
-   text.textContent =
-     "Conoce alternativas para vehículo, patrimonio, proyectos personales o actividades de movilidad.";
-
-   options.innerHTML = `
-
-   <div class="profile-option">
-     <span class="visual">🚘</span>
-     Vehículo
-   </div>
-
-   <div class="profile-option">
-     <span class="visual">🏠</span>
-     Patrimonio
-   </div>
-
-   <div class="profile-option">
-     <span class="visual">👤</span>
-     Proyecto personal
-   </div>
-
-   <div class="profile-option">
-     <span class="visual">🚕</span>
-     Movilidad / plataformas
-   </div>
-
-   `;
-
- }else{
-
-   title.textContent =
-     "Opciones para impulsar tu actividad.";
-
-   text.textContent =
-     "Alternativas para comerciantes, emprendedores, pequeños negocios, PyMEs y empresas.";
-
-   options.innerHTML = `
-
-   <div class="profile-option">
-     <span class="visual">🏪</span>
-     Comercio
-   </div>
-
-   <div class="profile-option">
-     <span class="visual">💡</span>
-     Emprendimiento
-   </div>
-
-   <div class="profile-option">
-     <span class="visual">🏭</span>
-     PyME
-   </div>
-
-   <div class="profile-option">
-     <span class="visual">🏢</span>
-     Empresa
-   </div>
-
-   `;
-
- }
-
+  document.getElementById("mi-cuenta").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
 }
 
+/* ==========================
+   SOLICITUD Y FOLIO
+========================== */
 
-/* ==================================================
-   PESTAÑAS DEL PORTAL
-================================================== */
-
-function portalTab(id,button){
-
- document
-   .querySelectorAll(".portal-tab")
-   .forEach(tab=>tab.classList.remove("active"));
-
- document
-   .querySelectorAll(".portal-panel")
-   .forEach(panel=>panel.classList.remove("active"));
-
- button.classList.add("active");
-
- document
-   .getElementById("portal-"+id)
-   .classList.add("active");
-
+function getApplications(){
+  try{
+    return JSON.parse(localStorage.getItem("maxInnovaApplications")) || [];
+  }catch(e){
+    return [];
+  }
 }
 
-
-/* ==================================================
-   PRODUCTOS SUPERIORES
-================================================== */
-
-function goSector(type){
-
- if(type==="personal"){
-
-   document
-     .getElementById("mi-cuenta")
-     .scrollIntoView({
-       behavior:"smooth"
-     });
-
-   return;
-
- }
-
- if(type==="empresa"){
-   type="pyme";
- }
-
- const sector =
-   document.getElementById("sector-"+type);
-
- if(sector){
-
-   sector.scrollIntoView({
-     behavior:"smooth",
-     block:"center"
-   });
-
- }
-
+function saveApplications(data){
+  localStorage.setItem(
+    "maxInnovaApplications",
+    JSON.stringify(data)
+  );
 }
 
+function nextFolio(){
+  let counter=parseInt(
+    localStorage.getItem("maxInnovaCounter") || "0",
+    10
+  );
 
-/* ==================================================
-   MODULO AUN NO CONECTADO
-================================================== */
+  counter++;
+  localStorage.setItem("maxInnovaCounter",counter);
 
-function pendingSystem(){
+  const year=new Date().getFullYear();
 
- alert(
-   "Este módulo ya está preparado visualmente. " +
-   "El registro y acceso real se habilitará al conectar " +
-   "la base de datos y autenticación segura de clientes."
- );
-
+  return "MI-"+year+"-"+String(counter).padStart(6,"0");
 }
+
+function createApplication(event){
+  event.preventDefault();
+
+  const name=document.getElementById("appName").value.trim();
+  const phone=document.getElementById("appPhone").value.trim();
+  const email=document.getElementById("appEmail").value.trim();
+  const type=document.getElementById("appType").value;
+  const city=document.getElementById("appCity").value.trim();
+  const project=document.getElementById("appProject").value.trim();
+
+  if(!name || !phone || !type){
+    alert("Completa los campos obligatorios.");
+    return;
+  }
+
+  const folio=nextFolio();
+
+  const application={
+    folio,
+    name,
+    phone,
+    email,
+    type,
+    city,
+    project,
+    status:"Recibida",
+    created:new Date().toLocaleString("es-MX"),
+    note:"Tu solicitud fue registrada y está pendiente de revisión."
+  };
+
+  const applications=getApplications();
+  applications.push(application);
+  saveApplications(applications);
+
+  const result=document.getElementById("newApplicationResult");
+
+  result.innerHTML=`
+    <strong>Solicitud registrada correctamente</strong>
+    <div class="folio">${folio}</div>
+
+    <p style="font-size:12px;line-height:1.6;">
+      Conserva este folio para consultar el seguimiento.
+    </p>
+
+    <span class="status status-recibida">
+      SOLICITUD RECIBIDA
+    </span>
+
+    <br><br>
+
+    <button class="btn btn-blue"
+      type="button"
+      onclick="consultGeneratedFolio('${folio}')">
+      CONSULTAR MI SOLICITUD
+    </button>
+  `;
+
+  result.classList.add("show");
+
+  document.getElementById("applicationForm").reset();
+  result.scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+function consultGeneratedFolio(folio){
+  portalTab("consulta");
+  document.getElementById("searchFolio").value=folio;
+  displayApplication(folio);
+}
+
+function searchApplication(event){
+  event.preventDefault();
+
+  const folio=document
+    .getElementById("searchFolio")
+    .value
+    .trim()
+    .toUpperCase();
+
+  displayApplication(folio);
+}
+
+function statusClass(status){
+  const s=(status || "").toLowerCase();
+
+  if(s.includes("acept")) return "status-aceptada";
+  if(s.includes("rechaz")) return "status-rechazada";
+  if(s.includes("sucursal")) return "status-sucursal";
+  if(s.includes("proceso")) return "status-proceso";
+  if(s.includes("revisi")) return "status-revision";
+
+  return "status-recibida";
+}
+
+function displayApplication(folio){
+  const applications=getApplications();
+
+  const app=applications.find(
+    item=>item.folio.toUpperCase()===folio.toUpperCase()
+  );
+
+  const result=document.getElementById("searchResult");
+
+  if(!app){
+    result.innerHTML=`
+      <strong>Folio no localizado</strong>
+      <p style="margin-top:8px;font-size:12px;line-height:1.6;">
+        Revisa que el folio esté escrito correctamente.
+        En esta primera versión, las solicitudes se conservan
+        únicamente en el navegador donde fueron registradas.
+      </p>
+    `;
+
+    result.classList.add("show");
+    return;
+  }
+
+  result.innerHTML=`
+    <div style="font-size:10px;color:#6b8595;font-weight:900;">
+      FOLIO
+    </div>
+
+    <div class="folio">${app.folio}</div>
+
+    <strong>${escapeHtml(app.name)}</strong>
+
+    <p style="margin-top:8px;font-size:12px;line-height:1.65;">
+      ${escapeHtml(app.type)}<br>
+      Registrada: ${escapeHtml(app.created)}
+    </p>
+
+    <span class="status ${statusClass(app.status)}">
+      ${escapeHtml(app.status).toUpperCase()}
+    </span>
+
+    <p style="margin-top:15px;font-size:12px;line-height:1.65;">
+      ${escapeHtml(app.note || "")}
+    </p>
+  `;
+
+  result.classList.add("show");
+}
+
+function escapeHtml(value){
+  return String(value || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+/* ==========================
+   INICIO
+========================== */
+
+renderBrands();
 
 </script>
 
