@@ -4,7 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>MAX INNOVA | Servicios Financieros</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+const revealTargets=document.querySelectorAll(".section .title,.section .subtitle,.product,.profile-card,.sector-box,.ally-grid,.couple,.laptop-grid,.step,.info-card,.contact-grid");
+revealTargets.forEach(el=>el.classList.add("reveal"));
+const revealObserver=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");revealObserver.unobserve(e.target)}}),{threshold:.12});
+revealTargets.forEach(el=>revealObserver.observe(el));
+
+</script>
 <style>
 :root{
   --navy:#00345f;--dark:#001f38;--blue:#006da6;--cyan:#16bce8;
@@ -218,6 +224,44 @@ footer{background:#001f38;color:#fff;padding:45px 0 25px}
 
 .professional-icon{background:linear-gradient(145deg,#f8fcff,#e8f5fb)!important;border:1px solid #c8e1ed!important}
 .professional-icon svg{width:38px;height:38px;fill:none;stroke:#004b78;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+
+/* ACABADO DINAMICO Y CINTAS PREMIUM */
+.hero{position:relative;overflow:hidden}.hero-left{position:relative;isolation:isolate}
+.hero-left:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 55%,rgba(56,201,239,.12));z-index:-1;animation:heroGlow 8s ease-in-out infinite alternate}
+.hero-image{animation:heroZoom 16s ease-in-out infinite alternate}
+@keyframes heroGlow{to{opacity:.35}} @keyframes heroZoom{from{background-size:100% auto}to{background-size:106% auto}}
+.sector-box{position:relative;border:1px solid rgba(12,111,158,.16);box-shadow:0 18px 45px rgba(0,65,105,.09)}
+.sector-box:before{content:"";position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#00345f,#16bce8,#00345f);background-size:200% 100%;animation:sectorShine 7s linear infinite;z-index:2}
+@keyframes sectorShine{to{background-position:200% 0}}
+.sector-title{padding:22px 30px;background:linear-gradient(100deg,#eefaff 0%,#fff 65%,#edf9fe 100%)}
+.ticker:before,.ticker:after{content:"";position:absolute;top:0;bottom:0;width:70px;z-index:3;pointer-events:none}
+.ticker:before{left:0;background:linear-gradient(90deg,#fff,transparent)}.ticker:after{right:0;background:linear-gradient(270deg,#fff,transparent)}
+.brand{width:166px;height:116px;box-shadow:0 5px 18px rgba(0,58,92,.045)}
+.brand:hover{transform:translateY(-7px) scale(1.025);box-shadow:0 16px 32px rgba(0,82,125,.15)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.track,.hero-image,.hero-left:after,.sector-box:before{animation:none!important}.reveal{opacity:1;transform:none}}
+
+
+/* ===== CINTAS PREMIUM - VERSION FINAL ===== */
+.sectors{background:
+ radial-gradient(circle at 10% 10%,rgba(22,188,232,.07),transparent 24%),
+ linear-gradient(180deg,#f8fcfe,#eef8fc)}
+.sector-box{border-radius:22px!important;background:rgba(255,255,255,.96)!important;
+ box-shadow:0 20px 55px rgba(0,52,95,.09)!important;transition:transform .35s ease,box-shadow .35s ease}
+.sector-box:hover{transform:translateY(-3px);box-shadow:0 26px 65px rgba(0,52,95,.13)!important}
+.sector-title h3{letter-spacing:-.25px}.sector-title p{letter-spacing:.15px}
+.brand{position:relative;overflow:hidden;border-radius:17px!important;background:linear-gradient(145deg,#fff,#f8fcfe)!important}
+.brand:after{content:"";position:absolute;inset:auto -45% -75% -45%;height:90px;
+ background:radial-gradient(ellipse,rgba(22,188,232,.16),transparent 65%);transition:.35s}
+.brand:hover:after{bottom:-55%}
+.brand-logo{height:56px!important}.brand-logo img{max-height:47px!important;max-width:116px!important}
+.brand-fallback{font-size:15px!important;letter-spacing:-.25px}
+.brand-name{font-size:10.5px!important;letter-spacing:.2px;color:#164c6c}
+.professional-icon{width:56px!important;height:56px!important;background:linear-gradient(145deg,#f7fcff,#e4f4fb)!important;
+ border:1px solid #c8e3ef!important;box-shadow:0 7px 18px rgba(0,70,105,.07)!important}
+.professional-icon svg{stroke:#005b88!important;fill:none!important}
+.track{gap:2px}
 
 </style>
 </head>
@@ -505,7 +549,7 @@ No sustituir el diseño base al hacer cambios posteriores.
  <input name="_subject" id="mailSubject"><input name="Folio" id="mailFolio"><input name="Nombre" id="mailNombre">
  <input name="Telefono" id="mailTelefono"><input name="Correo" id="mailCorreo"><input name="RFC" id="mailRFC">
  <input name="Tipo_de_financiamiento" id="mailTipo"><input name="Ciudad" id="mailCiudad"><input name="Proyecto" id="mailProyecto">
- <input name="Modalidad_documentos" id="mailModalidad"><input name="_captcha" value="false"><input name="attachment" id="mailFiles" type="file" multiple>
+ <input name="Modalidad_documentos" id="mailModalidad"><input name="Documentos" id="mailDocumentos"><input name="_captcha" value="false">
 </form>
 
 <script>
@@ -707,51 +751,39 @@ function makeFolio(){
 
 solicitudForm.addEventListener("submit",async e=>{
  e.preventDefault();
- const btn=submitBtn;
- const modalidad=document.querySelector('input[name="docs"]:checked')?.value;
+ const btn=submitBtn, modalidad=document.querySelector('input[name="docs"]:checked')?.value;
  if(!modalidad){alert("Selecciona cómo presentarás la documentación.");return}
+ if(modalidad==="ENVÍO DIGITAL"&&!documentos.files.length){alert("Selecciona al menos un documento.");return}
  btn.disabled=true;btn.textContent="REGISTRANDO...";
-
- const data={
-  folio:makeFolio(),
-  nombre:nombre.value.trim(),
-  telefono:telefono.value.trim(),
-  correo:correo.value.trim(),
-  rfc:rfc.value.trim().toUpperCase(),
-  tipo_financiamiento:tipo.value,
-  ciudad:ciudad.value.trim(),
-  proyecto:proyecto.value.trim(),
-  modalidad_documentos:modalidad,
-  estatus:"SOLICITUD RECIBIDA",
-  indicaciones_cliente:modalidad==="PRESENTAR EN OFICINA"
-   ?"Su solicitud fue registrada. La documentación se encuentra pendiente de presentación en oficina."
-   :"Su solicitud fue registrada. La documentación enviada quedará pendiente de revisión."
- };
-
+ const data={folio:makeFolio(),nombre:nombre.value.trim(),telefono:telefono.value.trim(),correo:correo.value.trim(),rfc:rfc.value.trim().toUpperCase(),tipo_financiamiento:tipo.value,ciudad:ciudad.value.trim(),proyecto:proyecto.value.trim(),modalidad_documentos:modalidad,estatus:"SOLICITUD RECIBIDA",indicaciones_cliente:modalidad==="PRESENTAR EN OFICINA"?"Su solicitud fue registrada. La documentación se encuentra pendiente de presentación en oficina.":"Su solicitud fue registrada. La documentación fue recibida y quedará pendiente de revisión."};
+ let uploaded=[];
+ if(modalidad==="ENVÍO DIGITAL"){
+  btn.textContent="SUBIENDO DOCUMENTOS...";
+  for(const file of [...documentos.files]){
+   const clean=file.name.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9._-]/g,"_").slice(-100);
+   const path=`${data.folio}/${Date.now()}_${crypto.randomUUID()}_${clean}`;
+   const {error:upError}=await db.storage.from("max-innova-documentos").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type||"application/octet-stream"});
+   if(upError){
+    if(uploaded.length)await db.storage.from("max-innova-documentos").remove(uploaded.map(x=>x.path));
+    newResult.innerHTML=`<strong>No fue posible cargar la documentación.</strong><p class="help">${safe(upError.message)}</p>`;newResult.classList.add("show");
+    btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";return;
+   }
+   uploaded.push({path,name:file.name});
+  }
+ }
  const {error}=await db.from("max_innova_solicitudes").insert(data);
  if(error){
-  newResult.innerHTML=`<strong>No fue posible registrar la solicitud.</strong><p class="help">${safe(error.message)}</p>`;
-  newResult.classList.add("show");
+  if(uploaded.length)await db.storage.from("max-innova-documentos").remove(uploaded.map(x=>x.path));
+  newResult.innerHTML=`<strong>No fue posible registrar la solicitud.</strong><p class="help">${safe(error.message)}</p>`;newResult.classList.add("show");
   btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";return;
  }
-
- if(modalidad==="ENVÍO DIGITAL" && documentos.files.length){
-  try{
-   const dt=new DataTransfer();[...documentos.files].forEach(f=>dt.items.add(f));mailFiles.files=dt.files;
-   mailSubject.value=`MAX INNOVA - NUEVA SOLICITUD ${data.folio}`;
-   mailFolio.value=data.folio;mailNombre.value=data.nombre;mailTelefono.value=data.telefono;
-   mailCorreo.value=data.correo;mailRFC.value=data.rfc;mailTipo.value=data.tipo_financiamiento;
-   mailCiudad.value=data.ciudad;mailProyecto.value=data.proyecto;mailModalidad.value=modalidad;
-   mailForm.submit();
-  }catch(err){console.error("No se pudo preparar el envío documental:",err)}
- }
-
- newResult.innerHTML=`<strong>Solicitud registrada correctamente</strong><div class="folio">${safe(data.folio)}</div><p class="help">Conserva este folio para consultar el seguimiento.</p><span class="status">SOLICITUD RECIBIDA</span><br><br><button class="btn btn-blue" type="button" onclick="consultNow('${data.folio}')">CONSULTAR SOLICITUD</button>`;
- newResult.classList.add("show");
- solicitudForm.reset();docMode();btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";
- newResult.scrollIntoView({behavior:"smooth",block:"center"});
+ try{
+  mailSubject.value=`MAX INNOVA - NUEVA SOLICITUD ${data.folio}`;mailFolio.value=data.folio;mailNombre.value=data.nombre;mailTelefono.value=data.telefono;mailCorreo.value=data.correo;mailRFC.value=data.rfc;mailTipo.value=data.tipo_financiamiento;mailCiudad.value=data.ciudad;mailProyecto.value=data.proyecto;mailModalidad.value=modalidad;
+  mailDocumentos.value=uploaded.length?`${uploaded.length} documento(s) recibidos en almacenamiento privado. Revisar desde ADMIN.`:"Documentación pendiente de presentación en oficina.";mailForm.submit();
+ }catch(err){console.error("Aviso de correo:",err)}
+ newResult.innerHTML=`<strong>Solicitud registrada correctamente</strong><div class="folio">${safe(data.folio)}</div><p class="help">${uploaded.length?`${uploaded.length} documento(s) recibidos correctamente. `:""}Conserva este folio para consultar el seguimiento.</p><span class="status">SOLICITUD RECIBIDA</span><br><br><button class="btn btn-blue" type="button" onclick="consultNow('${data.folio}')">CONSULTAR SOLICITUD</button>`;
+ newResult.classList.add("show");solicitudForm.reset();docMode();btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";
 });
-
 function consultNow(f){tab("consulta");consultaFolio.value=f;consult(f)}
 consultaForm.addEventListener("submit",e=>{e.preventDefault();consult(consultaFolio.value.trim())});
 async function consult(folio){
