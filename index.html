@@ -84,6 +84,11 @@ header{height:86px;background:#fff;position:sticky;top:0;z-index:1000;box-shadow
 .reverse .track{animation-direction:reverse}
 .fast .track{animation-duration:34s}
 .ticker:hover .track{animation-play-state:paused}
+.ticker{overflow:hidden;position:relative;width:100%;padding:5px 0 10px}
+.track{will-change:transform}
+.click-info{cursor:pointer;transition:.22s}
+.click-info:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,80,120,.12);border-color:#22afd8}
+.click-info:focus{outline:3px solid rgba(34,175,216,.25);outline-offset:2px}
 @keyframes move{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .brand{width:170px;height:125px;margin:0 7px;padding:13px;border:1px solid #dceaf1;border-radius:14px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
 .brand:hover{transform:translateY(-4px);border-color:#22afd8;box-shadow:0 8px 20px rgba(0,80,120,.1)}
@@ -207,6 +212,15 @@ footer{background:#001f38;color:#fff;padding:45px 0 25px}
 </head>
 <body>
 
+<!-- FLUJO OPERATIVO MAX INNOVA:
+1) Cliente registra solicitud y obtiene folio.
+2) Si selecciona envío digital, adjunta documentación para envío al correo configurado.
+3) Administración revisa la solicitud y la documentación recibida.
+4) Administración actualiza el estatus e indicaciones desde el panel ADMIN.
+5) El cliente consulta su folio en MI CUENTA y visualiza el estatus actualizado.
+-->
+
+
 <header>
 <div class="nav">
  <a class="logo" href="#inicio"><img src="logo%20maxinnova.png" alt="MAX INNOVA"></a>
@@ -274,8 +288,8 @@ footer{background:#001f38;color:#fff;padding:45px 0 25px}
  <div class="kicker">¿QUÉ NECESITAS?</div>
  <h2 class="title">Soluciones para <span>personas y negocios.</span></h2>
  <div class="profile-box">
-  <div class="profile-card"><h3>Personas</h3><p>Vehículo, vivienda, proyectos personales, patrimonio y otras necesidades sujetas a evaluación.</p><br><button class="btn btn-blue" onclick="goPortal('nuevo')">INICIAR SOLICITUD</button></div>
-  <div class="profile-card"><h3>Negocios y empresas</h3><p>Capital de trabajo, equipamiento, expansión, movilidad, operación y proyectos empresariales.</p><br><button class="btn btn-blue" onclick="prefillType('Negocio / PyME')">SOLICITAR EVALUACIÓN</button></div>
+  <div class="profile-card click-info" role="button" tabindex="0" onclick="if(!event.target.closest('button')) showInfo('PERSONAS','Soluciones para personas','Opciones para vehículo, vivienda, patrimonio, proyectos y necesidades personales. Cada solicitud se revisa de forma individual y está sujeta a evaluación y documentación.','Personal')" onkeydown="if(event.key==='Enter'&&!event.target.closest('button'))this.click()"><h3>Personas</h3><p>Vehículo, vivienda, proyectos personales, patrimonio y otras necesidades sujetas a evaluación.</p><br><button class="btn btn-blue" onclick="goPortal('nuevo')">INICIAR SOLICITUD</button></div>
+  <div class="profile-card click-info" role="button" tabindex="0" onclick="if(!event.target.closest('button')) showInfo('NEGOCIOS','Soluciones para negocios y empresas','Alternativas para capital de trabajo, equipamiento, expansión, movilidad, operación y proyectos empresariales, sujetas a evaluación.','Negocio / PyME')" onkeydown="if(event.key==='Enter'&&!event.target.closest('button'))this.click()"><h3>Negocios y empresas</h3><p>Capital de trabajo, equipamiento, expansión, movilidad, operación y proyectos empresariales.</p><br><button class="btn btn-blue" onclick="prefillType('Negocio / PyME')">SOLICITAR EVALUACIÓN</button></div>
  </div>
 </div></section>
 
@@ -285,12 +299,12 @@ footer{background:#001f38;color:#fff;padding:45px 0 25px}
   <h2>Tu solicitud, identificada con un folio.</h2>
   <p>Registra tu solicitud y elige si deseas enviar documentación para revisión o presentarla posteriormente en oficina.</p>
   <div class="portal-features">
-   <div class="portal-feature">✓ Folio único de seguimiento</div>
-   <div class="portal-feature">✓ Consulta de estatus</div>
-   <div class="portal-feature">✓ Revisión documental</div>
-   <div class="portal-feature">✓ Citas e indicaciones</div>
-   <div class="portal-feature">✓ Seguimiento desde otro dispositivo</div>
-   <div class="portal-feature">✓ Atención durante el proceso</div>
+   <div class="portal-feature click-info" role="button" tabindex="0" onclick="showInfo('FOLIO DE SEGUIMIENTO','Folio único','Al registrar una solicitud, el sistema genera un folio único para identificarla y consultar su avance.','Personal')" onkeydown="if(event.key==='Enter')this.click()">✓ Folio único de seguimiento</div>
+   <div class="portal-feature click-info" role="button" tabindex="0" onclick="showInfo('CONSULTA','Consulta de estatus','Con tu folio puedes consultar el estado que MAX INNOVA tenga registrado para tu solicitud.','Personal')" onkeydown="if(event.key==='Enter')this.click()">✓ Consulta de estatus</div>
+   <div class="portal-feature click-info" role="button" tabindex="0" onclick="showInfo('DOCUMENTACIÓN','Revisión documental','La documentación puede ser requerida para revisar la solicitud. El tipo y alcance dependerán del financiamiento y de la evaluación.','Personal')" onkeydown="if(event.key==='Enter')this.click()">✓ Revisión documental</div>
+   <div class="portal-feature click-info" role="button" tabindex="0" onclick="showInfo('CITAS','Citas e indicaciones','Cuando sea necesario, el seguimiento puede mostrar fecha, hora e indicaciones para continuar el proceso.','Personal')" onkeydown="if(event.key==='Enter')this.click()">✓ Citas e indicaciones</div>
+   <div class="portal-feature click-info" role="button" tabindex="0" onclick="showInfo('SEGUIMIENTO','Seguimiento digital','El folio permite consultar el estatus desde otro dispositivo con acceso a esta página.','Personal')" onkeydown="if(event.key==='Enter')this.click()">✓ Seguimiento desde otro dispositivo</div>
+   <div class="portal-feature click-info" role="button" tabindex="0" onclick="showInfo('ATENCIÓN','Atención durante el proceso','El seguimiento permite conocer indicaciones registradas para continuar con la solicitud.','Personal')" onkeydown="if(event.key==='Enter')this.click()">✓ Atención durante el proceso</div>
   </div>
  </div>
 
@@ -357,7 +371,7 @@ footer{background:#001f38;color:#fff;padding:45px 0 25px}
   <div class="kicker">TU ALIADO FINANCIERO</div>
   <h2>Alternativas para impulsar tus planes.</h2>
   <p>MAX INNOVA analiza cada solicitud de acuerdo con el proyecto, información y documentación correspondiente.</p>
-  <div class="ally-points"><div class="ally-point">Evaluación personalizada</div><div class="ally-point">Seguimiento por folio</div><div class="ally-point">Diversidad de destinos</div><div class="ally-point">Atención durante el proceso</div></div>
+  <div class="ally-points"><div class="ally-point click-info" role="button" tabindex="0" onclick="showInfo('EVALUACIÓN','Evaluación personalizada','Cada solicitud se analiza según el tipo de proyecto, información proporcionada, documentación y condiciones aplicables.','Personal')" onkeydown="if(event.key==='Enter')this.click()">Evaluación personalizada</div><div class="ally-point click-info" role="button" tabindex="0" onclick="showInfo('SEGUIMIENTO','Seguimiento por folio','Conserva tu folio para identificar tu solicitud y consultar el estatus registrado.','Personal')" onkeydown="if(event.key==='Enter')this.click()">Seguimiento por folio</div><div class="ally-point click-info" role="button" tabindex="0" onclick="showInfo('SOLUCIONES','Diversidad de destinos','MAX INNOVA contempla solicitudes relacionadas con vehículo, patrimonio, necesidades personales, negocios, empresas y movilidad.','Personal')" onkeydown="if(event.key==='Enter')this.click()">Diversidad de destinos</div><div class="ally-point click-info" role="button" tabindex="0" onclick="showInfo('ATENCIÓN','Atención durante el proceso','Durante el proceso pueden registrarse indicaciones, documentación pendiente o citas para dar continuidad.','Personal')" onkeydown="if(event.key==='Enter')this.click()">Atención durante el proceso</div></div>
  </div>
  <div style="background:#fff;border-radius:20px;padding:40px;box-shadow:0 15px 45px rgba(0,70,110,.09)">
   <h3 style="font-size:27px;margin-bottom:15px">Un proceso claro desde el inicio.</h3>
@@ -379,10 +393,10 @@ footer{background:#001f38;color:#fff;padding:45px 0 25px}
 <section class="section process" id="como-funciona"><div class="container center">
  <div class="eyebrow">CÓMO FUNCIONA</div><h2 class="title" style="color:#fff">Un proceso <span>paso a paso.</span></h2>
  <div class="steps">
-  <div class="step"><div class="step-num">1</div><h3>Registra tu solicitud</h3><p>Completa tus datos, RFC y describe el proyecto.</p></div>
-  <div class="step"><div class="step-num">2</div><h3>Recibe tu folio</h3><p>El sistema genera un identificador de seguimiento.</p></div>
-  <div class="step"><div class="step-num">3</div><h3>Revisión</h3><p>Se revisa la información y documentación correspondiente.</p></div>
-  <div class="step"><div class="step-num">4</div><h3>Seguimiento</h3><p>Consulta el estatus, citas e indicaciones registradas.</p></div>
+  <div class="step click-info" role="button" tabindex="0" onclick="showInfo('REGISTRO','Registro de solicitud','Ingresa la información solicitada para crear tu registro. Antes de enviarlo, revisa que tus datos sean correctos.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><div class="step-num">1</div><h3>Registra tu solicitud</h3><p>Completa tus datos, RFC y describe el proyecto.</p></div>
+  <div class="step click-info" role="button" tabindex="0" onclick="showInfo('FOLIO','Recibe tu folio','Al completar el registro se genera un identificador único. Consérvalo para futuras consultas.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><div class="step-num">2</div><h3>Recibe tu folio</h3><p>El sistema genera un identificador de seguimiento.</p></div>
+  <div class="step click-info" role="button" tabindex="0" onclick="showInfo('REVISIÓN','Revisión de solicitud','La información y, cuando corresponda, la documentación son revisadas para determinar la continuidad del proceso.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><div class="step-num">3</div><h3>Revisión</h3><p>Se revisa la información y documentación correspondiente.</p></div>
+  <div class="step click-info" role="button" tabindex="0" onclick="showInfo('SEGUIMIENTO','Seguimiento de solicitud','Consulta con tu folio el estatus, las indicaciones y, cuando aplique, los datos de una cita.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><div class="step-num">4</div><h3>Seguimiento</h3><p>Consulta el estatus, citas e indicaciones registradas.</p></div>
  </div>
 </div></section>
 
@@ -390,12 +404,12 @@ footer{background:#001f38;color:#fff;padding:45px 0 25px}
  <div class="kicker">INFORMACIÓN</div><h2 class="title">Información y <span>transparencia.</span></h2>
  <p class="subtitle">Los datos corporativos y documentos oficiales se incorporarán una vez validados.</p>
  <div class="info-grid">
-  <div class="info-card"><h3>Información fiscal</h3><p>Razón social, RFC y datos fiscales de la empresa.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
-  <div class="info-card"><h3>Aviso de privacidad</h3><p>Información sobre tratamiento y protección de datos personales.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
-  <div class="info-card"><h3>Información regulatoria</h3><p>Se publicará únicamente la información que corresponda legalmente a la operación de la empresa.</p><span class="pending">PENDIENTE DE VALIDAR</span></div>
-  <div class="info-card"><h3>Domicilio</h3><p>Datos de oficina o sucursal para atención presencial.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
-  <div class="info-card"><h3>Contacto</h3><p>Teléfonos, correo y canales oficiales de atención.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
-  <div class="info-card"><h3>Administración</h3><p>Acceso exclusivo para personal autorizado. Desde aquí se revisan y actualizan las solicitudes.</p><button class="btn btn-blue" style="margin-top:12px" onclick="openAdmin()">ENTRAR AL PANEL ADMIN</button></div>
+  <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('INFORMACIÓN FISCAL','Información fiscal','Esta sección está preparada para publicar la razón social, RFC y datos fiscales oficiales de MAX INNOVA. Los datos se integrarán cuando sean confirmados.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Información fiscal</h3><p>Razón social, RFC y datos fiscales de la empresa.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
+  <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('PRIVACIDAD','Aviso de privacidad','El aviso de privacidad debe integrarse con la información legal correspondiente antes de utilizar el portal para recopilar documentación sensible de clientes.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Aviso de privacidad</h3><p>Información sobre tratamiento y protección de datos personales.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
+  <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('INFORMACIÓN REGULATORIA','Información regulatoria','Esta sección se encuentra reservada para información regulatoria que haya sido previamente validada. No se publicarán afirmaciones regulatorias sin confirmación.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Información regulatoria</h3><p>Se publicará únicamente la información que corresponda legalmente a la operación de la empresa.</p><span class="pending">PENDIENTE DE VALIDAR</span></div>
+  <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('DOMICILIO','Domicilio de atención','Aquí se mostrará el domicilio oficial para atención presencial cuando MAX INNOVA confirme los datos de la oficina o sucursal.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Domicilio</h3><p>Datos de oficina o sucursal para atención presencial.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
+  <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('CONTACTO','Canales de contacto','Esta sección mostrará los teléfonos, correo y canales oficiales de MAX INNOVA cuando sean confirmados.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Contacto</h3><p>Teléfonos, correo y canales oficiales de atención.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
+  <div class="info-card click-info" role="button" tabindex="0" onclick="if(!event.target.closest('button')) openAdmin()" onkeydown="if(event.key==='Enter')openAdmin()"><h3>Administración</h3><p>Acceso exclusivo para personal autorizado. Desde aquí se revisan y actualizan las solicitudes.</p><button class="btn btn-blue" style="margin-top:12px" onclick="openAdmin()">ENTRAR AL PANEL ADMIN</button></div>
  </div>
 </div></section>
 
@@ -570,6 +584,13 @@ function escJS(v){return String(v).replace(/\\/g,"\\\\").replace(/'/g,"\\'")}
 /* =========================
    MODAL / PRODUCTOS / CINTAS
 ========================= */
+function showInfo(kicker,title,text,type){
+ modalType=type||'Personal';
+ modalKicker.textContent=kicker||'INFORMACIÓN';
+ modalTitle.textContent=title||'MAX INNOVA';
+ modalText.textContent=text||'Información disponible para esta opción.';
+ infoModal.classList.add('open');
+}
 function product(name){
  modalType=name;
  modalKicker.textContent="INFORMACIÓN GENERAL";
