@@ -3,766 +3,460 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MAX INNOVA | Servicios Financieros</title>
 
 <style>
-
 :root{
-  --navy:#082942;
-  --blue:#0d527d;
-  --steel:#778898;
-  --silver:#d9e0e5;
-  --light:#f5f7f9;
+  --navy:#031c31;
+  --navy2:#06395e;
+  --blue:#009ee8;
+  --blue2:#42c7ff;
   --white:#ffffff;
-  --text:#243746;
+  --silver:#b8c5cf;
 }
 
 *{
+  box-sizing:border-box;
   margin:0;
   padding:0;
-  box-sizing:border-box;
 }
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth;}
 
 body{
-  font-family:Arial, Helvetica, sans-serif;
-  color:var(--text);
-  background:white;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#fff;
+  color:#fff;
 }
 
-/* =========================
-   HEADER
-========================= */
-
+/* MENU */
 header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(255,255,255,.97);
-  border-bottom:1px solid #e7ebee;
+  height:92px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  position:relative;
+  z-index:20;
+  box-shadow:0 1px 12px rgba(0,0,0,.05);
 }
 
-.header-inner{
-  max-width:1250px;
-  min-height:88px;
+.nav{
+  width:100%;
+  max-width:1450px;
   margin:auto;
-  padding:0 28px;
-
+  padding:0 38px;
   display:flex;
   align-items:center;
   justify-content:space-between;
 }
 
 .brand{
-  text-decoration:none;
-}
-
-.brand-main{
-  font-size:25px;
-  font-weight:900;
-  letter-spacing:3px;
-  color:var(--navy);
-}
-
-.brand-main span{
-  color:#85909b;
-}
-
-.brand-sub{
-  margin-top:3px;
-  font-size:8px;
-  letter-spacing:5px;
-  color:#778796;
-}
-
-nav{
   display:flex;
   align-items:center;
-  gap:30px;
-}
-
-nav a{
+  gap:13px;
   text-decoration:none;
-  color:#33495b;
-  font-size:14px;
-  transition:.2s;
 }
 
-nav a:hover{
-  color:var(--blue);
+.symbol{
+  font-size:36px;
+  font-weight:900;
+  font-style:italic;
+  color:#082f4d;
+  letter-spacing:-6px;
 }
 
-.account-btn{
-  padding:13px 22px;
-  border-radius:30px;
-  background:var(--navy);
-  color:white !important;
+.brand-name{
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:#082f4d;
+}
+
+.menu{
+  display:flex;
+  align-items:center;
+  gap:38px;
+}
+
+.menu a{
+  text-decoration:none;
+  color:#112c44;
+  font-size:15px;
+}
+
+.menu a:hover{
+  color:#008fd3;
+}
+
+.account{
+  background:#062d4a;
+  color:#fff !important;
+  padding:15px 27px;
+  border-radius:11px;
   font-weight:bold;
 }
 
-/* =========================
-   HERO
-========================= */
-
+/* HERO */
 .hero{
+  min-height:790px;
   position:relative;
   overflow:hidden;
-  min-height:650px;
-
   background:
-  radial-gradient(circle at 85% 35%,rgba(12,82,125,.10),transparent 28%),
-  linear-gradient(115deg,#ffffff 52%,#eef3f6 100%);
+    radial-gradient(circle at 68% 30%,rgba(0,146,220,.28),transparent 34%),
+    linear-gradient(115deg,#02182a 0%,#03243e 48%,#064b76 100%);
 }
 
-.hero::before{
+.hero:before{
   content:"";
   position:absolute;
-  width:520px;
-  height:520px;
-  right:-100px;
-  top:40px;
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(1,18,32,.96) 0%,rgba(2,27,46,.82) 43%,rgba(3,35,59,.30) 72%,rgba(3,25,43,.55) 100%);
+}
 
-  border:70px solid rgba(8,41,66,.045);
+.hero:after{
+  content:"";
+  position:absolute;
+  width:700px;
+  height:700px;
+  right:-100px;
+  top:-210px;
+  border:100px solid rgba(255,255,255,.025);
   border-radius:50%;
 }
 
 .hero-inner{
   position:relative;
-  z-index:2;
-
-  max-width:1250px;
-  min-height:650px;
+  z-index:3;
+  max-width:1450px;
+  min-height:610px;
   margin:auto;
-  padding:75px 28px;
-
+  padding:82px 75px 155px;
   display:grid;
-  grid-template-columns:1.1fr .9fr;
+  grid-template-columns:1fr .95fr;
   align-items:center;
   gap:70px;
 }
 
-.hero-tag{
-  display:inline-block;
-  padding:9px 17px;
-  margin-bottom:24px;
-
-  border-radius:30px;
-  background:#eaf2f6;
-
-  color:var(--blue);
-  font-size:11px;
-  font-weight:bold;
-  letter-spacing:2px;
-}
-
-.hero h1{
-  max-width:700px;
-  color:var(--navy);
-  font-size:64px;
-  line-height:1.02;
-  letter-spacing:-2px;
-}
-
-.hero h1 span{
-  color:#7b8996;
-}
-
-.hero-description{
-  max-width:610px;
-  margin-top:26px;
-
-  color:#5f7180;
-  font-size:18px;
-  line-height:1.7;
-}
-
-.hero-actions{
-  margin-top:36px;
-  display:flex;
-  gap:15px;
-  flex-wrap:wrap;
-}
-
-.primary-btn,
-.secondary-btn{
-  display:inline-block;
-  text-decoration:none;
-  padding:17px 28px;
-  border-radius:9px;
-  font-weight:bold;
-  font-size:14px;
-}
-
-.primary-btn{
-  color:white;
-  background:linear-gradient(135deg,var(--navy),var(--blue));
-  box-shadow:0 12px 28px rgba(8,41,66,.18);
-}
-
-.secondary-btn{
-  color:var(--navy);
-  background:white;
-  border:1px solid #bac6ce;
-}
-
-/* =========================
-   ELEMENTO VISUAL
-========================= */
-
-.hero-visual{
-  position:relative;
-  min-height:430px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.finance-card{
-  position:relative;
-  z-index:3;
-
-  width:380px;
-  padding:38px;
-
-  background:rgba(255,255,255,.92);
-  border:1px solid rgba(255,255,255,.9);
-  border-radius:25px;
-
-  box-shadow:0 30px 70px rgba(12,45,68,.13);
-}
-
-.finance-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:35px;
-}
-
-.finance-brand{
-  color:var(--navy);
-  font-weight:900;
-  letter-spacing:2px;
-}
-
-.finance-brand span{
-  color:#89949e;
-}
-
-.finance-icon{
-  width:45px;
-  height:45px;
-  border-radius:13px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:#eaf2f6;
-  color:var(--blue);
-  font-size:22px;
-}
-
-.finance-card small{
-  display:block;
-  color:#81909c;
-  margin-bottom:8px;
-}
-
-.finance-card h3{
-  font-size:29px;
-  color:var(--navy);
+.eyebrow{
+  color:#c3d4df;
+  font-size:13px;
+  letter-spacing:7px;
   margin-bottom:25px;
 }
 
-.finance-line{
-  height:7px;
-  border-radius:20px;
-  background:#edf1f3;
-  margin-top:11px;
-  overflow:hidden;
+h1{
+  font-size:78px;
+  line-height:.98;
+  letter-spacing:-3px;
+  max-width:680px;
 }
 
-.finance-line span{
-  display:block;
-  height:100%;
-  border-radius:20px;
-  background:linear-gradient(90deg,var(--navy),#8193a1);
+h1 span{
+  color:#b8c8d4;
 }
 
-.line1 span{width:82%;}
-.line2 span{width:62%;}
-.line3 span{width:91%;}
-
-.floating{
-  position:absolute;
-  z-index:4;
-
-  background:white;
-  border-radius:14px;
-  padding:17px 20px;
-
-  box-shadow:0 15px 35px rgba(8,41,66,.12);
-}
-
-.float1{
-  right:-5px;
-  top:40px;
-}
-
-.float2{
-  left:-15px;
-  bottom:35px;
-}
-
-.floating strong{
-  display:block;
-  color:var(--navy);
-  font-size:14px;
-  margin-bottom:5px;
-}
-
-.floating span{
-  color:#84919b;
-  font-size:11px;
-}
-
-/* =========================
-   BARRA BENEFICIOS
-========================= */
-
-.trust{
-  position:relative;
-  z-index:5;
-  max-width:1160px;
-  margin:-38px auto 0;
-
-  background:white;
-  border-radius:18px;
-  box-shadow:0 15px 45px rgba(9,41,63,.10);
-
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-}
-
-.trust-item{
-  padding:27px;
-  text-align:center;
-  border-right:1px solid #edf0f2;
-}
-
-.trust-item:last-child{
-  border-right:none;
-}
-
-.trust-item strong{
-  display:block;
-  color:var(--navy);
-  margin-bottom:6px;
-}
-
-.trust-item span{
-  color:#7a8995;
-  font-size:12px;
-}
-
-/* =========================
-   SOLUCIONES
-========================= */
-
-.solutions{
-  padding:120px 28px 100px;
-}
-
-.section-heading{
-  max-width:780px;
-  margin:auto;
-  text-align:center;
-}
-
-.section-heading small{
-  color:var(--blue);
-  font-weight:bold;
-  letter-spacing:3px;
-}
-
-.section-heading h2{
-  margin-top:13px;
-  font-size:42px;
-  color:var(--navy);
-}
-
-.section-heading p{
-  margin-top:16px;
-  color:#71818d;
-  line-height:1.7;
-}
-
-.cards{
-  max-width:1180px;
-  margin:50px auto 0;
-
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:22px;
-}
-
-.card{
-  position:relative;
-  min-height:235px;
-
-  padding:30px;
-  border-radius:18px;
-
-  background:white;
-  border:1px solid #e4e9ec;
-
-  transition:.25s;
-}
-
-.card:hover{
-  transform:translateY(-7px);
-  border-color:#becbd3;
-  box-shadow:0 20px 45px rgba(8,41,66,.09);
-}
-
-.card-number{
-  font-size:12px;
-  font-weight:bold;
-  letter-spacing:2px;
-  color:#98a4ad;
-}
-
-.card h3{
-  margin-top:27px;
-  margin-bottom:11px;
-  color:var(--navy);
+.description{
+  margin-top:28px;
+  max-width:580px;
   font-size:20px;
+  line-height:1.6;
+  color:#e0e9ef;
 }
 
-.card p{
-  color:#74838e;
-  font-size:14px;
-  line-height:1.65;
+.buttons{
+  display:flex;
+  gap:17px;
+  margin-top:35px;
+  flex-wrap:wrap;
 }
 
-.card-arrow{
-  position:absolute;
-  bottom:25px;
-  right:28px;
-  color:var(--blue);
-  font-size:20px;
-}
-
-/* =========================
-   PROCESO
-========================= */
-
-.process{
-  padding:100px 28px;
-  background:#f4f7f8;
-}
-
-.steps{
-  max-width:1150px;
-  margin:55px auto 0;
-
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
-}
-
-.step{
-  padding:28px;
-  background:white;
-  border-radius:17px;
-}
-
-.step-number{
-  width:45px;
-  height:45px;
-
+.btn{
+  text-decoration:none;
+  min-height:72px;
+  padding:0 31px;
+  border-radius:12px;
   display:flex;
   align-items:center;
   justify-content:center;
-
-  border-radius:50%;
-  background:var(--navy);
-  color:white;
-
-  font-weight:bold;
-  margin-bottom:20px;
+  gap:13px;
+  font-size:16px;
+  font-weight:800;
 }
 
-.step h3{
-  color:var(--navy);
-  margin-bottom:10px;
-  font-size:17px;
+.primary{
+  background:linear-gradient(135deg,#007dc2,#00aaf2);
+  color:#fff;
+  border:1px solid #4bd0ff;
+  box-shadow:0 13px 30px rgba(0,157,231,.22);
 }
 
-.step p{
-  color:#74838f;
-  font-size:13px;
-  line-height:1.6;
+.secondary{
+  border:1px solid rgba(255,255,255,.75);
+  color:#fff;
+  background:rgba(1,20,35,.45);
 }
 
-/* =========================
-   MI CUENTA
-========================= */
-
-.client-section{
-  padding:100px 28px;
-}
-
-.client-box{
+/* VISUAL DERECHO */
+.visual{
+  height:460px;
   position:relative;
-  overflow:hidden;
-
-  max-width:1150px;
-  margin:auto;
-
-  padding:65px;
-
-  border-radius:28px;
-
-  background:
-  radial-gradient(circle at 90% 30%,rgba(255,255,255,.10),transparent 25%),
-  linear-gradient(135deg,#061f35,#0c527e);
-
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-
-  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-.client-box::after{
+.building{
+  width:100%;
+  max-width:570px;
+  height:430px;
+  position:relative;
+  border-radius:5px;
+  overflow:hidden;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(135deg,#092f4c,#041c30);
+  background-size:85px 85px,85px 85px,100% 100%;
+  box-shadow:0 30px 80px rgba(0,0,0,.32);
+}
+
+.building:before{
   content:"";
   position:absolute;
-  width:400px;
-  height:400px;
-  right:-170px;
-  bottom:-230px;
-
-  border:60px solid rgba(255,255,255,.05);
-  border-radius:50%;
+  inset:0;
+  background:linear-gradient(135deg,transparent,rgba(32,147,211,.20));
 }
 
-.client-content{
-  position:relative;
-  z-index:2;
+.big-mark{
+  position:absolute;
+  left:50%;
+  top:44%;
+  transform:translate(-50%,-50%);
+  font-size:140px;
+  font-weight:900;
+  font-style:italic;
+  letter-spacing:-25px;
+  color:#dfe6eb;
+  text-shadow:
+    0 6px 0 #748795,
+    0 14px 25px rgba(0,0,0,.55);
 }
 
-.client-content small{
-  letter-spacing:3px;
-  color:#b9d1df;
-  font-weight:bold;
+.building-name{
+  position:absolute;
+  width:100%;
+  text-align:center;
+  bottom:75px;
+  font-size:34px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:#e6edf2;
+  text-shadow:0 5px 15px #000;
 }
 
-.client-content h2{
-  font-size:42px;
-  margin-top:13px;
-  margin-bottom:18px;
-}
-
-.client-content p{
-  color:#d0dde5;
-  line-height:1.7;
-}
-
-.client-actions{
-  position:relative;
-  z-index:2;
-
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-
-  align-content:center;
-}
-
-.client-item{
-  padding:17px;
-  border-radius:11px;
-  background:rgba(255,255,255,.09);
-  border:1px solid rgba(255,255,255,.08);
-
+.slogan{
+  position:absolute;
+  right:28px;
+  top:170px;
+  width:130px;
   font-size:13px;
+  line-height:1.8;
+  letter-spacing:3px;
+  color:#dce8ef;
+  transform:rotate(-5deg);
 }
 
-/* =========================
-   ATENCIÓN
-========================= */
-
-.service{
-  padding:90px 28px;
-  background:#f5f7f8;
+.slogan:after{
+  content:"";
+  display:block;
+  width:55px;
+  height:3px;
+  margin-top:12px;
+  background:#1fc3ff;
 }
 
-.service-inner{
-  max-width:950px;
-  margin:auto;
+/* TIPOS DE CREDITO */
+.credit-strip{
+  position:absolute;
+  z-index:5;
+  left:50%;
+  bottom:28px;
+  transform:translateX(-50%);
+  width:calc(100% - 60px);
+  max-width:1450px;
+  min-height:205px;
+  border:1px solid rgba(77,184,235,.42);
+  border-radius:20px;
+  background:linear-gradient(135deg,rgba(3,40,65,.96),rgba(4,54,85,.92));
+  backdrop-filter:blur(12px);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:26px 12px;
+  box-shadow:0 20px 45px rgba(0,0,0,.25);
+}
+
+.credit{
+  padding:12px 25px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  border-right:1px solid rgba(190,221,238,.22);
+  cursor:pointer;
+  transition:.25s;
+}
+
+.credit:last-child{border-right:none;}
+
+.credit:hover{
+  transform:translateY(-6px);
+}
+
+.icon{
+  width:58px;
+  height:58px;
+  margin-bottom:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:36px;
+  filter:grayscale(1) brightness(2.4);
+}
+
+.credit h3{
+  font-size:17px;
+  line-height:1.25;
+  margin-bottom:8px;
+}
+
+.credit p{
+  max-width:180px;
+  color:#d4e0e7;
+  font-size:13px;
+  line-height:1.4;
+}
+
+/* SIGUIENTE SECCION */
+.intro{
+  color:#15344b;
+  background:#fff;
+  padding:95px 25px;
   text-align:center;
 }
 
-.service h2{
-  color:var(--navy);
-  font-size:38px;
-}
-
-.service p{
-  max-width:680px;
-  margin:17px auto 0;
-
-  color:#74828d;
-  line-height:1.7;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-  background:#061d30;
-  padding:55px 28px;
-  color:white;
-}
-
-.footer-inner{
-  max-width:1150px;
-  margin:auto;
-
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:30px;
-}
-
-.footer-brand{
-  font-size:22px;
+.intro small{
+  color:#168cc6;
   font-weight:bold;
-  letter-spacing:3px;
-}
-
-.footer-brand span{
-  color:#899ba8;
-}
-
-.footer-sub{
-  margin-top:5px;
-  color:#8297a6;
-  font-size:9px;
   letter-spacing:4px;
 }
 
-.footer-text{
-  color:#8da0ae;
-  font-size:12px;
+.intro h2{
+  font-size:43px;
+  color:#062c49;
+  margin:14px 0;
 }
 
-/* =========================
-   CELULAR
-========================= */
+.intro p{
+  color:#6a7c89;
+  max-width:720px;
+  margin:auto;
+  line-height:1.7;
+  font-size:16px;
+}
 
-@media(max-width:850px){
+/* MOVIL */
+@media(max-width:900px){
 
-  .header-inner{
-    min-height:72px;
-    padding:0 18px;
-  }
+  header{height:75px;}
 
-  .brand-main{
-    font-size:19px;
-  }
+  .nav{padding:0 18px;}
 
-  .brand-sub{
-    font-size:6px;
-    letter-spacing:3px;
-  }
+  .brand-name{font-size:20px;}
 
-  nav a:not(.account-btn){
-    display:none;
-  }
+  .symbol{font-size:27px;}
 
-  .account-btn{
+  .menu a:not(.account){display:none;}
+
+  .account{
     padding:11px 15px;
-    font-size:11px;
+    font-size:12px;
+  }
+
+  .hero{
+    min-height:1250px;
   }
 
   .hero-inner{
+    padding:60px 22px 590px;
     grid-template-columns:1fr;
-    padding:60px 22px 90px;
     text-align:center;
   }
 
-  .hero h1{
-    font-size:43px;
+  .eyebrow{
+    letter-spacing:4px;
   }
 
-  .hero-description{
+  h1{
+    font-size:48px;
+    letter-spacing:-2px;
+  }
+
+  .description{
     font-size:16px;
   }
 
-  .hero-actions{
+  .buttons{
     justify-content:center;
   }
 
-  .hero-visual{
-    min-height:390px;
+  .btn{
+    width:100%;
+    min-height:60px;
   }
 
-  .finance-card{
-    width:90%;
-    max-width:340px;
+  .visual{
+    height:330px;
   }
 
-  .float1{
-    right:0;
+  .building{
+    height:310px;
   }
 
-  .float2{
-    left:0;
+  .big-mark{
+    font-size:95px;
   }
 
-  .trust{
-    width:90%;
-    margin:-30px auto 0;
+  .building-name{
+    font-size:25px;
+    bottom:45px;
+  }
+
+  .slogan{
+    display:none;
+  }
+
+  .credit-strip{
+    bottom:25px;
+    width:calc(100% - 30px);
     grid-template-columns:1fr;
+    padding:10px;
   }
 
-  .trust-item{
+  .credit{
+    min-height:115px;
     border-right:none;
-    border-bottom:1px solid #edf0f2;
+    border-bottom:1px solid rgba(190,221,238,.20);
   }
 
-  .cards{
-    grid-template-columns:1fr;
+  .credit:last-child{
+    border-bottom:none;
   }
 
-  .steps{
-    grid-template-columns:1fr;
-  }
-
-  .client-box{
-    padding:40px 25px;
-    grid-template-columns:1fr;
-  }
-
-  .client-content h2{
-    font-size:33px;
-  }
-
-  .client-actions{
-    grid-template-columns:1fr;
-  }
-
-  .footer-inner{
-    flex-direction:column;
-    text-align:center;
+  .icon{
+    font-size:27px;
+    height:38px;
   }
 }
 
@@ -772,36 +466,23 @@ footer{
 <body>
 
 <header>
-
-<div class="header-inner">
+<div class="nav">
 
 <a href="#" class="brand">
-
-<div class="brand-main">
-MAX <span>INNOVA</span>
-</div>
-
-<div class="brand-sub">
-SERVICIOS FINANCIEROS
-</div>
-
+<div class="symbol">MI</div>
+<div class="brand-name">MAX INNOVA</div>
 </a>
 
-<nav>
-
-<a href="#soluciones">Personas</a>
-<a href="#soluciones">Negocios</a>
-<a href="#proceso">Cómo funciona</a>
-<a href="#atencion">Atención a clientes</a>
-
-<a href="#cuenta" class="account-btn">
-MI CUENTA
-</a>
-
-</nav>
-
+<div class="menu">
+<a href="#">Inicio</a>
+<a href="#creditos">Soluciones</a>
+<a href="#como">Cómo funciona</a>
+<a href="#nosotros">Nosotros</a>
+<a href="#contacto">Contacto</a>
+<a href="#cuenta" class="account">♙ &nbsp; MI CUENTA</a>
 </div>
 
+</div>
 </header>
 
 
@@ -809,511 +490,117 @@ MI CUENTA
 
 <div class="hero-inner">
 
-<div>
+<div class="hero-copy">
 
-<div class="hero-tag">
-MAX INNOVA · SERVICIOS FINANCIEROS
+<div class="eyebrow">
+FINANCIAMIENTO PARA TU FUTURO
 </div>
 
 <h1>
-Financiamiento para
-<span>hacerlo posible.</span>
+Tus metas
+<br>
+<span>más cerca.</span>
 </h1>
 
-<p class="hero-description">
+<p class="description">
 Soluciones financieras para personas,
+negocios y empresas que buscan nuevas
+oportunidades.
+</p>
+
+<div class="buttons">
+
+<a href="#creditos" class="btn primary">
+▤ &nbsp; SOLICITA TU CRÉDITO &nbsp; →
+</a>
+
+<a href="#cuenta" class="btn secondary">
+♙ &nbsp; MI CUENTA
+</a>
+
+</div>
+
+</div>
+
+
+<div class="visual">
+
+<div class="building">
+
+<div class="big-mark">
+MI
+</div>
+
+<div class="building-name">
+MAX INNOVA
+</div>
+
+<div class="slogan">
+MÁS OPCIONES
+<br>
+MÁS OPORTUNIDADES
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="credit-strip" id="creditos">
+
+<div class="credit">
+<div class="icon">🚘</div>
+<h3>CRÉDITO<br>VEHICULAR</h3>
+<p>Financiamiento para adquirir el vehículo que necesitas.</p>
+</div>
+
+<div class="credit">
+<div class="icon">⌂</div>
+<h3>CRÉDITO<br>PATRIMONIAL</h3>
+<p>Opciones para proyectos y adquisición de patrimonio.</p>
+</div>
+
+<div class="credit">
+<div class="icon">♙</div>
+<h3>CRÉDITO<br>PERSONAL</h3>
+<p>Soluciones financieras para tus planes y necesidades.</p>
+</div>
+
+<div class="credit">
+<div class="icon">▣</div>
+<h3>CRÉDITO PARA<br>NEGOCIO</h3>
+<p>Capital para comerciantes, emprendedores y actividades productivas.</p>
+</div>
+
+<div class="credit">
+<div class="icon">▥</div>
+<h3>CRÉDITO<br>EMPRESARIAL</h3>
+<p>Financiamiento para crecimiento, inversión y capital de trabajo.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="intro" id="como">
+
+<small>MAX INNOVA</small>
+
+<h2>
+Financiamiento para diferentes proyectos.
+</h2>
+
+<p>
+Conoce las soluciones disponibles para personas,
 comerciantes, emprendedores y empresas.
-Conoce alternativas de financiamiento
-de acuerdo con tus necesidades y objetivos.
+Selecciona el tipo de financiamiento que necesitas
+para comenzar tu solicitud.
 </p>
-
-<div class="hero-actions">
-
-<a href="#soluciones" class="primary-btn">
-SOLICITA TU CRÉDITO
-</a>
-
-<a href="#cuenta" class="secondary-btn">
-SOY CLIENTE
-</a>
-
-</div>
-
-</div>
-
-
-<div class="hero-visual">
-
-<div class="finance-card">
-
-<div class="finance-top">
-
-<div class="finance-brand">
-MAX <span>INNOVA</span>
-</div>
-
-<div class="finance-icon">
-↗
-</div>
-
-</div>
-
-<small>
-SOLUCIONES FINANCIERAS
-</small>
-
-<h3>
-Tu próximo proyecto comienza aquí.
-</h3>
-
-<div class="finance-line line1">
-<span></span>
-</div>
-
-<div class="finance-line line2">
-<span></span>
-</div>
-
-<div class="finance-line line3">
-<span></span>
-</div>
-
-</div>
-
-
-<div class="floating float1">
-
-<strong>
-Personas y negocios
-</strong>
-
-<span>
-Opciones para diferentes perfiles
-</span>
-
-</div>
-
-
-<div class="floating float2">
-
-<strong>
-A tu medida
-</strong>
-
-<span>
-Financiamiento para tus proyectos
-</span>
-
-</div>
-
-</div>
-
-</div>
 
 </section>
-
-
-<div class="trust">
-
-<div class="trust-item">
-
-<strong>
-Opciones flexibles
-</strong>
-
-<span>
-Alternativas para diferentes necesidades
-</span>
-
-</div>
-
-
-<div class="trust-item">
-
-<strong>
-Atención personalizada
-</strong>
-
-<span>
-Acompañamiento durante tu proceso
-</span>
-
-</div>
-
-
-<div class="trust-item">
-
-<strong>
-Personas y empresas
-</strong>
-
-<span>
-Soluciones para distintos perfiles
-</span>
-
-</div>
-
-</div>
-
-
-<section class="solutions" id="soluciones">
-
-<div class="section-heading">
-
-<small>
-SOLUCIONES FINANCIERAS
-</small>
-
-<h2>
-¿Qué quieres lograr?
-</h2>
-
-<p>
-Explora diferentes opciones de financiamiento
-de acuerdo con tus necesidades personales,
-profesionales o empresariales.
-</p>
-
-</div>
-
-
-<div class="cards">
-
-<div class="card">
-
-<div class="card-number">
-01
-</div>
-
-<h3>
-Adquirir un vehículo
-</h3>
-
-<p>
-Financiamiento para vehículos particulares,
-de trabajo o destinados a actividades productivas.
-</p>
-
-<div class="card-arrow">→</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-number">
-02
-</div>
-
-<h3>
-Invertir en patrimonio
-</h3>
-
-<p>
-Alternativas para la adquisición de bienes
-y proyectos patrimoniales.
-</p>
-
-<div class="card-arrow">→</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-number">
-03
-</div>
-
-<h3>
-Impulsar mi negocio
-</h3>
-
-<p>
-Opciones para comerciantes, emprendedores
-y personas con actividades productivas.
-</p>
-
-<div class="card-arrow">→</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-number">
-04
-</div>
-
-<h3>
-Capital para mi empresa
-</h3>
-
-<p>
-Financiamiento para capital de trabajo,
-equipamiento, expansión y proyectos empresariales.
-</p>
-
-<div class="card-arrow">→</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-number">
-05
-</div>
-
-<h3>
-Trabajo con plataformas
-</h3>
-
-<p>
-Alternativas para personas que generan ingresos
-mediante actividades de movilidad y plataformas.
-</p>
-
-<div class="card-arrow">→</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-number">
-06
-</div>
-
-<h3>
-Tengo otro proyecto
-</h3>
-
-<p>
-Cuéntanos qué necesitas financiar para conocer
-las opciones disponibles para tu solicitud.
-</p>
-
-<div class="card-arrow">→</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="process" id="proceso">
-
-<div class="section-heading">
-
-<small>
-CÓMO FUNCIONA
-</small>
-
-<h2>
-Tu solicitud paso a paso
-</h2>
-
-<p>
-Un proceso diseñado para conocer tu necesidad
-y dar seguimiento a tu solicitud.
-</p>
-
-</div>
-
-
-<div class="steps">
-
-<div class="step">
-
-<div class="step-number">
-1
-</div>
-
-<h3>
-Cuéntanos qué necesitas
-</h3>
-
-<p>
-Indícanos el objetivo y características
-generales de tu financiamiento.
-</p>
-
-</div>
-
-
-<div class="step">
-
-<div class="step-number">
-2
-</div>
-
-<h3>
-Revisamos tu perfil
-</h3>
-
-<p>
-Analizamos la información correspondiente
-a tu solicitud.
-</p>
-
-</div>
-
-
-<div class="step">
-
-<div class="step-number">
-3
-</div>
-
-<h3>
-Conoce tu propuesta
-</h3>
-
-<p>
-Consulta las condiciones aplicables antes
-de tomar una decisión.
-</p>
-
-</div>
-
-
-<div class="step">
-
-<div class="step-number">
-4
-</div>
-
-<h3>
-Formalización
-</h3>
-
-<p>
-Si aceptas las condiciones, continuamos
-con la documentación y proceso correspondiente.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="client-section" id="cuenta">
-
-<div class="client-box">
-
-<div class="client-content">
-
-<small>
-MI CUENTA
-</small>
-
-<h2>
-Tu financiamiento,
-siempre a la vista.
-</h2>
-
-<p>
-Consulta la información relacionada con tu
-solicitud y financiamiento desde un mismo lugar.
-</p>
-
-<br><br>
-
-<a href="#" class="primary-btn">
-INGRESAR A MI CUENTA
-</a>
-
-</div>
-
-
-<div class="client-actions">
-
-<div class="client-item">
-✓ Estado de mi solicitud
-</div>
-
-<div class="client-item">
-✓ Próximo pago
-</div>
-
-<div class="client-item">
-✓ Calendario de pagos
-</div>
-
-<div class="client-item">
-✓ Pagos realizados
-</div>
-
-<div class="client-item">
-✓ Documentos
-</div>
-
-<div class="client-item">
-✓ Reportar un pago
-</div>
-
-<div class="client-item">
-✓ Aclaraciones y quejas
-</div>
-
-<div class="client-item">
-✓ Atención a clientes
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section class="service" id="atencion">
-
-<div class="service-inner">
-
-<h2>
-Atención cuando la necesites.
-</h2>
-
-<p>
-Si ya eres cliente de MAX INNOVA,
-podrás encontrar en este espacio los medios
-para consultar tu solicitud, pagos,
-documentación, aclaraciones y atención.
-</p>
-
-</div>
-
-</section>
-
-
-<footer>
-
-<div class="footer-inner">
-
-<div>
-
-<div class="footer-brand">
-MAX <span>INNOVA</span>
-</div>
-
-<div class="footer-sub">
-SERVICIOS FINANCIEROS
-</div>
-
-</div>
-
-<div class="footer-text">
-Tu crédito, nuestro compromiso.
-</div>
-
-</div>
-
-</footer>
 
 </body>
 </html>
