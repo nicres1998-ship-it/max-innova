@@ -6,52 +6,45 @@
 <title>MAX INNOVA | Servicios Financieros</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+:root{
+  --navy:#00345f;
+  --navy2:#004b7e;
+  --blue:#006ba6;
+  --cyan:#19bde9;
+  --sky:#eaf8ff;
+  --soft:#f5fbff;
+  --text:#063762;
+  --muted:#55748c;
+  --white:#fff;
 }
 
-html{
-  scroll-behavior:smooth;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 
 body{
   font-family:Arial,Helvetica,sans-serif;
-  color:#07366a;
+  color:var(--text);
   background:#fff;
   overflow-x:hidden;
 }
 
-:root{
-  --navy:#00396e;
-  --dark:#002c59;
-  --blue:#006aa8;
-  --cyan:#00b7f1;
-  --light:#edf8ff;
-  --line:#d8eaf5;
-}
-
 a{text-decoration:none;color:inherit}
-button{font-family:inherit}
+img{max-width:100%;display:block}
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 header{
-  height:76px;
+  height:82px;
   background:#fff;
-  display:flex;
-  align-items:center;
   position:sticky;
   top:0;
   z-index:1000;
-  box-shadow:0 2px 12px rgba(0,50,90,.08);
+  box-shadow:0 2px 16px rgba(0,40,75,.08);
 }
 
 .nav{
-  width:min(1180px,94%);
+  width:min(1200px,94%);
+  height:100%;
   margin:auto;
   display:flex;
   align-items:center;
@@ -60,17 +53,15 @@ header{
 }
 
 .logo{
-  width:215px;
-  height:62px;
+  width:205px;
   display:flex;
   align-items:center;
-  overflow:hidden;
 }
 
 .logo img{
   width:100%;
-  height:auto;
-  display:block;
+  max-height:68px;
+  object-fit:contain;
 }
 
 .menu{
@@ -82,546 +73,700 @@ header{
 }
 
 .menu a{
-  padding:28px 0 22px;
   position:relative;
+  padding:31px 0;
 }
 
-.menu a:hover:after,
-.menu a.active:after{
+.menu a:after{
   content:"";
   position:absolute;
-  left:0;
-  right:0;
-  bottom:17px;
   height:3px;
   background:var(--cyan);
-  border-radius:3px;
+  left:50%;
+  right:50%;
+  bottom:18px;
+  transition:.25s;
+}
+
+.menu a:hover:after{
+  left:0;
+  right:0;
 }
 
 .account{
+  padding:14px 22px;
   background:var(--navy);
   color:#fff;
-  padding:14px 25px;
   border-radius:8px;
-  font-weight:800;
   font-size:13px;
-  display:flex;
-  gap:9px;
-  align-items:center;
+  font-weight:800;
+  transition:.2s;
 }
 
-/* =========================
-   HERO
-========================= */
+.account:hover{background:#005487}
+
+/* HERO NUEVO */
 
 .hero{
-  min-height:610px;
+  min-height:590px;
+  display:grid;
+  grid-template-columns:54% 46%;
+  background:#003b6c;
+}
+
+.hero-left{
   position:relative;
-  overflow:hidden;
-  background:
-    linear-gradient(90deg,
-      #003a70 0%,
-      #005d99 43%,
-      rgba(0,91,148,.30) 59%,
-      rgba(0,38,75,.05) 100%
-    ),
-    url("edificio.png") right center/58% 100% no-repeat;
-}
-
-.hero:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(110deg,
-      rgba(0,47,91,.98) 0%,
-      rgba(0,89,145,.91) 39%,
-      rgba(0,105,168,.32) 57%,
-      rgba(0,0,0,.03) 100%);
-}
-
-.hero-content{
-  width:min(1180px,92%);
-  margin:auto;
-  min-height:610px;
+  color:#fff;
   display:flex;
   align-items:center;
+  background:
+    radial-gradient(circle at 85% 25%,rgba(25,189,233,.18),transparent 30%),
+    linear-gradient(135deg,#002f5c,#005f96);
+  padding:70px max(6vw,40px);
+  overflow:hidden;
+}
+
+.hero-left:after{
+  content:"";
+  position:absolute;
+  width:420px;
+  height:420px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:50%;
+  right:-210px;
+  bottom:-170px;
+}
+
+.hero-copy{
+  max-width:650px;
   position:relative;
   z-index:2;
 }
 
-.hero-copy{
-  width:52%;
-  color:#fff;
-  padding-bottom:30px;
-}
-
 .eyebrow{
-  font-size:14px;
-  letter-spacing:6px;
-  font-weight:700;
-  margin-bottom:17px;
+  font-size:12px;
+  letter-spacing:5px;
+  font-weight:800;
+  color:#bfefff;
+  margin-bottom:20px;
 }
 
 .hero h1{
-  font-size:65px;
+  font-size:64px;
   line-height:.98;
   letter-spacing:-2.5px;
-  max-width:650px;
+  margin-bottom:23px;
 }
 
-.hero h1 span{
-  color:#42c7f4;
-}
+.hero h1 span{color:#42cdf4}
 
-.hero-copy>p{
+.hero p{
+  max-width:570px;
   font-size:18px;
-  line-height:1.55;
-  max-width:600px;
-  margin-top:22px;
-  color:#eef9ff;
+  line-height:1.6;
+  color:#e8f7ff;
 }
 
 .hero-buttons{
   display:flex;
-  gap:18px;
-  margin-top:27px;
+  gap:15px;
+  margin-top:30px;
 }
 
 .btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:10px;
   min-height:52px;
-  padding:0 24px;
-  border-radius:8px;
-  font-weight:800;
+  padding:0 25px;
+  border-radius:7px;
   font-size:13px;
-  transition:.2s;
+  font-weight:800;
+  transition:.25s;
 }
 
-.btn:hover{
-  transform:translateY(-2px);
-}
+.btn:hover{transform:translateY(-2px)}
 
 .btn-white{
   background:#fff;
-  color:#06437b;
+  color:#034477;
 }
 
 .btn-outline{
-  border:1px solid rgba(255,255,255,.75);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.7);
+}
+
+.btn-blue{
+  background:var(--navy);
   color:#fff;
 }
 
-.trust-row{
+.hero-benefits{
   display:flex;
+  gap:28px;
   margin-top:42px;
-  gap:26px;
 }
 
-.trust-item{
+.hero-benefit{
   display:flex;
   align-items:center;
   gap:10px;
   font-size:12px;
   font-weight:700;
-  max-width:145px;
 }
 
-.trust-icon{
-  width:39px;
-  height:39px;
-  border:2px solid rgba(255,255,255,.75);
+.icon-circle{
+  width:40px;
+  height:40px;
+  min-width:40px;
   border-radius:50%;
   display:grid;
   place-items:center;
-  font-size:19px;
+  border:1px solid rgba(255,255,255,.55);
 }
 
-.hero-side-text{
-  position:absolute;
-  right:2%;
-  top:130px;
-  color:#fff;
-  font-weight:800;
-  line-height:1.5;
-  font-size:17px;
-  text-shadow:0 2px 7px rgba(0,0,0,.35);
+.icon-circle svg{
+  width:20px;
+  height:20px;
+  stroke:#fff;
+  fill:none;
+  stroke-width:1.8;
 }
 
-.hero-note{
-  position:absolute;
-  right:0;
-  bottom:100px;
-  color:#fff;
-  font-family:Georgia,serif;
-  font-style:italic;
-  font-size:20px;
-  transform:rotate(-5deg);
-  max-width:260px;
-  text-align:center;
-}
+/* EDIFICIO LIMPIO */
 
-/* =========================
-   PRODUCTOS
-========================= */
-
-.products-wrap{
+.hero-image{
   position:relative;
-  z-index:5;
-  margin-top:-34px;
+  min-height:590px;
+  background:url("edificio.png") center center/cover no-repeat;
+}
+
+.hero-image:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,rgba(0,51,92,.12),transparent 35%);
+}
+
+/* FRASE SEPARADA */
+
+.statement{
+  background:#fff;
+  padding:0 4%;
+  position:relative;
+  z-index:10;
+}
+
+.statement-inner{
+  width:min(1180px,100%);
+  margin:-35px auto 0;
+  min-height:105px;
+  border-radius:14px;
+  background:linear-gradient(100deg,#006da6,#00aee3);
+  color:#fff;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  padding:22px 50px;
+  box-shadow:0 14px 40px rgba(0,76,120,.20);
+}
+
+.statement-big{
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+.statement-line{
+  width:1px;
+  height:55px;
+  background:rgba(255,255,255,.45);
+  margin:0 45px;
+}
+
+.statement-note{
+  font-family:Georgia,serif;
+  font-size:21px;
+  font-style:italic;
+  line-height:1.3;
+}
+
+/* PRODUCTOS */
+
+.section{
+  width:min(1180px,92%);
+  margin:75px auto;
+}
+
+.center{text-align:center}
+
+.kicker{
+  color:#0078ac;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:4px;
+  margin-bottom:12px;
+}
+
+.section-title{
+  font-size:42px;
+  line-height:1.08;
+  letter-spacing:-1.5px;
+}
+
+.section-title span{color:#00aee5}
+
+.section-sub{
+  color:var(--muted);
+  max-width:690px;
+  line-height:1.6;
+  margin:15px auto 0;
 }
 
 .products{
-  width:min(1210px,95%);
-  margin:auto;
-  background:#fff;
-  padding:22px;
-  border-radius:16px;
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  gap:17px;
-  box-shadow:0 14px 45px rgba(0,59,108,.12);
+  gap:16px;
+  margin-top:38px;
 }
 
 .product{
-  min-height:245px;
-  border-radius:12px;
-  background:linear-gradient(145deg,#edf9ff,#dff3fd);
+  min-height:260px;
+  padding:28px 18px 20px;
+  background:linear-gradient(145deg,#f1fbff,#dff4fc);
+  border:1px solid #d8edf7;
+  border-radius:16px;
   text-align:center;
-  padding:27px 15px 18px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+  transition:.3s;
 }
 
-.product svg{
-  width:50px;
-  height:50px;
-  stroke:#005093;
+.product:hover{
+  transform:translateY(-8px);
+  box-shadow:0 18px 35px rgba(0,83,130,.14);
+}
+
+.product-icon{
+  width:60px;
+  height:60px;
+  margin:0 auto 17px;
+  border-radius:50%;
+  background:#fff;
+  display:grid;
+  place-items:center;
+  box-shadow:0 5px 18px rgba(0,74,120,.08);
+}
+
+.product-icon svg{
+  width:31px;
+  height:31px;
   fill:none;
-  stroke-width:2;
-  margin-bottom:14px;
+  stroke:#00639b;
+  stroke-width:1.7;
 }
 
 .product h3{
-  font-size:17px;
-  line-height:1.2;
+  font-size:18px;
   margin-bottom:10px;
 }
 
 .product p{
-  font-size:12px;
-  line-height:1.45;
-  color:#315b7e;
-  flex:1;
+  color:#52738a;
+  font-size:13px;
+  line-height:1.5;
 }
 
-.circle-arrow{
-  width:39px;
-  height:39px;
-  background:#006a9f;
-  color:#fff;
+.arrow{
+  width:38px;
+  height:38px;
   border-radius:50%;
+  background:#00669b;
+  color:#fff;
   display:grid;
   place-items:center;
-  margin-top:15px;
-  font-size:20px;
+  margin:20px auto 0;
 }
 
-/* =========================
-   SOLUCIONES
-========================= */
+/* PERFILES */
 
-.solutions{
-  width:min(1150px,92%);
-  margin:75px auto;
+.profile-section{
+  background:#f4fbff;
+  padding:70px 0;
+}
+
+.profile-wrap{
+  width:min(1180px,92%);
+  margin:auto;
+}
+
+.profile-tabs{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:30px 0 35px;
+}
+
+.profile-tab{
+  padding:14px 30px;
+  border-radius:30px;
+  border:1px solid #bcdce9;
+  background:#fff;
+  color:#07517e;
+  font-weight:800;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.profile-tab.active{
+  background:#004b7d;
+  color:#fff;
+  border-color:#004b7d;
+}
+
+.profile-content{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+  background:#fff;
+  padding:45px;
+  border-radius:18px;
+  box-shadow:0 15px 45px rgba(0,70,110,.08);
+}
+
+.profile-copy h3{
+  font-size:35px;
+  line-height:1.1;
+  margin-bottom:15px;
+}
+
+.profile-copy p{
+  color:#56758b;
+  line-height:1.65;
+  margin-bottom:22px;
+}
+
+.profile-options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.profile-option{
+  background:#eef9fe;
+  border-radius:12px;
+  padding:20px;
+  font-weight:700;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+/* CINTA ANIMADA */
+
+.sectors{
+  padding:65px 0;
+  overflow:hidden;
+}
+
+.sectors-head{
+  width:min(1180px,92%);
+  margin:auto;
+  text-align:center;
+}
+
+.marquee-shell{
+  margin-top:38px;
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  padding:14px 0;
+}
+
+.marquee-shell:before,
+.marquee-shell:after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:100px;
+  z-index:3;
+  pointer-events:none;
+}
+
+.marquee-shell:before{
+  left:0;
+  background:linear-gradient(90deg,#fff,transparent);
+}
+
+.marquee-shell:after{
+  right:0;
+  background:linear-gradient(-90deg,#fff,transparent);
+}
+
+.marquee{
+  display:flex;
+  width:max-content;
+  animation:scroll 28s linear infinite;
+}
+
+.marquee:hover{animation-play-state:paused}
+
+@keyframes scroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+.sector-card{
+  width:210px;
+  height:105px;
+  margin:0 10px;
+  border:1px solid #d7eaf3;
+  border-radius:14px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  box-shadow:0 7px 22px rgba(0,65,105,.07);
+  transition:.25s;
+}
+
+.sector-card:hover{
+  transform:translateY(-5px);
+  border-color:#7bcfea;
+}
+
+.sector-symbol{
+  font-size:26px;
+  font-weight:900;
+  color:#006da6;
+  margin-bottom:8px;
+}
+
+.sector-card strong{
+  font-size:14px;
+}
+
+.sector-card small{
+  margin-top:4px;
+  color:#6a8395;
+  font-size:10px;
+}
+
+.disclaimer{
+  text-align:center;
+  font-size:10px;
+  color:#718796;
+  max-width:900px;
+  margin:17px auto 0;
+  padding:0 20px;
+}
+
+/* ALIADO */
+
+.ally{
+  width:min(1160px,92%);
+  margin:70px auto;
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:70px;
   align-items:center;
 }
 
-.small-title{
-  font-size:12px;
-  letter-spacing:5px;
-  font-weight:800;
-  color:#07548b;
-  margin-bottom:14px;
-}
-
-.solutions h2,
-.why h2,
-.process h2,
-.testimonials h2{
-  font-size:42px;
-  line-height:1.05;
-  letter-spacing:-1.5px;
-}
-
-.solutions h2 span{
-  color:#00aeea;
-}
-
-.solutions-copy p{
+.ally-copy p{
+  color:#53748b;
+  line-height:1.65;
   margin:20px 0 25px;
-  line-height:1.6;
-  color:#3d607d;
-  font-size:16px;
-}
-
-.btn-blue{
-  background:#003d73;
-  color:#fff;
 }
 
 .benefits{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:32px;
+  gap:20px;
 }
 
 .benefit{
-  padding:10px 15px;
-  min-height:130px;
-  border-left:1px solid #cce5f3;
+  padding:20px;
+  border-radius:13px;
+  background:#f2faff;
 }
 
-.benefit-icon{
-  width:54px;
-  height:54px;
-  border-radius:50%;
-  background:#dff5ff;
-  display:grid;
-  place-items:center;
-  margin-bottom:10px;
-  font-size:27px;
-}
-
-.benefit h3{
-  font-size:16px;
-  margin-bottom:4px;
+.benefit strong{
+  display:block;
+  margin-bottom:6px;
 }
 
 .benefit p{
-  font-size:13px;
-  color:#4e718c;
+  font-size:12px;
+  color:#617d90;
+  line-height:1.5;
 }
 
-/* =========================
-   PAREJA CTA
-========================= */
+/* PAREJA */
 
-.big-cta{
+.couple-cta{
+  min-height:430px;
   display:grid;
   grid-template-columns:52% 48%;
-  min-height:390px;
-  margin-top:20px;
 }
 
-.couple{
+.couple-photo{
+  min-height:430px;
   background:url("pareja.png") center 38%/cover no-repeat;
   position:relative;
-  min-height:390px;
 }
 
-.couple:after{
-  content:"";
+.couple-label{
   position:absolute;
-  inset:0;
-  background:linear-gradient(90deg,rgba(0,36,72,.28),transparent 55%);
-}
-
-.couple-text{
-  position:absolute;
-  z-index:2;
-  left:55px;
-  bottom:55px;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(0,52,95,.82);
+  backdrop-filter:blur(3px);
   color:#fff;
-  font-size:17px;
-  line-height:1.55;
-  letter-spacing:7px;
-  font-weight:700;
+  padding:19px 8%;
+  font-size:16px;
+  letter-spacing:5px;
+  font-weight:800;
 }
 
-.cta-panel{
-  background:
-    linear-gradient(135deg,#003b72,#006da8);
+.couple-panel{
+  background:linear-gradient(135deg,#00355f,#006ba4);
   color:#fff;
-  padding:70px 8%;
-  position:relative;
-  overflow:hidden;
-  border-left:5px solid #13c5f3;
+  padding:70px 9%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
-.cta-panel:after{
-  content:"M";
-  position:absolute;
-  right:-20px;
-  bottom:-90px;
-  font-size:270px;
-  font-weight:900;
-  color:rgba(255,255,255,.06);
-}
+.couple-panel .kicker{color:#bceeff}
 
-.cta-panel .small-title{
-  color:#dff7ff;
-}
-
-.cta-panel h2{
-  font-size:42px;
+.couple-panel h2{
+  font-size:44px;
   line-height:1.05;
-  max-width:520px;
 }
 
-.cta-panel h2 span{
-  color:#31c7f5;
+.couple-panel h2 span{color:#36c8f0}
+
+.couple-panel p{
+  color:#e4f4fb;
+  line-height:1.65;
+  margin:20px 0 26px;
 }
 
-.cta-panel p{
-  max-width:560px;
-  margin:20px 0 25px;
-  line-height:1.55;
-  color:#e7f5fc;
-}
-
-/* =========================
-   POR QUÉ ELEGIR
-========================= */
+/* POR QUE */
 
 .why{
-  width:min(1160px,92%);
-  margin:55px auto;
-}
-
-.why h2{
-  font-size:36px;
-}
-
-.why-sub{
-  margin-top:7px;
-  color:#4c708c;
+  padding:70px 0;
 }
 
 .why-grid{
-  margin-top:32px;
+  width:min(1120px,92%);
+  margin:38px auto 0;
   display:grid;
   grid-template-columns:repeat(4,1fr);
 }
 
 .why-card{
   text-align:center;
-  padding:12px 25px;
-  border-right:1px solid #cfe1ed;
+  padding:15px 28px;
+  border-right:1px solid #d7e6ee;
 }
 
-.why-card:last-child{
-  border-right:0;
-}
+.why-card:last-child{border:0}
 
-.why-icon{
-  width:55px;
-  height:55px;
-  background:#e3f7ff;
+.why-circle{
+  width:57px;
+  height:57px;
+  background:#e5f7fd;
   border-radius:50%;
+  margin:0 auto 12px;
   display:grid;
   place-items:center;
-  margin:0 auto 10px;
-  font-size:27px;
-}
-
-.why-card h3{
-  font-size:15px;
-  margin-bottom:5px;
+  color:#006aa0;
+  font-size:23px;
+  font-weight:bold;
 }
 
 .why-card p{
   font-size:12px;
-  line-height:1.45;
-  color:#53728a;
+  color:#607c8e;
+  line-height:1.5;
+  margin-top:6px;
 }
 
-/* =========================
-   LAPTOP
-========================= */
+/* LAPTOP */
 
-.laptop-banner{
+.laptop-section{
+  min-height:300px;
   display:grid;
-  grid-template-columns:68% 32%;
-  min-height:260px;
-  margin-top:45px;
+  grid-template-columns:67% 33%;
 }
 
 .laptop-photo{
+  min-height:300px;
   background:url("laptop.png") center/cover no-repeat;
-  min-height:260px;
 }
 
-.laptop-message{
-  background:linear-gradient(135deg,#eef9ff,#fff);
+.laptop-copy{
+  background:#eaf8fe;
+  padding:55px;
   display:flex;
-  flex-direction:column;
   justify-content:center;
-  padding:45px;
+  flex-direction:column;
 }
 
-.laptop-message h3{
-  font-size:29px;
-  line-height:1.1;
-  max-width:260px;
+.laptop-copy h2{
+  font-size:36px;
+  line-height:1.05;
 }
 
-.mini-line{
-  width:45px;
+.laptop-copy span{
+  width:55px;
   height:4px;
-  background:#00b6ee;
+  background:#00b6e8;
   margin-top:18px;
 }
 
-/* =========================
-   PROCESO
-========================= */
-
-.process-section{
-  background:linear-gradient(135deg,#003867,#005c92);
-  color:#fff;
-  padding:55px 0;
-}
+/* PROCESO */
 
 .process{
-  width:min(1160px,92%);
+  background:linear-gradient(135deg,#00345f,#00618f);
+  color:#fff;
+  padding:65px 0;
+}
+
+.process-wrap{
+  width:min(1180px,92%);
   margin:auto;
   display:grid;
-  grid-template-columns:2fr .8fr;
-  gap:55px;
+  grid-template-columns:2fr .85fr;
+  gap:50px;
 }
 
-.process h2{
-  font-size:34px;
+.process-title{
+  font-size:36px;
+  margin-bottom:7px;
 }
 
-.process-sub{
-  color:#d8edf8;
-  margin-top:8px;
-}
+.process-sub{color:#cfe8f3}
 
 .steps{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  margin-top:38px;
+  margin-top:40px;
   position:relative;
 }
 
 .steps:before{
   content:"";
   position:absolute;
-  left:10%;
-  right:10%;
-  top:26px;
+  top:28px;
+  left:12%;
+  right:12%;
   height:2px;
-  background:#20bce9;
+  background:#2ac4eb;
 }
 
 .step{
@@ -631,129 +776,107 @@ header{
   padding:0 12px;
 }
 
-.step-icon{
-  width:54px;
-  height:54px;
+.step-circle{
+  width:58px;
+  height:58px;
   background:#fff;
-  color:#0070aa;
+  border:5px solid #dff8ff;
+  color:#00679c;
   border-radius:50%;
   display:grid;
   place-items:center;
-  margin:0 auto 14px;
-  font-size:22px;
-  border:5px solid #d9f7ff;
-}
-
-.step h3{
-  font-size:15px;
-  margin-bottom:6px;
+  margin:0 auto 13px;
+  font-size:20px;
+  font-weight:bold;
 }
 
 .step p{
-  font-size:12px;
-  line-height:1.45;
-  color:#d9edf7;
-}
-
-.help-card{
-  min-height:275px;
-  border-radius:16px;
-  background:
-    linear-gradient(90deg,rgba(0,178,239,.96),rgba(0,104,169,.55)),
-    url("telefono.png") center/cover no-repeat;
-  padding:30px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  box-shadow:0 8px 30px rgba(0,0,0,.2);
-}
-
-.help-card h3{
-  font-size:24px;
-  margin-bottom:4px;
-}
-
-.help-card p{
-  margin-bottom:16px;
-}
-
-.help-card .btn{
-  align-self:flex-start;
-}
-
-/* =========================
-   TESTIMONIOS
-========================= */
-
-.testimonials{
-  width:min(1160px,92%);
-  margin:55px auto 65px;
-}
-
-.testimonials h2{
-  font-size:34px;
-}
-
-.testimonial-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:25px;
-  margin-top:28px;
-}
-
-.testimonial{
-  background:linear-gradient(145deg,#f1faff,#e8f6fd);
-  padding:25px;
-  border-radius:10px;
-  min-height:150px;
-}
-
-.quote{
-  font-size:14px;
+  font-size:11px;
+  color:#d8edf6;
   line-height:1.5;
-  color:#315b79;
-  margin-bottom:20px;
+  margin-top:6px;
 }
 
-.person{
+.phone-card{
+  min-height:300px;
+  border-radius:16px;
+  overflow:hidden;
+  position:relative;
+  background:url("telefono.png") center/cover no-repeat;
   display:flex;
-  gap:10px;
+  align-items:flex-end;
+}
+
+.phone-card:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(0deg,rgba(0,64,105,.95),rgba(0,172,220,.20));
+}
+
+.phone-info{
+  position:relative;
+  z-index:2;
+  padding:28px;
+}
+
+.phone-info h3{
+  font-size:24px;
+  margin-bottom:7px;
+}
+
+.phone-info p{
+  font-size:13px;
+  margin-bottom:17px;
+}
+
+/* CONTACTO */
+
+.contact{
+  padding:70px 0;
+  background:#f5fbfe;
+}
+
+.contact-box{
+  width:min(1000px,92%);
+  margin:auto;
+  border-radius:20px;
+  background:#fff;
+  padding:45px;
+  box-shadow:0 15px 45px rgba(0,66,105,.09);
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:40px;
   align-items:center;
 }
 
-.avatar{
-  width:36px;
-  height:36px;
-  background:#d5f3ff;
-  color:#00699d;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
+.contact-box h2{
+  font-size:36px;
+  margin-bottom:12px;
 }
 
-.person strong{
-  display:block;
-  font-size:13px;
+.contact-box p{
+  color:#5c788b;
+  line-height:1.6;
 }
 
-.person span{
-  font-size:11px;
-  color:#5d7b91;
+.contact-actions{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 footer{
-  background:#00345f;
+  background:#00325b;
   color:#fff;
 }
 
 .footer-main{
-  width:min(1160px,92%);
+  width:min(1180px,92%);
+  min-height:130px;
   margin:auto;
-  min-height:115px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -761,100 +884,72 @@ footer{
 }
 
 .footer-logo{
-  width:190px;
-  height:75px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
+  width:200px;
   background:#fff;
-  border-radius:6px;
-  padding:4px 8px;
-}
-
-.footer-logo img{
-  width:100%;
+  padding:5px 9px;
+  border-radius:7px;
 }
 
 .footer-links{
   display:flex;
-  gap:20px;
-  font-size:12px;
-}
-
-.social{
-  display:flex;
-  gap:15px;
-}
-
-.social span{
-  width:31px;
-  height:31px;
-  border:1px solid rgba(255,255,255,.45);
-  border-radius:50%;
-  display:grid;
-  place-items:center;
+  gap:22px;
   font-size:12px;
 }
 
 .footer-bottom{
-  background:#00294e;
-  padding:20px 4%;
+  background:#002848;
+  padding:18px 5%;
+  color:#bed5e2;
   font-size:10px;
-  color:#c5dce9;
   display:flex;
   justify-content:space-between;
-  gap:20px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* ANIMACIONES DE ENTRADA */
 
-@media(max-width:900px){
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:.7s ease;
+}
 
-  .menu{
-    display:none;
-  }
+.reveal.show{
+  opacity:1;
+  transform:none;
+}
 
-  .logo{
-    width:170px;
-  }
+/* RESPONSIVE */
+
+@media(max-width:950px){
+
+  .menu{display:none}
 
   .hero{
-    min-height:760px;
-    background:
-      linear-gradient(180deg,rgba(0,54,103,.92),rgba(0,75,126,.70)),
-      url("edificio.png") center/cover no-repeat;
+    grid-template-columns:1fr;
   }
 
-  .hero-content{
-    min-height:760px;
-    align-items:flex-end;
-    padding-bottom:100px;
+  .hero-image{
+    min-height:480px;
   }
 
-  .hero-copy{
-    width:100%;
+  .statement-inner{
+    grid-template-columns:1fr;
+    gap:12px;
+    text-align:center;
   }
 
-  .hero h1{
-    font-size:48px;
-  }
-
-  .hero-side-text,
-  .hero-note{
-    display:none;
-  }
+  .statement-line{display:none}
 
   .products{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .solutions{
-    grid-template-columns:1fr;
-  }
-
-  .big-cta{
+  .profile-content,
+  .ally,
+  .couple-cta,
+  .laptop-section,
+  .process-wrap,
+  .contact-box{
     grid-template-columns:1fr;
   }
 
@@ -863,62 +958,68 @@ footer{
   }
 
   .why-card{
-    border-right:0;
-    border-bottom:1px solid #dceaf3;
+    border:0;
+    border-bottom:1px solid #dce9ef;
   }
 
-  .laptop-banner{
-    grid-template-columns:1fr;
-  }
-
-  .process{
-    grid-template-columns:1fr;
-  }
-
-  .testimonial-grid{
-    grid-template-columns:1fr;
-  }
 }
 
 @media(max-width:600px){
 
-  header{
-    height:68px;
+  header{height:70px}
+  .logo{width:165px}
+  .account{padding:11px 13px;font-size:11px}
+
+  .hero-left{
+    padding:60px 25px 75px;
   }
 
-  .account{
-    padding:11px 13px;
-    font-size:11px;
-  }
+  .hero h1{font-size:44px}
+  .hero p{font-size:15px}
 
-  .hero h1{
-    font-size:41px;
-  }
-
-  .hero-copy>p{
-    font-size:15px;
-  }
-
-  .hero-buttons{
+  .hero-buttons,
+  .hero-benefits{
     flex-direction:column;
     align-items:flex-start;
   }
 
-  .trust-row{
-    flex-direction:column;
+  .hero-image{min-height:390px}
+
+  .statement{
+    padding:0 15px;
   }
+
+  .statement-inner{
+    padding:25px;
+  }
+
+  .statement-big{font-size:21px}
+
+  .section-title{font-size:34px}
 
   .products{
     grid-template-columns:1fr;
   }
 
-  .solutions h2,
-  .cta-panel h2{
-    font-size:34px;
+  .profile-tabs{
+    flex-direction:column;
   }
 
+  .profile-content{
+    padding:25px;
+  }
+
+  .profile-options,
   .benefits{
     grid-template-columns:1fr;
+  }
+
+  .couple-panel{
+    padding:55px 28px;
+  }
+
+  .couple-panel h2{
+    font-size:36px;
   }
 
   .why-grid{
@@ -927,12 +1028,10 @@ footer{
 
   .steps{
     grid-template-columns:1fr 1fr;
-    gap:25px;
+    gap:30px;
   }
 
-  .steps:before{
-    display:none;
-  }
+  .steps:before{display:none}
 
   .footer-main{
     flex-direction:column;
@@ -947,7 +1046,9 @@ footer{
   .footer-bottom{
     flex-direction:column;
     text-align:center;
+    gap:10px;
   }
+
 }
 </style>
 </head>
@@ -955,25 +1056,24 @@ footer{
 <body>
 
 <header>
-  <div class="nav">
+<div class="nav">
 
-    <a class="logo" href="#">
-      <img src="logo_maxinnova.png" alt="MAX INNOVA">
-    </a>
+<a href="#inicio" class="logo">
+<img src="logo_maxinnova.png" alt="MAX INNOVA Servicios Financieros">
+</a>
 
-    <nav class="menu">
-      <a href="#inicio" class="active">Inicio</a>
-      <a href="#soluciones">Soluciones</a>
-      <a href="#proceso">Cómo funciona</a>
-      <a href="#nosotros">Nosotros</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
+<nav class="menu">
+<a href="#inicio">Inicio</a>
+<a href="#soluciones">Soluciones</a>
+<a href="#sectores">Sectores</a>
+<a href="#proceso">Cómo funciona</a>
+<a href="#nosotros">Nosotros</a>
+<a href="#contacto">Contacto</a>
+</nav>
 
-    <a href="#" class="account">
-      ♙ &nbsp; MI CUENTA
-    </a>
+<a href="#contacto" class="account">MI CUENTA</a>
 
-  </div>
+</div>
 </header>
 
 
@@ -981,438 +1081,687 @@ footer{
 
 <section class="hero" id="inicio">
 
-  <div class="hero-content">
+<div class="hero-left">
 
-    <div class="hero-copy">
+<div class="hero-copy">
 
-      <div class="eyebrow">FINANCIAMIENTO PARA TU FUTURO</div>
+<div class="eyebrow">FINANCIAMIENTO PARA TU FUTURO</div>
 
-      <h1>
-        Más que crédito,<br>
-        <span>posibilidades.</span>
-      </h1>
+<h1>
+Más que crédito,<br>
+<span>posibilidades.</span>
+</h1>
 
-      <p>
-        En MAX INNOVA te acercamos a soluciones financieras
-        para impulsar tus planes, tus proyectos y aquello
-        que quieres lograr.
-      </p>
+<p>
+Soluciones financieras para personas, negocios y empresas que
+buscan impulsar sus planes, adquirir bienes o desarrollar nuevos proyectos.
+</p>
 
-      <div class="hero-buttons">
-        <a class="btn btn-white" href="#soluciones">
-          ▣ &nbsp; SOLICITA TU CRÉDITO &nbsp; →
-        </a>
+<div class="hero-buttons">
+<a href="#soluciones" class="btn btn-white">SOLICITA TU CRÉDITO &nbsp; →</a>
+<a href="#contacto" class="btn btn-outline">CONOCE MÁS</a>
+</div>
 
-        <a class="btn btn-outline" href="#">
-          ♙ &nbsp; MI CUENTA
-        </a>
-      </div>
+<div class="hero-benefits">
 
-      <div class="trust-row">
+<div class="hero-benefit">
+<div class="icon-circle">
+<svg viewBox="0 0 24 24">
+<path d="M5 12l4 4L19 6"/>
+</svg>
+</div>
+Proceso claro
+</div>
 
-        <div class="trust-item">
-          <div class="trust-icon">✓</div>
-          <span>Proceso seguro y confiable</span>
-        </div>
+<div class="hero-benefit">
+<div class="icon-circle">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M5 21c0-5 3-8 7-8s7 3 7 8"/>
+</svg>
+</div>
+Atención personalizada
+</div>
 
-        <div class="trust-item">
-          <div class="trust-icon">♙</div>
-          <span>Atención personalizada</span>
-        </div>
+<div class="hero-benefit">
+<div class="icon-circle">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<path d="M12 7v5l3 2"/>
+</svg>
+</div>
+Seguimiento
+</div>
 
-        <div class="trust-item">
-          <div class="trust-icon">◷</div>
-          <span>Seguimiento en cada etapa</span>
-        </div>
+</div>
 
-      </div>
+</div>
+</div>
 
-    </div>
+<div class="hero-image"></div>
 
-    <div class="hero-side-text">
-      MÁS<br>
-      OPCIONES<br><br>
-      MÁS<br>
-      OPORTUNIDADES
-    </div>
-
-    <div class="hero-note">
-      Hoy es un buen<br>
-      momento para avanzar
-    </div>
-
-  </div>
 </section>
 
 
-<!-- PRODUCTOS -->
+<!-- FRASES FUERA DEL EDIFICIO -->
 
-<section class="products-wrap" id="soluciones">
+<section class="statement">
+
+<div class="statement-inner">
+
+<div class="statement-big">
+MÁS OPCIONES.<br>
+MÁS OPORTUNIDADES.
+</div>
+
+<div class="statement-line"></div>
+
+<div class="statement-note">
+Hoy puede ser un buen momento<br>
+para dar el siguiente paso.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CRÉDITOS -->
+
+<section class="section reveal" id="soluciones">
+
+<div class="center">
+
+<div class="kicker">SOLUCIONES MAX INNOVA</div>
+
+<h2 class="section-title">
+Financiamiento para <span>diferentes proyectos.</span>
+</h2>
+
+<p class="section-sub">
+Conoce las alternativas de financiamiento de acuerdo con
+el objetivo de tu solicitud.
+</p>
+
+</div>
+
 
 <div class="products">
 
-  <article class="product">
+<div class="product">
 
-    <svg viewBox="0 0 24 24">
-      <path d="M5 11l1.5-4h11L19 11M4 11h16v6H4z"/>
-      <circle cx="7" cy="17" r="1.5"/>
-      <circle cx="17" cy="17" r="1.5"/>
-    </svg>
+<div class="product-icon">
+<svg viewBox="0 0 24 24">
+<path d="M5 11l2-5h10l2 5"/>
+<path d="M4 11h16v6H4z"/>
+<circle cx="7" cy="17" r="1.5"/>
+<circle cx="17" cy="17" r="1.5"/>
+</svg>
+</div>
 
-    <h3>Crédito<br>Vehicular</h3>
-    <p>El auto que necesitas para llegar más lejos.</p>
-    <div class="circle-arrow">→</div>
+<h3>Crédito Vehicular</h3>
+<p>Opciones para adquirir una unidad para uso personal, profesional o comercial.</p>
+<div class="arrow">→</div>
 
-  </article>
-
-
-  <article class="product">
-
-    <svg viewBox="0 0 24 24">
-      <path d="M3 11l9-8 9 8"/>
-      <path d="M5 10v10h14V10"/>
-      <path d="M10 20v-6h4v6"/>
-    </svg>
-
-    <h3>Crédito<br>Patrimonial</h3>
-    <p>Opciones para proyectos relacionados con tu patrimonio.</p>
-    <div class="circle-arrow">→</div>
-
-  </article>
+</div>
 
 
-  <article class="product">
+<div class="product">
 
-    <svg viewBox="0 0 24 24">
-      <circle cx="12" cy="7" r="4"/>
-      <path d="M4 21c0-5 3-8 8-8s8 3 8 8"/>
-    </svg>
+<div class="product-icon">
+<svg viewBox="0 0 24 24">
+<path d="M3 11l9-8 9 8"/>
+<path d="M5 10v10h14V10"/>
+<path d="M10 20v-6h4v6"/>
+</svg>
+</div>
 
-    <h3>Crédito<br>Personal</h3>
-    <p>Soluciones financieras para tus planes personales.</p>
-    <div class="circle-arrow">→</div>
+<h3>Crédito Patrimonial</h3>
+<p>Alternativas relacionadas con proyectos inmobiliarios y patrimonio.</p>
+<div class="arrow">→</div>
 
-  </article>
-
-
-  <article class="product">
-
-    <svg viewBox="0 0 24 24">
-      <path d="M4 9h16"/>
-      <path d="M5 9l1-5h12l1 5"/>
-      <path d="M5 9v11h14V9"/>
-      <path d="M9 20v-6h6v6"/>
-    </svg>
-
-    <h3>Crédito<br>para Negocio</h3>
-    <p>Financiamiento para impulsar lo que has construido.</p>
-    <div class="circle-arrow">→</div>
-
-  </article>
+</div>
 
 
-  <article class="product">
+<div class="product">
 
-    <svg viewBox="0 0 24 24">
-      <path d="M5 21V5h9v16"/>
-      <path d="M14 10h5v11"/>
-      <path d="M8 8h2M8 12h2M8 16h2M16 13h1M16 17h1"/>
-    </svg>
+<div class="product-icon">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="7" r="4"/>
+<path d="M4 21c0-5 3-8 8-8s8 3 8 8"/>
+</svg>
+</div>
 
-    <h3>Crédito<br>Empresarial</h3>
-    <p>Opciones para acompañar el crecimiento de tu empresa.</p>
-    <div class="circle-arrow">→</div>
+<h3>Crédito Personal</h3>
+<p>Financiamiento para proyectos y necesidades personales.</p>
+<div class="arrow">→</div>
 
-  </article>
+</div>
+
+
+<div class="product">
+
+<div class="product-icon">
+<svg viewBox="0 0 24 24">
+<path d="M4 9h16"/>
+<path d="M5 9l1-5h12l1 5"/>
+<path d="M5 9v11h14V9"/>
+<path d="M9 20v-6h6v6"/>
+</svg>
+</div>
+
+<h3>Crédito para Negocio</h3>
+<p>Capital para comerciantes, emprendedores y pequeños negocios.</p>
+<div class="arrow">→</div>
+
+</div>
+
+
+<div class="product">
+
+<div class="product-icon">
+<svg viewBox="0 0 24 24">
+<path d="M5 21V5h9v16"/>
+<path d="M14 10h5v11"/>
+<path d="M8 8h2M8 12h2M8 16h2"/>
+</svg>
+</div>
+
+<h3>Crédito Empresarial</h3>
+<p>Alternativas de financiamiento para PyMEs y empresas.</p>
+<div class="arrow">→</div>
+
+</div>
 
 </div>
 </section>
 
 
-<!-- SOLUCIONES REALES -->
+<!-- PERSONAS / EMPRESAS -->
 
-<section class="solutions">
+<section class="profile-section reveal">
 
-  <div class="solutions-copy">
+<div class="profile-wrap">
 
-    <div class="small-title">TU ALIADO FINANCIERO</div>
+<div class="center">
+<div class="kicker">ENCUENTRA TU OPCIÓN</div>
+<h2 class="section-title">¿Qué estás buscando <span>financiar?</span></h2>
+</div>
 
-    <h2>
-      Soluciones reales<br>
-      <span>para personas reales.</span>
-    </h2>
+<div class="profile-tabs">
+<button class="profile-tab active" onclick="showProfile('personas',this)">
+PARA PERSONAS
+</button>
 
-    <p>
-      Creemos en el valor de tus planes. Por eso buscamos ofrecer
-      alternativas de financiamiento claras y diferentes opciones
-      para que puedas analizar el siguiente paso de acuerdo con tus necesidades.
-    </p>
-
-    <a href="#proceso" class="btn btn-blue">
-      CONOCE CÓMO FUNCIONA &nbsp; →
-    </a>
-
-  </div>
+<button class="profile-tab" onclick="showProfile('negocios',this)">
+PARA NEGOCIOS Y EMPRESAS
+</button>
+</div>
 
 
-  <div class="benefits">
+<div class="profile-content">
 
-    <div class="benefit">
-      <div class="benefit-icon">▤</div>
-      <h3>Requisitos claros</h3>
-      <p>Información para conocer lo necesario desde el inicio.</p>
-    </div>
+<div class="profile-copy">
 
-    <div class="benefit">
-      <div class="benefit-icon">◷</div>
-      <h3>Seguimiento ágil</h3>
-      <p>Conoce el avance de tu solicitud durante el proceso.</p>
-    </div>
+<h3 id="profileTitle">
+Opciones para tus planes personales.
+</h3>
 
-    <div class="benefit">
-      <div class="benefit-icon">🤝</div>
-      <h3>Acompañamiento</h3>
-      <p>Atención durante las distintas etapas de tu solicitud.</p>
-    </div>
+<p id="profileText">
+Ya sea que busques un vehículo, un proyecto patrimonial o
+financiamiento para una necesidad personal, conoce las alternativas disponibles.
+</p>
 
-    <div class="benefit">
-      <div class="benefit-icon">▥</div>
-      <h3>Diferentes opciones</h3>
-      <p>Alternativas según el tipo de financiamiento solicitado.</p>
-    </div>
+<a href="#contacto" class="btn btn-blue">INICIAR SOLICITUD →</a>
 
-  </div>
+</div>
 
+
+<div class="profile-options" id="profileOptions">
+
+<div class="profile-option">🚘 Vehículo</div>
+<div class="profile-option">🏠 Patrimonio</div>
+<div class="profile-option">👤 Proyecto personal</div>
+<div class="profile-option">🚗 Trabajo en plataformas</div>
+
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- CINTA -->
+
+<section class="sectors reveal" id="sectores">
+
+<div class="sectors-head">
+
+<div class="kicker">DISTINTOS SECTORES, DISTINTAS NECESIDADES</div>
+
+<h2 class="section-title">
+Financiamiento que acompaña <span>tu actividad.</span>
+</h2>
+
+<p class="section-sub">
+Desde la compra de un vehículo hasta el crecimiento de un negocio,
+MAX INNOVA contempla diferentes perfiles y proyectos.
+</p>
+
+</div>
+
+
+<div class="marquee-shell">
+
+<div class="marquee">
+
+<!-- GRUPO 1 -->
+
+<div class="sector-card">
+<div class="sector-symbol">NISSAN</div>
+<strong>Sector automotriz</strong>
+<small>Referencia de mercado</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">TOYOTA</div>
+<strong>Sector automotriz</strong>
+<small>Referencia de mercado</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">KIA</div>
+<strong>Sector automotriz</strong>
+<small>Referencia de mercado</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">VW</div>
+<strong>Sector automotriz</strong>
+<small>Referencia de mercado</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">CHEVROLET</div>
+<strong>Sector automotriz</strong>
+<small>Referencia de mercado</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">UBER</div>
+<strong>Conductores de plataforma</strong>
+<small>Referencia de actividad</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">DiDi</div>
+<strong>Conductores de plataforma</strong>
+<small>Referencia de actividad</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">PYME</div>
+<strong>Pequeñas empresas</strong>
+<small>Comercio y servicios</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">🏪</div>
+<strong>Comerciantes</strong>
+<small>Negocios establecidos</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">🏠</div>
+<strong>Vivienda</strong>
+<small>Proyectos patrimoniales</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">🏢</div>
+<strong>Empresas</strong>
+<small>Proyectos empresariales</small>
+</div>
+
+
+<!-- REPETICIÓN PARA MOVIMIENTO INFINITO -->
+
+<div class="sector-card">
+<div class="sector-symbol">NISSAN</div>
+<strong>Sector automotriz</strong>
+<small>Referencia de mercado</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">TOYOTA</div>
+<strong>Sector automotriz</strong>
+<small>Referencia de mercado</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">KIA</div>
+<strong>Sector automotriz</strong>
+<small>Referencia de mercado</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">VW</div>
+<strong>Sector automotriz</strong>
+<small>Referencia de mercado</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">CHEVROLET</div>
+<strong>Sector automotriz</strong>
+<small>Referencia de mercado</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">UBER</div>
+<strong>Conductores de plataforma</strong>
+<small>Referencia de actividad</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">DiDi</div>
+<strong>Conductores de plataforma</strong>
+<small>Referencia de actividad</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">PYME</div>
+<strong>Pequeñas empresas</strong>
+<small>Comercio y servicios</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">🏪</div>
+<strong>Comerciantes</strong>
+<small>Negocios establecidos</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">🏠</div>
+<strong>Vivienda</strong>
+<small>Proyectos patrimoniales</small>
+</div>
+
+<div class="sector-card">
+<div class="sector-symbol">🏢</div>
+<strong>Empresas</strong>
+<small>Proyectos empresariales</small>
+</div>
+
+</div>
+</div>
+
+<p class="disclaimer">
+Las marcas mencionadas se muestran únicamente como referencias de sectores,
+actividades y tipos de bienes. Su aparición no implica convenio, patrocinio,
+afiliación o relación comercial con MAX INNOVA.
+</p>
+
+</section>
+
+
+<!-- ALIADO -->
+
+<section class="ally reveal">
+
+<div class="ally-copy">
+
+<div class="kicker">TU ALIADO FINANCIERO</div>
+
+<h2 class="section-title">
+Soluciones pensadas <span>para avanzar.</span>
+</h2>
+
+<p>
+Cada proyecto es diferente. Nuestro objetivo es conocer tu necesidad,
+revisar la información de tu solicitud y acompañarte durante las
+distintas etapas del proceso.
+</p>
+
+<a href="#proceso" class="btn btn-blue">CONOCE CÓMO FUNCIONA →</a>
+
+</div>
+
+
+<div class="benefits">
+
+<div class="benefit">
+<strong>✓ Requisitos claros</strong>
+<p>Conoce la información necesaria para comenzar tu solicitud.</p>
+</div>
+
+<div class="benefit">
+<strong>◷ Seguimiento</strong>
+<p>Información sobre el avance de tu proceso.</p>
+</div>
+
+<div class="benefit">
+<strong>◎ Atención personalizada</strong>
+<p>Orientación de acuerdo con el tipo de financiamiento.</p>
+</div>
+
+<div class="benefit">
+<strong>↗ Diferentes alternativas</strong>
+<p>Opciones para personas, negocios y empresas.</p>
+</div>
+
+</div>
 </section>
 
 
 <!-- PAREJA -->
 
-<section class="big-cta">
+<section class="couple-cta reveal">
 
-  <div class="couple">
-    <div class="couple-text">
-      TUS<br>
-      PLANES<br>
-      TAMBIÉN<br>
-      CUENTAN
-    </div>
-  </div>
+<div class="couple-photo">
 
-  <div class="cta-panel">
+<div class="couple-label">
+TUS PLANES TAMBIÉN CUENTAN
+</div>
 
-    <div class="small-title">
-      EN CADA ETAPA, UNA OPORTUNIDAD
-    </div>
-
-    <h2>
-      Financiamiento<br>
-      que <span>se adapta a ti.</span>
-    </h2>
-
-    <p>
-      Ya sea un proyecto personal, el crecimiento de tu negocio
-      o una inversión de mayor escala, conoce las alternativas
-      que MAX INNOVA puede ofrecerte.
-    </p>
-
-    <a href="#contacto" class="btn btn-white">
-      EMPIEZA TU SOLICITUD &nbsp; →
-    </a>
-
-  </div>
-
-</section>
+</div>
 
 
-<!-- POR QUÉ MAX INNOVA -->
+<div class="couple-panel">
 
-<section class="why" id="nosotros">
+<div class="kicker">EN CADA ETAPA, UNA OPORTUNIDAD</div>
 
-  <h2>¿Por qué elegir MAX INNOVA?</h2>
+<h2>
+Financiamiento que<br>
+<span>se adapta a tu proyecto.</span>
+</h2>
 
-  <p class="why-sub">
-    Más que financiamiento, acompañamiento durante tu proceso.
-  </p>
+<p>
+Un vehículo, un proyecto patrimonial, el crecimiento de un negocio
+o una nueva etapa para tu empresa. Conoce las opciones que pueden
+ajustarse al objetivo de tu solicitud.
+</p>
 
-  <div class="why-grid">
-
-    <div class="why-card">
-      <div class="why-icon">★</div>
-      <h3>Experiencia</h3>
-      <p>Atención enfocada en diferentes necesidades financieras.</p>
-    </div>
-
-    <div class="why-card">
-      <div class="why-icon">♙</div>
-      <h3>Trato personalizado</h3>
-      <p>Escuchamos tu proyecto y conocemos tus necesidades.</p>
-    </div>
-
-    <div class="why-card">
-      <div class="why-icon">✓</div>
-      <h3>Transparencia</h3>
-      <p>Información sobre las condiciones de tu solicitud.</p>
-    </div>
-
-    <div class="why-card">
-      <div class="why-icon">↗</div>
-      <h3>Crecimiento</h3>
-      <p>Alternativas para proyectos personales y empresariales.</p>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- LAPTOP -->
-
-<section class="laptop-banner">
-
-  <div class="laptop-photo"></div>
-
-  <div class="laptop-message">
-    <h3>
-      Juntos<br>
-      llegamos<br>
-      más lejos
-    </h3>
-
-    <div class="mini-line"></div>
-  </div>
-
-</section>
-
-
-<!-- PROCESO -->
-
-<section class="process-section" id="proceso">
-
-<div class="process">
-
-  <div>
-
-    <h2>Así de simple, así de confiable</h2>
-
-    <p class="process-sub">
-      Conoce las principales etapas de una solicitud de financiamiento.
-    </p>
-
-    <div class="steps">
-
-      <div class="step">
-        <div class="step-icon">▤</div>
-        <h3>1. Solicita</h3>
-        <p>Registra tu solicitud y proporciona la información inicial.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-icon">⌕</div>
-        <h3>2. Evaluamos</h3>
-        <p>Revisamos tu perfil y la información proporcionada.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-icon">▧</div>
-        <h3>3. Conoce tu opción</h3>
-        <p>Te presentamos la alternativa disponible, cuando corresponda.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-icon">✓</div>
-        <h3>4. Continúa</h3>
-        <p>Si decides avanzar, te acompañamos en las siguientes etapas.</p>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="help-card" id="contacto">
-
-    <h3>¿Tienes dudas?</h3>
-
-    <p>Estamos para orientarte.</p>
-
-    <a href="#" class="btn btn-white">
-      CONTÁCTANOS &nbsp; →
-    </a>
-
-  </div>
+<a href="#contacto" class="btn btn-white">
+EMPIEZA TU SOLICITUD →
+</a>
 
 </div>
 </section>
 
 
-<!-- TESTIMONIOS -->
+<!-- POR QUE -->
 
-<section class="testimonials">
+<section class="why reveal" id="nosotros">
 
-  <h2>Experiencias de nuestros clientes</h2>
+<div class="center">
 
-  <p class="why-sub">
-    Conoce algunos comentarios sobre la atención recibida.
-  </p>
+<div class="kicker">MAX INNOVA</div>
 
-  <div class="testimonial-grid">
+<h2 class="section-title">
+¿Por qué elegir <span>MAX INNOVA?</span>
+</h2>
 
-    <article class="testimonial">
+<p class="section-sub">
+Un proceso acompañado desde la solicitud hasta las siguientes etapas.
+</p>
 
-      <p class="quote">
-        “Me explicaron el proceso de manera clara y pude conocer
-        las etapas antes de continuar.”
-      </p>
-
-      <div class="person">
-        <div class="avatar">♙</div>
-        <div>
-          <strong>Cliente MAX INNOVA</strong>
-          <span>Financiamiento vehicular</span>
-        </div>
-      </div>
-
-    </article>
+</div>
 
 
-    <article class="testimonial">
+<div class="why-grid">
 
-      <p class="quote">
-        “Recibí atención para conocer las opciones relacionadas
-        con las necesidades de mi negocio.”
-      </p>
+<div class="why-card">
+<div class="why-circle">01</div>
+<strong>Atención</strong>
+<p>Conocemos tu necesidad antes de presentar alternativas.</p>
+</div>
 
-      <div class="person">
-        <div class="avatar">♙</div>
-        <div>
-          <strong>Cliente MAX INNOVA</strong>
-          <span>Financiamiento para negocio</span>
-        </div>
-      </div>
+<div class="why-card">
+<div class="why-circle">02</div>
+<strong>Trato personalizado</strong>
+<p>Cada solicitud se analiza de acuerdo con sus características.</p>
+</div>
 
-    </article>
+<div class="why-card">
+<div class="why-circle">03</div>
+<strong>Información clara</strong>
+<p>Conoce las condiciones aplicables antes de decidir continuar.</p>
+</div>
+
+<div class="why-card">
+<div class="why-circle">04</div>
+<strong>Acompañamiento</strong>
+<p>Seguimiento durante las distintas etapas de tu proceso.</p>
+</div>
+
+</div>
+</section>
 
 
-    <article class="testimonial">
+<!-- LAPTOP -->
 
-      <p class="quote">
-        “La atención me permitió resolver mis dudas antes de tomar
-        una decisión sobre mi solicitud.”
-      </p>
+<section class="laptop-section reveal">
 
-      <div class="person">
-        <div class="avatar">♙</div>
-        <div>
-          <strong>Cliente MAX INNOVA</strong>
-          <span>Financiamiento personal</span>
-        </div>
-      </div>
+<div class="laptop-photo"></div>
 
-    </article>
+<div class="laptop-copy">
 
-  </div>
+<div class="kicker">CRECIMIENTO</div>
 
+<h2>
+Juntos<br>
+llegamos<br>
+más lejos.
+</h2>
+
+<span></span>
+
+</div>
+</section>
+
+
+<!-- PROCESO -->
+
+<section class="process" id="proceso">
+
+<div class="process-wrap">
+
+<div>
+
+<h2 class="process-title">
+Tu solicitud, paso a paso.
+</h2>
+
+<p class="process-sub">
+Un proceso organizado para conocer tu proyecto y evaluar tu solicitud.
+</p>
+
+
+<div class="steps">
+
+<div class="step">
+<div class="step-circle">1</div>
+<strong>Solicita</strong>
+<p>Comparte tus datos e información inicial.</p>
+</div>
+
+<div class="step">
+<div class="step-circle">2</div>
+<strong>Evaluamos</strong>
+<p>Revisamos tu perfil y la documentación correspondiente.</p>
+</div>
+
+<div class="step">
+<div class="step-circle">3</div>
+<strong>Conoce tu opción</strong>
+<p>Cuando corresponda, conoce las condiciones disponibles.</p>
+</div>
+
+<div class="step">
+<div class="step-circle">4</div>
+<strong>Continúa</strong>
+<p>Si decides avanzar, te acompañamos en las siguientes etapas.</p>
+</div>
+
+</div>
+</div>
+
+
+<div class="phone-card">
+
+<div class="phone-info">
+
+<h3>¿Tienes dudas?</h3>
+
+<p>
+Nuestro equipo puede orientarte sobre tu solicitud.
+</p>
+
+<a href="#contacto" class="btn btn-white">
+CONTÁCTANOS →
+</a>
+
+</div>
+</div>
+
+</div>
+</section>
+
+
+<!-- CONTACTO -->
+
+<section class="contact" id="contacto">
+
+<div class="contact-box reveal">
+
+<div>
+
+<div class="kicker">DA EL SIGUIENTE PASO</div>
+
+<h2>
+Cuéntanos qué quieres financiar.
+</h2>
+
+<p>
+Selecciona el tipo de financiamiento que buscas y comienza
+el proceso de contacto con MAX INNOVA.
+</p>
+
+</div>
+
+<div class="contact-actions">
+
+<a href="#" class="btn btn-blue">
+INICIAR SOLICITUD →
+</a>
+
+<a href="#" class="btn" style="border:1px solid #b7d7e6;color:#07517e">
+HABLAR CON UN ASESOR
+</a>
+
+</div>
+
+</div>
 </section>
 
 
@@ -1420,44 +1769,109 @@ footer{
 
 <footer>
 
-  <div class="footer-main">
+<div class="footer-main">
 
-    <div class="footer-logo">
-      <img src="logo_maxinnova.png" alt="MAX INNOVA">
-    </div>
+<div class="footer-logo">
+<img src="logo_maxinnova.png" alt="MAX INNOVA">
+</div>
 
-    <div class="footer-links">
-      <a href="#inicio">Inicio</a>
-      <a href="#soluciones">Soluciones</a>
-      <a href="#proceso">Cómo funciona</a>
-      <a href="#nosotros">Nosotros</a>
-      <a href="#contacto">Contacto</a>
-    </div>
+<div class="footer-links">
+<a href="#inicio">Inicio</a>
+<a href="#soluciones">Soluciones</a>
+<a href="#sectores">Sectores</a>
+<a href="#proceso">Cómo funciona</a>
+<a href="#nosotros">Nosotros</a>
+<a href="#contacto">Contacto</a>
+</div>
 
-    <div class="social">
-      <span>f</span>
-      <span>◎</span>
-      <span>in</span>
-    </div>
-
-  </div>
+</div>
 
 
-  <div class="footer-bottom">
+<div class="footer-bottom">
 
-    <span>
-      © 2026 MAX INNOVA. Todos los derechos reservados.
-    </span>
+<span>
+© 2026 MAX INNOVA Servicios Financieros. Todos los derechos reservados.
+</span>
 
-    <span>
-      Aviso de privacidad &nbsp; | &nbsp;
-      Términos y condiciones &nbsp; | &nbsp;
-      Atención a clientes
-    </span>
+<span>
+Aviso de privacidad &nbsp; | &nbsp;
+Términos y condiciones
+</span>
 
-  </div>
+</div>
 
 </footer>
+
+
+<script>
+
+/* CAMBIO PERSONAS / EMPRESAS */
+
+function showProfile(type,button){
+
+document.querySelectorAll(".profile-tab")
+.forEach(b=>b.classList.remove("active"));
+
+button.classList.add("active");
+
+const title=document.getElementById("profileTitle");
+const text=document.getElementById("profileText");
+const options=document.getElementById("profileOptions");
+
+if(type==="personas"){
+
+title.innerHTML="Opciones para tus planes personales.";
+
+text.innerHTML=
+"Ya sea que busques un vehículo, un proyecto patrimonial o financiamiento para una necesidad personal, conoce las alternativas disponibles.";
+
+options.innerHTML=`
+<div class="profile-option">🚘 Vehículo</div>
+<div class="profile-option">🏠 Patrimonio</div>
+<div class="profile-option">👤 Proyecto personal</div>
+<div class="profile-option">🚗 Trabajo en plataformas</div>
+`;
+
+}else{
+
+title.innerHTML="Opciones para hacer crecer tu actividad.";
+
+text.innerHTML=
+"Alternativas dirigidas a comerciantes, emprendedores, PyMEs y empresas que buscan capital para desarrollar nuevos proyectos.";
+
+options.innerHTML=`
+<div class="profile-option">🏪 Comerciantes</div>
+<div class="profile-option">📦 Emprendedores</div>
+<div class="profile-option">🏭 PyMEs</div>
+<div class="profile-option">🏢 Empresas</div>
+`;
+
+}
+
+}
+
+
+/* APARICIÓN SUAVE AL BAJAR */
+
+const reveals=document.querySelectorAll(".reveal");
+
+const observer=new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+
+});
+
+},{
+threshold:.10
+});
+
+reveals.forEach(el=>observer.observe(el));
+
+</script>
 
 </body>
 </html>
