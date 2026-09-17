@@ -2,985 +2,225 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>MAX INNOVA | Servicios Financieros</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root{
-  --navy:#00345f;
-  --navy2:#002744;
-  --blue:#006da6;
-  --cyan:#16bce8;
-  --light:#f3faff;
-  --line:#d8eaf3;
-  --text:#07385f;
-  --muted:#607b8e;
-  --white:#fff;
-  --green:#15936c;
-  --red:#c94b4b;
-  --orange:#d98a21;
+ --navy:#00345f;--dark:#002744;--blue:#006da6;--cyan:#16bce8;
+ --light:#f3faff;--line:#d8eaf3;--text:#07385f;--muted:#607b8e;
+ --green:#16845f;--red:#b84040;--orange:#bd7416
 }
-
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--text);
-  background:#fff;
-  overflow-x:hidden;
-}
-
-a{text-decoration:none;color:inherit}
+body{font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#fff;overflow-x:hidden}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
+a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
-
-.container{
-  width:min(1180px,92%);
-  margin:auto;
-}
-
-/* HEADER */
-
-header{
-  height:86px;
-  background:#fff;
-  position:sticky;
-  top:0;
-  z-index:1000;
-  box-shadow:0 2px 18px rgba(0,40,70,.09);
-}
-
-.nav{
-  width:min(1220px,94%);
-  height:100%;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-}
-
-.logo{
-  width:215px;
-  height:72px;
-  display:flex;
-  align-items:center;
-}
-
-.logo img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  object-position:left center;
-}
-
-.menu{
-  display:flex;
-  align-items:center;
-  gap:22px;
-  font-size:12px;
-  font-weight:900;
-}
-
-.menu a{
-  padding:34px 0 27px;
-  position:relative;
-}
-
-.menu a:after{
-  content:"";
-  position:absolute;
-  left:50%;
-  right:50%;
-  bottom:18px;
-  height:3px;
-  background:var(--cyan);
-  transition:.25s;
-}
-
-.menu a:hover:after{left:0;right:0}
-
-.account{
-  border:0;
-  background:var(--navy);
-  color:#fff;
-  border-radius:9px;
-  padding:14px 20px;
-  font-size:12px;
-  font-weight:900;
-}
-
-/* BOTONES */
-
-.btn{
-  min-height:51px;
-  padding:0 25px;
-  border-radius:8px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:9px;
-  font-size:12px;
-  font-weight:900;
-  border:0;
-  transition:.25s;
-}
-
-.btn:hover{transform:translateY(-2px)}
-
-.btn-white{background:#fff;color:#064772}
-.btn-blue{background:var(--navy);color:#fff}
-.btn-cyan{background:#08aeda;color:#fff}
-
-.btn-outline{
-  color:#fff;
-  border:1px solid rgba(255,255,255,.65);
-  background:transparent;
-}
-
-/* HERO */
-
-.hero{
-  min-height:600px;
-  display:grid;
-  grid-template-columns:54% 46%;
-  background:var(--navy);
-}
-
-.hero-left{
-  min-height:600px;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  padding:70px max(6vw,45px);
-  background:
-    radial-gradient(circle at 85% 15%,rgba(31,196,236,.20),transparent 32%),
-    linear-gradient(135deg,#002c53,#006294);
-}
-
-.hero-copy{max-width:660px}
-
-.eyebrow{
-  font-size:11px;
-  letter-spacing:4px;
-  font-weight:900;
-  color:#bcefff;
-  margin-bottom:20px;
-}
-
-.hero h1{
-  font-size:65px;
-  line-height:.98;
-  letter-spacing:-2.7px;
-  margin-bottom:24px;
-}
-
-.hero h1 span{color:#3bc9ef}
-
-.hero-copy>p{
-  max-width:590px;
-  font-size:17px;
-  line-height:1.65;
-  color:#e6f5fb;
-}
-
-.hero-buttons{
-  display:flex;
-  gap:13px;
-  margin-top:30px;
-  flex-wrap:wrap;
-}
-
-.hero-benefits{
-  display:flex;
-  gap:25px;
-  margin-top:38px;
-  flex-wrap:wrap;
-}
-
-.hero-benefit{
-  font-size:11px;
-  font-weight:800;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.check{
-  width:27px;
-  height:27px;
-  border:1px solid rgba(255,255,255,.45);
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-}
-
-.hero-image{
-  min-height:600px;
-  background:url("edificio.png") center/cover no-repeat;
-}
-
-/* FRASE */
-
-.statement{
-  padding:0 4%;
-  position:relative;
-  z-index:20;
-}
-
-.statement-inner{
-  width:min(1180px,100%);
-  min-height:110px;
-  margin:-35px auto 0;
-  padding:24px 48px;
-  border-radius:17px;
-  background:linear-gradient(110deg,#00679d,#04b3df);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:45px;
-  box-shadow:0 16px 40px rgba(0,83,130,.20);
-}
-
-.statement-main{
-  font-size:25px;
-  font-weight:900;
-}
-
-.statement-secondary{
-  font-family:Georgia,serif;
-  font-size:20px;
-  font-style:italic;
-}
-
-/* GENERALES */
-
+.container{width:min(1180px,92%);margin:auto}
 .section{padding:78px 0}
 .center{text-align:center}
+.kicker{font-size:11px;font-weight:900;letter-spacing:4px;color:#0875a8;margin-bottom:12px}
+.title{font-size:43px;line-height:1.08;letter-spacing:-1.5px}
+.title span{color:#08addb}
+.subtitle{max-width:760px;margin:15px auto;color:var(--muted);font-size:14px;line-height:1.65}
 
-.kicker{
-  color:#0075a9;
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:4px;
-  margin-bottom:12px;
+header{
+ height:86px;background:#fff;position:sticky;top:0;z-index:1000;
+ box-shadow:0 2px 18px rgba(0,40,70,.09)
 }
-
-.title{
-  font-size:43px;
-  line-height:1.08;
-  letter-spacing:-1.5px;
+.nav{
+ width:min(1220px,94%);height:100%;margin:auto;display:flex;
+ align-items:center;justify-content:space-between;gap:20px
 }
-
-.title span{color:#05afe0}
-
-.subtitle{
-  max-width:760px;
-  margin:16px auto 0;
-  color:var(--muted);
-  line-height:1.65;
-  font-size:14px;
+.logo{width:215px;height:72px;display:flex;align-items:center}
+.logo img{width:100%;height:100%;object-fit:contain}
+.menu{display:flex;gap:21px;align-items:center;font-size:11px;font-weight:900}
+.menu a:hover{color:#08a8d4}
+.account{
+ border:0;background:var(--navy);color:#fff;border-radius:9px;
+ padding:14px 20px;font-size:11px;font-weight:900
 }
-
-/* PRODUCTOS */
-
-.products{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:15px;
-  margin-top:40px;
+.btn{
+ min-height:50px;padding:0 24px;border:0;border-radius:8px;
+ display:inline-flex;align-items:center;justify-content:center;
+ font-size:11px;font-weight:900;transition:.2s
 }
+.btn:hover{transform:translateY(-2px)}
+.btn-blue{background:var(--navy);color:#fff}
+.btn-cyan{background:#08add9;color:#fff}
+.btn-white{background:#fff;color:var(--navy)}
+.btn-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.6)}
+.btn-red{background:#b94040;color:#fff}
+.btn-green{background:#16845f;color:#fff}
 
+.hero{display:grid;grid-template-columns:54% 46%;min-height:600px;background:var(--navy)}
+.hero-left{
+ min-height:600px;padding:70px max(6vw,45px);display:flex;align-items:center;color:#fff;
+ background:radial-gradient(circle at 85% 15%,rgba(31,196,236,.20),transparent 32%),
+ linear-gradient(135deg,#002c53,#006294)
+}
+.hero-copy{max-width:650px}
+.eyebrow{font-size:11px;letter-spacing:4px;font-weight:900;color:#c3effb;margin-bottom:20px}
+.hero h1{font-size:65px;line-height:.98;letter-spacing:-2.7px;margin-bottom:24px}
+.hero h1 span{color:#3bc9ef}
+.hero p{font-size:17px;line-height:1.65;color:#e6f5fb;max-width:590px}
+.hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.hero-benefits{display:flex;gap:22px;flex-wrap:wrap;margin-top:35px;font-size:11px;font-weight:800}
+.hero-image{min-height:600px;background:url("edificio.png") center/cover no-repeat}
+
+.statement{padding:0 4%;position:relative;z-index:10}
+.statement-inner{
+ width:min(1180px,100%);min-height:110px;margin:-35px auto 0;
+ padding:25px 45px;border-radius:17px;color:#fff;
+ background:linear-gradient(110deg,#00679d,#04b3df);
+ display:flex;align-items:center;justify-content:space-between;gap:35px;
+ box-shadow:0 16px 40px rgba(0,83,130,.2)
+}
+.statement-main{font-size:25px;font-weight:900}
+.statement-secondary{font:italic 20px Georgia,serif}
+
+.products{display:grid;grid-template-columns:repeat(5,1fr);gap:15px;margin-top:40px}
 .product{
-  min-height:270px;
-  background:linear-gradient(145deg,#f3fbff,#e3f6fd);
-  border:1px solid #d9edf6;
-  border-radius:18px;
-  padding:28px 18px;
-  text-align:center;
-  transition:.3s;
-  cursor:pointer;
+ min-height:255px;padding:28px 18px;border:1px solid #d9edf6;
+ border-radius:18px;background:linear-gradient(145deg,#f3fbff,#e3f6fd);
+ text-align:center;cursor:pointer;transition:.25s
 }
-
-.product:hover{
-  transform:translateY(-7px);
-  box-shadow:0 17px 35px rgba(0,79,125,.14);
-}
-
+.product:hover{transform:translateY(-6px);box-shadow:0 15px 30px rgba(0,75,115,.12)}
 .product-icon{
-  width:66px;
-  height:66px;
-  border-radius:50%;
-  margin:0 auto 17px;
-  background:#fff;
-  display:grid;
-  place-items:center;
-  box-shadow:0 6px 20px rgba(0,73,112,.09);
+ width:65px;height:65px;border-radius:50%;background:#fff;margin:0 auto 17px;
+ display:grid;place-items:center;font-size:31px;box-shadow:0 6px 20px rgba(0,70,110,.08)
 }
-
-.product-icon svg{
-  width:34px;
-  height:34px;
-  stroke:#00669c;
-  fill:none;
-  stroke-width:1.7;
-}
-
 .product h3{font-size:17px;margin-bottom:10px}
-
-.product p{
-  font-size:12px;
-  line-height:1.55;
-  color:#587589;
-}
-
+.product p{font-size:12px;line-height:1.55;color:#587589}
 .circle-arrow{
-  width:37px;
-  height:37px;
-  border-radius:50%;
-  background:#00679c;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  margin:18px auto 0;
-  font-weight:900;
+ width:36px;height:36px;border-radius:50%;background:#00679c;color:#fff;
+ display:grid;place-items:center;margin:17px auto 0
 }
 
 /* CINTAS */
-
-.credit-center{
-  padding:80px 0;
-  background:#f5fbfe;
+.sectors{background:#f5fbfe;padding:75px 0}
+.sector-box{
+ width:min(1180px,94%);margin:25px auto;background:#fff;
+ border:1px solid #dcebf2;border-radius:19px;overflow:hidden;
+ box-shadow:0 10px 30px rgba(0,66,105,.06)
 }
-
-.sector-block{
-  width:min(1180px,94%);
-  margin:0 auto 34px;
-  border:1px solid #dcebf2;
-  border-radius:20px;
-  overflow:hidden;
-  background:#fff;
-  box-shadow:0 10px 35px rgba(0,66,105,.07);
+.sector-title{padding:20px 28px;background:linear-gradient(90deg,#edf9fe,#fff)}
+.sector-title h3{font-size:20px}
+.sector-title p{font-size:11px;color:#688294;margin-top:5px}
+.ticker{overflow:hidden;padding:18px 0}
+.track{display:flex;width:max-content;animation:move 38s linear infinite}
+.reverse .track{animation-direction:reverse}
+.ticker:hover .track{animation-play-state:paused}
+@keyframes move{to{transform:translateX(-50%)}}
+.brand{
+ width:170px;height:120px;margin:0 7px;padding:13px;
+ border:1px solid #dceaf1;border-radius:14px;background:#fff;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ cursor:pointer;transition:.2s
 }
-
-.sector-heading{
-  padding:22px 30px;
-  background:linear-gradient(90deg,#edf9fe,#fff);
-  border-bottom:1px solid #e3eff4;
-}
-
-.sector-heading h3{font-size:21px;margin-bottom:5px}
-.sector-heading p{font-size:12px;color:#688294}
-
-.ticker{
-  overflow:hidden;
-  padding:18px 0;
-  position:relative;
-}
-
-.ticker-track{
-  display:flex;
-  width:max-content;
-  animation:tickerMove 40s linear infinite;
-}
-
-.ticker.reverse .ticker-track{animation-direction:reverse}
-.ticker.fast .ticker-track{animation-duration:32s}
-.ticker:hover .ticker-track{animation-play-state:paused}
-
-@keyframes tickerMove{
-  from{transform:translateX(0)}
-  to{transform:translateX(-50%)}
-}
-
-.brand-card{
-  width:175px;
-  min-height:125px;
-  margin:0 7px;
-  padding:14px;
-  border:1px solid #dceaf1;
-  background:#fff;
-  border-radius:14px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  transition:.25s;
-}
-
-.brand-card:hover{
-  border-color:#39b9df;
-  transform:translateY(-3px);
-  box-shadow:0 8px 20px rgba(0,87,130,.11);
-}
-
-.brand-logo{
-  width:105px;
-  height:57px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:8px;
-}
-
-.brand-logo img{
-  max-width:100%;
-  max-height:48px;
-  object-fit:contain;
-}
-
-.brand-fallback{
-  font-size:17px;
-  font-weight:900;
-  color:#07517e;
-}
-
-.brand-card strong{
-  font-size:11px;
-  line-height:1.25;
-}
-
-.brand-note{
-  width:min(1100px,90%);
-  margin:5px auto 0;
-  color:#718795;
-  font-size:10px;
-  line-height:1.5;
-  text-align:center;
-}
-
-/* PERFIL */
-
-.profile-box{
-  margin-top:35px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:25px;
-}
-
-.profile-card{
-  padding:35px;
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:#fff;
-  box-shadow:0 12px 35px rgba(0,70,110,.07);
-}
-
-.profile-card h3{
-  font-size:26px;
-  margin-bottom:12px;
-}
-
-.profile-card p{
-  color:var(--muted);
-  line-height:1.6;
-  font-size:13px;
-}
+.brand:hover{transform:translateY(-3px);border-color:#22afd8;box-shadow:0 8px 20px rgba(0,80,120,.1)}
+.brand-logo{height:55px;width:115px;display:flex;align-items:center;justify-content:center}
+.brand-logo img{max-height:47px;max-width:110px;object-fit:contain}
+.brand-name{font-size:11px;font-weight:900;margin-top:8px}
+.brand-fallback{font-size:17px;font-weight:900;color:#07517e}
+.disclaimer{width:min(1000px,90%);margin:20px auto;text-align:center;font-size:10px;line-height:1.5;color:#718795}
 
 /* PORTAL */
-
-.portal{
-  padding:85px 0;
-  background:linear-gradient(135deg,#002b50,#006797);
-  color:#fff;
+.portal{padding:85px 0;background:linear-gradient(135deg,#002b50,#006797);color:#fff}
+.portal-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:45px;align-items:start}
+.portal-copy h2{font-size:42px;margin-bottom:15px}
+.portal-copy p{color:#d8edf6;line-height:1.65}
+.portal-features{display:grid;gap:9px;margin-top:25px}
+.portal-feature{padding:13px;border:1px solid rgba(255,255,255,.17);border-radius:9px;background:rgba(255,255,255,.06);font-size:11px;font-weight:800}
+.portal-card{background:#fff;color:var(--text);border-radius:20px;padding:31px;box-shadow:0 20px 50px rgba(0,0,0,.18)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:25px}
+.tab{padding:14px;border:1px solid #cfe2ec;background:#f3f9fc;border-radius:9px;font-size:11px;font-weight:900;color:#07517e}
+.tab.active{background:var(--navy);color:#fff}
+.panel{display:none}.panel.active{display:block}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.full{grid-column:1/-1}
+.field label{display:block;font-size:10px;font-weight:900;color:#42687e;margin-bottom:6px}
+.field input,.field select,.field textarea{
+ width:100%;padding:13px;border:1px solid #cfe0e8;border-radius:8px;outline:none;background:#fff
 }
-
-.portal-grid{
-  display:grid;
-  grid-template-columns:.9fr 1.1fr;
-  gap:45px;
-  align-items:start;
-}
-
-.portal-copy h2{
-  font-size:42px;
-  margin-bottom:16px;
-}
-
-.portal-copy>p{
-  color:#d8edf6;
-  line-height:1.65;
-  margin-bottom:25px;
-}
-
-.portal-features{
-  display:grid;
-  gap:10px;
-}
-
-.portal-feature{
-  padding:13px 15px;
-  border:1px solid rgba(255,255,255,.17);
-  border-radius:10px;
-  background:rgba(255,255,255,.07);
-  font-size:12px;
-  font-weight:800;
-}
-
-.portal-card{
-  background:#fff;
-  color:var(--text);
-  border-radius:20px;
-  padding:32px;
-  box-shadow:0 20px 50px rgba(0,0,0,.18);
-}
-
-.portal-tabs{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-bottom:25px;
-}
-
-.portal-tab{
-  border:1px solid #cfe2ec;
-  background:#f3f9fc;
-  padding:14px;
-  border-radius:9px;
-  color:#07517e;
-  font-size:12px;
-  font-weight:900;
-}
-
-.portal-tab.active{
-  background:var(--navy);
-  color:#fff;
-}
-
-.portal-panel{display:none}
-.portal-panel.active{display:block}
-
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:13px;
-}
-
-.field.full{grid-column:1/-1}
-
-.field label{
-  display:block;
-  font-size:10px;
-  font-weight:900;
-  margin-bottom:6px;
-  color:#42687e;
-}
-
-.field input,
-.field select,
-.field textarea{
-  width:100%;
-  border:1px solid #cfe0e8;
-  border-radius:8px;
-  padding:13px;
-  outline:none;
-  background:#fff;
-}
-
-.field textarea{
-  min-height:85px;
-  resize:vertical;
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus{
-  border-color:#0daed8;
-}
-
-.form-help{
-  font-size:10px;
-  color:#78909d;
-  line-height:1.5;
-  margin:12px 0;
-}
-
-.result-box{
-  display:none;
-  margin-top:20px;
-  padding:22px;
-  border-radius:13px;
-  background:#effaff;
-  border:1px solid #c8eaf5;
-}
-
-.result-box.show{display:block}
-
-.folio{
-  font-size:25px;
-  font-weight:900;
-  color:#00679c;
-  margin:8px 0;
-}
-
-.status{
-  display:inline-flex;
-  align-items:center;
-  border-radius:30px;
-  padding:8px 13px;
-  font-size:11px;
-  font-weight:900;
-  margin-top:8px;
-}
-
-.status-recibida{background:#dff5ff;color:#006793}
-.status-revision{background:#fff2d9;color:#a56b10}
-.status-proceso{background:#e8edff;color:#455db3}
-.status-aceptada{background:#def6eb;color:#147454}
-.status-rechazada{background:#ffe5e5;color:#ad3b3b}
-.status-sucursal{background:#eee6ff;color:#6541a5}
-
-/* INFORMACIÓN */
-
-.info-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-  margin-top:38px;
-}
-
-.info-card{
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:25px;
-  background:#fff;
-}
-
-.info-card h3{
-  font-size:16px;
-  margin-bottom:9px;
-}
-
-.info-card p{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
-}
-
-.pending{
-  display:inline-block;
-  margin-top:12px;
-  padding:6px 10px;
-  border-radius:20px;
-  background:#edf7fb;
-  color:#487489;
-  font-size:9px;
-  font-weight:900;
-}
-
-/* NOSOTROS */
-
-.ally{
-  background:#f2faff;
-}
-
-.ally-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:45px;
-  align-items:center;
-}
-
-.ally-copy h2{
-  font-size:42px;
-  margin-bottom:18px;
-}
-
-.ally-copy p{
-  color:var(--muted);
-  line-height:1.7;
-  margin-bottom:20px;
-}
-
-.ally-points{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-.ally-point{
-  background:#fff;
-  padding:17px;
-  border-radius:11px;
-  font-size:12px;
-  font-weight:800;
-  border:1px solid #dcecf3;
-}
-
-/* IMAGEN PAREJA */
-
-.couple{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  min-height:470px;
-}
-
-.couple-photo{
-  background:url("pareja.png") center/cover no-repeat;
-  position:relative;
-}
-
-.couple-overlay{
-  position:absolute;
-  left:7%;
-  bottom:8%;
-  background:rgba(0,45,80,.86);
-  color:#fff;
-  padding:20px 25px;
-  border-radius:12px;
-  font-size:25px;
-  font-weight:900;
-}
-
-.couple-copy{
-  background:linear-gradient(135deg,#006496,#04acd6);
-  color:#fff;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:60px 8%;
-}
-
-.couple-copy h2{
-  font-size:42px;
-  margin-bottom:18px;
-}
-
-.couple-copy p{
-  line-height:1.7;
-  color:#e7f8fd;
-  margin-bottom:25px;
-}
-
-/* LAPTOP */
-
-.laptop-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:45px;
-  align-items:center;
-}
-
-.laptop-image img{
-  width:100%;
-  border-radius:20px;
-}
-
-.laptop-copy h2{
-  font-size:40px;
-  margin-bottom:18px;
-}
-
-.laptop-copy p{
-  color:var(--muted);
-  line-height:1.7;
-  margin-bottom:22px;
-}
-
-/* PROCESO */
-
-.process{
-  background:#002c50;
-  color:#fff;
-}
-
-.steps{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-  margin-top:40px;
-}
-
-.step{
-  padding:27px 20px;
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:15px;
-  background:rgba(255,255,255,.06);
-}
-
-.step-num{
-  width:40px;
-  height:40px;
-  display:grid;
-  place-items:center;
-  background:#09add9;
-  border-radius:50%;
-  font-weight:900;
-  margin-bottom:15px;
-}
-
-.step h3{
-  font-size:16px;
-  margin-bottom:8px;
-}
-
-.step p{
-  color:#cde4ef;
-  font-size:11px;
-  line-height:1.6;
-}
-
-/* CONTACTO */
-
-.contact-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:40px;
-  align-items:center;
-}
-
-.phone-image img{
-  max-height:480px;
-  margin:auto;
-}
-
-.contact-copy h2{
-  font-size:42px;
-  margin-bottom:16px;
-}
-
-.contact-copy p{
-  color:var(--muted);
-  line-height:1.7;
-  margin-bottom:25px;
-}
-
-/* FOOTER */
-
-footer{
-  background:#001f38;
-  color:#fff;
-  padding:50px 0 25px;
-}
-
-.footer-grid{
-  display:grid;
-  grid-template-columns:1.3fr 1fr 1fr;
-  gap:45px;
-}
-
-.footer-logo{
-  width:220px;
-  margin-bottom:15px;
-}
-
-.footer-copy{
-  color:#a9c3d0;
-  font-size:11px;
-  line-height:1.7;
-}
-
-.footer-col h4{
-  margin-bottom:13px;
-  font-size:13px;
-}
-
-.footer-col a{
-  display:block;
-  color:#bcd0da;
-  font-size:11px;
-  margin:9px 0;
-}
-
-.footer-bottom{
-  border-top:1px solid rgba(255,255,255,.12);
-  margin-top:35px;
-  padding-top:20px;
-  color:#87a5b4;
-  font-size:10px;
-  text-align:center;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:950px){
-  .menu{display:none}
-  .hero{grid-template-columns:1fr}
-  .hero-image{min-height:420px}
-  .products{grid-template-columns:repeat(2,1fr)}
-  .portal-grid,
-  .ally-grid,
-  .couple,
-  .laptop-grid,
-  .contact-grid{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr 1fr}
-  .info-grid{grid-template-columns:1fr 1fr}
-}
-
-@media(max-width:600px){
-  header{height:74px}
-  .logo{width:170px;height:62px}
-  .account{padding:11px 13px}
-  .hero-left{padding:55px 7%;min-height:570px}
-  .hero h1{font-size:47px}
-  .hero-image{min-height:340px}
-  .statement-inner{margin:-20px auto 0;padding:24px;display:block}
-  .statement-secondary{margin-top:10px}
-  .title{font-size:34px}
-  .products{grid-template-columns:1fr}
-  .profile-box{grid-template-columns:1fr}
-  .form-grid{grid-template-columns:1fr}
-  .field.full{grid-column:auto}
-  .info-grid{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr}
-  .ally-points{grid-template-columns:1fr}
-  .footer-grid{grid-template-columns:1fr}
-}
+.field textarea{min-height:80px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#0daed8}
+.help{font-size:10px;line-height:1.55;color:#718895;margin:12px 0}
+.doc-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:15px 0}
+.doc-option{border:1px solid #d4e5ed;border-radius:12px;padding:16px;cursor:pointer}
+.doc-option:has(input:checked){border-color:#08add9;background:#effaff}
+.doc-option strong{display:block;font-size:12px;margin-bottom:5px}
+.doc-option span{font-size:10px;color:#657f8e;line-height:1.4}
+.upload-box{display:none;padding:18px;border:1px dashed #78bad5;border-radius:12px;background:#f5fcff;margin:14px 0}
+.upload-box.show{display:block}
+.result{display:none;margin-top:20px;padding:21px;border:1px solid #c8eaf5;border-radius:13px;background:#effaff}
+.result.show{display:block}
+.folio{font-size:25px;font-weight:900;color:#00679c;margin:8px 0}
+.status{display:inline-block;padding:8px 12px;border-radius:25px;font-size:10px;font-weight:900;background:#dff5ff;color:#006793}
+
+/* ADMIN */
+.admin-login{max-width:470px;margin:auto}
+.admin-area{display:none}
+.admin-area.show{display:block}
+.admin-toolbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px;flex-wrap:wrap}
+.table-wrap{overflow:auto;border:1px solid #dce8ee;border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:900px}
+th{background:#edf7fb;font-size:10px;text-align:left;padding:12px}
+td{font-size:11px;padding:12px;border-top:1px solid #e4edf2}
+.admin-card{margin-top:22px;padding:22px;border:1px solid #dce8ee;border-radius:14px;background:#f9fcfd}
+
+/* INFO */
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:35px}
+.info-card{border:1px solid var(--line);border-radius:15px;padding:24px}
+.info-card h3{font-size:16px;margin-bottom:8px}
+.info-card p{font-size:12px;line-height:1.6;color:var(--muted)}
+.pending{display:inline-block;margin-top:11px;padding:6px 10px;background:#edf7fb;border-radius:20px;font-size:9px;font-weight:900}
+
+.ally{background:#f2faff}
+.ally-grid,.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center}
+.ally h2,.contact-grid h2{font-size:42px;margin-bottom:17px}
+.ally p,.contact-grid p{color:var(--muted);line-height:1.7;margin-bottom:20px}
+
+.couple{display:grid;grid-template-columns:1fr 1fr;min-height:460px}
+.couple-photo{background:url("pareja.png") center/cover no-repeat;position:relative}
+.couple-overlay{position:absolute;left:7%;bottom:8%;background:rgba(0,45,80,.86);color:#fff;padding:20px 25px;border-radius:12px;font-size:24px;font-weight:900}
+.couple-copy{padding:60px 8%;background:linear-gradient(135deg,#006496,#04acd6);color:#fff;display:flex;flex-direction:column;justify-content:center}
+.couple-copy h2{font-size:42px;margin-bottom:17px}.couple-copy p{line-height:1.7;margin-bottom:23px}
+
+.process{background:#002c50;color:#fff}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:38px}
+.step{padding:25px 20px;border:1px solid rgba(255,255,255,.15);border-radius:14px;background:rgba(255,255,255,.06)}
+.step-num{width:39px;height:39px;border-radius:50%;background:#09add9;display:grid;place-items:center;font-weight:900;margin-bottom:14px}
+.step p{font-size:11px;line-height:1.6;color:#cde4ef}
+
+footer{background:#001f38;color:#fff;padding:45px 0 25px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+.footer-logo{width:220px;margin-bottom:15px}
+.footer-grid p,.footer-grid a{font-size:11px;line-height:1.7;color:#adc6d2}
+.footer-grid a{display:block;margin:7px 0}
+.footer-bottom{margin-top:30px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);font-size:9px;color:#87a5b4;text-align:center}
 
 /* MODAL */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,28,49,.76);z-index:3000;padding:25px;overflow:auto}
+.modal.open{display:flex;align-items:center;justify-content:center}
+.modal-card{width:min(700px,100%);background:#fff;border-radius:18px;padding:30px;position:relative}
+.close{position:absolute;right:16px;top:16px;width:35px;height:35px;border:0;border-radius:50%;font-size:20px}
+.modal-card h2{font-size:29px;margin-bottom:12px}.modal-card p{font-size:13px;line-height:1.7;color:var(--muted)}
 
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:3000;
-  background:rgba(0,28,49,.75);
-  padding:25px;
-  overflow:auto;
+@media(max-width:950px){
+ .menu{display:none}.hero{grid-template-columns:1fr}.products{grid-template-columns:repeat(2,1fr)}
+ .portal-grid,.ally-grid,.contact-grid,.couple{grid-template-columns:1fr}
+ .info-grid{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}
 }
-
-.modal.open{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.modal-card{
-  width:min(720px,100%);
-  background:#fff;
-  border-radius:18px;
-  padding:30px;
-  position:relative;
-  color:var(--text);
-}
-
-.modal-close{
-  position:absolute;
-  right:18px;
-  top:18px;
-  width:36px;
-  height:36px;
-  border:0;
-  border-radius:50%;
-  background:#edf7fb;
-  color:#07517e;
-  font-weight:900;
-}
-
-.modal-card h2{
-  font-size:30px;
-  margin-bottom:12px;
-}
-
-.modal-card p{
-  color:var(--muted);
-  line-height:1.6;
-  margin-bottom:18px;
+@media(max-width:600px){
+ .hero h1{font-size:46px}.hero-left{padding:55px 7%}.hero-image{min-height:340px}
+ .statement-inner{display:block;padding:23px}.statement-secondary{margin-top:10px}
+ .products,.info-grid,.steps,.form-grid,.doc-options{grid-template-columns:1fr}
+ .full{grid-column:auto}.title{font-size:34px}.footer-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -988,1068 +228,385 @@ footer{
 <body>
 
 <header>
-  <div class="nav">
-    <a class="logo" href="#inicio">
-      <img src="logo%20maxinnova.png" alt="MAX INNOVA">
-    </a>
-
-    <nav class="menu">
-      <a href="#inicio">INICIO</a>
-      <a href="#soluciones">SOLUCIONES</a>
-      <a href="#sectores">SECTORES</a>
-      <a href="#como-funciona">CÓMO FUNCIONA</a>
-      <a href="#nosotros">NOSOTROS</a>
-      <a href="#informacion">INFORMACIÓN</a>
-      <a href="#contacto">CONTACTO</a>
-    </nav>
-
-    <button class="account" onclick="goPortal('consulta')">♙ MI CUENTA</button>
-  </div>
+<div class="nav">
+ <a class="logo" href="#inicio"><img src="logo%20maxinnova.png" alt="MAX INNOVA"></a>
+ <nav class="menu">
+  <a href="#inicio">INICIO</a><a href="#soluciones">SOLUCIONES</a>
+  <a href="#sectores">SECTORES</a><a href="#como">CÓMO FUNCIONA</a>
+  <a href="#nosotros">NOSOTROS</a><a href="#informacion">INFORMACIÓN</a>
+  <a href="#contacto">CONTACTO</a>
+ </nav>
+ <button class="account" onclick="goPortal('consulta')">♙ MI CUENTA</button>
+</div>
 </header>
 
 <main>
 
 <section class="hero" id="inicio">
-  <div class="hero-left">
-    <div class="hero-copy">
-      <div class="eyebrow">FINANCIAMIENTO PARA TU FUTURO</div>
-
-      <h1>Más que crédito,<br><span>posibilidades.</span></h1>
-
-      <p>
-        Soluciones financieras para personas, comercios y empresas.
-        Analizamos cada solicitud para encontrar una alternativa de acuerdo
-        con el proyecto que quieres realizar.
-      </p>
-
-      <div class="hero-buttons">
-        <button class="btn btn-white" onclick="goPortal('nuevo')">
-          INICIAR SOLICITUD →
-        </button>
-
-        <button class="btn btn-outline" onclick="goPortal('consulta')">
-          CONSULTAR SOLICITUD
-        </button>
-      </div>
-
-      <div class="hero-benefits">
-        <div class="hero-benefit"><span class="check">✓</span> Evaluación personalizada</div>
-        <div class="hero-benefit"><span class="check">✓</span> Diversas alternativas</div>
-        <div class="hero-benefit"><span class="check">✓</span> Seguimiento por folio</div>
-      </div>
-    </div>
+ <div class="hero-left"><div class="hero-copy">
+  <div class="eyebrow">FINANCIAMIENTO PARA TU FUTURO</div>
+  <h1>Más que crédito,<br><span>posibilidades.</span></h1>
+  <p>Soluciones financieras para personas, comercios y empresas. Analizamos cada solicitud para encontrar una alternativa de acuerdo con el proyecto que quieres realizar.</p>
+  <div class="hero-buttons">
+   <button class="btn btn-white" onclick="goPortal('nuevo')">INICIAR SOLICITUD →</button>
+   <button class="btn btn-outline" onclick="goPortal('consulta')">CONSULTAR SOLICITUD</button>
   </div>
-
-  <div class="hero-image" aria-label="Edificio MAX INNOVA"></div>
+  <div class="hero-benefits"><span>✓ Evaluación personalizada</span><span>✓ Diversas alternativas</span><span>✓ Seguimiento por folio</span></div>
+ </div></div>
+ <div class="hero-image"></div>
 </section>
 
-<section class="statement">
-  <div class="statement-inner">
-    <div class="statement-main">
-      MÁS OPCIONES.<br>MÁS OPORTUNIDADES.
-    </div>
+<section class="statement"><div class="statement-inner">
+ <div class="statement-main">MÁS OPCIONES.<br>MÁS OPORTUNIDADES.</div>
+ <div class="statement-secondary">Encuentra una alternativa de acuerdo con el proyecto que quieres realizar.</div>
+</div></section>
 
-    <div class="statement-secondary">
-      Encuentra una alternativa de acuerdo con el proyecto que quieres realizar.
-    </div>
-  </div>
+<section class="section" id="soluciones"><div class="container center">
+ <div class="kicker">SOLUCIONES FINANCIERAS</div>
+ <h2 class="title">Una alternativa para <span>cada proyecto.</span></h2>
+ <p class="subtitle">Selecciona el tipo de financiamiento que te interesa.</p>
+ <div class="products">
+  <div class="product" onclick="product('Vehicular')"><div class="product-icon">🚘</div><h3>Vehicular</h3><p>Adquisición de vehículos de acuerdo con evaluación.</p><div class="circle-arrow">→</div></div>
+  <div class="product" onclick="product('Patrimonial')"><div class="product-icon">⌂</div><h3>Patrimonial</h3><p>Vivienda, patrimonio y proyectos inmobiliarios.</p><div class="circle-arrow">→</div></div>
+  <div class="product" onclick="product('Personal')"><div class="product-icon">♙</div><h3>Personal</h3><p>Bienes, necesidades y proyectos personales.</p><div class="circle-arrow">→</div></div>
+  <div class="product" onclick="product('Negocio / PyME')"><div class="product-icon">▦</div><h3>Negocio / PyME</h3><p>Operación, equipo, capital y crecimiento.</p><div class="circle-arrow">→</div></div>
+  <div class="product" onclick="product('Empresarial')"><div class="product-icon">▥</div><h3>Empresarial</h3><p>Proyectos, inversión y necesidades corporativas.</p><div class="circle-arrow">→</div></div>
+ </div>
+</div></section>
+
+<section class="sectors" id="sectores">
+ <div class="container center"><div class="kicker">SECTORES</div><h2 class="title">Opciones para distintos <span>proyectos.</span></h2>
+ <p class="subtitle">Presiona una opción para conocer información general.</p></div>
+ <div id="sectorMount"></div>
+ <p class="disclaimer">Las marcas y logotipos pertenecen a sus respectivos titulares y se muestran únicamente como referencias de mercado. No implican afiliación, convenio, patrocinio o representación.</p>
 </section>
 
-<section class="section" id="soluciones">
-  <div class="container center">
-    <div class="kicker">SOLUCIONES FINANCIERAS</div>
-    <h2 class="title">Una alternativa para <span>cada proyecto.</span></h2>
-
-    <p class="subtitle">
-      Selecciona el tipo de financiamiento que te interesa para conocer
-      información general y comenzar tu solicitud.
-    </p>
-
-    <div class="products">
-
-      <div class="product" onclick="showProduct('vehicular')">
-        <div class="product-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M3 14l2-5h14l2 5v5h-2v-2H5v2H3z"/>
-            <circle cx="7" cy="14" r="1"/>
-            <circle cx="17" cy="14" r="1"/>
-          </svg>
-        </div>
-        <h3>Vehicular</h3>
-        <p>Alternativas para adquisición de vehículos de acuerdo con evaluación.</p>
-        <div class="circle-arrow">→</div>
-      </div>
-
-      <div class="product" onclick="showProduct('patrimonial')">
-        <div class="product-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M3 11l9-7 9 7"/>
-            <path d="M5 10v10h14V10"/>
-            <path d="M9 20v-6h6v6"/>
-          </svg>
-        </div>
-        <h3>Patrimonial</h3>
-        <p>Opciones relacionadas con vivienda, patrimonio y proyectos inmobiliarios.</p>
-        <div class="circle-arrow">→</div>
-      </div>
-
-      <div class="product" onclick="showProduct('personal')">
-        <div class="product-icon">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="8" r="4"/>
-            <path d="M4 21c1-5 4-7 8-7s7 2 8 7"/>
-          </svg>
-        </div>
-        <h3>Personal</h3>
-        <p>Financiamiento para necesidades, bienes y proyectos personales.</p>
-        <div class="circle-arrow">→</div>
-      </div>
-
-      <div class="product" onclick="showProduct('pyme')">
-        <div class="product-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M4 21V7h16v14"/>
-            <path d="M2 7l2-4h16l2 4"/>
-            <path d="M8 21v-6h8v6"/>
-          </svg>
-        </div>
-        <h3>Negocio / PyME</h3>
-        <p>Capital para operación, equipo, expansión y necesidades de negocio.</p>
-        <div class="circle-arrow">→</div>
-      </div>
-
-      <div class="product" onclick="showProduct('empresarial')">
-        <div class="product-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M4 21V3h11v18"/>
-            <path d="M15 9h5v12"/>
-            <path d="M8 7h3M8 11h3M8 15h3"/>
-          </svg>
-        </div>
-        <h3>Empresarial</h3>
-        <p>Alternativas para proyectos, inversión y necesidades corporativas.</p>
-        <div class="circle-arrow">→</div>
-      </div>
-
-    </div>
+<section class="portal" id="portal"><div class="container portal-grid">
+ <div class="portal-copy">
+  <div class="eyebrow">PORTAL MAX INNOVA</div><h2>Tu solicitud, identificada con un folio.</h2>
+  <p>Registra tu solicitud y elige si deseas enviar documentación para revisión o presentarla posteriormente en oficina.</p>
+  <div class="portal-features">
+   <div class="portal-feature">✓ Folio único</div><div class="portal-feature">✓ Consulta de estatus</div>
+   <div class="portal-feature">✓ Revisión documental</div><div class="portal-feature">✓ Citas e indicaciones</div>
   </div>
-</section>
+ </div>
 
-<section class="section" id="sectores">
-  <div class="container center">
-    <div class="kicker">MARCAS Y SECTORES</div>
-    <h2 class="title">Opciones para distintos <span>mercados.</span></h2>
-
-    <p class="subtitle">
-      Las marcas mostradas son referencias de los sectores en los que puede
-      destinarse un financiamiento. Su aparición no implica afiliación,
-      representación, convenio o aprobación por parte de dichas marcas.
-    </p>
+ <div class="portal-card">
+  <div class="tabs">
+   <button id="tabNuevo" class="tab active" onclick="tab('nuevo')">SOY NUEVO</button>
+   <button id="tabConsulta" class="tab" onclick="tab('consulta')">CONSULTAR FOLIO</button>
   </div>
 
-  <div class="credit-center" id="sectorMount"></div>
-</section>
-<section class="section" id="perfiles">
-  <div class="container center">
-    <div class="kicker">¿QUÉ NECESITAS?</div>
-    <h2 class="title">Soluciones para <span>personas y negocios.</span></h2>
+  <div id="nuevo" class="panel active">
+   <h3>Nueva solicitud</h3>
+   <p class="help">Completa los datos para generar tu folio.</p>
 
-    <div class="profile-box">
-      <div class="profile-card">
-        <h3>Personas</h3>
-        <p>
-          Vehículo, vivienda, proyectos personales, patrimonio y otras
-          necesidades sujetas a evaluación.
-        </p>
-        <br>
-        <button class="btn btn-blue" onclick="goPortal('nuevo')">
-          INICIAR SOLICITUD
-        </button>
-      </div>
-
-      <div class="profile-card">
-        <h3>Negocios y empresas</h3>
-        <p>
-          Capital de trabajo, equipamiento, expansión, movilidad,
-          operación y proyectos empresariales.
-        </p>
-        <br>
-        <button class="btn btn-blue" onclick="goPortal('nuevo')">
-          SOLICITAR EVALUACIÓN
-        </button>
-      </div>
+   <form id="solicitudForm">
+    <div class="form-grid">
+     <div class="field full"><label>NOMBRE COMPLETO *</label><input id="nombre" required></div>
+     <div class="field"><label>TELÉFONO *</label><input id="telefono" required></div>
+     <div class="field"><label>CORREO *</label><input id="correo" type="email" required></div>
+     <div class="field"><label>RFC *</label><input id="rfc" maxlength="13" required style="text-transform:uppercase"></div>
+     <div class="field"><label>TIPO DE FINANCIAMIENTO *</label>
+      <select id="tipo" required><option value="">Selecciona</option><option>Vehicular</option><option>Patrimonial / Vivienda</option><option>Personal</option><option>Negocio / PyME</option><option>Empresarial</option><option>Movilidad / Plataformas</option><option>Gastos jurídicos</option><option>Otro</option></select>
+     </div>
+     <div class="field full"><label>CIUDAD / ESTADO</label><input id="ciudad"></div>
+     <div class="field full"><label>DESCRIBE TU PROYECTO</label><textarea id="proyecto"></textarea></div>
     </div>
+
+    <p class="help"><strong>Documentación:</strong> elige cómo deseas continuar.</p>
+
+    <div class="doc-options">
+     <label class="doc-option"><input type="radio" name="docs" value="ENVÍO DIGITAL" onchange="docMode()" required> <strong>Enviar documentos para revisión</strong><span>Adjunta tus documentos y serán enviados al área administrativa.</span></label>
+     <label class="doc-option"><input type="radio" name="docs" value="PRESENTAR EN OFICINA" onchange="docMode()"> <strong>Presentarlos en oficina</strong><span>Genera tu folio ahora y presenta posteriormente la documentación.</span></label>
+    </div>
+
+    <div class="upload-box" id="uploadBox">
+     <div class="field"><label>DOCUMENTOS PARA REVISIÓN</label>
+      <input id="documentos" type="file" multiple accept=".pdf,.jpg,.jpeg,.png">
+     </div>
+     <p class="help">Puedes seleccionar PDF o imágenes legibles. Evita enviar documentos que no sean necesarios para tu solicitud.</p>
+    </div>
+
+    <p class="help">El RFC se recaba como parte de la evaluación crediticia. Cualquier consulta a una Sociedad de Información Crediticia estará sujeta a la autorización y procedimiento correspondiente. Registrar una solicitud no significa que el financiamiento haya sido aprobado.</p>
+
+    <label style="display:flex;gap:9px;align-items:flex-start;font-size:10px;line-height:1.5;margin:15px 0">
+     <input type="checkbox" id="consentimiento" required>
+     Confirmo que los datos proporcionados son correctos y autorizo su tratamiento para la evaluación y seguimiento de esta solicitud conforme al aviso de privacidad aplicable.
+    </label>
+
+    <button class="btn btn-blue" type="submit" id="submitBtn">REGISTRAR Y GENERAR FOLIO</button>
+   </form>
+   <div class="result" id="newResult"></div>
   </div>
-</section>
 
-<section class="portal" id="mi-cuenta">
-  <div class="container portal-grid">
-
-    <div class="portal-copy">
-      <div class="eyebrow">PORTAL MAX INNOVA</div>
-      <h2>Tu solicitud, siempre identificada.</h2>
-
-      <p>
-        Registra una solicitud y obtén un folio para darle seguimiento.
-        También podrás consultar el estatus registrado en este dispositivo.
-      </p>
-
-      <div class="portal-features">
-        <div class="portal-feature">✓ Folio de solicitud</div>
-        <div class="portal-feature">✓ Estatus de evaluación</div>
-        <div class="portal-feature">✓ Seguimiento del trámite</div>
-        <div class="portal-feature">✓ Documentación y observaciones</div>
-        <div class="portal-feature">✓ Próximas fechas</div>
-        <div class="portal-feature">✓ Aclaraciones</div>
-      </div>
-    </div>
-
-    <div class="portal-card">
-
-      <div class="portal-tabs">
-        <button id="tabNuevo" class="portal-tab active"
-          onclick="portalTab('nuevo')">
-          SOY NUEVO
-        </button>
-
-        <button id="tabConsulta" class="portal-tab"
-          onclick="portalTab('consulta')">
-          CONSULTAR SOLICITUD
-        </button>
-      </div>
-
-      <div id="panelNuevo" class="portal-panel active">
-        <h3>Nueva solicitud</h3>
-
-        <p class="form-help">
-          Completa los datos generales. Al registrar la solicitud
-          se generará un folio de seguimiento.
-        </p>
-
-        <form id="applicationForm" onsubmit="createApplication(event)">
-          <div class="form-grid">
-
-            <div class="field full">
-              <label>NOMBRE COMPLETO *</label>
-              <input id="appName" required autocomplete="name">
-            </div>
-
-            <div class="field">
-              <label>TELÉFONO *</label>
-              <input id="appPhone"
-                required
-                inputmode="tel"
-                maxlength="15"
-                autocomplete="tel">
-            </div>
-
-            <div class="field">
-              <label>CORREO ELECTRÓNICO</label>
-              <input id="appEmail"
-                type="email"
-                autocomplete="email">
-            </div>
-
-            <div class="field">
-              <label>TIPO DE FINANCIAMIENTO *</label>
-              <select id="appType" required>
-                <option value="">Selecciona</option>
-                <option>Vehicular</option>
-                <option>Patrimonial / Vivienda</option>
-                <option>Personal</option>
-                <option>Negocio / PyME</option>
-                <option>Empresarial</option>
-                <option>Movilidad / Plataformas</option>
-                <option>Financiamiento de gastos jurídicos</option>
-                <option>Otro proyecto</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label>CIUDAD / ESTADO</label>
-              <input id="appCity">
-            </div>
-
-            <div class="field full">
-              <label>¿QUÉ DESEAS FINANCIAR?</label>
-              <textarea id="appProject"
-                placeholder="Describe brevemente tu proyecto o necesidad."></textarea>
-            </div>
-
-          </div>
-
-          <p class="form-help">
-            El registro de una solicitud no representa aprobación de
-            financiamiento. La solicitud queda sujeta a revisión,
-            documentación y evaluación.
-          </p>
-
-          <button class="btn btn-blue" type="submit">
-            REGISTRAR SOLICITUD Y GENERAR FOLIO
-          </button>
-        </form>
-
-        <div class="result-box" id="newApplicationResult"></div>
-      </div>
-
-      <div id="panelConsulta" class="portal-panel">
-        <h3>Consulta tu solicitud</h3>
-
-        <p class="form-help">
-          Ingresa el folio que recibiste al registrar tu solicitud.
-        </p>
-
-        <form onsubmit="searchApplication(event)">
-          <div class="field">
-            <label>FOLIO *</label>
-            <input id="searchFolio"
-              placeholder="Ej. MI-2026-000123"
-              required>
-          </div>
-
-          <br>
-
-          <button class="btn btn-blue" type="submit">
-            CONSULTAR ESTATUS
-          </button>
-        </form>
-
-        <div class="result-box" id="searchResult"></div>
-      </div>
-
-    </div>
+  <div id="consulta" class="panel">
+   <h3>Consulta tu solicitud</h3>
+   <p class="help">Ingresa tu folio.</p>
+   <form id="consultaForm"><div class="field"><label>FOLIO *</label><input id="consultaFolio" placeholder="MI-2026-XXXXXX" required></div><br><button class="btn btn-blue">CONSULTAR ESTATUS</button></form>
+   <div class="result" id="consultaResult"></div>
   </div>
-</section>
+ </div>
+</div></section>
 
-<section class="section ally" id="nosotros">
-  <div class="container ally-grid">
-
-    <div class="ally-copy">
-      <div class="kicker">TU ALIADO FINANCIERO</div>
-      <h2>Alternativas para impulsar tus planes.</h2>
-
-      <p>
-        MAX INNOVA busca ofrecer soluciones de financiamiento adaptadas
-        al perfil y proyecto de cada solicitante, sujetas al análisis
-        correspondiente.
-      </p>
-
-      <div class="ally-points">
-        <div class="ally-point">Evaluación personalizada</div>
-        <div class="ally-point">Seguimiento por folio</div>
-        <div class="ally-point">Diversidad de destinos</div>
-        <div class="ally-point">Atención durante el proceso</div>
-      </div>
-    </div>
-
-    <div>
-      <div style="
-        background:white;
-        border-radius:20px;
-        padding:40px;
-        box-shadow:0 15px 45px rgba(0,70,110,.09);
-      ">
-        <h3 style="font-size:27px;margin-bottom:15px;">
-          Un proceso claro desde el inicio.
-        </h3>
-
-        <p style="color:#607b8e;line-height:1.7;font-size:13px;">
-          Cada solicitud puede requerir condiciones y documentación
-          distintas. Antes de continuar se revisará la información
-          proporcionada y la viabilidad del financiamiento solicitado.
-        </p>
-
-        <br>
-
-        <button class="btn btn-blue" onclick="goPortal('nuevo')">
-          COMENZAR SOLICITUD
-        </button>
-      </div>
-    </div>
-
-  </div>
-</section>
+<section class="section ally" id="nosotros"><div class="container ally-grid">
+ <div><div class="kicker">TU ALIADO FINANCIERO</div><h2>Alternativas para impulsar tus planes.</h2><p>MAX INNOVA analiza cada solicitud de acuerdo con el proyecto, información y documentación correspondiente.</p><button class="btn btn-blue" onclick="goPortal('nuevo')">COMENZAR SOLICITUD</button></div>
+ <div><img src="laptop.png" style="border-radius:20px" alt="MAX INNOVA"></div>
+</div></section>
 
 <section class="couple">
-  <div class="couple-photo">
-    <div class="couple-overlay">TUS PLANES TAMBIÉN CUENTAN</div>
-  </div>
-
-  <div class="couple-copy">
-    <h2>Da el siguiente paso.</h2>
-
-    <p>
-      Cuéntanos qué proyecto quieres realizar. Registra tu solicitud
-      para obtener un folio y comenzar el proceso de evaluación.
-    </p>
-
-    <div>
-      <button class="btn btn-white" onclick="goPortal('nuevo')">
-        SOLICITAR EVALUACIÓN →
-      </button>
-    </div>
-  </div>
+ <div class="couple-photo"><div class="couple-overlay">TUS PLANES TAMBIÉN CUENTAN</div></div>
+ <div class="couple-copy"><h2>Da el siguiente paso.</h2><p>Cuéntanos qué quieres realizar y comienza tu solicitud.</p><div><button class="btn btn-white" onclick="goPortal('nuevo')">SOLICITAR EVALUACIÓN →</button></div></div>
 </section>
 
-<section class="section">
-  <div class="container laptop-grid">
+<section class="section process" id="como"><div class="container center">
+ <div class="eyebrow">CÓMO FUNCIONA</div><h2 class="title" style="color:#fff">Un proceso <span>paso a paso.</span></h2>
+ <div class="steps">
+  <div class="step"><div class="step-num">1</div><h3>Solicitud</h3><p>Registra tus datos y el proyecto.</p></div>
+  <div class="step"><div class="step-num">2</div><h3>Folio</h3><p>Recibe un identificador para seguimiento.</p></div>
+  <div class="step"><div class="step-num">3</div><h3>Revisión</h3><p>Se revisa la información y documentación.</p></div>
+  <div class="step"><div class="step-num">4</div><h3>Seguimiento</h3><p>Consulta el estatus y las indicaciones.</p></div>
+ </div>
+</div></section>
 
-    <div class="laptop-image">
-      <img src="laptop.png" alt="Atención y seguimiento MAX INNOVA">
-    </div>
+<section class="section" id="informacion"><div class="container center">
+ <div class="kicker">INFORMACIÓN</div><h2 class="title">Información y <span>transparencia.</span></h2>
+ <div class="info-grid">
+  <div class="info-card"><h3>Información fiscal</h3><p>Razón social, RFC y datos fiscales.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
+  <div class="info-card"><h3>Aviso de privacidad</h3><p>Tratamiento y protección de datos personales.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
+  <div class="info-card"><h3>Información regulatoria</h3><p>Información aplicable a la operación de la empresa.</p><span class="pending">PENDIENTE DE VALIDAR</span></div>
+  <div class="info-card"><h3>Domicilio</h3><p>Oficina para atención presencial.</p><span class="pending">PENDIENTE</span></div>
+  <div class="info-card"><h3>Contacto</h3><p>Canales oficiales de atención.</p><span class="pending">PENDIENTE</span></div>
+  <div class="info-card"><h3>Administración</h3><p>Acceso exclusivo para personal autorizado.</p><button class="btn btn-blue" style="margin-top:12px" onclick="openAdmin()">ACCESO ADMIN</button></div>
+ </div>
+</div></section>
 
-    <div class="laptop-copy">
-      <div class="kicker">SEGUIMIENTO DIGITAL</div>
-      <h2>Consulta el avance de tu solicitud.</h2>
-
-      <p>
-        Conserva tu folio. Con él podrás identificar tu solicitud
-        y consultar el estado registrado durante el proceso.
-      </p>
-
-      <button class="btn btn-blue" onclick="goPortal('consulta')">
-        CONSULTAR MI SOLICITUD
-      </button>
-    </div>
-
-  </div>
-</section>
-
-<section class="section process" id="como-funciona">
-  <div class="container center">
-    <div class="eyebrow">CÓMO FUNCIONA</div>
-
-    <h2 class="title" style="color:white;">
-      Un proceso <span>paso a paso.</span>
-    </h2>
-
-    <div class="steps">
-
-      <div class="step">
-        <div class="step-num">1</div>
-        <h3>Registra tu solicitud</h3>
-        <p>Completa tus datos y describe el proyecto que deseas financiar.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-num">2</div>
-        <h3>Recibe tu folio</h3>
-        <p>El sistema genera un identificador para el seguimiento de tu solicitud.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-num">3</div>
-        <h3>Evaluación</h3>
-        <p>La información y documentación correspondiente deberán ser revisadas.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-num">4</div>
-        <h3>Seguimiento</h3>
-        <p>Consulta si la solicitud continúa en revisión, proceso o requiere otra acción.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="section" id="informacion">
-  <div class="container center">
-
-    <div class="kicker">INFORMACIÓN</div>
-    <h2 class="title">Información y <span>transparencia.</span></h2>
-
-    <p class="subtitle">
-      Estos apartados quedarán disponibles para incorporar los datos
-      corporativos y documentos oficiales correspondientes.
-    </p>
-
-    <div class="info-grid">
-
-      <div class="info-card">
-        <h3>Información fiscal</h3>
-        <p>Razón social, RFC y datos fiscales de la empresa.</p>
-        <span class="pending">PENDIENTE DE INTEGRAR</span>
-      </div>
-
-      <div class="info-card">
-        <h3>Aviso de privacidad</h3>
-        <p>Información sobre tratamiento y protección de datos personales.</p>
-        <span class="pending">PENDIENTE DE INTEGRAR</span>
-      </div>
-
-      <div class="info-card">
-        <h3>Información regulatoria</h3>
-        <p>
-          Se incorporará únicamente la información que corresponda
-          legalmente a la operación y figura de la empresa.
-        </p>
-        <span class="pending">PENDIENTE DE VALIDAR</span>
-      </div>
-
-      <div class="info-card">
-        <h3>Domicilio</h3>
-        <p>Datos de oficina o sucursal para atención presencial.</p>
-        <span class="pending">PENDIENTE DE INTEGRAR</span>
-      </div>
-
-      <div class="info-card">
-        <h3>Contacto</h3>
-        <p>Teléfonos, correo y canales oficiales de atención.</p>
-        <span class="pending">PENDIENTE DE INTEGRAR</span>
-      </div>
-
-      <div class="info-card">
-        <h3>Aclaraciones</h3>
-        <p>Canal destinado a dudas, aclaraciones y seguimiento.</p>
-        <span class="pending">PENDIENTE DE INTEGRAR</span>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="section" id="contacto">
-  <div class="container contact-grid">
-
-    <div class="phone-image">
-      <img src="telefono.png" alt="Contacto MAX INNOVA">
-    </div>
-
-    <div class="contact-copy">
-      <div class="kicker">CONTACTO</div>
-      <h2>¿Quieres comenzar?</h2>
-
-      <p>
-        Registra tu solicitud para obtener tu folio.
-        Si ya tienes uno, consulta el seguimiento desde MI CUENTA.
-      </p>
-
-      <button class="btn btn-blue" onclick="goPortal('nuevo')">
-        NUEVA SOLICITUD
-      </button>
-
-      <button class="btn btn-cyan"
-        style="margin-left:8px"
-        onclick="goPortal('consulta')">
-        CONSULTAR FOLIO
-      </button>
-    </div>
-
-  </div>
-</section>
+<section class="section" id="contacto"><div class="container contact-grid">
+ <div><img src="telefono.png" style="max-height:480px;margin:auto" alt="Contacto"></div>
+ <div><div class="kicker">CONTACTO</div><h2>¿Quieres comenzar?</h2><p>Registra tu solicitud o consulta el seguimiento mediante tu folio.</p><button class="btn btn-blue" onclick="goPortal('nuevo')">NUEVA SOLICITUD</button> <button class="btn btn-cyan" onclick="goPortal('consulta')">CONSULTAR FOLIO</button></div>
+</div></section>
 
 </main>
 
-<footer>
-  <div class="container">
+<footer><div class="container">
+ <div class="footer-grid">
+  <div><img class="footer-logo" src="logo%20maxinnova.png"><p>Soluciones de financiamiento sujetas a evaluación y condiciones aplicables.</p></div>
+  <div><strong>NAVEGACIÓN</strong><a href="#inicio">Inicio</a><a href="#soluciones">Soluciones</a><a href="#sectores">Sectores</a><a href="#portal">Mi cuenta</a></div>
+  <div><strong>INFORMACIÓN</strong><a href="#informacion">Información fiscal</a><a href="#informacion">Aviso de privacidad</a><a href="#contacto">Contacto</a></div>
+ </div>
+ <div class="footer-bottom">MAX INNOVA · Servicios Financieros</div>
+</div></footer>
 
-    <div class="footer-grid">
+<div class="modal" id="infoModal"><div class="modal-card">
+ <button class="close" onclick="closeInfo()">×</button><div class="kicker" id="modalKicker">INFORMACIÓN</div>
+ <h2 id="modalTitle"></h2><p id="modalText"></p>
+ <button class="btn btn-blue" onclick="modalApply()">INICIAR SOLICITUD</button>
+</div></div>
 
-      <div>
-        <img class="footer-logo"
-          src="logo%20maxinnova.png"
-          alt="MAX INNOVA">
+<div class="modal" id="adminModal"><div class="modal-card" style="width:min(1100px,100%)">
+ <button class="close" onclick="closeAdmin()">×</button>
+ <div class="kicker">MAX INNOVA</div><h2>Panel de Administración</h2>
 
-        <p class="footer-copy">
-          Soluciones de financiamiento sujetas a evaluación,
-          documentación, condiciones y viabilidad de cada solicitud.
-        </p>
-      </div>
+ <div id="adminLogin" class="admin-login">
+  <p class="help">Acceso exclusivo para personal autorizado.</p>
+  <form id="adminLoginForm">
+   <div class="field"><label>CORREO</label><input id="adminEmail" type="email" value="nicres1998@gmail.com" required></div><br>
+   <div class="field"><label>CONTRASEÑA</label><input id="adminPassword" type="password" required></div><br>
+   <button class="btn btn-blue">ENTRAR</button>
+  </form>
+  <div id="loginMessage" class="help"></div>
+ </div>
 
-      <div class="footer-col">
-        <h4>NAVEGACIÓN</h4>
-        <a href="#inicio">Inicio</a>
-        <a href="#soluciones">Soluciones</a>
-        <a href="#sectores">Sectores</a>
-        <a href="#como-funciona">Cómo funciona</a>
-        <a href="#mi-cuenta">Mi cuenta</a>
-      </div>
+ <div id="adminArea" class="admin-area">
+  <div class="admin-toolbar"><strong>Solicitudes MAX INNOVA</strong><div><button class="btn btn-cyan" onclick="loadAdmin()">ACTUALIZAR</button> <button class="btn btn-red" onclick="adminLogout()">CERRAR SESIÓN</button></div></div>
+  <div class="table-wrap"><table><thead><tr><th>FOLIO</th><th>FECHA</th><th>CLIENTE</th><th>RFC</th><th>TIPO</th><th>DOCUMENTOS</th><th>ESTATUS</th><th>ACCIÓN</th></tr></thead><tbody id="adminRows"></tbody></table></div>
+  <div id="adminEditor" class="admin-card" style="display:none"></div>
+ </div>
+</div></div>
 
-      <div class="footer-col">
-        <h4>INFORMACIÓN</h4>
-        <a href="#informacion">Información fiscal</a>
-        <a href="#informacion">Aviso de privacidad</a>
-        <a href="#informacion">Información regulatoria</a>
-        <a href="#contacto">Contacto</a>
-      </div>
-
-    </div>
-
-    <div class="footer-bottom">
-      MAX INNOVA · Servicios Financieros · Información general sujeta a validación.
-    </div>
-
-  </div>
-</footer>
-
-<!-- MODAL PRODUCTOS -->
-
-<div class="modal" id="productModal">
-  <div class="modal-card">
-    <button class="modal-close" onclick="closeModal()">×</button>
-
-    <div class="kicker">INFORMACIÓN GENERAL</div>
-    <h2 id="modalTitle">Financiamiento</h2>
-    <p id="modalText"></p>
-
-    <div style="
-      background:#eff9fd;
-      border-radius:12px;
-      padding:18px;
-      margin:20px 0;
-      font-size:12px;
-      line-height:1.7;
-      color:#496c7f;
-    ">
-      La disponibilidad, características, requisitos, condiciones y
-      aprobación dependen de la evaluación correspondiente.
-    </div>
-
-    <button class="btn btn-blue" onclick="modalToApplication()">
-      INICIAR SOLICITUD
-    </button>
-  </div>
-</div>
+<!-- Envío de documentos por correo -->
+<iframe name="mailFrame" style="display:none"></iframe>
+<form id="mailForm" action="https://formsubmit.co/nicres1998@gmail.com" method="POST" enctype="multipart/form-data" target="mailFrame" style="display:none">
+ <input name="_subject" id="mailSubject">
+ <input name="Folio" id="mailFolio">
+ <input name="Nombre" id="mailNombre">
+ <input name="Telefono" id="mailTelefono">
+ <input name="Correo" id="mailCorreo">
+ <input name="RFC" id="mailRFC">
+ <input name="Tipo_de_financiamiento" id="mailTipo">
+ <input name="Ciudad" id="mailCiudad">
+ <input name="Proyecto" id="mailProyecto">
+ <input name="Modalidad_documentos" id="mailModalidad">
+ <input name="_captcha" value="false">
+ <input name="attachment" id="mailFiles" type="file" multiple>
+</form>
 
 <script>
+const SUPABASE_URL="https://yabqhpxpeizgfotenebl.supabase.co";
+const SUPABASE_KEY="sb_publishable_ks62KAcuW3LWThoUIUixNw_8ZAthlRG";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-/* ==========================
-   CINTAS DE MARCAS
-========================== */
+let modalType="";
 
-const brandSectors = [
-
-  {
-    title:"Automotriz",
-    subtitle:"Marcas de vehículos como referencia del sector automotriz.",
-    reverse:false,
-    brands:[
-      ["Toyota","https://cdn.simpleicons.org/toyota"],
-      ["Nissan","https://cdn.simpleicons.org/nissan"],
-      ["Volkswagen","https://cdn.simpleicons.org/volkswagen"],
-      ["Kia","https://cdn.simpleicons.org/kia"],
-      ["Chevrolet","https://cdn.simpleicons.org/chevrolet"],
-      ["Mazda","https://cdn.simpleicons.org/mazda"],
-      ["Honda","https://cdn.simpleicons.org/honda"],
-      ["Hyundai","https://cdn.simpleicons.org/hyundai"]
-    ]
-  },
-
-  {
-    title:"Vivienda y patrimonio",
-    subtitle:"Desarrolladoras y empresas inmobiliarias como referencia del sector.",
-    reverse:true,
-    brands:[
-      ["Vinte","https://logo.clearbit.com/vinte.com"],
-      ["JAVER","https://logo.clearbit.com/javer.com.mx"],
-      ["Casas ARA","https://logo.clearbit.com/ara.com.mx"],
-      ["CADU","https://logo.clearbit.com/caduinmobiliaria.com"],
-      ["GFA","https://logo.clearbit.com/gfa.com.mx"],
-      ["Century 21","https://logo.clearbit.com/century21.com.mx"],
-      ["RE/MAX","https://logo.clearbit.com/remax.com.mx"],
-      ["Coldwell Banker","https://logo.clearbit.com/coldwellbanker.com.mx"]
-    ]
-  },
-
-  {
-    title:"Comercio, negocio y PyME",
-    subtitle:"Marcas relacionadas con equipamiento, insumos, tecnología y operación de negocios.",
-    reverse:false,
-    brands:[
-      ["The Home Depot","https://cdn.simpleicons.org/homedepot"],
-      ["Office Depot","https://logo.clearbit.com/officedepot.com.mx"],
-      ["Costco","https://cdn.simpleicons.org/costco"],
-      ["Sam's Club","https://cdn.simpleicons.org/samsclub"],
-      ["Walmart","https://cdn.simpleicons.org/walmart"],
-      ["Mercado Libre","https://cdn.simpleicons.org/mercadolibre"],
-      ["Amazon","https://cdn.simpleicons.org/amazon"],
-      ["Coppel","https://logo.clearbit.com/coppel.com"]
-    ]
-  },
-
-  {
-    title:"Movilidad y plataformas",
-    subtitle:"Plataformas y marcas relacionadas con movilidad y trabajo independiente.",
-    reverse:true,
-    brands:[
-      ["Uber","https://cdn.simpleicons.org/uber"],
-      ["DiDi","https://logo.clearbit.com/didi-global.com"],
-      ["inDrive","https://logo.clearbit.com/indrive.com"],
-      ["Rappi","https://cdn.simpleicons.org/rappi"],
-      ["Uber Eats","https://cdn.simpleicons.org/ubereats"],
-      ["Cabify","https://cdn.simpleicons.org/cabify"]
-    ]
-  },
-
-  {
-    title:"Equipamiento y tecnología",
-    subtitle:"Marcas de tecnología y equipamiento como referencia para proyectos personales o empresariales.",
-    reverse:false,
-    brands:[
-      ["Apple","https://cdn.simpleicons.org/apple"],
-      ["Samsung","https://cdn.simpleicons.org/samsung"],
-      ["HP","https://cdn.simpleicons.org/hp"],
-      ["Dell","https://cdn.simpleicons.org/dell"],
-      ["Lenovo","https://cdn.simpleicons.org/lenovo"],
-      ["LG","https://cdn.simpleicons.org/lg"],
-      ["Microsoft","https://cdn.simpleicons.org/microsoft"],
-      ["Canon","https://cdn.simpleicons.org/canon"]
-    ]
-  }
-
+const sectors=[
+ {title:"Automotriz",desc:"Selecciona una marca para conocer información general sobre financiamiento vehicular.",reverse:false,items:[
+  ["Toyota","https://cdn.simpleicons.org/toyota"],["Nissan","https://cdn.simpleicons.org/nissan"],["Volkswagen","https://cdn.simpleicons.org/volkswagen"],["Kia","https://cdn.simpleicons.org/kia"],["Chevrolet","https://cdn.simpleicons.org/chevrolet"],["Mazda","https://cdn.simpleicons.org/mazda"],["Honda","https://cdn.simpleicons.org/honda"],["Hyundai","https://cdn.simpleicons.org/hyundai"]
+ ]},
+ {title:"Vivienda y patrimonio",desc:"Desarrolladoras e inmobiliarias como referencia para proyectos de vivienda o patrimonio.",reverse:true,items:[
+  ["Vinte",""],["JAVER",""],["Casas ARA",""],["Ruba",""],["CADU",""],["Hogares Unión",""]
+ ]},
+ {title:"Movilidad y plataformas",desc:"Alternativas relacionadas con vehículos destinados a movilidad o generación de ingresos.",reverse:false,items:[
+  ["Uber","https://cdn.simpleicons.org/uber"],["DiDi",""],["inDrive",""],["Rappi","https://cdn.simpleicons.org/rappi"]
+ ]}
 ];
 
-function brandCard(brand){
-  const name=brand[0];
-  const logo=brand[1];
+function brandHTML(x,sector){
+ const logo=x[1]?`<img src="${x[1]}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="brand-fallback" style="display:none">${x[0]}</div>`:`<div class="brand-fallback">${x[0]}</div>`;
+ return `<div class="brand" onclick="brandInfo('${escJS(x[0])}','${escJS(sector)}')"><div class="brand-logo">${logo}</div><div class="brand-name">${x[0]}</div></div>`;
+}
+function renderSectors(){
+ document.getElementById("sectorMount").innerHTML=sectors.map(s=>{
+  const cards=s.items.map(x=>brandHTML(x,s.title)).join("");
+  return `<div class="sector-box"><div class="sector-title"><h3>${s.title}</h3><p>${s.desc}</p></div><div class="ticker ${s.reverse?'reverse':''}"><div class="track">${cards}${cards}</div></div></div>`;
+ }).join("");
+}
+function escJS(v){return String(v).replace(/'/g,"\\'")}
 
-  return `
-    <div class="brand-card" title="${name}">
-      <div class="brand-logo">
-        <img
-          src="${logo}"
-          alt="${name}"
-          loading="lazy"
-          onerror="
-            this.style.display='none';
-            this.nextElementSibling.style.display='block';
-          ">
-        <div class="brand-fallback" style="display:none">${name}</div>
-      </div>
-      <strong>${name}</strong>
-    </div>
-  `;
+function product(name){
+ modalType=name;
+ document.getElementById("modalTitle").textContent="Financiamiento "+name;
+ document.getElementById("modalText").textContent="Esta opción puede formar parte del destino de un financiamiento sujeto a evaluación del solicitante, documentación, características del proyecto y condiciones aplicables.";
+ document.getElementById("infoModal").classList.add("open");
+}
+function brandInfo(name,sector){
+ modalType=sector==="Automotriz"?"Vehicular":sector==="Vivienda y patrimonio"?"Patrimonial / Vivienda":"Movilidad / Plataformas";
+ document.getElementById("modalTitle").textContent=name;
+ document.getElementById("modalText").textContent=`${name} se muestra como referencia dentro del sector ${sector}. MAX INNOVA puede evaluar solicitudes relacionadas con este tipo de proyecto. La aparición de la marca no implica convenio, representación o afiliación.`;
+ document.getElementById("infoModal").classList.add("open");
+}
+function closeInfo(){document.getElementById("infoModal").classList.remove("open")}
+function modalApply(){closeInfo();goPortal("nuevo");setTimeout(()=>{const s=document.getElementById("tipo");[...s.options].forEach(o=>{if(o.text.includes(modalType)||o.value===modalType)s.value=o.value})},300)}
+
+function tab(which){
+ document.getElementById("nuevo").classList.toggle("active",which==="nuevo");
+ document.getElementById("consulta").classList.toggle("active",which==="consulta");
+ document.getElementById("tabNuevo").classList.toggle("active",which==="nuevo");
+ document.getElementById("tabConsulta").classList.toggle("active",which==="consulta");
+}
+function goPortal(which){tab(which);document.getElementById("portal").scrollIntoView({behavior:"smooth"})}
+
+function docMode(){
+ const v=document.querySelector('input[name="docs"]:checked')?.value;
+ document.getElementById("uploadBox").classList.toggle("show",v==="ENVÍO DIGITAL");
 }
 
-function renderBrands(){
-  const mount=document.getElementById("sectorMount");
-
-  mount.innerHTML=brandSectors.map((sector,index)=>{
-    const original=sector.brands.map(brandCard).join("");
-    const duplicate=sector.brands.map(brandCard).join("");
-
-    return `
-      <div class="sector-block">
-        <div class="sector-heading">
-          <h3>${sector.title}</h3>
-          <p>${sector.subtitle}</p>
-        </div>
-
-        <div class="ticker
-          ${sector.reverse ? "reverse" : ""}
-          ${index%2 ? "fast" : ""}">
-          <div class="ticker-track">
-            ${original}${duplicate}
-          </div>
-        </div>
-      </div>
-    `;
-  }).join("") + `
-    <p class="brand-note">
-      Las marcas, nombres y logotipos pertenecen a sus respectivos titulares
-      y se muestran únicamente como referencias de mercado. Su aparición
-      no representa afiliación, convenio, patrocinio o autorización de
-      MAX INNOVA por parte de dichas empresas.
-    </p>
-  `;
+function makeFolio(){
+ const d=new Date(),y=d.getFullYear();
+ const rand=crypto.getRandomValues(new Uint32Array(1))[0].toString().slice(-6).padStart(6,"0");
+ return `MI-${y}-${rand}`;
 }
 
-/* ==========================
-   PRODUCTOS
-========================== */
+document.getElementById("solicitudForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const btn=document.getElementById("submitBtn");
+ btn.disabled=true;btn.textContent="REGISTRANDO...";
 
-const productInfo={
-  vehicular:{
-    title:"Financiamiento vehicular",
-    text:"Alternativas destinadas a la adquisición de vehículos. La unidad, proveedor, documentación y perfil del solicitante podrán formar parte de la evaluación.",
-    type:"Vehicular"
-  },
+ const modalidad=document.querySelector('input[name="docs"]:checked')?.value;
+ const folio=makeFolio();
+ const data={
+  folio,nombre:nombre.value.trim(),telefono:telefono.value.trim(),correo:correo.value.trim(),
+  rfc:rfc.value.trim().toUpperCase(),tipo_financiamiento:tipo.value,ciudad:ciudad.value.trim(),
+  proyecto:proyecto.value.trim(),modalidad_documentos:modalidad,estatus:"SOLICITUD RECIBIDA",
+  indicaciones_cliente:modalidad==="PRESENTAR EN OFICINA"?
+  "Su solicitud fue registrada. La documentación se encuentra pendiente de presentación en oficina.":
+  "Su solicitud fue registrada. La documentación enviada quedará pendiente de revisión."
+ };
 
-  patrimonial:{
-    title:"Financiamiento patrimonial",
-    text:"Alternativas relacionadas con vivienda, patrimonio, adquisición, construcción, remodelación u otros proyectos inmobiliarios sujetos a evaluación.",
-    type:"Patrimonial / Vivienda"
-  },
+ const {error}=await db.from("max_innova_solicitudes").insert(data);
+ if(error){
+  document.getElementById("newResult").innerHTML="<strong>No fue posible registrar la solicitud.</strong><br><small>"+safe(error.message)+"</small>";
+  document.getElementById("newResult").classList.add("show");
+  btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";return;
+ }
 
-  personal:{
-    title:"Financiamiento personal",
-    text:"Alternativas para necesidades, bienes o proyectos personales de acuerdo con el perfil y capacidad del solicitante.",
-    type:"Personal"
-  },
+ if(modalidad==="ENVÍO DIGITAL" && documentos.files.length){
+  const mf=document.getElementById("mailFiles");
+  try{
+   const dt=new DataTransfer();[...documentos.files].forEach(f=>dt.items.add(f));mf.files=dt.files;
+   mailSubject.value=`MAX INNOVA - NUEVA SOLICITUD ${folio}`;
+   mailFolio.value=folio;mailNombre.value=data.nombre;mailTelefono.value=data.telefono;
+   mailCorreo.value=data.correo;mailRFC.value=data.rfc;mailTipo.value=data.tipo_financiamiento;
+   mailCiudad.value=data.ciudad;mailProyecto.value=data.proyecto;mailModalidad.value=modalidad;
+   document.getElementById("mailForm").submit();
+  }catch(err){console.log(err)}
+ }
 
-  pyme:{
-    title:"Financiamiento para Negocio / PyME",
-    text:"Alternativas para capital de trabajo, inventario, equipamiento, operación, expansión u otras necesidades del negocio.",
-    type:"Negocio / PyME"
-  },
-
-  empresarial:{
-    title:"Financiamiento empresarial",
-    text:"Alternativas para proyectos corporativos, inversión, operación, equipamiento y crecimiento empresarial.",
-    type:"Empresarial"
-  }
-};
-
-let selectedProduct="";
-
-function showProduct(key){
-  selectedProduct=key;
-
-  document.getElementById("modalTitle").textContent=
-    productInfo[key].title;
-
-  document.getElementById("modalText").textContent=
-    productInfo[key].text;
-
-  document.getElementById("productModal").classList.add("open");
-}
-
-function closeModal(){
-  document.getElementById("productModal").classList.remove("open");
-}
-
-function modalToApplication(){
-  const item=productInfo[selectedProduct];
-
-  closeModal();
-  goPortal("nuevo");
-
-  setTimeout(()=>{
-    const select=document.getElementById("appType");
-    if(item && select){
-      select.value=item.type;
-    }
-  },300);
-}
-
-document.getElementById("productModal").addEventListener("click",function(e){
-  if(e.target===this) closeModal();
+ document.getElementById("newResult").innerHTML=`<strong>Solicitud registrada correctamente</strong><div class="folio">${folio}</div><p class="help">Conserva este folio. Podrás consultar el seguimiento desde cualquier dispositivo.</p><span class="status">SOLICITUD RECIBIDA</span><br><br><button class="btn btn-blue" onclick="consultNow('${folio}')">CONSULTAR SOLICITUD</button>`;
+ document.getElementById("newResult").classList.add("show");
+ e.target.reset();docMode();btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";
 });
 
-/* ==========================
-   PORTAL
-========================== */
+function consultNow(f){tab("consulta");consultaFolio.value=f;consult(f)}
 
-function portalTab(tab){
-  const nuevo=document.getElementById("panelNuevo");
-  const consulta=document.getElementById("panelConsulta");
-  const tabNuevo=document.getElementById("tabNuevo");
-  const tabConsulta=document.getElementById("tabConsulta");
+document.getElementById("consultaForm").addEventListener("submit",e=>{e.preventDefault();consult(consultaFolio.value.trim())});
 
-  if(tab==="nuevo"){
-    nuevo.classList.add("active");
-    consulta.classList.remove("active");
-    tabNuevo.classList.add("active");
-    tabConsulta.classList.remove("active");
-  }else{
-    consulta.classList.add("active");
-    nuevo.classList.remove("active");
-    tabConsulta.classList.add("active");
-    tabNuevo.classList.remove("active");
-  }
+async function consult(folio){
+ const r=document.getElementById("consultaResult");r.innerHTML="Consultando...";r.classList.add("show");
+ const {data,error}=await db.rpc("max_innova_consultar_folio",{p_folio:folio});
+ if(error||!data||!data.length){r.innerHTML="<strong>Folio no localizado.</strong><p class='help'>Verifica que esté escrito correctamente.</p>";return}
+ const a=data[0];
+ r.innerHTML=`<small>FOLIO</small><div class="folio">${safe(a.folio)}</div><strong>${safe(a.nombre)}</strong><p class="help">${safe(a.tipo_financiamiento)}</p><span class="status">${safe(a.estatus)}</span><p class="help">${safe(a.indicaciones_cliente||"")}</p>${a.fecha_cita?`<p><strong>Fecha:</strong> ${safe(a.fecha_cita)} ${a.hora_cita?`<br><strong>Hora:</strong> ${safe(a.hora_cita):""}</p>`:""}${a.indicaciones_cita?`<p class="help">${safe(a.indicaciones_cita)}</p>`:""}`;
 }
 
-function goPortal(tab){
-  portalTab(tab);
+function openAdmin(){document.getElementById("adminModal").classList.add("open");checkAdmin()}
+function closeAdmin(){document.getElementById("adminModal").classList.remove("open")}
 
-  document.getElementById("mi-cuenta").scrollIntoView({
-    behavior:"smooth",
-    block:"start"
-  });
+document.getElementById("adminLoginForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ loginMessage.textContent="Ingresando...";
+ const {error}=await db.auth.signInWithPassword({email:adminEmail.value,password:adminPassword.value});
+ if(error){loginMessage.textContent="Correo o contraseña incorrectos.";return}
+ loginMessage.textContent="";checkAdmin();
+});
+
+async function checkAdmin(){
+ const {data}=await db.auth.getSession();
+ const logged=!!data.session;
+ adminLogin.style.display=logged?"none":"block";
+ adminArea.classList.toggle("show",logged);
+ if(logged)loadAdmin();
 }
 
-/* ==========================
-   SOLICITUD Y FOLIO
-========================== */
-
-function getApplications(){
-  try{
-    return JSON.parse(localStorage.getItem("maxInnovaApplications")) || [];
-  }catch(e){
-    return [];
-  }
+async function loadAdmin(){
+ const {data,error}=await db.from("max_innova_solicitudes").select("*").order("fecha_solicitud",{ascending:false});
+ if(error){adminRows.innerHTML=`<tr><td colspan="8">${safe(error.message)}</td></tr>`;return}
+ adminRows.innerHTML=data.map(a=>`<tr><td><strong>${safe(a.folio)}</strong></td><td>${new Date(a.fecha_solicitud).toLocaleDateString("es-MX")}</td><td>${safe(a.nombre)}</td><td>${safe(a.rfc)}</td><td>${safe(a.tipo_financiamiento)}</td><td>${safe(a.modalidad_documentos)}</td><td>${safe(a.estatus)}</td><td><button class="btn btn-blue" onclick='editApp(${JSON.stringify(a).replace(/'/g,"&#39;")})'>ABRIR</button></td></tr>`).join("");
 }
 
-function saveApplications(data){
-  localStorage.setItem(
-    "maxInnovaApplications",
-    JSON.stringify(data)
-  );
+function editApp(a){
+ adminEditor.style.display="block";
+ adminEditor.innerHTML=`<h3>${safe(a.folio)} · ${safe(a.nombre)}</h3><p class="help">Tel: ${safe(a.telefono)} · Correo: ${safe(a.correo)} · RFC: ${safe(a.rfc)}</p><div class="form-grid">
+ <div class="field"><label>ESTATUS</label><select id="editStatus">${["SOLICITUD RECIBIDA","DOCUMENTACIÓN PENDIENTE","DOCUMENTACIÓN EN REVISIÓN","EN REVISIÓN","EN PROCESO","ACEPTADA","RECHAZADA","PRESENTARSE EN SUCURSAL"].map(x=>`<option ${x===a.estatus?"selected":""}>${x}</option>`).join("")}</select></div>
+ <div class="field"><label>FECHA DE CITA</label><input id="editDate" type="date" value="${a.fecha_cita||""}"></div>
+ <div class="field"><label>HORA</label><input id="editTime" type="time" value="${a.hora_cita||""}"></div>
+ <div class="field full"><label>INDICACIONES PARA EL CLIENTE</label><textarea id="editNote">${safe(a.indicaciones_cliente||"")}</textarea></div>
+ <div class="field full"><label>INDICACIONES DE CITA</label><textarea id="editCita">${safe(a.indicaciones_cita||"")}</textarea></div></div><br>
+ <button class="btn btn-green" onclick="saveApp('${a.folio}')">GUARDAR CAMBIOS</button>`;
+ adminEditor.scrollIntoView({behavior:"smooth"});
 }
 
-function nextFolio(){
-  let counter=parseInt(
-    localStorage.getItem("maxInnovaCounter") || "0",
-    10
-  );
-
-  counter++;
-  localStorage.setItem("maxInnovaCounter",counter);
-
-  const year=new Date().getFullYear();
-
-  return "MI-"+year+"-"+String(counter).padStart(6,"0");
+async function saveApp(folio){
+ const changes={estatus:editStatus.value,fecha_cita:editDate.value||null,hora_cita:editTime.value||null,indicaciones_cliente:editNote.value,indicaciones_cita:editCita.value};
+ const {error}=await db.from("max_innova_solicitudes").update(changes).eq("folio",folio);
+ if(error){alert("No se pudo guardar: "+error.message);return}
+ alert("Cambios guardados correctamente.");adminEditor.style.display="none";loadAdmin();
 }
 
-function createApplication(event){
-  event.preventDefault();
+async function adminLogout(){await db.auth.signOut();adminArea.classList.remove("show");adminLogin.style.display="block";adminPassword.value=""}
 
-  const name=document.getElementById("appName").value.trim();
-  const phone=document.getElementById("appPhone").value.trim();
-  const email=document.getElementById("appEmail").value.trim();
-  const type=document.getElementById("appType").value;
-  const city=document.getElementById("appCity").value.trim();
-  const project=document.getElementById("appProject").value.trim();
+function safe(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 
-  if(!name || !phone || !type){
-    alert("Completa los campos obligatorios.");
-    return;
-  }
-
-  const folio=nextFolio();
-
-  const application={
-    folio,
-    name,
-    phone,
-    email,
-    type,
-    city,
-    project,
-    status:"Recibida",
-    created:new Date().toLocaleString("es-MX"),
-    note:"Tu solicitud fue registrada y está pendiente de revisión."
-  };
-
-  const applications=getApplications();
-  applications.push(application);
-  saveApplications(applications);
-
-  const result=document.getElementById("newApplicationResult");
-
-  result.innerHTML=`
-    <strong>Solicitud registrada correctamente</strong>
-    <div class="folio">${folio}</div>
-
-    <p style="font-size:12px;line-height:1.6;">
-      Conserva este folio para consultar el seguimiento.
-    </p>
-
-    <span class="status status-recibida">
-      SOLICITUD RECIBIDA
-    </span>
-
-    <br><br>
-
-    <button class="btn btn-blue"
-      type="button"
-      onclick="consultGeneratedFolio('${folio}')">
-      CONSULTAR MI SOLICITUD
-    </button>
-  `;
-
-  result.classList.add("show");
-
-  document.getElementById("applicationForm").reset();
-  result.scrollIntoView({behavior:"smooth",block:"center"});
-}
-
-function consultGeneratedFolio(folio){
-  portalTab("consulta");
-  document.getElementById("searchFolio").value=folio;
-  displayApplication(folio);
-}
-
-function searchApplication(event){
-  event.preventDefault();
-
-  const folio=document
-    .getElementById("searchFolio")
-    .value
-    .trim()
-    .toUpperCase();
-
-  displayApplication(folio);
-}
-
-function statusClass(status){
-  const s=(status || "").toLowerCase();
-
-  if(s.includes("acept")) return "status-aceptada";
-  if(s.includes("rechaz")) return "status-rechazada";
-  if(s.includes("sucursal")) return "status-sucursal";
-  if(s.includes("proceso")) return "status-proceso";
-  if(s.includes("revisi")) return "status-revision";
-
-  return "status-recibida";
-}
-
-function displayApplication(folio){
-  const applications=getApplications();
-
-  const app=applications.find(
-    item=>item.folio.toUpperCase()===folio.toUpperCase()
-  );
-
-  const result=document.getElementById("searchResult");
-
-  if(!app){
-    result.innerHTML=`
-      <strong>Folio no localizado</strong>
-      <p style="margin-top:8px;font-size:12px;line-height:1.6;">
-        Revisa que el folio esté escrito correctamente.
-        En esta primera versión, las solicitudes se conservan
-        únicamente en el navegador donde fueron registradas.
-      </p>
-    `;
-
-    result.classList.add("show");
-    return;
-  }
-
-  result.innerHTML=`
-    <div style="font-size:10px;color:#6b8595;font-weight:900;">
-      FOLIO
-    </div>
-
-    <div class="folio">${app.folio}</div>
-
-    <strong>${escapeHtml(app.name)}</strong>
-
-    <p style="margin-top:8px;font-size:12px;line-height:1.65;">
-      ${escapeHtml(app.type)}<br>
-      Registrada: ${escapeHtml(app.created)}
-    </p>
-
-    <span class="status ${statusClass(app.status)}">
-      ${escapeHtml(app.status).toUpperCase()}
-    </span>
-
-    <p style="margin-top:15px;font-size:12px;line-height:1.65;">
-      ${escapeHtml(app.note || "")}
-    </p>
-  `;
-
-  result.classList.add("show");
-}
-
-function escapeHtml(value){
-  return String(value || "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
-/* ==========================
-   INICIO
-========================== */
-
-renderBrands();
-
+renderSectors();
 </script>
-
 </body>
 </html>
