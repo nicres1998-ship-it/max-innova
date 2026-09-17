@@ -316,9 +316,63 @@ footer{background:#001f38;color:#fff;padding:45px 0 25px}
 @media(max-width:820px){.hero{display:block}.hero-left{min-height:540px}.hero-image{min-height:330px;margin-top:-1px}.hero-image:before{background:linear-gradient(180deg,#005d89 0%,rgba(0,93,137,.55) 13%,transparent 42%)}.modal-hero{height:210px}.modal-content-inner{padding:25px 20px}.brand{width:145px!important}}
 @media(prefers-reduced-motion:reduce){.hero-image,.statement-inner:after,.track{animation:none!important}.hero-copy>*{opacity:1;transform:none;animation:none}.motion-reveal{opacity:1;transform:none}}
 
+
+/* =========================================================
+   MAX INNOVA · CAPA VISUAL INNOVADORA FINAL
+   ========================================================= */
+body{position:relative;overflow-x:hidden}
+.ambient-orb{position:fixed;z-index:-2;border-radius:50%;filter:blur(70px);opacity:.13;pointer-events:none;animation:orbFloat 18s ease-in-out infinite alternate}
+.orb-a{width:420px;height:420px;background:#00a9df;top:12%;left:-160px}
+.orb-b{width:520px;height:520px;background:#0072a8;top:55%;right:-220px;animation-delay:-7s}
+@keyframes orbFloat{to{transform:translate3d(60px,45px,0) scale(1.12)}}
+
+.section{position:relative;isolation:isolate}
+.section-watermark{position:absolute;z-index:-1;right:3%;top:4%;font-size:clamp(72px,12vw,180px);font-weight:950;letter-spacing:-8px;color:rgba(0,77,115,.035);line-height:.8;pointer-events:none;user-select:none;transition:transform .2s linear}
+.glass-panel{background:rgba(255,255,255,.76)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.75)!important;box-shadow:0 24px 70px rgba(0,56,88,.10)!important}
+
+.product,.profile-card,.info-card,.step,.brand{--mx:50%;--my:50%;position:relative}
+.product:before,.profile-card:before,.info-card:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;background:radial-gradient(circle at var(--mx) var(--my),rgba(75,207,239,.18),transparent 34%);transition:opacity .25s}
+.product:hover:before,.profile-card:hover:before,.info-card:hover:before{opacity:1}
+
+.visual-finance{padding:88px 0;background:
+ radial-gradient(circle at 80% 15%,rgba(58,205,239,.15),transparent 25%),
+ linear-gradient(135deg,#002c50,#004e79 56%,#006c95);color:#fff;overflow:hidden}
+.visual-finance:before{content:"MAX";position:absolute;right:-1%;bottom:-10%;font-size:clamp(160px,28vw,430px);font-weight:950;letter-spacing:-25px;color:rgba(255,255,255,.025);line-height:.7}
+.finance-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center;position:relative;z-index:2}
+.finance-copy .kicker{color:#7ee7ff}.finance-copy h2{font-size:clamp(34px,4.2vw,62px);line-height:1.02;margin:12px 0 18px}.finance-copy p{color:#d4eaf3;line-height:1.7;max-width:560px}
+.finance-card{padding:32px;border-radius:26px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.19);backdrop-filter:blur(18px);box-shadow:0 30px 80px rgba(0,19,35,.22);position:relative;overflow:hidden}
+.finance-card:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-100px;top:-100px;background:rgba(86,220,247,.10);filter:blur(4px)}
+.finance-label{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:12px;font-size:12px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:#cbe7f1}
+.finance-value{font-size:27px;color:#fff;letter-spacing:-1px}
+.finance-range{width:100%;accent-color:#68dcf6;margin:8px 0 25px}
+.finance-pills{display:flex;gap:9px;flex-wrap:wrap;margin:4px 0 25px}
+.finance-pill{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.07);color:#fff;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:800;cursor:pointer;transition:.25s}
+.finance-pill:hover,.finance-pill.active{background:#fff;color:#004c73;transform:translateY(-2px)}
+.finance-note{font-size:11px;color:#b9d8e5;line-height:1.5;margin-top:15px}
+.finance-result{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+.finance-result>div{padding:15px;border-radius:15px;background:rgba(0,22,39,.18);border:1px solid rgba(255,255,255,.1)}
+.finance-result small{display:block;color:#a9d3e2;font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.finance-result strong{font-size:15px}
+
+.editorial-line{height:1px;background:linear-gradient(90deg,transparent,#65d8f2,transparent);transform:scaleX(0);transition:transform 1.25s ease}.in-view .editorial-line{transform:scaleX(1)}
+.hero-left:after{content:"";position:absolute;width:380px;height:380px;border:1px solid rgba(120,226,249,.13);border-radius:50%;right:-130px;top:80px;box-shadow:0 0 0 60px rgba(103,218,244,.025),0 0 0 120px rgba(103,218,244,.018);animation:heroRings 12s ease-in-out infinite alternate;pointer-events:none}
+@keyframes heroRings{to{transform:translate(20px,-20px) scale(1.08);opacity:.65}}
+
+.image-blend{position:relative;overflow:hidden}
+.image-blend:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 55%,rgba(0,54,82,.10))}
+.modal-hero img{animation:modalCinema 12s ease-in-out infinite alternate}
+@keyframes modalCinema{to{transform:scale(1.055) translateX(1%)}}
+
+.scroll-accent{position:fixed;z-index:90;left:0;top:0;width:3px;height:0;background:linear-gradient(#65dcf5,#0079a8);box-shadow:0 0 12px rgba(70,210,242,.5);pointer-events:none}
+@media(max-width:820px){.finance-grid{grid-template-columns:1fr;gap:28px}.visual-finance{padding:66px 0}.finance-card{padding:24px}.section-watermark{font-size:90px;letter-spacing:-5px}}
+@media(prefers-reduced-motion:reduce){.ambient-orb,.hero-left:after,.modal-hero img{animation:none!important}}
+
 </style>
 </head>
 <body>
+<div class="scroll-accent" id="scrollAccent"></div>
+<div class="ambient-orb orb-a"></div>
+<div class="ambient-orb orb-b"></div>
 <!--
 MAX INNOVA - BASE VISUAL CONSERVADA + CONFIGURACIÓN FUNCIONAL
 Flujo: solicitud -> folio -> documentos por correo -> revisión administrativa ->
@@ -495,6 +549,38 @@ No sustituir el diseño base al hacer cambios posteriores.
  <div class="laptop-image"><img src="laptop.png" alt="Atención y seguimiento MAX INNOVA"></div>
  <div><div class="kicker">SEGUIMIENTO DIGITAL</div><h2>Consulta el avance de tu solicitud.</h2><p>Conserva tu folio. Con él podrás identificar tu solicitud y consultar el estado registrado durante el proceso.</p><button class="btn btn-blue" onclick="goPortal('consulta')">CONSULTAR MI SOLICITUD</button></div>
 </div></section>
+
+
+<section class="visual-finance section" id="simulador">
+  <div class="container finance-grid">
+    <div class="finance-copy motion-reveal from-left">
+      <div class="kicker">EXPLORA TU PROYECTO</div>
+      <h2>Visualiza el financiamiento que estás buscando.</h2>
+      <div class="editorial-line"></div>
+      <p>Define de manera orientativa el monto, plazo y tipo de proyecto que tienes en mente. Esta herramienta sirve para preparar mejor tu solicitud; no representa una cotización, tasa, mensualidad ni aprobación de crédito.</p>
+    </div>
+    <div class="finance-card motion-reveal from-right">
+      <div class="finance-label"><span>Monto aproximado</span><strong class="finance-value" id="financeAmountLabel">$250,000</strong></div>
+      <input class="finance-range" id="financeAmount" type="range" min="20000" max="2000000" step="10000" value="250000">
+      <div class="finance-label"><span>Plazo que te interesa explorar</span><strong class="finance-value" id="financeTermLabel">24 meses</strong></div>
+      <input class="finance-range" id="financeTerm" type="range" min="6" max="60" step="6" value="24">
+      <div class="finance-label"><span>¿Para qué lo buscas?</span></div>
+      <div class="finance-pills" id="financePills">
+        <button type="button" class="finance-pill active" data-type="Vehicular">Vehicular</button>
+        <button type="button" class="finance-pill" data-type="Patrimonial / Vivienda">Vivienda</button>
+        <button type="button" class="finance-pill" data-type="Negocio / PyME">Negocio / PyME</button>
+        <button type="button" class="finance-pill" data-type="Personal">Personal</button>
+        <button type="button" class="finance-pill" data-type="Empresarial">Empresarial</button>
+      </div>
+      <div class="finance-result">
+        <div><small>Proyecto seleccionado</small><strong id="financeType">Vehicular</strong></div>
+        <div><small>Siguiente paso</small><strong>Enviar solicitud para revisión</strong></div>
+      </div>
+      <button type="button" class="btn btn-light" id="financeApply" style="margin-top:20px">PREPARAR MI SOLICITUD</button>
+      <div class="finance-note">Los valores elegidos son únicamente informativos y permiten describir lo que buscas. Las condiciones aplicables se determinan posteriormente conforme a la revisión correspondiente.</div>
+    </div>
+  </div>
+</section>
 
 <section class="section process" id="como-funciona"><div class="container center">
  <div class="eyebrow">CÓMO FUNCIONA</div><h2 class="title" style="color:#fff">Un proceso <span>paso a paso.</span></h2>
@@ -680,7 +766,7 @@ const sectors=[
   reverse:true,
   items:[
    {n:"Uber",l:"https://cdn.simpleicons.org/uber",t:"Movilidad / Plataformas"},
-   {n:"DiDi",l:"https://www.google.com/s2/favicons?domain=didi-global.com&sz=128",t:"Movilidad / Plataformas"},
+   {n:"DiDi",l:"https://www.google.com/s2/favicons?domain=didiglobal.com&sz=128",t:"Movilidad / Plataformas"},
    {n:"inDrive",l:"https://www.google.com/s2/favicons?domain=indrive.com&sz=128",t:"Movilidad / Plataformas"},
    {n:"Rappi",l:"https://cdn.simpleicons.org/rappi",t:"Movilidad / Plataformas"},
    {n:"Uber Eats",l:"https://cdn.simpleicons.org/ubereats",t:"Movilidad / Plataformas"},
@@ -754,11 +840,11 @@ const detailInfo={
 };
 
 const modalPhotos={
- "Vehicular":"https://images.unsplash.com/photo-1760143489034-af3b3e49fc3e?auto=format&fit=crop&w=1400&q=82",
+ "Vehicular":"https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=1400&q=82",
  "Patrimonial / Vivienda":"https://images.unsplash.com/photo-1758523670969-dd1b1254062d?auto=format&fit=crop&w=1400&q=82",
  "Negocio / PyME":"https://images.unsplash.com/photo-1725075224409-6859f34439b4?auto=format&fit=crop&w=1400&q=82",
  "Empresarial":"https://images.unsplash.com/photo-1758518730151-cf64fddb4f0a?auto=format&fit=crop&w=1400&q=82",
- "Personal":"pareja.png",
+ "Personal":"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1400&q=82",
  "Movilidad / Plataformas":"https://images.unsplash.com/photo-1760143489034-af3b3e49fc3e?auto=format&fit=crop&w=1400&q=82",
  "Gastos jurídicos":"laptop.png"
 };
@@ -1015,6 +1101,69 @@ renderSectors();
    });
    ticking=true;
   }
+ },{passive:true});
+})();
+
+
+/* ===== CAPA VISUAL INNOVADORA + SIMULADOR ORIENTATIVO ===== */
+(function(){
+ const amount=document.getElementById("financeAmount");
+ const term=document.getElementById("financeTerm");
+ const amountLabel=document.getElementById("financeAmountLabel");
+ const termLabel=document.getElementById("financeTermLabel");
+ const typeLabel=document.getElementById("financeType");
+ let chosen="Vehicular";
+ const money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(Number(n));
+ if(amount) amount.addEventListener("input",()=>amountLabel.textContent=money(amount.value));
+ if(term) term.addEventListener("input",()=>termLabel.textContent=term.value+" meses");
+ document.querySelectorAll(".finance-pill").forEach(b=>b.addEventListener("click",()=>{
+   document.querySelectorAll(".finance-pill").forEach(x=>x.classList.remove("active"));
+   b.classList.add("active"); chosen=b.dataset.type; typeLabel.textContent=chosen;
+ }));
+ const apply=document.getElementById("financeApply");
+ if(apply) apply.addEventListener("click",()=>{
+   const select=document.querySelector('#tipoFinanciamiento,select[name="tipo_financiamiento"],select[name="financiamiento"]');
+   if(select){
+     [...select.options].some(o=>{
+       if(o.textContent.toLowerCase().includes(chosen.split(" ")[0].toLowerCase())){select.value=o.value;select.dispatchEvent(new Event("change"));return true}
+       return false;
+     });
+   }
+   const project=document.querySelector('textarea[name="proyecto"],#proyecto');
+   if(project && !project.value) project.value=`Interés en ${chosen}. Monto aproximado: ${money(amount.value)}. Plazo a explorar: ${term.value} meses.`;
+   const target=document.getElementById("solicitud")||document.querySelector("form");
+   if(target) target.scrollIntoView({behavior:"smooth",block:"start"});
+ });
+
+ const labels=[["#soluciones","SOLUCIONES"],["#sectores","SECTORES"],["#nosotros","INNOVA"],["#como-funciona","PROCESO"],["#informacion","CONFIANZA"]];
+ labels.forEach(([sel,text])=>{
+   const sec=document.querySelector(sel);
+   if(sec && !sec.querySelector(".section-watermark")){
+     const w=document.createElement("div");w.className="section-watermark";w.textContent=text;sec.prepend(w);
+   }
+ });
+
+ document.querySelectorAll(".product,.profile-card,.info-card").forEach(card=>{
+   card.addEventListener("mousemove",e=>{
+     const r=card.getBoundingClientRect();
+     card.style.setProperty("--mx",((e.clientX-r.left)/r.width*100)+"%");
+     card.style.setProperty("--my",((e.clientY-r.top)/r.height*100)+"%");
+   });
+ });
+
+ const accent=document.getElementById("scrollAccent");
+ let raf=false;
+ window.addEventListener("scroll",()=>{
+   if(!raf) requestAnimationFrame(()=>{
+     const max=document.documentElement.scrollHeight-innerHeight;
+     if(accent) accent.style.height=(max>0?scrollY/max*100:0)+"%";
+     document.querySelectorAll(".section-watermark").forEach(w=>{
+       const r=w.parentElement.getBoundingClientRect();
+       w.style.transform=`translateY(${Math.max(-22,Math.min(22,(r.top-innerHeight/2)*-.025))}px)`;
+     });
+     raf=false;
+   });
+   raf=true;
  },{passive:true});
 })();
 
