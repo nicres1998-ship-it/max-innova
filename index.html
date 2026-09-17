@@ -208,16 +208,21 @@ footer{background:#001f38;color:#fff;padding:45px 0 25px}
  .products,.info-grid,.steps,.form-grid,.doc-options,.profile-box,.ally-points,.admin-stats{grid-template-columns:1fr}
  .full{grid-column:auto}.title{font-size:34px}.footer-grid{grid-template-columns:1fr}
 }
+
+.modal-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.modal-detail{border:1px solid #d8eaf3;background:#f8fcfe;border-radius:12px;padding:16px;text-align:left}
+.modal-detail strong{display:block;font-size:10px;letter-spacing:1px;color:#006da6;margin-bottom:8px}
+.modal-detail p{font-size:12px!important;line-height:1.6!important;margin:0!important;color:#607b8e!important}
+@media(max-width:600px){.modal-detail-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
-
-<!-- FLUJO OPERATIVO MAX INNOVA:
-1) Cliente registra solicitud y obtiene folio.
-2) Si selecciona envío digital, adjunta documentación para envío al correo configurado.
-3) Administración revisa la solicitud y la documentación recibida.
-4) Administración actualiza el estatus e indicaciones desde el panel ADMIN.
-5) El cliente consulta su folio en MI CUENTA y visualiza el estatus actualizado.
+<!--
+MAX INNOVA - BASE VISUAL CONSERVADA + CONFIGURACIÓN FUNCIONAL
+Flujo: solicitud -> folio -> documentos por correo -> revisión administrativa ->
+ADMIN actualiza estatus/indicaciones/cita -> cliente consulta por folio.
+No sustituir el diseño base al hacer cambios posteriores.
 -->
 
 
@@ -373,7 +378,7 @@ footer{background:#001f38;color:#fff;padding:45px 0 25px}
   <p>MAX INNOVA analiza cada solicitud de acuerdo con el proyecto, información y documentación correspondiente.</p>
   <div class="ally-points"><div class="ally-point click-info" role="button" tabindex="0" onclick="showInfo('EVALUACIÓN','Evaluación personalizada','Cada solicitud se analiza según el tipo de proyecto, información proporcionada, documentación y condiciones aplicables.','Personal')" onkeydown="if(event.key==='Enter')this.click()">Evaluación personalizada</div><div class="ally-point click-info" role="button" tabindex="0" onclick="showInfo('SEGUIMIENTO','Seguimiento por folio','Conserva tu folio para identificar tu solicitud y consultar el estatus registrado.','Personal')" onkeydown="if(event.key==='Enter')this.click()">Seguimiento por folio</div><div class="ally-point click-info" role="button" tabindex="0" onclick="showInfo('SOLUCIONES','Diversidad de destinos','MAX INNOVA contempla solicitudes relacionadas con vehículo, patrimonio, necesidades personales, negocios, empresas y movilidad.','Personal')" onkeydown="if(event.key==='Enter')this.click()">Diversidad de destinos</div><div class="ally-point click-info" role="button" tabindex="0" onclick="showInfo('ATENCIÓN','Atención durante el proceso','Durante el proceso pueden registrarse indicaciones, documentación pendiente o citas para dar continuidad.','Personal')" onkeydown="if(event.key==='Enter')this.click()">Atención durante el proceso</div></div>
  </div>
- <div style="background:#fff;border-radius:20px;padding:40px;box-shadow:0 15px 45px rgba(0,70,110,.09)">
+ <div class="click-info" role="button" tabindex="0" onclick="if(!event.target.closest('button')) showInfo('PROCESO','Un proceso claro desde el inicio','Cada solicitud puede requerir condiciones y documentación distintas. La información se revisa antes de determinar la continuidad del proceso.','Personal')" onkeydown="if(event.key==='Enter'&&!event.target.closest('button'))this.click()" style="background:#fff;border-radius:20px;padding:40px;box-shadow:0 15px 45px rgba(0,70,110,.09)">
   <h3 style="font-size:27px;margin-bottom:15px">Un proceso claro desde el inicio.</h3>
   <p>Cada solicitud puede requerir condiciones y documentación distintas. Antes de continuar se revisará la información proporcionada y la viabilidad del financiamiento solicitado.</p>
   <button class="btn btn-blue" onclick="goPortal('nuevo')">COMENZAR SOLICITUD</button>
@@ -434,7 +439,17 @@ footer{background:#001f38;color:#fff;padding:45px 0 25px}
  <div class="kicker" id="modalKicker">INFORMACIÓN GENERAL</div>
  <h2 id="modalTitle">Financiamiento</h2>
  <p id="modalText"></p>
- <div style="background:#eff9fd;border-radius:12px;padding:18px;margin:20px 0;font-size:12px;line-height:1.7;color:#496c7f">La disponibilidad, características, requisitos, condiciones y aprobación dependen de la evaluación correspondiente.</div>
+ <div class="modal-detail-grid">
+  <div class="modal-detail">
+   <strong>DOCUMENTACIÓN GENERAL</strong>
+   <p id="modalDocs">La documentación puede variar según el tipo de solicitud.</p>
+  </div>
+  <div class="modal-detail">
+   <strong>¿QUÉ SE REVISA?</strong>
+   <p id="modalReview">Se revisa la información proporcionada y la viabilidad general del proyecto.</p>
+  </div>
+ </div>
+ <div style="background:#eff9fd;border-radius:12px;padding:18px;margin:20px 0;font-size:12px;line-height:1.7;color:#496c7f">La disponibilidad, características, requisitos, condiciones y aprobación dependen de la evaluación correspondiente. La información mostrada es general y no representa una aprobación.</div>
  <button class="btn btn-blue" onclick="modalApply()">INICIAR SOLICITUD</button>
 </div></div>
 
@@ -584,11 +599,47 @@ function escJS(v){return String(v).replace(/\\/g,"\\\\").replace(/'/g,"\\'")}
 /* =========================
    MODAL / PRODUCTOS / CINTAS
 ========================= */
+
+const detailInfo={
+ "Vehicular":{
+  docs:"Identificación vigente, RFC, comprobante de domicilio y documentación relacionada con la unidad o proveedor cuando corresponda.",
+  review:"Identidad del solicitante, información de la unidad, proveedor, documentación disponible y viabilidad general de la solicitud."
+ },
+ "Patrimonial / Vivienda":{
+  docs:"Identificación vigente, RFC, comprobante de domicilio y documentación relacionada con el inmueble o proyecto cuando corresponda.",
+  review:"Datos del solicitante, características del proyecto o inmueble, documentación disponible y viabilidad general."
+ },
+ "Personal":{
+  docs:"Identificación vigente, RFC, comprobante de domicilio y documentación adicional que resulte necesaria según el proyecto.",
+  review:"Datos generales del solicitante, destino solicitado, documentación proporcionada y viabilidad de la solicitud."
+ },
+ "Negocio / PyME":{
+  docs:"Identificación vigente, RFC, comprobante de domicilio y documentación del negocio o actividad cuando resulte aplicable.",
+  review:"Actividad o giro, destino del financiamiento, información del solicitante, documentación disponible y viabilidad del proyecto."
+ },
+ "Empresarial":{
+  docs:"Identificación y datos fiscales, documentación de la empresa y del proyecto, además de información adicional que pueda solicitarse durante la revisión.",
+  review:"Proyecto, operación de la empresa, documentación proporcionada, destino solicitado y viabilidad general."
+ },
+ "Movilidad / Plataformas":{
+  docs:"Identificación vigente, RFC, comprobante de domicilio y, cuando corresponda, información de la unidad o actividad en plataforma.",
+  review:"Actividad de movilidad, proyecto, unidad cuando aplique, documentación proporcionada y viabilidad general."
+ }
+};
+function setModalDetails(type){
+ const d=detailInfo[type]||detailInfo["Personal"];
+ const docs=document.getElementById("modalDocs");
+ const review=document.getElementById("modalReview");
+ if(docs) docs.textContent=d.docs;
+ if(review) review.textContent=d.review;
+}
+
 function showInfo(kicker,title,text,type){
  modalType=type||'Personal';
  modalKicker.textContent=kicker||'INFORMACIÓN';
  modalTitle.textContent=title||'MAX INNOVA';
  modalText.textContent=text||'Información disponible para esta opción.';
+ setModalDetails(modalType);
  infoModal.classList.add('open');
 }
 function product(name){
@@ -596,6 +647,7 @@ function product(name){
  modalKicker.textContent="INFORMACIÓN GENERAL";
  modalTitle.textContent="Financiamiento "+name;
  modalText.textContent=productText(name);
+ setModalDetails(modalType);
  infoModal.classList.add("open");
 }
 function productText(name){
@@ -614,6 +666,7 @@ function brandInfo(name,sector,type){
  modalKicker.textContent=sector.toUpperCase();
  modalTitle.textContent=name;
  modalText.textContent=`${name} se muestra como referencia dentro del sector ${sector}. MAX INNOVA puede evaluar solicitudes relacionadas con este tipo de proyecto. La aparición de una marca no implica convenio, afiliación o representación.`;
+ setModalDetails(modalType);
  infoModal.classList.add("open");
 }
 function closeInfo(){infoModal.classList.remove("open")}
