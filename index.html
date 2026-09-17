@@ -30,11 +30,11 @@ html{
 body{
   font-family:Arial, Helvetica, sans-serif;
   color:var(--texto);
-  background:white;
+  background:#ffffff;
 }
 
 /* =========================
-   MENU
+   MENÚ
 ========================= */
 
 header{
@@ -48,8 +48,8 @@ header{
 .menu{
   max-width:1250px;
   margin:auto;
-  height:82px;
-  padding:0 28px;
+  min-height:86px;
+  padding:10px 28px;
 
   display:flex;
   align-items:center;
@@ -57,25 +57,16 @@ header{
 }
 
 .marca{
+  display:flex;
+  align-items:center;
   text-decoration:none;
 }
 
-.max{
-  font-size:27px;
-  font-weight:900;
-  letter-spacing:3px;
-  color:var(--azul);
-}
-
-.innova{
-  color:#818b97;
-}
-
-.servicios-logo{
-  font-size:9px;
-  letter-spacing:5px;
-  color:#7c8791;
-  margin-top:3px;
+.logo-menu{
+  width:220px;
+  max-height:65px;
+  object-fit:contain;
+  object-position:left center;
 }
 
 nav{
@@ -112,18 +103,18 @@ nav a:hover{
   overflow:hidden;
 
   background:
-    radial-gradient(circle at 83% 30%, #e7edf2 0%, transparent 31%),
+    radial-gradient(circle at 82% 30%, #e9eef2 0%, transparent 31%),
     linear-gradient(120deg,#ffffff 48%,#edf2f5 100%);
 }
 
 .hero::after{
   content:"";
   position:absolute;
-  width:620px;
-  height:620px;
-  right:-180px;
-  top:-130px;
-  border:85px solid rgba(8,42,72,.055);
+  width:650px;
+  height:650px;
+  right:-190px;
+  top:-140px;
+  border:85px solid rgba(8,42,72,.05);
   border-radius:50%;
 }
 
@@ -134,12 +125,12 @@ nav a:hover{
   max-width:1250px;
   min-height:620px;
   margin:auto;
-  padding:80px 28px;
+  padding:75px 28px;
 
   display:grid;
   grid-template-columns:1.05fr .95fr;
   align-items:center;
-  gap:60px;
+  gap:55px;
 }
 
 .etiqueta{
@@ -183,6 +174,7 @@ nav a:hover{
 }
 
 .boton-principal{
+  display:inline-block;
   text-decoration:none;
   background:linear-gradient(135deg,var(--azul),var(--azul2));
   color:white;
@@ -193,6 +185,7 @@ nav a:hover{
 }
 
 .boton-secundario{
+  display:inline-block;
   text-decoration:none;
   color:var(--azul);
   padding:16px 28px;
@@ -202,48 +195,43 @@ nav a:hover{
   background:white;
 }
 
-/* FIGURA DERECHA */
+/* =========================
+   LOGO GRANDE
+========================= */
 
 .visual{
   position:relative;
-  height:430px;
+  min-height:450px;
   display:flex;
   justify-content:center;
   align-items:center;
 }
 
 .circulo{
-  width:350px;
-  height:350px;
+  width:390px;
+  height:390px;
   border-radius:50%;
 
   background:
-    linear-gradient(145deg,#f7f9fa,#d7e0e6);
+    linear-gradient(145deg,#ffffff,#dce4e9);
 
   box-shadow:
-    0 30px 70px rgba(13,45,70,.15),
+    0 30px 70px rgba(13,45,70,.14),
     inset 0 0 0 1px white;
 
   display:flex;
   justify-content:center;
   align-items:center;
+
+  padding:35px;
 }
 
-.simbolo{
-  font-size:100px;
-  font-weight:900;
-  font-style:italic;
-  letter-spacing:-18px;
-
-  background:linear-gradient(
-    135deg,
-    #062844,
-    #52687b,
-    #c4cad0
-  );
-
-  -webkit-background-clip:text;
-  color:transparent;
+.logo-hero{
+  width:100%;
+  max-width:330px;
+  display:block;
+  object-fit:contain;
+  border-radius:15px;
 }
 
 .mini-card{
@@ -252,16 +240,17 @@ nav a:hover{
   padding:17px 20px;
   border-radius:13px;
   box-shadow:0 15px 40px rgba(0,0,0,.12);
+  z-index:4;
 }
 
 .mini1{
   left:0;
-  bottom:65px;
+  bottom:55px;
 }
 
 .mini2{
   right:0;
-  top:65px;
+  top:55px;
 }
 
 .mini-card strong{
@@ -276,7 +265,7 @@ nav a:hover{
 }
 
 /* =========================
-   OPCIONES
+   SOLUCIONES
 ========================= */
 
 .opciones{
@@ -318,7 +307,7 @@ nav a:hover{
 }
 
 .tarjeta{
-  min-height:210px;
+  min-height:220px;
   border:1px solid #e0e6ea;
   border-radius:17px;
   padding:27px;
@@ -380,6 +369,7 @@ nav a:hover{
   background:white;
   border-radius:16px;
   padding:25px;
+  box-shadow:0 8px 25px rgba(0,0,0,.035);
 }
 
 .numero{
@@ -409,7 +399,7 @@ nav a:hover{
 }
 
 /* =========================
-   MI CUENTA
+   PORTAL CLIENTES
 ========================= */
 
 .portal{
@@ -430,6 +420,8 @@ nav a:hover{
   grid-template-columns:1fr 1fr;
   gap:40px;
   align-items:center;
+
+  box-shadow:0 22px 55px rgba(6,41,69,.18);
 }
 
 .portal h2{
@@ -456,6 +448,34 @@ nav a:hover{
 }
 
 /* =========================
+   ATENCIÓN
+========================= */
+
+.atencion{
+  background:#f5f7f9;
+  padding:85px 28px;
+}
+
+.atencion-contenido{
+  max-width:1050px;
+  margin:auto;
+  text-align:center;
+}
+
+.atencion h2{
+  font-size:36px;
+  color:var(--azul);
+  margin-bottom:15px;
+}
+
+.atencion p{
+  max-width:700px;
+  margin:auto;
+  color:#6d7b87;
+  line-height:1.65;
+}
+
+/* =========================
    PIE
 ========================= */
 
@@ -475,10 +495,11 @@ footer{
   gap:30px;
 }
 
-.footer-logo{
-  font-size:23px;
-  font-weight:bold;
-  letter-spacing:3px;
+.logo-footer{
+  width:180px;
+  background:white;
+  padding:8px;
+  border-radius:8px;
 }
 
 .footer-texto{
@@ -497,17 +518,23 @@ footer{
   }
 
   .menu{
-    height:70px;
-    padding:0 18px;
+    min-height:72px;
+    padding:8px 18px;
   }
 
-  .max{
-    font-size:21px;
+  .logo-menu{
+    width:160px;
+    max-height:55px;
+  }
+
+  .mi-cuenta{
+    padding:11px 15px;
+    font-size:12px;
   }
 
   .hero-contenido{
     grid-template-columns:1fr;
-    padding:60px 22px;
+    padding:55px 22px;
     text-align:center;
   }
 
@@ -524,16 +551,31 @@ footer{
   }
 
   .visual{
-    height:330px;
+    min-height:360px;
   }
 
   .circulo{
-    width:260px;
-    height:260px;
+    width:280px;
+    height:280px;
+    padding:25px;
   }
 
-  .simbolo{
-    font-size:75px;
+  .logo-hero{
+    max-width:230px;
+  }
+
+  .mini-card{
+    padding:12px 14px;
+  }
+
+  .mini1{
+    left:0;
+    bottom:30px;
+  }
+
+  .mini2{
+    right:0;
+    top:30px;
   }
 
   .tarjetas{
@@ -553,6 +595,10 @@ footer{
     font-size:31px;
   }
 
+  .portal-items{
+    grid-template-columns:1fr;
+  }
+
   .footer-contenido{
     flex-direction:column;
     text-align:center;
@@ -563,34 +609,56 @@ footer{
 </style>
 </head>
 
+
 <body>
+
+<!-- =========================
+     MENÚ
+========================= -->
 
 <header>
 
 <div class="menu">
 
 <a href="#" class="marca">
-  <div class="max">
-    MAX <span class="innova">INNOVA</span>
-  </div>
-
-  <div class="servicios-logo">
-    SERVICIOS FINANCIEROS
-  </div>
+  <img
+    src="logo-max-innova.jpeg"
+    alt="MAX INNOVA Servicios Financieros"
+    class="logo-menu">
 </a>
 
 <nav>
-  <a href="#soluciones">Personas</a>
-  <a href="#soluciones">Negocios</a>
-  <a href="#como-funciona">Cómo funciona</a>
-  <a href="#">Atención a clientes</a>
-  <a href="#mi-cuenta" class="mi-cuenta">MI CUENTA</a>
+
+<a href="#soluciones">
+Personas
+</a>
+
+<a href="#soluciones">
+Negocios
+</a>
+
+<a href="#como-funciona">
+Cómo funciona
+</a>
+
+<a href="#atencion">
+Atención a clientes
+</a>
+
+<a href="#mi-cuenta" class="mi-cuenta">
+MI CUENTA
+</a>
+
 </nav>
 
 </div>
 
 </header>
 
+
+<!-- =========================
+     PORTADA
+========================= -->
 
 <section class="hero">
 
@@ -632,17 +700,38 @@ MI CUENTA
 <div class="visual">
 
 <div class="circulo">
-  <div class="simbolo">MI</div>
+
+<img
+  src="logo-max-innova.jpeg"
+  alt="MAX INNOVA"
+  class="logo-hero">
+
 </div>
+
 
 <div class="mini-card mini1">
-<strong>Soluciones a tu medida</strong>
-<span>Opciones para diferentes proyectos</span>
+
+<strong>
+Soluciones a tu medida
+</strong>
+
+<span>
+Opciones para diferentes proyectos
+</span>
+
 </div>
 
+
 <div class="mini-card mini2">
-<strong>Financiamiento</strong>
-<span>Personas y negocios</span>
+
+<strong>
+Financiamiento
+</strong>
+
+<span>
+Personas y negocios
+</span>
+
 </div>
 
 </div>
@@ -652,19 +741,25 @@ MI CUENTA
 </section>
 
 
+<!-- =========================
+     SOLUCIONES
+========================= -->
+
 <section class="opciones" id="soluciones">
 
 <div class="titulo-seccion">
 
-<small>SOLUCIONES FINANCIERAS</small>
+<small>
+SOLUCIONES FINANCIERAS
+</small>
 
 <h2>
 ¿Qué quieres hacer hoy?
 </h2>
 
 <p>
-Conoce algunas de las opciones que MAX INNOVA
-puede ofrecer de acuerdo con tus necesidades.
+Conoce diferentes alternativas de financiamiento
+de acuerdo con tus necesidades y objetivos.
 </p>
 
 </div>
@@ -672,78 +767,144 @@ puede ofrecer de acuerdo con tus necesidades.
 
 <div class="tarjetas">
 
-<div class="tarjeta">
-<div class="icono">🚘</div>
-<h3>Adquirir un vehículo</h3>
-<p>
-Opciones de financiamiento para vehículos
-particulares, de trabajo o destinados a plataformas.
-</p>
-</div>
 
 <div class="tarjeta">
-<div class="icono">🏠</div>
-<h3>Invertir en patrimonio</h3>
-<p>
-Financiamiento para proyectos patrimoniales
-y adquisición de diferentes tipos de bienes.
-</p>
+
+<div class="icono">
+🚘
 </div>
 
-<div class="tarjeta">
-<div class="icono">🏪</div>
-<h3>Impulsar mi negocio</h3>
+<h3>
+Adquirir un vehículo
+</h3>
+
 <p>
-Alternativas para comerciantes, emprendedores
-y actividades productivas.
+Opciones para la adquisición de vehículos
+particulares, de trabajo o destinados a
+actividades productivas.
 </p>
+
 </div>
 
-<div class="tarjeta">
-<div class="icono">📈</div>
-<h3>Capital para mi empresa</h3>
-<p>
-Opciones para capital de trabajo, equipamiento,
-crecimiento y proyectos empresariales.
-</p>
-</div>
 
 <div class="tarjeta">
-<div class="icono">🚗</div>
-<h3>Trabajo con plataformas</h3>
-<p>
-Opciones para personas que generan ingresos
-mediante actividades de movilidad y plataformas.
-</p>
+
+<div class="icono">
+🏠
 </div>
 
-<div class="tarjeta">
-<div class="icono">💰</div>
-<h3>Otro proyecto</h3>
+<h3>
+Invertir en patrimonio
+</h3>
+
 <p>
-Cuéntanos qué necesitas financiar para conocer
-las alternativas disponibles para tu perfil.
+Alternativas de financiamiento para proyectos
+patrimoniales y adquisición de diferentes
+tipos de bienes.
 </p>
+
 </div>
+
+
+<div class="tarjeta">
+
+<div class="icono">
+🏪
+</div>
+
+<h3>
+Impulsar mi negocio
+</h3>
+
+<p>
+Soluciones para comerciantes, emprendedores
+y personas con actividades productivas.
+</p>
+
+</div>
+
+
+<div class="tarjeta">
+
+<div class="icono">
+📈
+</div>
+
+<h3>
+Capital para mi empresa
+</h3>
+
+<p>
+Alternativas para capital de trabajo,
+equipamiento, crecimiento y proyectos
+empresariales.
+</p>
+
+</div>
+
+
+<div class="tarjeta">
+
+<div class="icono">
+🚗
+</div>
+
+<h3>
+Trabajo con plataformas
+</h3>
+
+<p>
+Opciones dirigidas a personas que generan
+ingresos mediante actividades de movilidad
+y plataformas.
+</p>
+
+</div>
+
+
+<div class="tarjeta">
+
+<div class="icono">
+💰
+</div>
+
+<h3>
+Financiar otro proyecto
+</h3>
+
+<p>
+Cuéntanos qué necesitas financiar y conoce
+las alternativas disponibles de acuerdo
+con tu perfil.
+</p>
+
+</div>
+
 
 </div>
 
 </section>
 
 
+<!-- =========================
+     CÓMO FUNCIONA
+========================= -->
+
 <section class="proceso" id="como-funciona">
 
 <div class="titulo-seccion">
 
-<small>PROCESO</small>
+<small>
+¿CÓMO FUNCIONA?
+</small>
 
 <h2>
 Un proceso sencillo
 </h2>
 
 <p>
-Conoce las etapas generales para solicitar
-una alternativa de financiamiento.
+Conoce las etapas generales para iniciar
+tu solicitud de financiamiento.
 </p>
 
 </div>
@@ -751,46 +912,88 @@ una alternativa de financiamiento.
 
 <div class="pasos">
 
-<div class="paso">
-<div class="numero">1</div>
-<h3>Cuéntanos qué necesitas</h3>
-<p>
-Completa tu solicitud inicial y dinos cuál es
-el objetivo de tu financiamiento.
-</p>
-</div>
 
 <div class="paso">
-<div class="numero">2</div>
-<h3>Conocemos tu perfil</h3>
+
+<div class="numero">
+1
+</div>
+
+<h3>
+Cuéntanos qué necesitas
+</h3>
+
+<p>
+Completa tu solicitud inicial y dinos
+cuál es el objetivo de tu financiamiento.
+</p>
+
+</div>
+
+
+<div class="paso">
+
+<div class="numero">
+2
+</div>
+
+<h3>
+Conocemos tu perfil
+</h3>
+
 <p>
 Revisamos la información y características
 generales de tu solicitud.
 </p>
+
 </div>
 
+
 <div class="paso">
-<div class="numero">3</div>
-<h3>Conoce tu propuesta</h3>
+
+<div class="numero">
+3
+</div>
+
+<h3>
+Conoce tu propuesta
+</h3>
+
 <p>
 Consulta las condiciones correspondientes
 antes de tomar una decisión.
 </p>
+
 </div>
 
+
 <div class="paso">
-<div class="numero">4</div>
-<h3>Formalización</h3>
-<p>
-Una vez aceptadas las condiciones se continúa
-con la documentación y proceso correspondiente.
-</p>
+
+<div class="numero">
+4
 </div>
+
+<h3>
+Formalización
+</h3>
+
+<p>
+Una vez aceptadas las condiciones,
+se continúa con la documentación
+y proceso correspondiente.
+</p>
+
+</div>
+
 
 </div>
 
 </section>
 
+
+<!-- =========================
+     MI CUENTA
+========================= -->
 
 <section class="portal" id="mi-cuenta">
 
@@ -804,10 +1007,10 @@ en un mismo lugar.
 </h2>
 
 <p>
-Estamos preparando un espacio para que nuestros
-clientes puedan consultar de manera sencilla
-la información relacionada con su solicitud
-y financiamiento.
+MAX INNOVA contará con un espacio para que
+nuestros clientes puedan consultar de manera
+sencilla la información relacionada con su
+solicitud y financiamiento.
 </p>
 
 <br>
@@ -821,14 +1024,37 @@ INGRESAR A MI CUENTA
 
 <div class="portal-items">
 
-<div class="portal-item">✓ Estado de mi solicitud</div>
-<div class="portal-item">✓ Próximo pago</div>
-<div class="portal-item">✓ Calendario de pagos</div>
-<div class="portal-item">✓ Pagos realizados</div>
-<div class="portal-item">✓ Documentos</div>
-<div class="portal-item">✓ Reportar un pago</div>
-<div class="portal-item">✓ Aclaraciones</div>
-<div class="portal-item">✓ Atención a clientes</div>
+<div class="portal-item">
+✓ Estado de mi solicitud
+</div>
+
+<div class="portal-item">
+✓ Próximo pago
+</div>
+
+<div class="portal-item">
+✓ Calendario de pagos
+</div>
+
+<div class="portal-item">
+✓ Pagos realizados
+</div>
+
+<div class="portal-item">
+✓ Documentos
+</div>
+
+<div class="portal-item">
+✓ Reportar un pago
+</div>
+
+<div class="portal-item">
+✓ Aclaraciones y quejas
+</div>
+
+<div class="portal-item">
+✓ Atención a clientes
+</div>
 
 </div>
 
@@ -837,18 +1063,45 @@ INGRESAR A MI CUENTA
 </section>
 
 
+<!-- =========================
+     ATENCIÓN
+========================= -->
+
+<section class="atencion" id="atencion">
+
+<div class="atencion-contenido">
+
+<h2>
+Estamos para ayudarte
+</h2>
+
+<p>
+Si ya eres cliente de MAX INNOVA,
+podrás consultar información relacionada
+con tu solicitud, pagos, documentos,
+aclaraciones y medios de atención.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     PIE
+========================= -->
+
 <footer>
 
 <div class="footer-contenido">
 
 <div>
-<div class="footer-logo">
-MAX INNOVA
-</div>
 
-<div class="footer-texto">
-SERVICIOS FINANCIEROS
-</div>
+<img
+  src="logo-max-innova.jpeg"
+  alt="MAX INNOVA"
+  class="logo-footer">
+
 </div>
 
 <div class="footer-texto">
