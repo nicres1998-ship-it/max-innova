@@ -3,1053 +3,1254 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>MAX INNOVA | Servicios Financieros</title>
 
 <style>
+
 :root{
-  --navy:#00345f;
-  --navy2:#004b7e;
-  --blue:#006ba6;
-  --cyan:#19bde9;
-  --sky:#eaf8ff;
-  --soft:#f5fbff;
-  --text:#063762;
-  --muted:#55748c;
-  --white:#fff;
+ --navy:#00345f;
+ --navy-dark:#002744;
+ --blue:#006da6;
+ --cyan:#16bce8;
+ --light:#f3faff;
+ --line:#d8eaf3;
+ --text:#07385f;
+ --muted:#5e788b;
+ --white:#fff;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
+
 html{scroll-behavior:smooth}
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--text);
-  background:#fff;
-  overflow-x:hidden;
+ font-family:Arial,Helvetica,sans-serif;
+ color:var(--text);
+ background:#fff;
+ overflow-x:hidden;
 }
 
 a{text-decoration:none;color:inherit}
+button{font:inherit}
 img{max-width:100%;display:block}
 
-/* HEADER */
+.container{
+ width:min(1180px,92%);
+ margin:auto;
+}
+
+/* =========================
+   HEADER
+========================= */
 
 header{
-  height:82px;
-  background:#fff;
-  position:sticky;
-  top:0;
-  z-index:1000;
-  box-shadow:0 2px 16px rgba(0,40,75,.08);
+ height:86px;
+ background:#fff;
+ position:sticky;
+ top:0;
+ z-index:1000;
+ box-shadow:0 2px 18px rgba(0,40,70,.09);
 }
 
 .nav{
-  width:min(1200px,94%);
-  height:100%;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:25px;
+ width:min(1220px,94%);
+ height:100%;
+ margin:auto;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:25px;
 }
 
 .logo{
-  width:205px;
-  display:flex;
-  align-items:center;
+ width:220px;
+ height:72px;
+ display:flex;
+ align-items:center;
+ justify-content:flex-start;
 }
 
 .logo img{
-  width:100%;
-  max-height:68px;
-  object-fit:contain;
+ width:100%;
+ height:100%;
+ object-fit:contain;
+ object-position:left center;
 }
 
 .menu{
-  display:flex;
-  align-items:center;
-  gap:30px;
-  font-size:14px;
-  font-weight:700;
+ display:flex;
+ align-items:center;
+ gap:27px;
+ font-size:13px;
+ font-weight:800;
 }
 
 .menu a{
-  position:relative;
-  padding:31px 0;
+ padding:34px 0 27px;
+ position:relative;
 }
 
 .menu a:after{
-  content:"";
-  position:absolute;
-  height:3px;
-  background:var(--cyan);
-  left:50%;
-  right:50%;
-  bottom:18px;
-  transition:.25s;
+ content:"";
+ position:absolute;
+ bottom:18px;
+ left:50%;
+ right:50%;
+ height:3px;
+ background:var(--cyan);
+ transition:.25s;
 }
 
 .menu a:hover:after{
-  left:0;
-  right:0;
+ left:0;
+ right:0;
 }
 
 .account{
-  padding:14px 22px;
-  background:var(--navy);
-  color:#fff;
-  border-radius:8px;
-  font-size:13px;
-  font-weight:800;
-  transition:.2s;
+ background:var(--navy);
+ color:#fff;
+ border-radius:9px;
+ padding:14px 22px;
+ font-size:12px;
+ font-weight:900;
+ display:flex;
+ gap:8px;
+ align-items:center;
 }
 
-.account:hover{background:#005487}
+.account svg{
+ width:17px;
+ height:17px;
+ fill:none;
+ stroke:currentColor;
+ stroke-width:1.8;
+}
 
-/* HERO NUEVO */
+/* =========================
+   HERO
+========================= */
 
 .hero{
-  min-height:590px;
-  display:grid;
-  grid-template-columns:54% 46%;
-  background:#003b6c;
+ min-height:600px;
+ display:grid;
+ grid-template-columns:54% 46%;
+ background:var(--navy);
 }
 
 .hero-left{
-  position:relative;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  background:
-    radial-gradient(circle at 85% 25%,rgba(25,189,233,.18),transparent 30%),
-    linear-gradient(135deg,#002f5c,#005f96);
-  padding:70px max(6vw,40px);
-  overflow:hidden;
+ min-height:600px;
+ color:#fff;
+ display:flex;
+ align-items:center;
+ padding:70px max(6vw,45px);
+ background:
+ radial-gradient(circle at 85% 15%,rgba(31,196,236,.20),transparent 32%),
+ linear-gradient(135deg,#002c53,#006294);
+ position:relative;
+ overflow:hidden;
 }
 
 .hero-left:after{
-  content:"";
-  position:absolute;
-  width:420px;
-  height:420px;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:50%;
-  right:-210px;
-  bottom:-170px;
+ content:"";
+ width:500px;
+ height:500px;
+ border:1px solid rgba(255,255,255,.07);
+ border-radius:50%;
+ position:absolute;
+ right:-300px;
+ bottom:-250px;
 }
 
 .hero-copy{
-  max-width:650px;
-  position:relative;
-  z-index:2;
+ position:relative;
+ z-index:2;
+ max-width:660px;
 }
 
 .eyebrow{
-  font-size:12px;
-  letter-spacing:5px;
-  font-weight:800;
-  color:#bfefff;
-  margin-bottom:20px;
+ font-size:11px;
+ letter-spacing:4px;
+ font-weight:900;
+ color:#bcefff;
+ margin-bottom:20px;
 }
 
 .hero h1{
-  font-size:64px;
-  line-height:.98;
-  letter-spacing:-2.5px;
-  margin-bottom:23px;
+ font-size:65px;
+ line-height:.98;
+ letter-spacing:-2.7px;
+ margin-bottom:24px;
 }
 
-.hero h1 span{color:#42cdf4}
+.hero h1 span{color:#3bc9ef}
 
-.hero p{
-  max-width:570px;
-  font-size:18px;
-  line-height:1.6;
-  color:#e8f7ff;
+.hero-copy>p{
+ max-width:590px;
+ font-size:17px;
+ line-height:1.65;
+ color:#e6f5fb;
 }
 
 .hero-buttons{
-  display:flex;
-  gap:15px;
-  margin-top:30px;
+ display:flex;
+ gap:13px;
+ margin-top:30px;
+ flex-wrap:wrap;
 }
 
 .btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:52px;
-  padding:0 25px;
-  border-radius:7px;
-  font-size:13px;
-  font-weight:800;
-  transition:.25s;
+ min-height:51px;
+ padding:0 25px;
+ border-radius:8px;
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ gap:9px;
+ font-size:12px;
+ font-weight:900;
+ border:0;
+ cursor:pointer;
+ transition:.25s;
 }
 
 .btn:hover{transform:translateY(-2px)}
 
 .btn-white{
-  background:#fff;
-  color:#034477;
-}
-
-.btn-outline{
-  color:#fff;
-  border:1px solid rgba(255,255,255,.7);
+ background:#fff;
+ color:#064772;
 }
 
 .btn-blue{
-  background:var(--navy);
-  color:#fff;
+ background:var(--navy);
+ color:#fff;
+}
+
+.btn-outline{
+ color:#fff;
+ border:1px solid rgba(255,255,255,.65);
 }
 
 .hero-benefits{
-  display:flex;
-  gap:28px;
-  margin-top:42px;
+ display:flex;
+ gap:27px;
+ margin-top:40px;
+ flex-wrap:wrap;
 }
 
 .hero-benefit{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:12px;
-  font-weight:700;
+ display:flex;
+ align-items:center;
+ gap:10px;
+ font-size:11px;
+ font-weight:800;
 }
 
-.icon-circle{
-  width:40px;
-  height:40px;
-  min-width:40px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  border:1px solid rgba(255,255,255,.55);
+.hero-benefit span{
+ width:38px;
+ height:38px;
+ border-radius:50%;
+ border:1px solid rgba(255,255,255,.45);
+ display:grid;
+ place-items:center;
 }
 
-.icon-circle svg{
-  width:20px;
-  height:20px;
-  stroke:#fff;
-  fill:none;
-  stroke-width:1.8;
+.hero-benefit svg{
+ width:19px;
+ height:19px;
+ stroke:#fff;
+ fill:none;
+ stroke-width:1.8;
 }
-
-/* EDIFICIO LIMPIO */
 
 .hero-image{
-  position:relative;
-  min-height:590px;
-  background:url("edificio.png") center center/cover no-repeat;
+ min-height:600px;
+ background:url("edificio.png") center/cover no-repeat;
+ position:relative;
 }
 
-.hero-image:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(90deg,rgba(0,51,92,.12),transparent 35%);
+/* NO HAY TEXTO ENCIMA DEL EDIFICIO */
+
+.hero-image:after{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(90deg,rgba(0,50,88,.12),transparent 32%);
+ pointer-events:none;
 }
 
-/* FRASE SEPARADA */
+/* =========================
+   FRASE
+========================= */
 
 .statement{
-  background:#fff;
-  padding:0 4%;
-  position:relative;
-  z-index:10;
+ padding:0 4%;
+ position:relative;
+ z-index:20;
 }
 
 .statement-inner{
-  width:min(1180px,100%);
-  margin:-35px auto 0;
-  min-height:105px;
-  border-radius:14px;
-  background:linear-gradient(100deg,#006da6,#00aee3);
-  color:#fff;
-  display:grid;
-  grid-template-columns:1fr auto 1fr;
-  align-items:center;
-  padding:22px 50px;
-  box-shadow:0 14px 40px rgba(0,76,120,.20);
+ width:min(1180px,100%);
+ min-height:110px;
+ margin:-35px auto 0;
+ padding:24px 48px;
+ border-radius:17px;
+ background:linear-gradient(110deg,#00679d,#04b3df);
+ color:#fff;
+ display:grid;
+ grid-template-columns:1fr auto 1fr;
+ align-items:center;
+ box-shadow:0 16px 40px rgba(0,83,130,.20);
 }
 
-.statement-big{
-  font-size:25px;
-  font-weight:800;
-  letter-spacing:1px;
+.statement-main{
+ font-size:25px;
+ font-weight:900;
+ line-height:1.15;
+ letter-spacing:1px;
 }
 
-.statement-line{
-  width:1px;
-  height:55px;
-  background:rgba(255,255,255,.45);
-  margin:0 45px;
+.statement-divider{
+ width:1px;
+ height:55px;
+ margin:0 45px;
+ background:rgba(255,255,255,.4);
 }
 
-.statement-note{
-  font-family:Georgia,serif;
-  font-size:21px;
-  font-style:italic;
-  line-height:1.3;
+.statement-secondary{
+ font-family:Georgia,serif;
+ font-size:21px;
+ line-height:1.35;
+ font-style:italic;
 }
 
-/* PRODUCTOS */
+/* =========================
+   TITULOS
+========================= */
 
 .section{
-  width:min(1180px,92%);
-  margin:75px auto;
+ padding:75px 0;
 }
 
 .center{text-align:center}
 
 .kicker{
-  color:#0078ac;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:4px;
-  margin-bottom:12px;
+ color:#0075a9;
+ font-size:11px;
+ font-weight:900;
+ letter-spacing:4px;
+ margin-bottom:12px;
 }
 
-.section-title{
-  font-size:42px;
-  line-height:1.08;
-  letter-spacing:-1.5px;
+.title{
+ font-size:43px;
+ line-height:1.08;
+ letter-spacing:-1.5px;
 }
 
-.section-title span{color:#00aee5}
+.title span{color:#05afe0}
 
-.section-sub{
-  color:var(--muted);
-  max-width:690px;
-  line-height:1.6;
-  margin:15px auto 0;
+.subtitle{
+ max-width:720px;
+ margin:16px auto 0;
+ color:var(--muted);
+ line-height:1.65;
+ font-size:14px;
 }
+
+/* =========================
+   5 PRODUCTOS
+========================= */
 
 .products{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:16px;
-  margin-top:38px;
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:15px;
+ margin-top:40px;
 }
 
 .product{
-  min-height:260px;
-  padding:28px 18px 20px;
-  background:linear-gradient(145deg,#f1fbff,#dff4fc);
-  border:1px solid #d8edf7;
-  border-radius:16px;
-  text-align:center;
-  transition:.3s;
+ min-height:275px;
+ background:linear-gradient(145deg,#f3fbff,#e3f6fd);
+ border:1px solid #d9edf6;
+ border-radius:18px;
+ padding:28px 18px;
+ text-align:center;
+ transition:.3s;
 }
 
 .product:hover{
-  transform:translateY(-8px);
-  box-shadow:0 18px 35px rgba(0,83,130,.14);
+ transform:translateY(-8px);
+ box-shadow:0 17px 35px rgba(0,79,125,.14);
 }
 
 .product-icon{
-  width:60px;
-  height:60px;
-  margin:0 auto 17px;
-  border-radius:50%;
-  background:#fff;
-  display:grid;
-  place-items:center;
-  box-shadow:0 5px 18px rgba(0,74,120,.08);
+ width:62px;
+ height:62px;
+ border-radius:50%;
+ margin:0 auto 17px;
+ background:#fff;
+ display:grid;
+ place-items:center;
+ box-shadow:0 6px 20px rgba(0,73,112,.09);
 }
 
 .product-icon svg{
-  width:31px;
-  height:31px;
-  fill:none;
-  stroke:#00639b;
-  stroke-width:1.7;
+ width:31px;
+ height:31px;
+ stroke:#00669c;
+ fill:none;
+ stroke-width:1.65;
 }
 
 .product h3{
-  font-size:18px;
-  margin-bottom:10px;
+ font-size:17px;
+ margin-bottom:10px;
 }
 
 .product p{
-  color:#52738a;
-  font-size:13px;
-  line-height:1.5;
+ font-size:12px;
+ line-height:1.55;
+ color:#587589;
 }
 
-.arrow{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:#00669b;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  margin:20px auto 0;
+.circle-arrow{
+ width:37px;
+ height:37px;
+ border-radius:50%;
+ background:#00679c;
+ color:#fff;
+ display:grid;
+ place-items:center;
+ margin:18px auto 0;
+ font-weight:900;
 }
 
-/* PERFILES */
+/* =========================
+   SELECTOR PERSONAS
+========================= */
 
-.profile-section{
-  background:#f4fbff;
-  padding:70px 0;
-}
-
-.profile-wrap{
-  width:min(1180px,92%);
-  margin:auto;
+.profile{
+ background:#f4fbff;
+ padding:75px 0;
 }
 
 .profile-tabs{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin:30px 0 35px;
+ display:flex;
+ justify-content:center;
+ gap:10px;
+ margin:30px 0;
 }
 
 .profile-tab{
-  padding:14px 30px;
-  border-radius:30px;
-  border:1px solid #bcdce9;
-  background:#fff;
-  color:#07517e;
-  font-weight:800;
-  cursor:pointer;
-  font-size:14px;
+ border:1px solid #c5dfe9;
+ background:#fff;
+ color:#07517e;
+ border-radius:30px;
+ padding:14px 30px;
+ font-weight:900;
+ font-size:12px;
+ cursor:pointer;
 }
 
 .profile-tab.active{
-  background:#004b7d;
-  color:#fff;
-  border-color:#004b7d;
+ background:var(--navy);
+ color:#fff;
+ border-color:var(--navy);
 }
 
-.profile-content{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:50px;
-  align-items:center;
-  background:#fff;
-  padding:45px;
-  border-radius:18px;
-  box-shadow:0 15px 45px rgba(0,70,110,.08);
+.profile-box{
+ background:#fff;
+ border-radius:20px;
+ padding:43px;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:45px;
+ align-items:center;
+ box-shadow:0 15px 45px rgba(0,70,110,.08);
 }
 
 .profile-copy h3{
-  font-size:35px;
-  line-height:1.1;
-  margin-bottom:15px;
+ font-size:34px;
+ margin-bottom:14px;
 }
 
 .profile-copy p{
-  color:#56758b;
-  line-height:1.65;
-  margin-bottom:22px;
+ color:var(--muted);
+ line-height:1.65;
+ margin-bottom:23px;
 }
 
 .profile-options{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:14px;
 }
 
 .profile-option{
-  background:#eef9fe;
-  border-radius:12px;
-  padding:20px;
-  font-weight:700;
-  display:flex;
-  gap:10px;
-  align-items:center;
+ padding:19px;
+ border-radius:12px;
+ background:#edf9fe;
+ display:flex;
+ align-items:center;
+ gap:13px;
+ font-size:13px;
+ font-weight:800;
 }
 
-/* CINTA ANIMADA */
-
-.sectors{
-  padding:65px 0;
-  overflow:hidden;
+.mini-icon{
+ width:38px;
+ height:38px;
+ border-radius:10px;
+ background:#fff;
+ display:grid;
+ place-items:center;
+ flex:0 0 auto;
 }
 
-.sectors-head{
-  width:min(1180px,92%);
-  margin:auto;
-  text-align:center;
+.mini-icon svg{
+ width:21px;
+ height:21px;
+ stroke:#00689e;
+ fill:none;
+ stroke-width:1.7;
 }
 
-.marquee-shell{
-  margin-top:38px;
-  position:relative;
-  overflow:hidden;
-  width:100%;
-  padding:14px 0;
+/* =========================
+   CENTRO DE SECTORES
+========================= */
+
+.credit-center{
+ padding:80px 0;
+ background:#fff;
 }
 
-.marquee-shell:before,
-.marquee-shell:after{
-  content:"";
-  position:absolute;
-  top:0;
-  bottom:0;
-  width:100px;
-  z-index:3;
-  pointer-events:none;
+.credit-intro{
+ margin-bottom:45px;
 }
 
-.marquee-shell:before{
-  left:0;
-  background:linear-gradient(90deg,#fff,transparent);
+/* CADA SECTOR */
+
+.sector-block{
+ width:min(1180px,94%);
+ margin:0 auto 35px;
+ border:1px solid #dcebf2;
+ border-radius:20px;
+ overflow:hidden;
+ background:#fff;
+ box-shadow:0 10px 35px rgba(0,66,105,.07);
 }
 
-.marquee-shell:after{
-  right:0;
-  background:linear-gradient(-90deg,#fff,transparent);
+.sector-heading{
+ padding:22px 30px;
+ display:flex;
+ align-items:center;
+ gap:16px;
+ background:linear-gradient(90deg,#f1faff,#fff);
+ border-bottom:1px solid #e3eff4;
 }
 
-.marquee{
-  display:flex;
-  width:max-content;
-  animation:scroll 28s linear infinite;
+.sector-heading-icon{
+ width:50px;
+ height:50px;
+ border-radius:13px;
+ background:#00699f;
+ display:grid;
+ place-items:center;
 }
 
-.marquee:hover{animation-play-state:paused}
-
-@keyframes scroll{
-  from{transform:translateX(0)}
-  to{transform:translateX(-50%)}
+.sector-heading-icon svg{
+ width:27px;
+ height:27px;
+ stroke:#fff;
+ fill:none;
+ stroke-width:1.6;
 }
 
-.sector-card{
-  width:210px;
-  height:105px;
-  margin:0 10px;
-  border:1px solid #d7eaf3;
-  border-radius:14px;
-  background:#fff;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  box-shadow:0 7px 22px rgba(0,65,105,.07);
-  transition:.25s;
+.sector-heading h3{
+ font-size:21px;
+ margin-bottom:3px;
 }
 
-.sector-card:hover{
-  transform:translateY(-5px);
-  border-color:#7bcfea;
+.sector-heading p{
+ font-size:12px;
+ color:#688294;
 }
 
-.sector-symbol{
-  font-size:26px;
-  font-weight:900;
-  color:#006da6;
-  margin-bottom:8px;
+/* CINTAS */
+
+.ticker{
+ overflow:hidden;
+ padding:17px 0;
+ background:#fff;
+ position:relative;
 }
 
-.sector-card strong{
-  font-size:14px;
+.ticker:before,
+.ticker:after{
+ content:"";
+ position:absolute;
+ top:0;
+ bottom:0;
+ width:65px;
+ z-index:5;
+ pointer-events:none;
 }
 
-.sector-card small{
-  margin-top:4px;
-  color:#6a8395;
-  font-size:10px;
+.ticker:before{
+ left:0;
+ background:linear-gradient(90deg,#fff,transparent);
 }
 
-.disclaimer{
-  text-align:center;
-  font-size:10px;
-  color:#718796;
-  max-width:900px;
-  margin:17px auto 0;
-  padding:0 20px;
+.ticker:after{
+ right:0;
+ background:linear-gradient(-90deg,#fff,transparent);
 }
 
-/* ALIADO */
+.ticker-track{
+ display:flex;
+ width:max-content;
+ animation:tickerMove 36s linear infinite;
+}
+
+.ticker.fast .ticker-track{
+ animation-duration:31s;
+}
+
+.ticker.reverse .ticker-track{
+ animation-direction:reverse;
+}
+
+.ticker:hover .ticker-track{
+ animation-play-state:paused;
+}
+
+@keyframes tickerMove{
+ from{transform:translateX(0)}
+ to{transform:translateX(-50%)}
+}
+
+.credit-option{
+ width:185px;
+ min-height:98px;
+ margin:0 7px;
+ padding:13px;
+ border:1px solid #dceaf1;
+ background:#fff;
+ border-radius:13px;
+ cursor:pointer;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+ transition:.25s;
+ color:var(--text);
+}
+
+.credit-option:hover{
+ border-color:#42bde2;
+ background:#f1fbff;
+ transform:translateY(-3px);
+ box-shadow:0 8px 20px rgba(0,87,130,.10);
+}
+
+.brand{
+ min-height:35px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:20px;
+ font-weight:900;
+ letter-spacing:-.5px;
+ color:#005e94;
+}
+
+.brand.small{
+ font-size:15px;
+}
+
+.credit-option strong{
+ font-size:11px;
+ margin-top:6px;
+}
+
+.credit-option small{
+ font-size:9px;
+ color:#79909e;
+ margin-top:3px;
+}
+
+/* PANEL QUE SE ABRE */
+
+.credit-detail{
+ display:none;
+ border-top:1px solid #dceaf1;
+ background:#f5fbfe;
+ padding:30px;
+}
+
+.credit-detail.open{
+ display:block;
+ animation:detailIn .3s ease;
+}
+
+@keyframes detailIn{
+ from{opacity:0;transform:translateY(-8px)}
+ to{opacity:1;transform:none}
+}
+
+.detail-top{
+ display:flex;
+ justify-content:space-between;
+ gap:20px;
+ align-items:flex-start;
+ margin-bottom:25px;
+}
+
+.detail-badge{
+ display:inline-block;
+ padding:7px 12px;
+ border-radius:30px;
+ background:#dff6fd;
+ color:#006793;
+ font-size:10px;
+ font-weight:900;
+ letter-spacing:1px;
+ margin-bottom:9px;
+}
+
+.detail-top h3{
+ font-size:29px;
+ line-height:1.1;
+}
+
+.detail-top p{
+ color:var(--muted);
+ margin-top:9px;
+ line-height:1.55;
+ max-width:720px;
+ font-size:13px;
+}
+
+.close-detail{
+ width:38px;
+ height:38px;
+ border-radius:50%;
+ border:1px solid #c9dfe8;
+ background:#fff;
+ color:#00618e;
+ cursor:pointer;
+ font-size:18px;
+}
+
+.detail-grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:15px;
+}
+
+.detail-card{
+ background:#fff;
+ border:1px solid #dcebf2;
+ border-radius:14px;
+ padding:21px;
+}
+
+.detail-card h4{
+ font-size:13px;
+ margin-bottom:11px;
+ color:#005d8f;
+}
+
+.detail-card ul{
+ padding-left:17px;
+ color:#577385;
+ font-size:12px;
+ line-height:1.65;
+}
+
+.detail-legal{
+ margin-top:17px;
+ padding:17px 20px;
+ border-left:4px solid #00acd9;
+ background:#eaf8fd;
+ font-size:11px;
+ color:#577386;
+ line-height:1.6;
+ border-radius:0 10px 10px 0;
+}
+
+.detail-actions{
+ margin-top:20px;
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+}
+
+/* =========================
+   ALIADO
+========================= */
 
 .ally{
-  width:min(1160px,92%);
-  margin:70px auto;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:70px;
-  align-items:center;
+ padding:80px 0;
+}
+
+.ally-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:65px;
+ align-items:center;
 }
 
 .ally-copy p{
-  color:#53748b;
-  line-height:1.65;
-  margin:20px 0 25px;
+ color:var(--muted);
+ line-height:1.7;
+ margin:18px 0 25px;
 }
 
 .benefits{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:16px;
 }
 
 .benefit{
-  padding:20px;
-  border-radius:13px;
-  background:#f2faff;
+ border-radius:15px;
+ background:#f2faff;
+ padding:21px;
+ display:flex;
+ gap:13px;
+}
+
+.benefit-icon{
+ width:42px;
+ height:42px;
+ flex:0 0 auto;
+ border-radius:11px;
+ background:#fff;
+ display:grid;
+ place-items:center;
+}
+
+.benefit-icon svg{
+ width:22px;
+ height:22px;
+ stroke:#006a9f;
+ fill:none;
+ stroke-width:1.7;
 }
 
 .benefit strong{
-  display:block;
-  margin-bottom:6px;
+ font-size:13px;
+ display:block;
+ margin-bottom:5px;
 }
 
 .benefit p{
-  font-size:12px;
-  color:#617d90;
-  line-height:1.5;
+ color:#668093;
+ font-size:11px;
+ line-height:1.5;
 }
 
-/* PAREJA */
+/* =========================
+   PAREJA
+========================= */
 
-.couple-cta{
-  min-height:430px;
-  display:grid;
-  grid-template-columns:52% 48%;
+.couple{
+ min-height:430px;
+ display:grid;
+ grid-template-columns:52% 48%;
 }
 
 .couple-photo{
-  min-height:430px;
-  background:url("pareja.png") center 38%/cover no-repeat;
-  position:relative;
+ min-height:430px;
+ background:url("pareja.png") center 38%/cover no-repeat;
+ position:relative;
 }
 
 .couple-label{
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  background:rgba(0,52,95,.82);
-  backdrop-filter:blur(3px);
-  color:#fff;
-  padding:19px 8%;
-  font-size:16px;
-  letter-spacing:5px;
-  font-weight:800;
+ position:absolute;
+ left:0;
+ right:0;
+ bottom:0;
+ padding:19px 8%;
+ background:rgba(0,49,88,.84);
+ color:#fff;
+ font-size:15px;
+ letter-spacing:5px;
+ font-weight:900;
 }
 
-.couple-panel{
-  background:linear-gradient(135deg,#00355f,#006ba4);
-  color:#fff;
-  padding:70px 9%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+.couple-copy{
+ padding:65px 9%;
+ background:linear-gradient(135deg,#00335c,#006a9e);
+ color:#fff;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
 }
 
-.couple-panel .kicker{color:#bceeff}
+.couple-copy .kicker{color:#bcefff}
 
-.couple-panel h2{
-  font-size:44px;
-  line-height:1.05;
+.couple-copy h2{
+ font-size:44px;
+ line-height:1.07;
 }
 
-.couple-panel h2 span{color:#36c8f0}
+.couple-copy h2 span{color:#3ccaf0}
 
-.couple-panel p{
-  color:#e4f4fb;
-  line-height:1.65;
-  margin:20px 0 26px;
+.couple-copy p{
+ margin:20px 0 26px;
+ color:#e4f4fa;
+ line-height:1.65;
 }
 
-/* POR QUE */
+/* =========================
+   LAPTOP / PROCESO
+========================= */
 
-.why{
-  padding:70px 0;
-}
-
-.why-grid{
-  width:min(1120px,92%);
-  margin:38px auto 0;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-}
-
-.why-card{
-  text-align:center;
-  padding:15px 28px;
-  border-right:1px solid #d7e6ee;
-}
-
-.why-card:last-child{border:0}
-
-.why-circle{
-  width:57px;
-  height:57px;
-  background:#e5f7fd;
-  border-radius:50%;
-  margin:0 auto 12px;
-  display:grid;
-  place-items:center;
-  color:#006aa0;
-  font-size:23px;
-  font-weight:bold;
-}
-
-.why-card p{
-  font-size:12px;
-  color:#607c8e;
-  line-height:1.5;
-  margin-top:6px;
-}
-
-/* LAPTOP */
-
-.laptop-section{
-  min-height:300px;
-  display:grid;
-  grid-template-columns:67% 33%;
+.laptop{
+ display:grid;
+ grid-template-columns:66% 34%;
+ min-height:320px;
 }
 
 .laptop-photo{
-  min-height:300px;
-  background:url("laptop.png") center/cover no-repeat;
+ background:url("laptop.png") center/cover no-repeat;
 }
 
 .laptop-copy{
-  background:#eaf8fe;
-  padding:55px;
-  display:flex;
-  justify-content:center;
-  flex-direction:column;
+ background:#e9f8fd;
+ padding:55px;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
 }
 
 .laptop-copy h2{
-  font-size:36px;
-  line-height:1.05;
+ font-size:38px;
+ line-height:1.08;
 }
-
-.laptop-copy span{
-  width:55px;
-  height:4px;
-  background:#00b6e8;
-  margin-top:18px;
-}
-
-/* PROCESO */
 
 .process{
-  background:linear-gradient(135deg,#00345f,#00618f);
-  color:#fff;
-  padding:65px 0;
+ padding:70px 0;
+ background:linear-gradient(135deg,#00325b,#00618e);
+ color:#fff;
 }
 
-.process-wrap{
-  width:min(1180px,92%);
-  margin:auto;
-  display:grid;
-  grid-template-columns:2fr .85fr;
-  gap:50px;
+.process-grid{
+ display:grid;
+ grid-template-columns:2fr .85fr;
+ gap:45px;
 }
 
-.process-title{
-  font-size:36px;
-  margin-bottom:7px;
+.process h2{
+ font-size:38px;
 }
 
-.process-sub{color:#cfe8f3}
+.process-intro{
+ color:#cce6f1;
+ margin-top:7px;
+}
 
 .steps{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  margin-top:40px;
-  position:relative;
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ margin-top:38px;
+ position:relative;
 }
 
 .steps:before{
-  content:"";
-  position:absolute;
-  top:28px;
-  left:12%;
-  right:12%;
-  height:2px;
-  background:#2ac4eb;
+ content:"";
+ height:2px;
+ background:#29c0e8;
+ position:absolute;
+ top:28px;
+ left:12%;
+ right:12%;
 }
 
 .step{
-  text-align:center;
-  position:relative;
-  z-index:2;
-  padding:0 12px;
+ text-align:center;
+ position:relative;
+ z-index:2;
+ padding:0 10px;
 }
 
-.step-circle{
-  width:58px;
-  height:58px;
-  background:#fff;
-  border:5px solid #dff8ff;
-  color:#00679c;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  margin:0 auto 13px;
-  font-size:20px;
-  font-weight:bold;
+.step-num{
+ width:58px;
+ height:58px;
+ margin:0 auto 13px;
+ border-radius:50%;
+ background:#fff;
+ border:5px solid #dff8ff;
+ color:#00679a;
+ display:grid;
+ place-items:center;
+ font-size:19px;
+ font-weight:900;
 }
 
 .step p{
-  font-size:11px;
-  color:#d8edf6;
-  line-height:1.5;
-  margin-top:6px;
+ color:#d7edf5;
+ font-size:10px;
+ line-height:1.5;
+ margin-top:6px;
 }
 
 .phone-card{
-  min-height:300px;
-  border-radius:16px;
-  overflow:hidden;
-  position:relative;
-  background:url("telefono.png") center/cover no-repeat;
-  display:flex;
-  align-items:flex-end;
+ min-height:315px;
+ background:url("telefono.png") center/cover no-repeat;
+ border-radius:18px;
+ overflow:hidden;
+ position:relative;
+ display:flex;
+ align-items:flex-end;
 }
 
-.phone-card:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(0deg,rgba(0,64,105,.95),rgba(0,172,220,.20));
+.phone-card:after{
+ content:"";
+ position:absolute;
+ inset:0;
+ background:linear-gradient(0deg,rgba(0,53,91,.97),rgba(0,160,205,.08));
 }
 
 .phone-info{
-  position:relative;
-  z-index:2;
-  padding:28px;
+ padding:28px;
+ position:relative;
+ z-index:2;
 }
 
 .phone-info h3{
-  font-size:24px;
-  margin-bottom:7px;
+ font-size:24px;
+ margin-bottom:8px;
 }
 
 .phone-info p{
-  font-size:13px;
-  margin-bottom:17px;
+ font-size:12px;
+ line-height:1.5;
+ margin-bottom:17px;
 }
 
-/* CONTACTO */
+/* =========================
+   CONTACTO
+========================= */
 
 .contact{
-  padding:70px 0;
-  background:#f5fbfe;
+ background:#f4fbfe;
+ padding:75px 0;
 }
 
 .contact-box{
-  width:min(1000px,92%);
-  margin:auto;
-  border-radius:20px;
-  background:#fff;
-  padding:45px;
-  box-shadow:0 15px 45px rgba(0,66,105,.09);
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:40px;
-  align-items:center;
+ max-width:1000px;
+ margin:auto;
+ background:#fff;
+ border-radius:20px;
+ padding:45px;
+ box-shadow:0 15px 45px rgba(0,67,105,.09);
+ display:grid;
+ grid-template-columns:1.1fr .9fr;
+ gap:40px;
+ align-items:center;
 }
 
 .contact-box h2{
-  font-size:36px;
-  margin-bottom:12px;
+ font-size:36px;
+ margin-bottom:12px;
 }
 
 .contact-box p{
-  color:#5c788b;
-  line-height:1.6;
+ color:var(--muted);
+ line-height:1.6;
 }
 
 .contact-actions{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+ display:flex;
+ flex-direction:column;
+ gap:11px;
 }
 
-/* FOOTER */
+/* =========================
+   FOOTER - LOGO VISIBLE
+========================= */
 
 footer{
-  background:#00325b;
-  color:#fff;
+ background:#002f55;
+ color:#fff;
 }
 
 .footer-main{
-  width:min(1180px,92%);
-  min-height:130px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:30px;
+ width:min(1180px,92%);
+ min-height:145px;
+ margin:auto;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:30px;
 }
 
 .footer-logo{
-  width:200px;
-  background:#fff;
-  padding:5px 9px;
-  border-radius:7px;
+ width:235px;
+ height:90px;
+ background:#fff;
+ border-radius:13px;
+ padding:9px 14px;
+ display:flex;
+ align-items:center;
+}
+
+.footer-logo img{
+ width:100%;
+ height:100%;
+ object-fit:contain;
 }
 
 .footer-links{
-  display:flex;
-  gap:22px;
-  font-size:12px;
+ display:flex;
+ gap:20px;
+ flex-wrap:wrap;
+ font-size:11px;
 }
 
 .footer-bottom{
-  background:#002848;
-  padding:18px 5%;
-  color:#bed5e2;
-  font-size:10px;
-  display:flex;
-  justify-content:space-between;
+ background:#002642;
+ padding:18px 5%;
+ display:flex;
+ justify-content:space-between;
+ gap:20px;
+ font-size:9px;
+ color:#bad1dd;
 }
 
-/* ANIMACIONES DE ENTRADA */
-
-.reveal{
-  opacity:0;
-  transform:translateY(30px);
-  transition:.7s ease;
-}
-
-.reveal.show{
-  opacity:1;
-  transform:none;
-}
-
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:950px){
 
-  .menu{display:none}
+ .menu{display:none}
 
-  .hero{
-    grid-template-columns:1fr;
-  }
+ .hero{grid-template-columns:1fr}
 
-  .hero-image{
-    min-height:480px;
-  }
+ .hero-image{min-height:500px}
 
-  .statement-inner{
-    grid-template-columns:1fr;
-    gap:12px;
-    text-align:center;
-  }
+ .statement-inner,
+ .profile-box,
+ .ally-grid,
+ .couple,
+ .laptop,
+ .process-grid,
+ .contact-box{
+   grid-template-columns:1fr;
+ }
 
-  .statement-line{display:none}
+ .statement-inner{text-align:center}
 
-  .products{
-    grid-template-columns:repeat(2,1fr);
-  }
+ .statement-divider{display:none}
 
-  .profile-content,
-  .ally,
-  .couple-cta,
-  .laptop-section,
-  .process-wrap,
-  .contact-box{
-    grid-template-columns:1fr;
-  }
+ .products{grid-template-columns:repeat(2,1fr)}
 
-  .why-grid{
-    grid-template-columns:1fr 1fr;
-  }
+ .detail-grid{grid-template-columns:1fr}
 
-  .why-card{
-    border:0;
-    border-bottom:1px solid #dce9ef;
-  }
+ .laptop-photo{min-height:350px}
 
 }
 
 @media(max-width:600px){
 
-  header{height:70px}
-  .logo{width:165px}
-  .account{padding:11px 13px;font-size:11px}
+ header{height:72px}
 
-  .hero-left{
-    padding:60px 25px 75px;
-  }
+ .logo{
+   width:170px;
+   height:62px;
+ }
 
-  .hero h1{font-size:44px}
-  .hero p{font-size:15px}
+ .account{
+   padding:11px 12px;
+   font-size:10px;
+ }
 
-  .hero-buttons,
-  .hero-benefits{
-    flex-direction:column;
-    align-items:flex-start;
-  }
+ .hero-left{
+   min-height:auto;
+   padding:55px 25px 80px;
+ }
 
-  .hero-image{min-height:390px}
+ .hero h1{font-size:44px}
 
-  .statement{
-    padding:0 15px;
-  }
+ .hero-image{min-height:390px}
 
-  .statement-inner{
-    padding:25px;
-  }
+ .hero-benefits{
+   flex-direction:column;
+   gap:13px;
+ }
 
-  .statement-big{font-size:21px}
+ .statement{
+   padding:0 14px;
+ }
 
-  .section-title{font-size:34px}
+ .statement-inner{
+   padding:25px;
+ }
 
-  .products{
-    grid-template-columns:1fr;
-  }
+ .title{font-size:34px}
 
-  .profile-tabs{
-    flex-direction:column;
-  }
+ .products,
+ .profile-options,
+ .benefits{
+   grid-template-columns:1fr;
+ }
 
-  .profile-content{
-    padding:25px;
-  }
+ .profile-tabs{
+   flex-direction:column;
+ }
 
-  .profile-options,
-  .benefits{
-    grid-template-columns:1fr;
-  }
+ .profile-box{padding:25px}
 
-  .couple-panel{
-    padding:55px 28px;
-  }
+ .sector-heading{
+   padding:18px;
+ }
 
-  .couple-panel h2{
-    font-size:36px;
-  }
+ .credit-option{
+   width:155px;
+ }
 
-  .why-grid{
-    grid-template-columns:1fr;
-  }
+ .detail-top h3{
+   font-size:24px;
+ }
 
-  .steps{
-    grid-template-columns:1fr 1fr;
-    gap:30px;
-  }
+ .couple-copy{
+   padding:55px 27px;
+ }
 
-  .steps:before{display:none}
+ .couple-copy h2{
+   font-size:35px;
+ }
 
-  .footer-main{
-    flex-direction:column;
-    padding:35px 0;
-  }
+ .steps{
+   grid-template-columns:1fr 1fr;
+   gap:28px;
+ }
 
-  .footer-links{
-    flex-wrap:wrap;
-    justify-content:center;
-  }
+ .steps:before{display:none}
 
-  .footer-bottom{
-    flex-direction:column;
-    text-align:center;
-    gap:10px;
-  }
+ .footer-main{
+   flex-direction:column;
+   padding:35px 0;
+   text-align:center;
+ }
+
+ .footer-links{
+   justify-content:center;
+ }
+
+ .footer-bottom{
+   flex-direction:column;
+   text-align:center;
+ }
 
 }
+
 </style>
 </head>
 
@@ -1058,7 +1259,7 @@ footer{
 <header>
 <div class="nav">
 
-<a href="#inicio" class="logo">
+<a class="logo" href="#inicio">
 <img src="logo_maxinnova.png" alt="MAX INNOVA Servicios Financieros">
 </a>
 
@@ -1071,21 +1272,27 @@ footer{
 <a href="#contacto">Contacto</a>
 </nav>
 
-<a href="#contacto" class="account">MI CUENTA</a>
+<a class="account" href="#contacto">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M5 21c0-5 3-8 7-8s7 3 7 8"/>
+</svg>
+MI CUENTA
+</a>
 
 </div>
 </header>
-
 
 <!-- HERO -->
 
 <section class="hero" id="inicio">
 
 <div class="hero-left">
-
 <div class="hero-copy">
 
-<div class="eyebrow">FINANCIAMIENTO PARA TU FUTURO</div>
+<div class="eyebrow">
+FINANCIAMIENTO PARA TU FUTURO
+</div>
 
 <h1>
 Más que crédito,<br>
@@ -1093,48 +1300,53 @@ Más que crédito,<br>
 </h1>
 
 <p>
-Soluciones financieras para personas, negocios y empresas que
-buscan impulsar sus planes, adquirir bienes o desarrollar nuevos proyectos.
+Soluciones financieras para personas, comerciantes, emprendedores,
+conductores de plataformas, PyMEs y empresas que buscan impulsar
+sus proyectos, adquirir bienes o fortalecer su actividad.
 </p>
 
 <div class="hero-buttons">
-<a href="#soluciones" class="btn btn-white">SOLICITA TU CRÉDITO &nbsp; →</a>
-<a href="#contacto" class="btn btn-outline">CONOCE MÁS</a>
+<a class="btn btn-white" href="#sectores">
+CONOCE TUS OPCIONES →
+</a>
+
+<a class="btn btn-outline" href="#contacto">
+CONTACTO
+</a>
 </div>
 
 <div class="hero-benefits">
 
 <div class="hero-benefit">
-<div class="icon-circle">
+<span>
 <svg viewBox="0 0 24 24">
 <path d="M5 12l4 4L19 6"/>
 </svg>
-</div>
-Proceso claro
+</span>
+Información clara
 </div>
 
 <div class="hero-benefit">
-<div class="icon-circle">
+<span>
 <svg viewBox="0 0 24 24">
 <circle cx="12" cy="8" r="4"/>
 <path d="M5 21c0-5 3-8 7-8s7 3 7 8"/>
 </svg>
-</div>
+</span>
 Atención personalizada
 </div>
 
 <div class="hero-benefit">
-<div class="icon-circle">
+<span>
 <svg viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="9"/>
 <path d="M12 7v5l3 2"/>
 </svg>
-</div>
+</span>
 Seguimiento
 </div>
 
 </div>
-
 </div>
 </div>
 
@@ -1142,54 +1354,48 @@ Seguimiento
 
 </section>
 
-
-<!-- FRASES FUERA DEL EDIFICIO -->
+<!-- FRASE -->
 
 <section class="statement">
-
 <div class="statement-inner">
 
-<div class="statement-big">
+<div class="statement-main">
 MÁS OPCIONES.<br>
 MÁS OPORTUNIDADES.
 </div>
 
-<div class="statement-line"></div>
+<div class="statement-divider"></div>
 
-<div class="statement-note">
-Hoy puede ser un buen momento<br>
-para dar el siguiente paso.
+<div class="statement-secondary">
+Encuentra una alternativa de acuerdo<br>
+con el proyecto que quieres realizar.
 </div>
 
 </div>
-
 </section>
 
+<!-- PRODUCTOS -->
 
-<!-- CRÉDITOS -->
-
-<section class="section reveal" id="soluciones">
+<section class="section" id="soluciones">
+<div class="container">
 
 <div class="center">
-
 <div class="kicker">SOLUCIONES MAX INNOVA</div>
 
-<h2 class="section-title">
-Financiamiento para <span>diferentes proyectos.</span>
+<h2 class="title">
+Una opción para <span>cada proyecto.</span>
 </h2>
 
-<p class="section-sub">
-Conoce las alternativas de financiamiento de acuerdo con
-el objetivo de tu solicitud.
+<p class="subtitle">
+Selecciona el tipo de financiamiento que te interesa.
+Más adelante podrás consultar información general y documentación
+habitualmente requerida para cada área.
 </p>
-
 </div>
-
 
 <div class="products">
 
 <div class="product">
-
 <div class="product-icon">
 <svg viewBox="0 0 24 24">
 <path d="M5 11l2-5h10l2 5"/>
@@ -1198,16 +1404,12 @@ el objetivo de tu solicitud.
 <circle cx="17" cy="17" r="1.5"/>
 </svg>
 </div>
-
-<h3>Crédito Vehicular</h3>
-<p>Opciones para adquirir una unidad para uso personal, profesional o comercial.</p>
-<div class="arrow">→</div>
-
+<h3>Vehicular</h3>
+<p>Para adquisición de vehículos destinados a uso personal, profesional o comercial.</p>
+<div class="circle-arrow">→</div>
 </div>
 
-
 <div class="product">
-
 <div class="product-icon">
 <svg viewBox="0 0 24 24">
 <path d="M3 11l9-8 9 8"/>
@@ -1215,32 +1417,24 @@ el objetivo de tu solicitud.
 <path d="M10 20v-6h4v6"/>
 </svg>
 </div>
-
-<h3>Crédito Patrimonial</h3>
-<p>Alternativas relacionadas con proyectos inmobiliarios y patrimonio.</p>
-<div class="arrow">→</div>
-
+<h3>Patrimonial</h3>
+<p>Para proyectos relacionados con vivienda, inmuebles y patrimonio.</p>
+<div class="circle-arrow">→</div>
 </div>
 
-
 <div class="product">
-
 <div class="product-icon">
 <svg viewBox="0 0 24 24">
 <circle cx="12" cy="7" r="4"/>
 <path d="M4 21c0-5 3-8 8-8s8 3 8 8"/>
 </svg>
 </div>
-
-<h3>Crédito Personal</h3>
-<p>Financiamiento para proyectos y necesidades personales.</p>
-<div class="arrow">→</div>
-
+<h3>Personal</h3>
+<p>Alternativas para proyectos, adquisiciones y necesidades personales.</p>
+<div class="circle-arrow">→</div>
 </div>
 
-
 <div class="product">
-
 <div class="product-icon">
 <svg viewBox="0 0 24 24">
 <path d="M4 9h16"/>
@@ -1249,16 +1443,12 @@ el objetivo de tu solicitud.
 <path d="M9 20v-6h6v6"/>
 </svg>
 </div>
-
-<h3>Crédito para Negocio</h3>
-<p>Capital para comerciantes, emprendedores y pequeños negocios.</p>
-<div class="arrow">→</div>
-
+<h3>Negocio / PyME</h3>
+<p>Para capital de trabajo, equipamiento, expansión y necesidades de pequeños negocios.</p>
+<div class="circle-arrow">→</div>
 </div>
 
-
 <div class="product">
-
 <div class="product-icon">
 <svg viewBox="0 0 24 24">
 <path d="M5 21V5h9v16"/>
@@ -1266,381 +1456,802 @@ el objetivo de tu solicitud.
 <path d="M8 8h2M8 12h2M8 16h2"/>
 </svg>
 </div>
-
-<h3>Crédito Empresarial</h3>
-<p>Alternativas de financiamiento para PyMEs y empresas.</p>
-<div class="arrow">→</div>
-
+<h3>Empresarial</h3>
+<p>Alternativas para proyectos y necesidades financieras de empresas.</p>
+<div class="circle-arrow">→</div>
 </div>
 
+</div>
 </div>
 </section>
 
+<!-- PERSONAS / NEGOCIOS -->
 
-<!-- PERSONAS / EMPRESAS -->
-
-<section class="profile-section reveal">
-
-<div class="profile-wrap">
+<section class="profile">
+<div class="container">
 
 <div class="center">
-<div class="kicker">ENCUENTRA TU OPCIÓN</div>
-<h2 class="section-title">¿Qué estás buscando <span>financiar?</span></h2>
+<div class="kicker">ENCUENTRA TU PERFIL</div>
+
+<h2 class="title">
+¿Qué necesitas <span>impulsar?</span>
+</h2>
 </div>
 
 <div class="profile-tabs">
-<button class="profile-tab active" onclick="showProfile('personas',this)">
-PARA PERSONAS
+<button class="profile-tab active"
+onclick="changeProfile('persona',this)">
+PERSONAS
 </button>
 
-<button class="profile-tab" onclick="showProfile('negocios',this)">
-PARA NEGOCIOS Y EMPRESAS
+<button class="profile-tab"
+onclick="changeProfile('empresa',this)">
+NEGOCIOS Y EMPRESAS
 </button>
 </div>
 
-
-<div class="profile-content">
+<div class="profile-box">
 
 <div class="profile-copy">
-
 <h3 id="profileTitle">
 Opciones para tus planes personales.
 </h3>
 
 <p id="profileText">
-Ya sea que busques un vehículo, un proyecto patrimonial o
-financiamiento para una necesidad personal, conoce las alternativas disponibles.
+Conoce alternativas para vehículo, patrimonio,
+proyectos personales o actividades de movilidad.
 </p>
 
-<a href="#contacto" class="btn btn-blue">INICIAR SOLICITUD →</a>
-
+<a href="#sectores" class="btn btn-blue">
+VER OPCIONES →
+</a>
 </div>
-
 
 <div class="profile-options" id="profileOptions">
 
-<div class="profile-option">🚘 Vehículo</div>
-<div class="profile-option">🏠 Patrimonio</div>
-<div class="profile-option">👤 Proyecto personal</div>
-<div class="profile-option">🚗 Trabajo en plataformas</div>
-
+<div class="profile-option">
+<span class="mini-icon">
+<svg viewBox="0 0 24 24">
+<path d="M5 11l2-5h10l2 5"/>
+<path d="M4 11h16v6H4z"/>
+</svg>
+</span>
+Vehículo
 </div>
 
+<div class="profile-option">
+<span class="mini-icon">
+<svg viewBox="0 0 24 24">
+<path d="M3 11l9-8 9 8"/>
+<path d="M5 10v10h14V10"/>
+</svg>
+</span>
+Patrimonio
+</div>
+
+<div class="profile-option">
+<span class="mini-icon">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="7" r="4"/>
+<path d="M4 21c0-5 3-8 8-8s8 3 8 8"/>
+</svg>
+</span>
+Proyecto personal
+</div>
+
+<div class="profile-option">
+<span class="mini-icon">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<path d="M12 7v5l4 2"/>
+</svg>
+</span>
+Movilidad / plataformas
+</div>
+
+</div>
 </div>
 </div>
 </section>
 
+<!-- =========================
+     CINTAS POR SECTOR
+========================= -->
 
-<!-- CINTA -->
+<section class="credit-center" id="sectores">
 
-<section class="sectors reveal" id="sectores">
+<div class="credit-intro container center">
 
-<div class="sectors-head">
+<div class="kicker">
+FINANCIAMIENTO POR SECTOR
+</div>
 
-<div class="kicker">DISTINTOS SECTORES, DISTINTAS NECESIDADES</div>
-
-<h2 class="section-title">
-Financiamiento que acompaña <span>tu actividad.</span>
+<h2 class="title">
+Explora opciones según <span>tu actividad.</span>
 </h2>
 
-<p class="section-sub">
-Desde la compra de un vehículo hasta el crecimiento de un negocio,
-MAX INNOVA contempla diferentes perfiles y proyectos.
+<p class="subtitle">
+Las cintas se mueven automáticamente. Pasa el cursor para detenerlas
+y toca cualquier opción para consultar información general del
+financiamiento y documentación habitualmente solicitada.
 </p>
 
 </div>
 
+<!-- AUTOMOTRIZ -->
 
-<div class="marquee-shell">
+<div class="sector-block">
 
-<div class="marquee">
+<div class="sector-heading">
 
-<!-- GRUPO 1 -->
-
-<div class="sector-card">
-<div class="sector-symbol">NISSAN</div>
-<strong>Sector automotriz</strong>
-<small>Referencia de mercado</small>
+<div class="sector-heading-icon">
+<svg viewBox="0 0 24 24">
+<path d="M5 11l2-5h10l2 5"/>
+<path d="M4 11h16v6H4z"/>
+<circle cx="7" cy="17" r="1.5"/>
+<circle cx="17" cy="17" r="1.5"/>
+</svg>
 </div>
 
-<div class="sector-card">
-<div class="sector-symbol">TOYOTA</div>
-<strong>Sector automotriz</strong>
-<small>Referencia de mercado</small>
+<div>
+<h3>Vehículos y movilidad</h3>
+<p>Ejemplos de marcas y destinos de financiamiento vehicular.</p>
 </div>
 
-<div class="sector-card">
-<div class="sector-symbol">KIA</div>
-<strong>Sector automotriz</strong>
-<small>Referencia de mercado</small>
 </div>
 
-<div class="sector-card">
-<div class="sector-symbol">VW</div>
-<strong>Sector automotriz</strong>
-<small>Referencia de mercado</small>
-</div>
+<div class="ticker">
+<div class="ticker-track">
 
-<div class="sector-card">
-<div class="sector-symbol">CHEVROLET</div>
-<strong>Sector automotriz</strong>
-<small>Referencia de mercado</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Toyota')">
+<span class="brand">TOYOTA</span>
+<strong>Vehículo</strong>
+<small>Ver información</small>
+</button>
 
-<div class="sector-card">
-<div class="sector-symbol">UBER</div>
-<strong>Conductores de plataforma</strong>
-<small>Referencia de actividad</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Nissan')">
+<span class="brand">NISSAN</span>
+<strong>Vehículo</strong>
+<small>Ver información</small>
+</button>
 
-<div class="sector-card">
-<div class="sector-symbol">DiDi</div>
-<strong>Conductores de plataforma</strong>
-<small>Referencia de actividad</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Volkswagen')">
+<span class="brand">Volkswagen</span>
+<strong>Vehículo</strong>
+<small>Ver información</small>
+</button>
 
-<div class="sector-card">
-<div class="sector-symbol">PYME</div>
-<strong>Pequeñas empresas</strong>
-<small>Comercio y servicios</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Kia')">
+<span class="brand">KIA</span>
+<strong>Vehículo</strong>
+<small>Ver información</small>
+</button>
 
-<div class="sector-card">
-<div class="sector-symbol">🏪</div>
-<strong>Comerciantes</strong>
-<small>Negocios establecidos</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Chevrolet')">
+<span class="brand small">CHEVROLET</span>
+<strong>Vehículo</strong>
+<small>Ver información</small>
+</button>
 
-<div class="sector-card">
-<div class="sector-symbol">🏠</div>
-<strong>Vivienda</strong>
-<small>Proyectos patrimoniales</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Mazda')">
+<span class="brand">MAZDA</span>
+<strong>Vehículo</strong>
+<small>Ver información</small>
+</button>
 
-<div class="sector-card">
-<div class="sector-symbol">🏢</div>
-<strong>Empresas</strong>
-<small>Proyectos empresariales</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Honda')">
+<span class="brand">HONDA</span>
+<strong>Vehículo</strong>
+<small>Ver información</small>
+</button>
 
+<button class="credit-option" onclick="openCredit('auto','Hyundai')">
+<span class="brand">HYUNDAI</span>
+<strong>Vehículo</strong>
+<small>Ver información</small>
+</button>
 
-<!-- REPETICIÓN PARA MOVIMIENTO INFINITO -->
+<!-- REPETICION -->
 
-<div class="sector-card">
-<div class="sector-symbol">NISSAN</div>
-<strong>Sector automotriz</strong>
-<small>Referencia de mercado</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Toyota')">
+<span class="brand">TOYOTA</span><strong>Vehículo</strong><small>Ver información</small>
+</button>
 
-<div class="sector-card">
-<div class="sector-symbol">TOYOTA</div>
-<strong>Sector automotriz</strong>
-<small>Referencia de mercado</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Nissan')">
+<span class="brand">NISSAN</span><strong>Vehículo</strong><small>Ver información</small>
+</button>
 
-<div class="sector-card">
-<div class="sector-symbol">KIA</div>
-<strong>Sector automotriz</strong>
-<small>Referencia de mercado</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Volkswagen')">
+<span class="brand">Volkswagen</span><strong>Vehículo</strong><small>Ver información</small>
+</button>
 
-<div class="sector-card">
-<div class="sector-symbol">VW</div>
-<strong>Sector automotriz</strong>
-<small>Referencia de mercado</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Kia')">
+<span class="brand">KIA</span><strong>Vehículo</strong><small>Ver información</small>
+</button>
 
-<div class="sector-card">
-<div class="sector-symbol">CHEVROLET</div>
-<strong>Sector automotriz</strong>
-<small>Referencia de mercado</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Chevrolet')">
+<span class="brand small">CHEVROLET</span><strong>Vehículo</strong><small>Ver información</small>
+</button>
 
-<div class="sector-card">
-<div class="sector-symbol">UBER</div>
-<strong>Conductores de plataforma</strong>
-<small>Referencia de actividad</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Mazda')">
+<span class="brand">MAZDA</span><strong>Vehículo</strong><small>Ver información</small>
+</button>
 
-<div class="sector-card">
-<div class="sector-symbol">DiDi</div>
-<strong>Conductores de plataforma</strong>
-<small>Referencia de actividad</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Honda')">
+<span class="brand">HONDA</span><strong>Vehículo</strong><small>Ver información</small>
+</button>
 
-<div class="sector-card">
-<div class="sector-symbol">PYME</div>
-<strong>Pequeñas empresas</strong>
-<small>Comercio y servicios</small>
-</div>
-
-<div class="sector-card">
-<div class="sector-symbol">🏪</div>
-<strong>Comerciantes</strong>
-<small>Negocios establecidos</small>
-</div>
-
-<div class="sector-card">
-<div class="sector-symbol">🏠</div>
-<strong>Vivienda</strong>
-<small>Proyectos patrimoniales</small>
-</div>
-
-<div class="sector-card">
-<div class="sector-symbol">🏢</div>
-<strong>Empresas</strong>
-<small>Proyectos empresariales</small>
-</div>
+<button class="credit-option" onclick="openCredit('auto','Hyundai')">
+<span class="brand">HYUNDAI</span><strong>Vehículo</strong><small>Ver información</small>
+</button>
 
 </div>
 </div>
 
-<p class="disclaimer">
-Las marcas mencionadas se muestran únicamente como referencias de sectores,
-actividades y tipos de bienes. Su aparición no implica convenio, patrocinio,
-afiliación o relación comercial con MAX INNOVA.
+<div class="credit-detail" id="detail-auto"></div>
+
+</div>
+
+<!-- VIVIENDA -->
+
+<div class="sector-block">
+
+<div class="sector-heading">
+
+<div class="sector-heading-icon">
+<svg viewBox="0 0 24 24">
+<path d="M3 11l9-8 9 8"/>
+<path d="M5 10v10h14V10"/>
+<path d="M10 20v-6h4v6"/>
+</svg>
+</div>
+
+<div>
+<h3>Vivienda y patrimonio</h3>
+<p>Proyectos inmobiliarios, vivienda, terrenos y patrimonio.</p>
+</div>
+
+</div>
+
+<div class="ticker reverse">
+<div class="ticker-track">
+
+<button class="credit-option" onclick="openCredit('casa','Vivienda nueva')">
+<span class="brand">VIVIENDA</span>
+<strong>Vivienda nueva</strong>
+<small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('casa','Vivienda usada')">
+<span class="brand">HOGAR</span>
+<strong>Vivienda usada</strong>
+<small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('casa','Terreno')">
+<span class="brand">TERRENO</span>
+<strong>Proyecto patrimonial</strong>
+<small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('casa','Construcción')">
+<span class="brand small">CONSTRUCCIÓN</span>
+<strong>Proyecto</strong>
+<small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('casa','Remodelación')">
+<span class="brand small">REMODELACIÓN</span>
+<strong>Mejora patrimonial</strong>
+<small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('casa','Local comercial')">
+<span class="brand small">LOCAL</span>
+<strong>Inmueble comercial</strong>
+<small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('casa','Desarrollo inmobiliario')">
+<span class="brand small">DESARROLLO</span>
+<strong>Inmobiliario</strong>
+<small>Ver información</small>
+</button>
+
+<!-- REPETICION -->
+
+<button class="credit-option" onclick="openCredit('casa','Vivienda nueva')">
+<span class="brand">VIVIENDA</span><strong>Vivienda nueva</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('casa','Vivienda usada')">
+<span class="brand">HOGAR</span><strong>Vivienda usada</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('casa','Terreno')">
+<span class="brand">TERRENO</span><strong>Proyecto patrimonial</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('casa','Construcción')">
+<span class="brand small">CONSTRUCCIÓN</span><strong>Proyecto</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('casa','Remodelación')">
+<span class="brand small">REMODELACIÓN</span><strong>Mejora patrimonial</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('casa','Local comercial')">
+<span class="brand small">LOCAL</span><strong>Inmueble comercial</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('casa','Desarrollo inmobiliario')">
+<span class="brand small">DESARROLLO</span><strong>Inmobiliario</strong><small>Ver información</small>
+</button>
+
+</div>
+</div>
+
+<div class="credit-detail" id="detail-casa"></div>
+
+</div>
+
+<!-- NEGOCIOS -->
+
+<div class="sector-block">
+
+<div class="sector-heading">
+
+<div class="sector-heading-icon">
+<svg viewBox="0 0 24 24">
+<path d="M4 9h16"/>
+<path d="M5 9l1-5h12l1 5"/>
+<path d="M5 9v11h14V9"/>
+<path d="M9 20v-6h6v6"/>
+</svg>
+</div>
+
+<div>
+<h3>Negocios, comercios y PyMEs</h3>
+<p>Capital para equipamiento, operación, crecimiento o expansión.</p>
+</div>
+
+</div>
+
+<div class="ticker fast">
+<div class="ticker-track">
+
+<button class="credit-option" onclick="openCredit('pyme','Panadería')">
+<span class="brand">PANADERÍA</span>
+<strong>Alimentos</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Restaurante')">
+<span class="brand">RESTAURANTE</span>
+<strong>Alimentos</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Cafetería')">
+<span class="brand">CAFETERÍA</span>
+<strong>Alimentos</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Lavandería')">
+<span class="brand">LAVANDERÍA</span>
+<strong>Servicios</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Taller mecánico')">
+<span class="brand small">TALLER MECÁNICO</span>
+<strong>Servicios automotrices</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Abarrotes')">
+<span class="brand">ABARROTES</span>
+<strong>Comercio</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Ferretería')">
+<span class="brand">FERRETERÍA</span>
+<strong>Comercio</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Estética')">
+<span class="brand">ESTÉTICA</span>
+<strong>Servicios</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Consultorio')">
+<span class="brand">CONSULTORIO</span>
+<strong>Servicios profesionales</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Papelería')">
+<span class="brand">PAPELERÍA</span>
+<strong>Comercio</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Farmacia')">
+<span class="brand">FARMACIA</span>
+<strong>Comercio</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Tienda de ropa')">
+<span class="brand small">TIENDA DE ROPA</span>
+<strong>Comercio</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Tecnología')">
+<span class="brand">TECNOLOGÍA</span>
+<strong>Productos y servicios</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Emprendimiento')">
+<span class="brand small">EMPRENDIMIENTO</span>
+<strong>Nuevo proyecto</strong><small>Ver opciones</small>
+</button>
+
+<!-- REPETICIÓN -->
+
+<button class="credit-option" onclick="openCredit('pyme','Panadería')">
+<span class="brand">PANADERÍA</span><strong>Alimentos</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Restaurante')">
+<span class="brand">RESTAURANTE</span><strong>Alimentos</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Lavandería')">
+<span class="brand">LAVANDERÍA</span><strong>Servicios</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Taller mecánico')">
+<span class="brand small">TALLER MECÁNICO</span><strong>Servicios automotrices</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Abarrotes')">
+<span class="brand">ABARROTES</span><strong>Comercio</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Ferretería')">
+<span class="brand">FERRETERÍA</span><strong>Comercio</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Estética')">
+<span class="brand">ESTÉTICA</span><strong>Servicios</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Consultorio')">
+<span class="brand">CONSULTORIO</span><strong>Servicios profesionales</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Papelería')">
+<span class="brand">PAPELERÍA</span><strong>Comercio</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Farmacia')">
+<span class="brand">FARMACIA</span><strong>Comercio</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Tienda de ropa')">
+<span class="brand small">TIENDA DE ROPA</span><strong>Comercio</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Tecnología')">
+<span class="brand">TECNOLOGÍA</span><strong>Productos y servicios</strong><small>Ver opciones</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('pyme','Emprendimiento')">
+<span class="brand small">EMPRENDIMIENTO</span><strong>Nuevo proyecto</strong><small>Ver opciones</small>
+</button>
+
+</div>
+</div>
+
+<div class="credit-detail" id="detail-pyme"></div>
+
+</div>
+
+<!-- PLATAFORMAS -->
+
+<div class="sector-block">
+
+<div class="sector-heading">
+
+<div class="sector-heading-icon">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<path d="M12 7v5l4 2"/>
+</svg>
+</div>
+
+<div>
+<h3>Conductores y plataformas</h3>
+<p>Opciones para personas cuya actividad depende de una unidad vehicular.</p>
+</div>
+
+</div>
+
+<div class="ticker reverse">
+<div class="ticker-track">
+
+<button class="credit-option" onclick="openCredit('plataforma','Uber')">
+<span class="brand">UBER</span>
+<strong>Conductor</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('plataforma','DiDi')">
+<span class="brand">DiDi</span>
+<strong>Conductor</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('plataforma','InDrive')">
+<span class="brand">inDrive</span>
+<strong>Conductor</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('plataforma','Reparto')">
+<span class="brand">REPARTO</span>
+<strong>Última milla</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('plataforma','Taxi')">
+<span class="brand">TAXI</span>
+<strong>Movilidad</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('plataforma','Transporte local')">
+<span class="brand small">TRANSPORTE</span>
+<strong>Actividad independiente</strong><small>Ver información</small>
+</button>
+
+<!-- REPETICIÓN -->
+
+<button class="credit-option" onclick="openCredit('plataforma','Uber')">
+<span class="brand">UBER</span><strong>Conductor</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('plataforma','DiDi')">
+<span class="brand">DiDi</span><strong>Conductor</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('plataforma','InDrive')">
+<span class="brand">inDrive</span><strong>Conductor</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('plataforma','Reparto')">
+<span class="brand">REPARTO</span><strong>Última milla</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('plataforma','Taxi')">
+<span class="brand">TAXI</span><strong>Movilidad</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('plataforma','Transporte local')">
+<span class="brand small">TRANSPORTE</span><strong>Actividad independiente</strong><small>Ver información</small>
+</button>
+
+</div>
+</div>
+
+<div class="credit-detail" id="detail-plataforma"></div>
+
+</div>
+
+<!-- JURIDICO -->
+
+<div class="sector-block">
+
+<div class="sector-heading">
+
+<div class="sector-heading-icon">
+<svg viewBox="0 0 24 24">
+<path d="M12 3v18"/>
+<path d="M5 6h14"/>
+<path d="M7 6l-4 7h8L7 6z"/>
+<path d="M17 6l-4 7h8l-4-7z"/>
+</svg>
+</div>
+
+<div>
+<h3>Proyectos y gastos jurídicos</h3>
+<p>Financiamiento sujeto a evaluación para determinados gastos derivados de servicios o procedimientos jurídicos.</p>
+</div>
+
+</div>
+
+<div class="ticker">
+<div class="ticker-track">
+
+<button class="credit-option" onclick="openCredit('juridico','Amparo')">
+<span class="brand">AMPARO</span>
+<strong>Gastos relacionados</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('juridico','Proceso jurídico')">
+<span class="brand small">PROCESO JURÍDICO</span>
+<strong>Gastos relacionados</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('juridico','Honorarios jurídicos')">
+<span class="brand small">HONORARIOS</span>
+<strong>Servicios jurídicos</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('juridico','Garantía patrimonial')">
+<span class="brand small">GARANTÍA</span>
+<strong>Evaluación patrimonial</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('juridico','Trámite legal')">
+<span class="brand small">TRÁMITE LEGAL</span>
+<strong>Gastos relacionados</strong><small>Ver información</small>
+</button>
+
+<!-- REPETICIÓN -->
+
+<button class="credit-option" onclick="openCredit('juridico','Amparo')">
+<span class="brand">AMPARO</span><strong>Gastos relacionados</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('juridico','Proceso jurídico')">
+<span class="brand small">PROCESO JURÍDICO</span><strong>Gastos relacionados</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('juridico','Honorarios jurídicos')">
+<span class="brand small">HONORARIOS</span><strong>Servicios jurídicos</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('juridico','Garantía patrimonial')">
+<span class="brand small">GARANTÍA</span><strong>Evaluación patrimonial</strong><small>Ver información</small>
+</button>
+
+<button class="credit-option" onclick="openCredit('juridico','Trámite legal')">
+<span class="brand small">TRÁMITE LEGAL</span><strong>Gastos relacionados</strong><small>Ver información</small>
+</button>
+
+</div>
+</div>
+
+<div class="credit-detail" id="detail-juridico"></div>
+
+</div>
+
+<p class="subtitle" style="font-size:10px;text-align:center;margin-top:25px;">
+Las marcas y nombres de plataformas mencionados se utilizan únicamente como
+referencias de sectores, bienes o actividades. Su aparición no implica convenio,
+patrocinio, afiliación, autorización o relación comercial con MAX INNOVA.
 </p>
 
 </section>
+<!-- =========================
+     TU ALIADO FINANCIERO
+========================= -->
 
-
-<!-- ALIADO -->
-
-<section class="ally reveal">
+<section class="ally" id="nosotros">
+<div class="container ally-grid">
 
 <div class="ally-copy">
 
 <div class="kicker">TU ALIADO FINANCIERO</div>
 
-<h2 class="section-title">
+<h2 class="title">
 Soluciones pensadas <span>para avanzar.</span>
 </h2>
 
 <p>
-Cada proyecto es diferente. Nuestro objetivo es conocer tu necesidad,
-revisar la información de tu solicitud y acompañarte durante las
-distintas etapas del proceso.
+Cada proyecto tiene características diferentes. MAX INNOVA busca
+conocer la necesidad del solicitante, revisar la información disponible
+y presentar, cuando corresponda, una alternativa de financiamiento
+de acuerdo con el análisis realizado.
 </p>
 
-<a href="#proceso" class="btn btn-blue">CONOCE CÓMO FUNCIONA →</a>
+<a href="#proceso" class="btn btn-blue">
+CONOCE EL PROCESO →
+</a>
 
 </div>
-
 
 <div class="benefits">
 
 <div class="benefit">
-<strong>✓ Requisitos claros</strong>
-<p>Conoce la información necesaria para comenzar tu solicitud.</p>
+<div class="benefit-icon">
+<svg viewBox="0 0 24 24">
+<path d="M5 12l4 4L19 6"/>
+</svg>
+</div>
+<div>
+<strong>Información clara</strong>
+<p>Conoce la documentación y características generales antes de continuar.</p>
+</div>
 </div>
 
 <div class="benefit">
-<strong>◷ Seguimiento</strong>
-<p>Información sobre el avance de tu proceso.</p>
+<div class="benefit-icon">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<path d="M12 7v5l3 2"/>
+</svg>
+</div>
+<div>
+<strong>Seguimiento</strong>
+<p>Consulta las distintas etapas relacionadas con tu solicitud.</p>
+</div>
 </div>
 
 <div class="benefit">
-<strong>◎ Atención personalizada</strong>
-<p>Orientación de acuerdo con el tipo de financiamiento.</p>
+<div class="benefit-icon">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="4"/>
+<path d="M5 21c0-5 3-8 7-8s7 3 7 8"/>
+</svg>
+</div>
+<div>
+<strong>Atención personalizada</strong>
+<p>Orientación de acuerdo con el perfil y destino del financiamiento.</p>
+</div>
 </div>
 
 <div class="benefit">
-<strong>↗ Diferentes alternativas</strong>
-<p>Opciones para personas, negocios y empresas.</p>
+<div class="benefit-icon">
+<svg viewBox="0 0 24 24">
+<path d="M4 18L10 12l4 4 6-9"/>
+<path d="M16 7h4v4"/>
+</svg>
+</div>
+<div>
+<strong>Diferentes proyectos</strong>
+<p>Alternativas para personas, comercios, PyMEs y empresas.</p>
+</div>
 </div>
 
+</div>
 </div>
 </section>
 
 
-<!-- PAREJA -->
+<!-- =========================
+     PAREJA
+========================= -->
 
-<section class="couple-cta reveal">
+<section class="couple">
 
 <div class="couple-photo">
-
 <div class="couple-label">
 TUS PLANES TAMBIÉN CUENTAN
 </div>
-
 </div>
 
+<div class="couple-copy">
 
-<div class="couple-panel">
-
-<div class="kicker">EN CADA ETAPA, UNA OPORTUNIDAD</div>
+<div class="kicker">
+UNA OPCIÓN PARA CADA ETAPA
+</div>
 
 <h2>
 Financiamiento que<br>
-<span>se adapta a tu proyecto.</span>
+<span>acompaña tu proyecto.</span>
 </h2>
 
 <p>
-Un vehículo, un proyecto patrimonial, el crecimiento de un negocio
-o una nueva etapa para tu empresa. Conoce las opciones que pueden
-ajustarse al objetivo de tu solicitud.
+Un vehículo, una vivienda, equipamiento para tu negocio,
+capital para continuar creciendo o recursos para un proyecto específico.
+Conoce las alternativas disponibles y los requisitos generales
+para comenzar una solicitud.
 </p>
 
-<a href="#contacto" class="btn btn-white">
-EMPIEZA TU SOLICITUD →
+<a href="#sectores" class="btn btn-white">
+EXPLORAR OPCIONES →
 </a>
 
 </div>
 </section>
 
 
-<!-- POR QUE -->
+<!-- =========================
+     LAPTOP
+========================= -->
 
-<section class="why reveal" id="nosotros">
-
-<div class="center">
-
-<div class="kicker">MAX INNOVA</div>
-
-<h2 class="section-title">
-¿Por qué elegir <span>MAX INNOVA?</span>
-</h2>
-
-<p class="section-sub">
-Un proceso acompañado desde la solicitud hasta las siguientes etapas.
-</p>
-
-</div>
-
-
-<div class="why-grid">
-
-<div class="why-card">
-<div class="why-circle">01</div>
-<strong>Atención</strong>
-<p>Conocemos tu necesidad antes de presentar alternativas.</p>
-</div>
-
-<div class="why-card">
-<div class="why-circle">02</div>
-<strong>Trato personalizado</strong>
-<p>Cada solicitud se analiza de acuerdo con sus características.</p>
-</div>
-
-<div class="why-card">
-<div class="why-circle">03</div>
-<strong>Información clara</strong>
-<p>Conoce las condiciones aplicables antes de decidir continuar.</p>
-</div>
-
-<div class="why-card">
-<div class="why-circle">04</div>
-<strong>Acompañamiento</strong>
-<p>Seguimiento durante las distintas etapas de tu proceso.</p>
-</div>
-
-</div>
-</section>
-
-
-<!-- LAPTOP -->
-
-<section class="laptop-section reveal">
+<section class="laptop">
 
 <div class="laptop-photo"></div>
 
@@ -1649,63 +2260,75 @@ Un proceso acompañado desde la solicitud hasta las siguientes etapas.
 <div class="kicker">CRECIMIENTO</div>
 
 <h2>
-Juntos<br>
-llegamos<br>
-más lejos.
+Tus proyectos<br>
+pueden seguir<br>
+avanzando.
 </h2>
 
-<span></span>
+<div style="
+width:55px;
+height:4px;
+background:#09b4e3;
+margin-top:20px;
+"></div>
 
 </div>
 </section>
 
 
-<!-- PROCESO -->
+<!-- =========================
+     PROCESO
+========================= -->
 
 <section class="process" id="proceso">
-
-<div class="process-wrap">
+<div class="container process-grid">
 
 <div>
 
-<h2 class="process-title">
+<h2>
 Tu solicitud, paso a paso.
 </h2>
 
-<p class="process-sub">
-Un proceso organizado para conocer tu proyecto y evaluar tu solicitud.
+<p class="process-intro">
+Conoce de manera general cómo puede desarrollarse el proceso.
 </p>
-
 
 <div class="steps">
 
 <div class="step">
-<div class="step-circle">1</div>
+<div class="step-num">1</div>
 <strong>Solicita</strong>
-<p>Comparte tus datos e información inicial.</p>
+<p>
+Comparte tus datos y el tipo de financiamiento que buscas.
+</p>
 </div>
 
 <div class="step">
-<div class="step-circle">2</div>
-<strong>Evaluamos</strong>
-<p>Revisamos tu perfil y la documentación correspondiente.</p>
+<div class="step-num">2</div>
+<strong>Evaluación</strong>
+<p>
+Se revisa la información y documentación correspondiente.
+</p>
 </div>
 
 <div class="step">
-<div class="step-circle">3</div>
+<div class="step-num">3</div>
 <strong>Conoce tu opción</strong>
-<p>Cuando corresponda, conoce las condiciones disponibles.</p>
+<p>
+Cuando resulte procedente, conoce las condiciones aplicables.
+</p>
 </div>
 
 <div class="step">
-<div class="step-circle">4</div>
+<div class="step-num">4</div>
 <strong>Continúa</strong>
-<p>Si decides avanzar, te acompañamos en las siguientes etapas.</p>
+<p>
+Si decides avanzar, se continúa con las siguientes etapas.
+</p>
 </div>
 
 </div>
 </div>
-
 
 <div class="phone-card">
 
@@ -1714,11 +2337,12 @@ Un proceso organizado para conocer tu proyecto y evaluar tu solicitud.
 <h3>¿Tienes dudas?</h3>
 
 <p>
-Nuestro equipo puede orientarte sobre tu solicitud.
+Nuestro equipo puede orientarte sobre la documentación
+general de tu solicitud.
 </p>
 
 <a href="#contacto" class="btn btn-white">
-CONTÁCTANOS →
+SOLICITAR INFORMACIÓN →
 </a>
 
 </div>
@@ -1728,51 +2352,68 @@ CONTÁCTANOS →
 </section>
 
 
-<!-- CONTACTO -->
+<!-- =========================
+     CONTACTO
+========================= -->
 
 <section class="contact" id="contacto">
 
-<div class="contact-box reveal">
+<div class="container">
+
+<div class="contact-box">
 
 <div>
 
-<div class="kicker">DA EL SIGUIENTE PASO</div>
+<div class="kicker">
+COMIENZA TU SOLICITUD
+</div>
 
 <h2>
 Cuéntanos qué quieres financiar.
 </h2>
 
 <p>
-Selecciona el tipo de financiamiento que buscas y comienza
-el proceso de contacto con MAX INNOVA.
+Selecciona el tipo de proyecto que tienes en mente.
+La información definitiva sobre requisitos, condiciones,
+montos, plazo, costos y demás características dependerá
+del producto aplicable y del análisis correspondiente.
 </p>
 
 </div>
 
 <div class="contact-actions">
 
-<a href="#" class="btn btn-blue">
-INICIAR SOLICITUD →
+<a href="#sectores" class="btn btn-blue">
+VER TIPOS DE FINANCIAMIENTO →
 </a>
 
-<a href="#" class="btn" style="border:1px solid #b7d7e6;color:#07517e">
+<a href="#" class="btn"
+style="
+border:1px solid #bad8e5;
+color:#07517e;
+background:#fff;
+">
 HABLAR CON UN ASESOR
 </a>
 
 </div>
 
 </div>
+</div>
 </section>
 
 
-<!-- FOOTER -->
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
 
 <div class="footer-main">
 
 <div class="footer-logo">
-<img src="logo_maxinnova.png" alt="MAX INNOVA">
+<img src="logo_maxinnova.png"
+alt="MAX INNOVA Servicios Financieros">
 </div>
 
 <div class="footer-links">
@@ -1786,11 +2427,11 @@ HABLAR CON UN ASESOR
 
 </div>
 
-
 <div class="footer-bottom">
 
 <span>
-© 2026 MAX INNOVA Servicios Financieros. Todos los derechos reservados.
+© 2026 MAX INNOVA Servicios Financieros.
+Todos los derechos reservados.
 </span>
 
 <span>
@@ -1805,12 +2446,89 @@ Términos y condiciones
 
 <script>
 
-/* CAMBIO PERSONAS / EMPRESAS */
+/* =========================================
+   PERSONAS / NEGOCIOS
+========================================= */
 
-function showProfile(type,button){
+function iconSVG(type){
+
+const icons={
+
+car:`
+<svg viewBox="0 0 24 24">
+<path d="M5 11l2-5h10l2 5"/>
+<path d="M4 11h16v6H4z"/>
+</svg>`,
+
+home:`
+<svg viewBox="0 0 24 24">
+<path d="M3 11l9-8 9 8"/>
+<path d="M5 10v10h14V10"/>
+</svg>`,
+
+person:`
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="7" r="4"/>
+<path d="M4 21c0-5 3-8 8-8s8 3 8 8"/>
+</svg>`,
+
+clock:`
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<path d="M12 7v5l4 2"/>
+</svg>`,
+
+shop:`
+<svg viewBox="0 0 24 24">
+<path d="M4 9h16"/>
+<path d="M5 9l1-5h12l1 5"/>
+<path d="M5 9v11h14V9"/>
+</svg>`,
+
+box:`
+<svg viewBox="0 0 24 24">
+<path d="M4 7l8-4 8 4-8 4-8-4z"/>
+<path d="M4 7v10l8 4 8-4V7"/>
+<path d="M12 11v10"/>
+</svg>`,
+
+factory:`
+<svg viewBox="0 0 24 24">
+<path d="M3 21V10l6 3V9l6 4V5h6v16z"/>
+</svg>`,
+
+building:`
+<svg viewBox="0 0 24 24">
+<path d="M5 21V4h10v17"/>
+<path d="M15 9h4v12"/>
+<path d="M8 8h3M8 12h3M8 16h3"/>
+</svg>`
+};
+
+return icons[type] || icons.person;
+}
+
+
+function profileItem(icon,text){
+
+return `
+<div class="profile-option">
+<span class="mini-icon">
+${iconSVG(icon)}
+</span>
+${text}
+</div>
+`;
+
+}
+
+
+function changeProfile(type,button){
 
 document.querySelectorAll(".profile-tab")
-.forEach(b=>b.classList.remove("active"));
+.forEach(function(tab){
+tab.classList.remove("active");
+});
 
 button.classList.add("active");
 
@@ -1818,58 +2536,388 @@ const title=document.getElementById("profileTitle");
 const text=document.getElementById("profileText");
 const options=document.getElementById("profileOptions");
 
-if(type==="personas"){
+if(type==="persona"){
 
-title.innerHTML="Opciones para tus planes personales.";
+title.textContent=
+"Opciones para tus planes personales.";
 
-text.innerHTML=
-"Ya sea que busques un vehículo, un proyecto patrimonial o financiamiento para una necesidad personal, conoce las alternativas disponibles.";
+text.textContent=
+"Conoce alternativas para vehículo, patrimonio, proyectos personales o actividades de movilidad.";
 
-options.innerHTML=`
-<div class="profile-option">🚘 Vehículo</div>
-<div class="profile-option">🏠 Patrimonio</div>
-<div class="profile-option">👤 Proyecto personal</div>
-<div class="profile-option">🚗 Trabajo en plataformas</div>
-`;
+options.innerHTML=
+profileItem("car","Vehículo")+
+profileItem("home","Patrimonio")+
+profileItem("person","Proyecto personal")+
+profileItem("clock","Movilidad / plataformas");
 
 }else{
 
-title.innerHTML="Opciones para hacer crecer tu actividad.";
+title.textContent=
+"Opciones para impulsar tu actividad.";
 
-text.innerHTML=
-"Alternativas dirigidas a comerciantes, emprendedores, PyMEs y empresas que buscan capital para desarrollar nuevos proyectos.";
+text.textContent=
+"Conoce alternativas para comerciantes, emprendedores, pequeños negocios, PyMEs y empresas.";
 
-options.innerHTML=`
-<div class="profile-option">🏪 Comerciantes</div>
-<div class="profile-option">📦 Emprendedores</div>
-<div class="profile-option">🏭 PyMEs</div>
-<div class="profile-option">🏢 Empresas</div>
+options.innerHTML=
+profileItem("shop","Comercio")+
+profileItem("box","Emprendimiento")+
+profileItem("factory","PyME")+
+profileItem("building","Empresa");
+
+}
+
+}
+
+
+/* =========================================
+   INFORMACIÓN DE CRÉDITOS
+========================================= */
+
+const creditData={
+
+auto:{
+badge:"FINANCIAMIENTO VEHICULAR",
+
+description:
+"Alternativa orientada a la adquisición de una unidad para uso personal, profesional, comercial o para una actividad productiva.",
+
+uses:[
+"Adquisición de vehículo",
+"Unidad para actividad profesional",
+"Vehículo para negocio o comercio",
+"Unidad destinada a movilidad, sujeto a evaluación"
+],
+
+requirements:[
+"Identificación oficial vigente",
+"Comprobante de domicilio",
+"Información y comprobación de ingresos cuando corresponda",
+"Información del vehículo o cotización",
+"Documentación adicional que resulte necesaria para el análisis"
+],
+
+review:[
+"Perfil del solicitante",
+"Capacidad de pago",
+"Características y valor de la unidad",
+"Plazo y condiciones aplicables",
+"Documentación proporcionada"
+]
+},
+
+
+casa:{
+badge:"FINANCIAMIENTO PATRIMONIAL",
+
+description:
+"Alternativa para determinados proyectos relacionados con vivienda, inmuebles, construcción, remodelación o patrimonio, sujeta al análisis correspondiente.",
+
+uses:[
+"Adquisición de vivienda",
+"Proyecto de construcción",
+"Remodelación o adecuación",
+"Terreno o inmueble",
+"Proyecto patrimonial"
+],
+
+requirements:[
+"Identificación oficial vigente",
+"Comprobante de domicilio",
+"Información sobre ingresos y capacidad de pago",
+"Documentación del inmueble o proyecto, cuando corresponda",
+"Información adicional necesaria para la evaluación"
+],
+
+review:[
+"Características del proyecto",
+"Situación documental del inmueble",
+"Capacidad de pago",
+"Valor o presupuesto relacionado",
+"Condiciones aplicables al financiamiento"
+]
+},
+
+
+pyme:{
+badge:"CRÉDITO PARA NEGOCIO / PYME",
+
+description:
+"Financiamiento orientado a necesidades productivas de comerciantes, emprendedores, negocios y PyMEs.",
+
+uses:[
+"Capital de trabajo",
+"Compra de maquinaria o equipo",
+"Inventario e insumos",
+"Adecuación o ampliación del establecimiento",
+"Expansión o fortalecimiento de la actividad"
+],
+
+requirements:[
+"Identificación oficial vigente",
+"Comprobante de domicilio",
+"Información de la actividad económica",
+"Comprobación de ingresos o movimientos cuando resulte aplicable",
+"Documentación del negocio cuando corresponda",
+"Información del destino solicitado"
+],
+
+review:[
+"Antigüedad o características de la actividad",
+"Flujo e ingresos disponibles",
+"Destino del financiamiento",
+"Capacidad de pago",
+"Documentación proporcionada"
+]
+},
+
+
+plataforma:{
+badge:"FINANCIAMIENTO PARA MOVILIDAD",
+
+description:
+"Alternativa para personas cuya actividad económica se encuentra relacionada con conducción, reparto, transporte o servicios de movilidad.",
+
+uses:[
+"Adquisición o sustitución de unidad",
+"Equipamiento relacionado con la actividad",
+"Necesidades vinculadas con movilidad",
+"Proyecto productivo relacionado con transporte"
+],
+
+requirements:[
+"Identificación oficial vigente",
+"Comprobante de domicilio",
+"Información sobre ingresos o actividad",
+"Documentación de la unidad cuando corresponda",
+"Información adicional necesaria para el análisis"
+],
+
+review:[
+"Actividad e ingresos",
+"Capacidad de pago",
+"Unidad y destino solicitado",
+"Documentación proporcionada",
+"Condiciones aplicables"
+]
+},
+
+
+juridico:{
+badge:"FINANCIAMIENTO PARA GASTOS JURÍDICOS",
+
+description:
+"Alternativa sujeta a evaluación para determinados gastos relacionados con servicios o procedimientos jurídicos. El financiamiento no determina la procedencia, estrategia ni resultado del asunto legal.",
+
+uses:[
+"Honorarios profesionales, cuando sean elegibles",
+"Gastos relacionados con determinados procedimientos",
+"Trámites o gestiones jurídicas elegibles",
+"Necesidades de financiamiento vinculadas con un asunto jurídico"
+],
+
+requirements:[
+"Identificación oficial vigente",
+"Comprobante de domicilio",
+"Información sobre ingresos o capacidad de pago",
+"Información general del destino del financiamiento",
+"Presupuesto, contrato o documentación relacionada cuando corresponda",
+"Documentación adicional requerida para la evaluación"
+],
+
+review:[
+"Destino solicitado",
+"Capacidad de pago",
+"Documentación presentada",
+"Características de la operación",
+"Condiciones del financiamiento aplicable"
+]
+}
+
+};
+
+
+/* =========================================
+   ABRIR FICHA
+========================================= */
+
+function openCredit(type,name){
+
+const data=creditData[type];
+const panel=document.getElementById("detail-"+type);
+
+document.querySelectorAll(".credit-detail")
+.forEach(function(item){
+
+if(item!==panel){
+item.classList.remove("open");
+item.innerHTML="";
+}
+
+});
+
+let uses="";
+data.uses.forEach(function(item){
+uses+="<li>"+item+"</li>";
+});
+
+let requirements="";
+data.requirements.forEach(function(item){
+requirements+="<li>"+item+"</li>";
+});
+
+let review="";
+data.review.forEach(function(item){
+review+="<li>"+item+"</li>";
+});
+
+
+panel.innerHTML=`
+
+<div class="detail-top">
+
+<div>
+
+<span class="detail-badge">
+${data.badge}
+</span>
+
+<h3>
+${name}
+</h3>
+
+<p>
+${data.description}
+</p>
+
+</div>
+
+<button class="close-detail"
+onclick="closeCredit('${type}')"
+aria-label="Cerrar">
+×
+</button>
+
+</div>
+
+
+<div class="detail-grid">
+
+<div class="detail-card">
+
+<h4>
+¿QUÉ PUEDE FINANCIARSE?
+</h4>
+
+<ul>
+${uses}
+</ul>
+
+</div>
+
+
+<div class="detail-card">
+
+<h4>
+DOCUMENTACIÓN GENERAL
+</h4>
+
+<ul>
+${requirements}
+</ul>
+
+</div>
+
+
+<div class="detail-card">
+
+<h4>
+¿QUÉ SE REVISA?
+</h4>
+
+<ul>
+${review}
+</ul>
+
+</div>
+
+</div>
+
+
+<div class="detail-legal">
+
+<strong>Información importante:</strong>
+La información mostrada es de carácter general y no constituye una
+aprobación, oferta definitiva ni garantía de otorgamiento.
+La disponibilidad del financiamiento y sus características dependerán
+del producto aplicable, análisis de la solicitud, documentación,
+capacidad de pago y demás condiciones que correspondan.
+Antes de formalizar cualquier operación deberán informarse las
+condiciones económicas y contractuales aplicables, incluyendo,
+cuando corresponda, monto, plazo, tasa de interés, comisiones,
+forma de pago, costo total y consecuencias por incumplimiento.
+
+${
+type==="juridico"
+?
+"<br><br><strong>En asuntos jurídicos:</strong> el financiamiento se refiere exclusivamente, cuando resulte elegible, a recursos destinados a determinados gastos. MAX INNOVA no garantiza la procedencia de un juicio de amparo, resolución favorable, plazo de resolución ni resultado de procedimiento jurídico alguno."
+:
+""
+}
+
+</div>
+
+
+<div class="detail-actions">
+
+<a href="#contacto"
+class="btn btn-blue">
+INICIAR SOLICITUD →
+</a>
+
+<button class="btn"
+style="
+background:#fff;
+border:1px solid #b8d8e6;
+color:#07517e;
+"
+onclick="closeCredit('${type}')">
+CERRAR INFORMACIÓN
+</button>
+
+</div>
+
 `;
 
-}
+panel.classList.add("open");
 
-}
+setTimeout(function(){
 
-
-/* APARICIÓN SUAVE AL BAJAR */
-
-const reveals=document.querySelectorAll(".reveal");
-
-const observer=new IntersectionObserver(entries=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-entry.target.classList.add("show");
-}
-
+panel.scrollIntoView({
+behavior:"smooth",
+block:"nearest"
 });
 
-},{
-threshold:.10
-});
+},100);
 
-reveals.forEach(el=>observer.observe(el));
+}
+
+
+/* =========================================
+   CERRAR FICHA
+========================================= */
+
+function closeCredit(type){
+
+const panel=
+document.getElementById("detail-"+type);
+
+panel.classList.remove("open");
+
+setTimeout(function(){
+panel.innerHTML="";
+},250);
+
+}
 
 </script>
 
