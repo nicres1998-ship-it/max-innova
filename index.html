@@ -382,6 +382,24 @@ body{position:relative;overflow-x:hidden}
 .internal-access{display:none!important}
 @media(max-width:650px){.quote-grid{grid-template-columns:1fr}.quote-main{grid-column:auto}.quote-main strong{font-size:28px}}
 
+
+/* ===== CINTAS PREMIUM / DOCUMENTOS FLEXIBLES ===== */
+.sector-box{position:relative;background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(239,249,254,.92));border:1px solid rgba(95,185,220,.28);box-shadow:0 22px 55px rgba(0,54,91,.10),inset 0 1px 0 #fff}
+.sector-box:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 15% 0%,rgba(24,181,220,.10),transparent 30%),radial-gradient(circle at 85% 100%,rgba(0,67,116,.08),transparent 34%)}
+.sector-title{position:relative;z-index:2;background:linear-gradient(90deg,rgba(231,247,253,.96),rgba(255,255,255,.94),rgba(237,249,253,.96));padding:24px 30px}
+.sector-title h3{font-size:21px;letter-spacing:-.3px;color:#063e67}.sector-title p{font-size:11px}
+.brand{position:relative;width:176px;height:126px;margin:10px 8px;border:1px solid rgba(91,180,217,.28);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(239,248,252,.93));box-shadow:0 10px 25px rgba(0,60,100,.08),inset 0 1px 0 #fff;overflow:hidden}
+.brand:before{content:"";position:absolute;left:16px;right:16px;top:0;height:2px;background:linear-gradient(90deg,transparent,#28b8dc,transparent);opacity:.65}
+.brand:hover{transform:translateY(-7px) scale(1.025);box-shadow:0 18px 38px rgba(0,75,120,.16);border-color:#53c7e4}
+.brand-logo{height:62px;width:126px}.brand-logo img{max-height:52px;max-width:118px;filter:drop-shadow(0 4px 7px rgba(0,40,70,.10))}
+.brand-name{color:#174d70;letter-spacing:.2px}.professional-business{box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),0 8px 18px rgba(0,90,130,.10)}
+.upload-box{background:linear-gradient(145deg,#f8fdff,#eef9fd);box-shadow:inset 0 1px 0 #fff,0 10px 28px rgba(0,70,110,.06)}
+.doc-upload-card{padding:15px;border:1px solid #d4e9f2;border-radius:14px;background:#fff;box-shadow:0 6px 16px rgba(0,70,110,.05)}
+.doc-upload-card label{display:block;font-weight:900;font-size:11px;color:#285d7b;margin-bottom:8px}.doc-upload-card input[type=file]{width:100%}
+.custom-doc-row{display:grid;grid-template-columns:1fr 1.4fr auto;gap:10px;align-items:end;margin-top:10px}.custom-doc-row input{width:100%;padding:11px;border:1px solid #cfe1e9;border-radius:10px}.remove-doc{border:0;border-radius:10px;padding:11px 13px;background:#eef6fa;color:#0b4b70;font-weight:900;cursor:pointer}
+.add-doc-btn{margin-top:13px;border:1px dashed #37aeda;background:#fff;color:#07517e;border-radius:12px;padding:11px 15px;font-weight:900;cursor:pointer}.add-doc-btn:hover{background:#eaf8fe}
+@media(max-width:700px){.custom-doc-row{grid-template-columns:1fr}.brand{width:150px;height:112px}.sector-title{padding:20px}}
+
 </style>
 </head>
 <body>
@@ -516,10 +534,9 @@ No sustituir el diseño base al hacer cambios posteriores.
        <div class="field"><label>CONDICIÓN</label><select id="vehCondicion"><option value="">Selecciona</option><option>Nuevo</option><option>Seminuevo</option></select></div>
        <div class="field"><label>PRECIO DE LA UNIDAD</label><input id="vehPrecio" type="number" min="0" step="1000" placeholder="Precio aproximado"></div>
        <div class="field full"><label>AGENCIA / PROVEEDOR</label><input id="vehProveedor" placeholder="Si ya lo tienes ubicado"></div>
-       <div class="field full"><label>EQUIPAMIENTO / CARACTERÍSTICAS CONOCIDAS</label><textarea id="vehEquipo" placeholder="Ej. cámara de reversa, 6 bolsas de aire, pantalla, quemacocos, vestiduras de piel..."></textarea></div>
       </div>
       <div class="vehicle-actions"><button type="button" class="btn btn-soft" id="vehicleSheetBtn">DESCARGAR FICHA DEL VEHÍCULO</button></div>
-      <p class="vehicle-mini">La ficha incluirá los datos y equipamiento capturados. Cuando conectemos una fuente automotriz verificable para México, podrá completar automáticamente especificaciones oficiales según marca, modelo, año y versión.</p>
+      <p class="vehicle-mini">La ficha está pensada para mostrar al cliente la información del vehículo seleccionado: características, seguridad, tecnología, confort, dimensiones y equipamiento de la versión disponible.</p>
      </div>
     </div>
 
@@ -530,16 +547,18 @@ No sustituir el diseño base al hacer cambios posteriores.
     </div>
 
     <div class="upload-box" id="uploadBox">
-     <p class="help"><strong>Sube tus documentos uno por uno.</strong> Puedes usar fotografía JPG/PNG o archivo PDF. Así es más fácil revisar que no falte nada.</p>
-     <div class="form-grid">
-      <div class="field"><label>1. IDENTIFICACIÓN OFICIAL *</label><input id="docIdentificacion" class="doc-file" data-label="Identificacion" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
-      <div class="field"><label>2. COMPROBANTE DE DOMICILIO *</label><input id="docDomicilio" class="doc-file" data-label="Domicilio" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
-      <div class="field"><label>3. COMPROBANTE DE INGRESOS *</label><input id="docIngresos" class="doc-file" data-label="Ingresos" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
-      <div class="field"><label>4. RFC / CONSTANCIA FISCAL</label><input id="docRFC" class="doc-file" data-label="RFC" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
-      <div class="field"><label>5. CURP</label><input id="docCURP" class="doc-file" data-label="CURP" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
-      <div class="field"><label>6. OTRO DOCUMENTO</label><input id="docOtro" class="doc-file" data-label="Otro" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+     <p class="help"><strong>Sube únicamente los documentos que tengas.</strong> Ningún documento es obligatorio para generar tu folio. Puedes elegir uno, varios o continuar sin archivos y complementarlos después.</p>
+     <div class="form-grid" id="standardDocs">
+      <div class="doc-upload-card"><label>IDENTIFICACIÓN OFICIAL</label><input id="docIdentificacion" class="doc-file" data-label="Identificacion" name="Identificacion_oficial[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="doc-upload-card"><label>COMPROBANTE DE DOMICILIO</label><input id="docDomicilio" class="doc-file" data-label="Domicilio" name="Comprobante_domicilio[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="doc-upload-card"><label>COMPROBANTE DE INGRESOS</label><input id="docIngresos" class="doc-file" data-label="Ingresos" name="Comprobante_ingresos[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="doc-upload-card"><label>RFC / CONSTANCIA FISCAL</label><input id="docRFC" class="doc-file" data-label="RFC" name="RFC_constancia[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="doc-upload-card"><label>CURP</label><input id="docCURP" class="doc-file" data-label="CURP" name="CURP[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="doc-upload-card"><label>OTROS DOCUMENTOS</label><input id="docOtro" class="doc-file" data-label="Otro" name="Otros_documentos[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
      </div>
-     <p class="help" id="docProgress">0 documentos seleccionados.</p>
+     <div id="customDocs"></div>
+     <button type="button" class="add-doc-btn" id="addDocBtn">＋ AGREGAR OTRO TIPO DE DOCUMENTO</button>
+     <p class="help" id="docProgress">0 archivos seleccionados.</p>
     </div>
 
     <p class="help">El RFC se recaba como parte de la evaluación. Cualquier consulta a una Sociedad de Información Crediticia estará sujeta a la autorización y procedimiento que correspondan. El registro de la solicitud no significa aprobación del financiamiento.</p>
@@ -813,11 +832,12 @@ const sectors=[
   reverse:true,
   items:[
    {n:"Uber",l:"https://cdn.simpleicons.org/uber",t:"Movilidad / Plataformas"},
-   {n:"DiDi",l:"https://cdn.simpleicons.org/didi",t:"Movilidad / Plataformas"},
+   {n:"DiDi",l:"https://www.google.com/s2/favicons?domain=didiglobal.com&sz=128",t:"Movilidad / Plataformas"},
    {n:"inDrive",l:"https://cdn.simpleicons.org/indrive",t:"Movilidad / Plataformas"},
-   {n:"Rappi",l:"https://cdn.simpleicons.org/rappi",t:"Movilidad / Plataformas"},
+   {n:"Rappi",l:"https://www.google.com/s2/favicons?domain=rappi.com&sz=128",t:"Movilidad / Plataformas"},
    {n:"Uber Eats",l:"https://cdn.simpleicons.org/ubereats",t:"Movilidad / Plataformas"},
-   {n:"Cabify",l:"https://cdn.simpleicons.org/cabify",t:"Movilidad / Plataformas"}
+   {n:"Cabify",l:"https://www.google.com/s2/favicons?domain=cabify.com&sz=128",t:"Movilidad / Plataformas"},
+   {n:"Gaby Five",l:"https://www.google.com/s2/favicons?domain=gabyfive.com&sz=128",t:"Movilidad / Plataformas"}
   ]
  }
 ];
@@ -971,7 +991,7 @@ function goPortal(which){tab(which);portal.scrollIntoView({behavior:"smooth",blo
 function docMode(){
  const v=document.querySelector('input[name="docs"]:checked')?.value;
  uploadBox.classList.toggle("show",v==="ENVÍO DIGITAL");
- document.querySelectorAll(".doc-file").forEach((x,i)=>x.required=(v==="ENVÍO DIGITAL"&&i<3));
+ document.querySelectorAll(".doc-file").forEach(x=>x.required=false);
 }
 
 function toggleVehiclePanel(){
@@ -979,6 +999,21 @@ function toggleVehiclePanel(){
  if(panel)panel.classList.toggle("show",document.getElementById("tipo")?.value==="Vehicular");
 }
 document.getElementById("tipo")?.addEventListener("change",toggleVehiclePanel);
+
+let customDocCount=0;
+function refreshDocProgress(){
+ const inputs=[...document.querySelectorAll(".doc-file")];
+ const count=inputs.reduce((n,x)=>n+(x.files?x.files.length:0),0);
+ const p=document.getElementById("docProgress");if(p)p.textContent=`${count} archivo(s) seleccionado(s). Puedes continuar con los que tengas.`;
+}
+document.addEventListener("change",e=>{if(e.target.classList?.contains("doc-file"))refreshDocProgress()});
+document.getElementById("addDocBtn")?.addEventListener("click",()=>{
+ customDocCount++;const wrap=document.createElement("div");wrap.className="custom-doc-row";
+ wrap.innerHTML=`<div><label>¿QUÉ DOCUMENTO ES?</label><input class="custom-doc-name" placeholder="Ej. Estado de cuenta, factura, contrato"></div><div><label>ARCHIVO(S)</label><input class="doc-file custom-file" data-label="Documento adicional" name="Documento_adicional_${customDocCount}[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div><button type="button" class="remove-doc">QUITAR</button>`;
+ wrap.querySelector(".remove-doc").onclick=()=>{wrap.remove();refreshDocProgress()};
+ wrap.querySelector(".custom-doc-name").addEventListener("input",e=>{const f=wrap.querySelector(".custom-file");f.dataset.label=e.target.value.trim()||"Documento adicional"});
+ document.getElementById("customDocs").appendChild(wrap);
+});
 
 /* Folio con mayor entropía para evitar folios fáciles de adivinar */
 function makeFolio(){
@@ -991,53 +1026,67 @@ function makeFolio(){
 solicitudForm.addEventListener("submit",async e=>{
  e.preventDefault();
  const btn=submitBtn, modalidad=document.querySelector('input[name="docs"]:checked')?.value;
- if(!modalidad){alert("Selecciona cómo presentarás la documentación.");return}
- const docInputs=[...document.querySelectorAll(".doc-file")];
- if(modalidad==="ENVÍO DIGITAL"&&docInputs.slice(0,3).some(x=>!x.files.length)){alert("Para continuar sube identificación, comprobante de domicilio y comprobante de ingresos.");return}
+ if(!modalidad){alert("Selecciona cómo deseas presentar la documentación.");return}
  btn.disabled=true;btn.textContent="REGISTRANDO...";
+ const docInputs=[...document.querySelectorAll(".doc-file")];
  let projectText=proyecto.value.trim();
  if(tipo.value==="Vehicular"){
   const vehicle=[`Marca: ${vehMarca.value||"Pendiente"}`,`Modelo: ${vehModelo.value||"Pendiente"}`,`Año: ${vehAnio.value||"Pendiente"}`,`Versión: ${vehVersion.value||"Pendiente"}`,`Condición: ${vehCondicion.value||"Pendiente"}`,`Precio: ${vehPrecio.value||"Pendiente"}`,`Proveedor: ${vehProveedor.value||"Pendiente"}`].join(" | ");
   projectText+=(projectText?"\n":"")+"VEHÍCULO: "+vehicle;
  }
- const data={folio:makeFolio(),nombre:nombre.value.trim(),telefono:telefono.value.trim(),correo:correo.value.trim(),rfc:rfc.value.trim().toUpperCase(),tipo_financiamiento:tipo.value,ciudad:ciudad.value.trim(),proyecto:projectText,modalidad_documentos:modalidad,estatus:"SOLICITUD RECIBIDA",indicaciones_cliente:modalidad==="PRESENTAR EN OFICINA"?"Su solicitud fue registrada. La documentación se encuentra pendiente de presentación en oficina.":"Su solicitud fue registrada. La documentación fue recibida y quedará pendiente de revisión."};
- let uploaded=[];
- if(modalidad==="ENVÍO DIGITAL"){
-  btn.textContent="SUBIENDO DOCUMENTOS...";
-  for(const input of docInputs){
-   if(!input.files.length) continue;
-   const file=input.files[0];
-   if(file.size>10*1024*1024){alert(`El archivo ${file.name} supera 10 MB.`);btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";return}
-   const label=input.dataset.label||"Documento";
-   const clean=(label+"_"+file.name).normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9._-]/g,"_").slice(-100);
-   const path=`${data.folio}/${Date.now()}_${crypto.randomUUID()}_${clean}`;
-   const {error:upError}=await db.storage.from("max-innova-documentos").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type||"application/octet-stream"});
-   if(upError){
-    if(uploaded.length)await db.storage.from("max-innova-documentos").remove(uploaded.map(x=>x.path));
-    newResult.innerHTML=`<strong>No fue posible cargar la documentación.</strong><p class="help">${safe(upError.message)}</p>`;newResult.classList.add("show");
-    btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";return;
-   }
-   uploaded.push({path,name:file.name});
-  }
- }
+ const data={folio:makeFolio(),nombre:nombre.value.trim(),telefono:telefono.value.trim(),correo:correo.value.trim(),rfc:rfc.value.trim().toUpperCase(),tipo_financiamiento:tipo.value,ciudad:ciudad.value.trim(),proyecto:projectText,modalidad_documentos:modalidad,estatus:"SOLICITUD RECIBIDA",indicaciones_cliente:"Su solicitud fue registrada correctamente. Si tiene documentación pendiente podrá complementarla durante el seguimiento."};
+ // PRIMERO se registra la solicitud. Los documentos nunca bloquean la generación del folio.
  const {error}=await db.from("max_innova_solicitudes").insert(data);
  if(error){
-  if(uploaded.length)await db.storage.from("max-innova-documentos").remove(uploaded.map(x=>x.path));
   newResult.innerHTML=`<strong>No fue posible registrar la solicitud.</strong><p class="help">${safe(error.message)}</p>`;newResult.classList.add("show");
   btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";return;
  }
+ let uploaded=[],failed=[];
+ if(modalidad==="ENVÍO DIGITAL"){
+  btn.textContent="GUARDANDO DOCUMENTOS...";
+  for(const input of docInputs){
+   if(!input.files.length) continue;
+   const label=input.dataset.label||"Documento";
+   for(const file of [...input.files]){
+    if(file.size>15*1024*1024){failed.push(`${label}: ${file.name} supera 15 MB`);continue}
+    const clean=(label+"_"+file.name).normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9._-]/g,"_").slice(-100);
+    const path=`${data.folio}/${Date.now()}_${crypto.randomUUID()}_${clean}`;
+    const {error:upError}=await db.storage.from("max-innova-documentos").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type||"application/octet-stream"});
+    if(upError){failed.push(`${label}: ${file.name}`);continue}
+    uploaded.push({path,name:file.name,label});
+   }
+  }
+ }
  try{
   mailSubject.value=`MAX INNOVA - NUEVA SOLICITUD ${data.folio}`;mailFolio.value=data.folio;mailNombre.value=data.nombre;mailTelefono.value=data.telefono;mailCorreo.value=data.correo;mailRFC.value=data.rfc;mailTipo.value=data.tipo_financiamiento;mailCiudad.value=data.ciudad;mailProyecto.value=data.proyecto;mailModalidad.value=modalidad;
-  mailDocumentos.value=uploaded.length?`${uploaded.length} documento(s) recibidos y respaldados en almacenamiento privado.`:"Documentación pendiente de presentación en oficina.";
-  const originalParent=documentos.parentElement;
-  const marker=document.createComment("documentos-position");
-  if(uploaded.length){originalParent.insertBefore(marker,documentos);mailForm.appendChild(documentos)}
+  mailDocumentos.value=uploaded.length?`${uploaded.length} documento(s) respaldados en el expediente.`:"Documentación pendiente o por complementar.";
   mailForm.submit();
-  if(uploaded.length){marker.parentNode.insertBefore(documentos,marker);marker.remove()}
  }catch(err){console.error("Aviso de correo:",err)}
- newResult.innerHTML=`<strong>Solicitud registrada correctamente</strong><div class="folio">${safe(data.folio)}</div><p class="help">${uploaded.length?`${uploaded.length} documento(s) recibidos correctamente. `:""}Conserva este folio para consultar el seguimiento.</p><span class="status">SOLICITUD RECIBIDA</span><br><br><button class="btn btn-blue" type="button" onclick="consultNow('${data.folio}')">CONSULTAR SOLICITUD</button>`;
- newResult.classList.add("show");solicitudForm.reset();docMode();toggleVehiclePanel();btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";
+ window.__lastApplication={...data,uploaded,failed,fecha:new Date()};
+ const docMsg=uploaded.length?`${uploaded.length} documento(s) guardados. `:"";
+ const pending=failed.length?`Algunos archivos no pudieron respaldarse en el expediente digital, pero esto no bloquea tu folio y se enviarán también con el aviso de solicitud cuando el servicio de correo lo permita. `:"";
+ newResult.innerHTML=`<strong>Solicitud registrada correctamente</strong><div class="folio">${safe(data.folio)}</div><p class="help">${docMsg}${pending}Descarga tu comprobante para conservar tu folio y los datos generales de la solicitud.</p><span class="status">SOLICITUD RECIBIDA</span><br><br><button class="btn btn-blue" type="button" id="downloadReceiptBtn">DESCARGAR COMPROBANTE DE SOLICITUD</button> <button class="btn btn-soft" type="button" id="afterReceiptBtn" disabled>CONSULTAR MI SOLICITUD</button><p class="help" id="receiptHelp"><strong>Importante:</strong> descarga tu comprobante para habilitar el seguimiento.</p>`;
+ newResult.classList.add("show");
+ document.getElementById("downloadReceiptBtn")?.addEventListener("click",()=>downloadApplicationReceipt(window.__lastApplication));
+ document.getElementById("afterReceiptBtn")?.addEventListener("click",()=>consultNow(data.folio));
+ btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";
 });
+
+async function downloadApplicationReceipt(a){
+ if(!a||!window.jspdf){alert("No fue posible preparar el comprobante en este momento.");return}
+ const {jsPDF}=window.jspdf,doc=new jsPDF();
+ try{const img=new Image();img.src="logo%20maxinnova.png";await new Promise((ok,no)=>{img.onload=ok;img.onerror=no});doc.addImage(img,"PNG",18,11,48,18)}catch(e){}
+ doc.setFillColor(0,52,95);doc.rect(0,0,210,8,"F");
+ doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.setFontSize(18);doc.text("COMPROBANTE DE SOLICITUD",20,40);
+ doc.setFontSize(9);doc.setFont("helvetica","normal");doc.setTextColor(80,100,112);doc.text(`Fecha y hora: ${a.fecha.toLocaleString("es-MX")}`,20,47);
+ doc.setFillColor(238,248,252);doc.roundedRect(18,54,174,26,3,3,"F");doc.setTextColor(0,52,95);doc.setFont("helvetica","bold");doc.setFontSize(9);doc.text("FOLIO DE SOLICITUD",24,64);doc.setFontSize(17);doc.text(a.folio,24,74);
+ const rows=[["Nombre",a.nombre],["Teléfono",a.telefono],["Correo",a.correo],["RFC",a.rfc],["Tipo de financiamiento",a.tipo_financiamiento],["Ciudad / Estado",a.ciudad||"No indicado"],["Modalidad de documentos",a.modalidad_documentos],["Estatus inicial",a.estatus]];
+ let y=94;doc.setFontSize(9);rows.forEach(([k,v],i)=>{if(i%2===0){doc.setFillColor(247,251,253);doc.rect(18,y-6,174,9,"F")}doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.text(k,21,y);doc.setFont("helvetica","normal");doc.setTextColor(45,65,78);doc.text(String(v||""),78,y);y+=10});
+ if(a.proyecto){doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.text("Información general de la solicitud",20,y+5);doc.setFont("helvetica","normal");doc.setTextColor(45,65,78);doc.text(doc.splitTextToSize(a.proyecto,170),20,y+14);y+=30}
+ doc.setDrawColor(190,215,228);doc.line(18,245,192,245);doc.setFontSize(8);doc.setTextColor(80,95,105);doc.text(doc.splitTextToSize("Este comprobante acredita únicamente el registro de la solicitud y la asignación del folio. No constituye aprobación del financiamiento, oferta definitiva ni garantía de condiciones. Conserva este documento para dar seguimiento a tu solicitud.",170),20,253);
+ doc.save(`MAX-INNOVA-SOLICITUD-${a.folio}.pdf`);
+ const b=document.getElementById("afterReceiptBtn"),h=document.getElementById("receiptHelp");if(b)b.disabled=false;if(h)h.innerHTML="✓ Comprobante descargado. Ya puedes consultar el seguimiento de tu solicitud.";
+}
 function consultNow(f){tab("consulta");consultaFolio.value=f;consult(f)}
 consultaForm.addEventListener("submit",e=>{e.preventDefault();consult(consultaFolio.value.trim())});
 async function consult(folio){
@@ -1230,14 +1279,15 @@ renderSectors();
    doc.save(`MAX-INNOVA-PRECOTIZACION-${Date.now()}.pdf`);
  });
  $("vehicleSheetBtn")?.addEventListener("click",async()=>{
-   const marca=$("vehMarca")?.value.trim(), modelo=$("vehModelo")?.value.trim(), anio=$("vehAnio")?.value.trim(), version=$("vehVersion")?.value.trim();
-   if(!marca||!modelo||!anio){alert("Captura al menos marca, modelo y año para generar la ficha.");return}
+   const marca=$("vehMarca")?.value.trim()||"Vehículo seleccionado", modelo=$("vehModelo")?.value.trim()||"Modelo por definir", anio=$("vehAnio")?.value.trim()||"Año por definir", version=$("vehVersion")?.value.trim()||"Versión por definir";
    if(!window.jspdf){alert("No fue posible preparar el PDF en este momento.");return}
    const {jsPDF}=window.jspdf,doc=new jsPDF();try{const img=new Image();img.src="logo%20maxinnova.png";await new Promise((ok,no)=>{img.onload=ok;img.onerror=no});doc.addImage(img,"PNG",18,10,48,18)}catch(e){}
-   doc.setFillColor(0,52,95);doc.rect(0,0,210,8,"F");doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.setFontSize(17);doc.text("FICHA DEL VEHÍCULO",20,40);
-   const rows=[["Marca",marca],["Modelo",modelo],["Año",anio],["Versión",version||"Pendiente"],["Condición",$("vehCondicion")?.value||"Pendiente"],["Precio informado",$("vehPrecio")?.value?money($("vehPrecio").value):"Pendiente"],["Agencia / proveedor",$("vehProveedor")?.value.trim()||"Pendiente"]];let y=54;doc.setFontSize(10);rows.forEach(([a,b],i)=>{if(i%2===0){doc.setFillColor(244,250,253);doc.rect(18,y-6,174,9,"F")}doc.setFont("helvetica","bold");doc.text(a,21,y);doc.setFont("helvetica","normal");doc.text(String(b),82,y);y+=10});
-   doc.setFont("helvetica","bold");doc.setFontSize(12);doc.text("EQUIPAMIENTO / CARACTERÍSTICAS",20,y+5);doc.setFont("helvetica","normal");doc.setFontSize(9);const eq=$("vehEquipo")?.value.trim()||"Equipamiento pendiente de confirmar para la versión seleccionada.";doc.text(doc.splitTextToSize(eq,170),20,y+14);y+=30;
-   doc.setFontSize(8);doc.setTextColor(80,95,105);doc.text(doc.splitTextToSize("Los datos de equipamiento capturados deben confirmarse contra la ficha oficial del fabricante o proveedor para la versión y mercado correspondientes. MAX INNOVA no sustituye la información técnica oficial del fabricante.",170),20,y+8);
+   doc.setFillColor(0,52,95);doc.rect(0,0,210,8,"F");doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.setFontSize(17);doc.text("FICHA TÉCNICA DEL VEHÍCULO",20,40);
+   doc.setFontSize(13);doc.text(`${marca} ${modelo} ${anio}`,20,50);doc.setFontSize(9);doc.setTextColor(70,95,110);doc.text(`Versión: ${version}`,20,57);
+   const rows=[["Condición",$("vehCondicion")?.value||"Por definir"],["Precio de referencia",$("vehPrecio")?.value?money($("vehPrecio").value):"Por definir"],["Agencia / proveedor",$("vehProveedor")?.value.trim()||"Por definir"]];let y=72;rows.forEach(([a,b],i)=>{if(i%2===0){doc.setFillColor(244,250,253);doc.rect(18,y-6,174,9,"F")}doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.text(a,21,y);doc.setFont("helvetica","normal");doc.setTextColor(35,65,82);doc.text(String(b),82,y);y+=10});
+   const sections=[["MOTOR Y DESEMPEÑO","La motorización, potencia, torque, rendimiento y tipo de combustible se mostrarán conforme a la versión exacta seleccionada."],["TRANSMISIÓN Y MANEJO","Tipo de transmisión, tracción, modos de manejo y características de conducción correspondientes a la versión."],["SEGURIDAD","Bolsas de aire, frenos, asistencias, control de estabilidad, cámara, sensores y sistemas de seguridad incluidos en la versión."],["TECNOLOGÍA Y CONECTIVIDAD","Pantalla, conectividad, audio, puertos, integración con smartphone y demás tecnología incluida."],["CONFORT Y EQUIPAMIENTO","Aire acondicionado, vestiduras, asientos, cristales, iluminación, rines y equipamiento interior/exterior de la versión."],["DIMENSIONES Y CAPACIDADES","Medidas, capacidad de pasajeros, cajuela, tanque y demás capacidades aplicables."]];
+   y=112;sections.forEach(([t,d])=>{doc.setFillColor(238,248,252);doc.roundedRect(18,y-6,174,8,2,2,"F");doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.setFontSize(9);doc.text(t,21,y);doc.setFont("helvetica","normal");doc.setTextColor(55,75,88);doc.setFontSize(8);doc.text(doc.splitTextToSize(d,166),21,y+8);y+=28});
+   doc.setFontSize(7.5);doc.setTextColor(85,100,110);doc.text(doc.splitTextToSize("La ficha definitiva se integra con las especificaciones correspondientes a la marca, modelo, año y versión exactos disponibles para el mercado aplicable. Los datos técnicos deben coincidir con la información oficial del fabricante o agencia.",170),20,278);
    doc.save(`MAX-INNOVA-FICHA-${marca}-${modelo}-${anio}.pdf`.replace(/\s+/g,"-"));
  });
  calc();
