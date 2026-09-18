@@ -419,7 +419,8 @@ No sustituir el diseño base al hacer cambios posteriores.
   <h1>Más que crédito,<br><span>posibilidades.</span></h1>
   <p>Soluciones financieras para personas, comercios y empresas. Analizamos cada solicitud para encontrar una alternativa de acuerdo con el proyecto que quieres realizar.</p>
   <div class="hero-buttons">
-   <button class="btn btn-white" onclick="goPortal('nuevo')">INICIAR SOLICITUD →</button>
+   <button class="btn btn-white" onclick="document.getElementById('simulador').scrollIntoView({behavior:'smooth'})">COTIZA AHORA →</button>
+   <button class="btn btn-cyan" onclick="goPortal('nuevo')">INICIAR SOLICITUD</button>
    <button class="btn btn-outline" onclick="goPortal('consulta')">CONSULTAR SOLICITUD</button>
   </div>
   <div class="hero-benefits">
@@ -515,9 +516,10 @@ No sustituir el diseño base al hacer cambios posteriores.
        <div class="field"><label>CONDICIÓN</label><select id="vehCondicion"><option value="">Selecciona</option><option>Nuevo</option><option>Seminuevo</option></select></div>
        <div class="field"><label>PRECIO DE LA UNIDAD</label><input id="vehPrecio" type="number" min="0" step="1000" placeholder="Precio aproximado"></div>
        <div class="field full"><label>AGENCIA / PROVEEDOR</label><input id="vehProveedor" placeholder="Si ya lo tienes ubicado"></div>
+       <div class="field full"><label>EQUIPAMIENTO / CARACTERÍSTICAS CONOCIDAS</label><textarea id="vehEquipo" placeholder="Ej. cámara de reversa, 6 bolsas de aire, pantalla, quemacocos, vestiduras de piel..."></textarea></div>
       </div>
       <div class="vehicle-actions"><button type="button" class="btn btn-soft" id="vehicleSheetBtn">DESCARGAR FICHA DEL VEHÍCULO</button></div>
-      <p class="vehicle-mini">La ficha descargable identifica la unidad seleccionada. Las especificaciones técnicas de motor, potencia, transmisión y equipamiento se incorporarán cuando se conecte una fuente automotriz verificable para México.</p>
+      <p class="vehicle-mini">La ficha incluirá los datos y equipamiento capturados. Cuando conectemos una fuente automotriz verificable para México, podrá completar automáticamente especificaciones oficiales según marca, modelo, año y versión.</p>
      </div>
     </div>
 
@@ -528,8 +530,16 @@ No sustituir el diseño base al hacer cambios posteriores.
     </div>
 
     <div class="upload-box" id="uploadBox">
-     <div class="field"><label>DOCUMENTOS PARA REVISIÓN</label><input id="documentos" name="Documentos_adjuntos[]" type="file" multiple accept=".pdf,.jpg,.jpeg,.png"></div>
-     <p class="help">Selecciona únicamente los documentos necesarios. Los archivos seleccionados se almacenan en el espacio documental privado asociado a tu folio para revisión administrativa.</p>
+     <p class="help"><strong>Sube tus documentos uno por uno.</strong> Puedes usar fotografía JPG/PNG o archivo PDF. Así es más fácil revisar que no falte nada.</p>
+     <div class="form-grid">
+      <div class="field"><label>1. IDENTIFICACIÓN OFICIAL *</label><input id="docIdentificacion" class="doc-file" data-label="Identificacion" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="field"><label>2. COMPROBANTE DE DOMICILIO *</label><input id="docDomicilio" class="doc-file" data-label="Domicilio" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="field"><label>3. COMPROBANTE DE INGRESOS *</label><input id="docIngresos" class="doc-file" data-label="Ingresos" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="field"><label>4. RFC / CONSTANCIA FISCAL</label><input id="docRFC" class="doc-file" data-label="RFC" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="field"><label>5. CURP</label><input id="docCURP" class="doc-file" data-label="CURP" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="field"><label>6. OTRO DOCUMENTO</label><input id="docOtro" class="doc-file" data-label="Otro" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+     </div>
+     <p class="help" id="docProgress">0 documentos seleccionados.</p>
     </div>
 
     <p class="help">El RFC se recaba como parte de la evaluación. Cualquier consulta a una Sociedad de Información Crediticia estará sujeta a la autorización y procedimiento que correspondan. El registro de la solicitud no significa aprobación del financiamiento.</p>
@@ -961,7 +971,7 @@ function goPortal(which){tab(which);portal.scrollIntoView({behavior:"smooth",blo
 function docMode(){
  const v=document.querySelector('input[name="docs"]:checked')?.value;
  uploadBox.classList.toggle("show",v==="ENVÍO DIGITAL");
- documentos.required=(v==="ENVÍO DIGITAL");
+ document.querySelectorAll(".doc-file").forEach((x,i)=>x.required=(v==="ENVÍO DIGITAL"&&i<3));
 }
 
 function toggleVehiclePanel(){
@@ -982,7 +992,8 @@ solicitudForm.addEventListener("submit",async e=>{
  e.preventDefault();
  const btn=submitBtn, modalidad=document.querySelector('input[name="docs"]:checked')?.value;
  if(!modalidad){alert("Selecciona cómo presentarás la documentación.");return}
- if(modalidad==="ENVÍO DIGITAL"&&!documentos.files.length){alert("Selecciona al menos un documento.");return}
+ const docInputs=[...document.querySelectorAll(".doc-file")];
+ if(modalidad==="ENVÍO DIGITAL"&&docInputs.slice(0,3).some(x=>!x.files.length)){alert("Para continuar sube identificación, comprobante de domicilio y comprobante de ingresos.");return}
  btn.disabled=true;btn.textContent="REGISTRANDO...";
  let projectText=proyecto.value.trim();
  if(tipo.value==="Vehicular"){
@@ -993,8 +1004,12 @@ solicitudForm.addEventListener("submit",async e=>{
  let uploaded=[];
  if(modalidad==="ENVÍO DIGITAL"){
   btn.textContent="SUBIENDO DOCUMENTOS...";
-  for(const file of [...documentos.files]){
-   const clean=file.name.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9._-]/g,"_").slice(-100);
+  for(const input of docInputs){
+   if(!input.files.length) continue;
+   const file=input.files[0];
+   if(file.size>10*1024*1024){alert(`El archivo ${file.name} supera 10 MB.`);btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";return}
+   const label=input.dataset.label||"Documento";
+   const clean=(label+"_"+file.name).normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9._-]/g,"_").slice(-100);
    const path=`${data.folio}/${Date.now()}_${crypto.randomUUID()}_${clean}`;
    const {error:upError}=await db.storage.from("max-innova-documentos").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type||"application/octet-stream"});
    if(upError){
@@ -1127,6 +1142,11 @@ async function adminLogout(){
 }
 function safe(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 
+document.querySelectorAll(".doc-file").forEach(inp=>inp.addEventListener("change",()=>{
+ const selected=[...document.querySelectorAll(".doc-file")].filter(x=>x.files.length);
+ const p=document.getElementById("docProgress");if(p)p.textContent=`${selected.length} documento(s) seleccionado(s) ✓`;
+}));
+
 renderSectors();
 
 /* ===== MOVIMIENTO GENERAL DE TODA LA PAGINA ===== */
@@ -1195,24 +1215,29 @@ renderSectors();
    if(chosen==="Vehicular" && $("vehPrecio") && !$("vehPrecio").value)$("vehPrecio").value=Math.round(lastQuote.value);
    $("portal")?.scrollIntoView({behavior:"smooth",block:"start"});
  });
- $("quotePdf")?.addEventListener("click",()=>{
+ $("quotePdf")?.addEventListener("click",async()=>{
    if(!window.jspdf){alert("No fue posible preparar el PDF en este momento.");return}
    const {jsPDF}=window.jspdf, doc=new jsPDF();
-   doc.setFont("helvetica","bold");doc.setFontSize(20);doc.text("MAX INNOVA",20,22);doc.setFontSize(13);doc.text("PRECOTIZACIÓN INFORMATIVA",20,32);
-   doc.setFont("helvetica","normal");doc.setFontSize(10);doc.text(`Fecha: ${new Date().toLocaleDateString("es-MX")}`,20,41);
+   try{const img=new Image();img.src="logo%20maxinnova.png";await new Promise((ok,no)=>{img.onload=ok;img.onerror=no});doc.addImage(img,"PNG",18,10,48,18)}catch(e){}
+   doc.setFillColor(0,52,95);doc.rect(0,0,210,8,"F");doc.setTextColor(0,52,95);doc.setFont("helvetica","bold");doc.setFontSize(18);doc.text("PRECOTIZACIÓN INFORMATIVA",20,39);
+   doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(70,95,110);doc.text(`Fecha: ${new Date().toLocaleString("es-MX")}`,20,46);
    const rows=[["Tipo de proyecto",lastQuote.type],["Valor del proyecto",money(lastQuote.value)],["Aportación inicial",`${lastQuote.dp}% · ${money(lastQuote.downAmt)}`],["Monto estimado a financiar",money(lastQuote.principal)],["Plazo",`${lastQuote.months} meses`],["Tasa anual simulada",`${lastQuote.annual.toFixed(2)}%`],["Pago mensual estimado",money(lastQuote.monthly)],["Total estimado de pagos",money(lastQuote.total)]];
-   let y=56;rows.forEach(([a,b])=>{doc.setFont("helvetica","bold");doc.text(a,20,y);doc.setFont("helvetica","normal");doc.text(String(b),95,y);y+=10});
-   doc.setFontSize(9);const note="Documento informativo. No constituye aprobación, oferta definitiva ni garantía de condiciones. Las condiciones finales dependen de la evaluación de la solicitud, documentación y criterios aplicables.";doc.text(doc.splitTextToSize(note,170),20,y+10);
+   let y=58;rows.forEach(([a,b],i)=>{if(i%2===0){doc.setFillColor(244,250,253);doc.rect(18,y-6,174,9,"F")}doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.text(a,21,y);doc.setFont("helvetica","normal");doc.setTextColor(35,65,82);doc.text(String(b),102,y);y+=10});
+   doc.setFont("helvetica","bold");doc.setFontSize(12);doc.setTextColor(0,52,95);doc.text("TABLA DE AMORTIZACIÓN ESTIMADA",20,y+5);y+=13;
+   const r=lastQuote.annual/100/12;let saldo=lastQuote.principal;doc.setFontSize(7);doc.setFillColor(0,52,95);doc.setTextColor(255,255,255);doc.rect(18,y-5,174,8,"F");doc.text("MES",20,y);doc.text("PAGO",42,y);doc.text("INTERÉS",78,y);doc.text("CAPITAL",116,y);doc.text("SALDO",157,y);y+=8;
+   for(let m=1;m<=lastQuote.months;m++){if(y>275){doc.addPage();y=18}const interes=saldo*r,capital=Math.min(saldo,lastQuote.monthly-interes);saldo=Math.max(0,saldo-capital);if(m%2===0){doc.setFillColor(247,251,253);doc.rect(18,y-5,174,7,"F")}doc.setTextColor(45,70,85);doc.text(String(m),20,y);doc.text(money(lastQuote.monthly),42,y);doc.text(money(interes),78,y);doc.text(money(capital),116,y);doc.text(money(saldo),157,y);y+=7}
+   if(y>250){doc.addPage();y=20}doc.setFontSize(8);doc.setTextColor(80,95,105);const note="Simulación informativa. No constituye aprobación, oferta definitiva ni garantía de condiciones. La tasa, plazo, mensualidad y condiciones finales dependen de la evaluación de la solicitud, documentación y criterios aplicables.";doc.text(doc.splitTextToSize(note,170),20,y+8);
    doc.save(`MAX-INNOVA-PRECOTIZACION-${Date.now()}.pdf`);
  });
- $("vehicleSheetBtn")?.addEventListener("click",()=>{
+ $("vehicleSheetBtn")?.addEventListener("click",async()=>{
    const marca=$("vehMarca")?.value.trim(), modelo=$("vehModelo")?.value.trim(), anio=$("vehAnio")?.value.trim(), version=$("vehVersion")?.value.trim();
    if(!marca||!modelo||!anio){alert("Captura al menos marca, modelo y año para generar la ficha.");return}
    if(!window.jspdf){alert("No fue posible preparar el PDF en este momento.");return}
-   const {jsPDF}=window.jspdf,doc=new jsPDF();doc.setFont("helvetica","bold");doc.setFontSize(20);doc.text("MAX INNOVA",20,22);doc.setFontSize(13);doc.text("FICHA DE IDENTIFICACIÓN DEL VEHÍCULO",20,32);
-   const rows=[["Marca",marca],["Modelo",modelo],["Año",anio],["Versión",version||"Pendiente"],["Condición",$("vehCondicion")?.value||"Pendiente"],["Precio informado",$("vehPrecio")?.value?money($("vehPrecio").value):"Pendiente"],["Agencia / proveedor",$("vehProveedor")?.value.trim()||"Pendiente"]];let y=50;
-   doc.setFontSize(10);rows.forEach(([a,b])=>{doc.setFont("helvetica","bold");doc.text(a,20,y);doc.setFont("helvetica","normal");doc.text(String(b),80,y);y+=10});
-   doc.setFontSize(9);doc.text(doc.splitTextToSize("Esta ficha identifica la unidad indicada por el solicitante. Las especificaciones técnicas oficiales de motor, potencia, transmisión, rendimiento y equipamiento requieren validación contra una fuente automotriz verificable para la versión y mercado correspondientes.",170),20,y+10);
+   const {jsPDF}=window.jspdf,doc=new jsPDF();try{const img=new Image();img.src="logo%20maxinnova.png";await new Promise((ok,no)=>{img.onload=ok;img.onerror=no});doc.addImage(img,"PNG",18,10,48,18)}catch(e){}
+   doc.setFillColor(0,52,95);doc.rect(0,0,210,8,"F");doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.setFontSize(17);doc.text("FICHA DEL VEHÍCULO",20,40);
+   const rows=[["Marca",marca],["Modelo",modelo],["Año",anio],["Versión",version||"Pendiente"],["Condición",$("vehCondicion")?.value||"Pendiente"],["Precio informado",$("vehPrecio")?.value?money($("vehPrecio").value):"Pendiente"],["Agencia / proveedor",$("vehProveedor")?.value.trim()||"Pendiente"]];let y=54;doc.setFontSize(10);rows.forEach(([a,b],i)=>{if(i%2===0){doc.setFillColor(244,250,253);doc.rect(18,y-6,174,9,"F")}doc.setFont("helvetica","bold");doc.text(a,21,y);doc.setFont("helvetica","normal");doc.text(String(b),82,y);y+=10});
+   doc.setFont("helvetica","bold");doc.setFontSize(12);doc.text("EQUIPAMIENTO / CARACTERÍSTICAS",20,y+5);doc.setFont("helvetica","normal");doc.setFontSize(9);const eq=$("vehEquipo")?.value.trim()||"Equipamiento pendiente de confirmar para la versión seleccionada.";doc.text(doc.splitTextToSize(eq,170),20,y+14);y+=30;
+   doc.setFontSize(8);doc.setTextColor(80,95,105);doc.text(doc.splitTextToSize("Los datos de equipamiento capturados deben confirmarse contra la ficha oficial del fabricante o proveedor para la versión y mercado correspondientes. MAX INNOVA no sustituye la información técnica oficial del fabricante.",170),20,y+8);
    doc.save(`MAX-INNOVA-FICHA-${marca}-${modelo}-${anio}.pdf`.replace(/\s+/g,"-"));
  });
  calc();
