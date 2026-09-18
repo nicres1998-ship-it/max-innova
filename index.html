@@ -432,6 +432,37 @@ body{position:relative;overflow-x:hidden}
 @media(max-width:600px){.modal{padding:10px!important}.modal-card{max-height:calc(100vh - 20px)!important}.modal-hero img{height:220px!important}.admin-doc-item{align-items:flex-start;flex-direction:column}.sector-box{width:96%!important}}
 
 .admin-doc-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.admin-doc-actions .btn{min-width:120px}@media(max-width:600px){.admin-doc-actions{width:100%;justify-content:flex-start}}
+
+/* MENSAJES COMERCIALES VISIBLES */
+.mi-message-zone{
+  position:relative; overflow:hidden; margin:0; padding:34px 20px;
+  background:linear-gradient(135deg,#061b3a 0%,#0b3f7c 55%,#0a62a8 100%);
+  text-align:center; color:#fff;
+}
+.mi-message-zone:before{
+  content:""; position:absolute; inset:-60% auto auto -10%; width:420px;height:420px;
+  border-radius:50%; background:rgba(255,255,255,.07); filter:blur(2px);
+}
+.mi-message-card{
+  position:relative; z-index:1; max-width:980px; margin:auto;
+  padding:24px 28px; border:1px solid rgba(255,255,255,.24);
+  border-radius:22px; background:rgba(255,255,255,.10);
+  box-shadow:0 18px 45px rgba(0,0,0,.18); backdrop-filter:blur(10px);
+}
+.mi-message-kicker{font-size:12px;font-weight:800;letter-spacing:2px;opacity:.82;margin-bottom:8px}
+.mi-message-title{font-size:clamp(24px,4vw,42px);line-height:1.08;font-weight:900;margin:0 0 10px}
+.mi-message-route{font-size:15px;line-height:1.55;opacity:.94;margin:0 auto 18px;max-width:760px}
+.mi-message-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.mi-message-actions a{min-width:180px}
+.mi-message-dots{display:flex;justify-content:center;gap:7px;margin-top:17px}
+.mi-message-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35);transition:.25s}
+.mi-message-dot.active{width:25px;border-radius:8px;background:#fff}
+@media(max-width:600px){.mi-message-zone{padding:24px 14px}.mi-message-card{padding:21px 16px}.mi-message-actions a{width:100%}}
+
+
+.finance-manual{width:100%;margin:7px 0 17px;padding:12px 14px;border:1px solid rgba(5,69,120,.18);border-radius:12px;background:#f7fbff;color:#063a69;font-weight:800;font-size:15px;outline:none}
+.finance-manual:focus{border-color:#1479bd;box-shadow:0 0 0 3px rgba(20,121,189,.10)}
+
 </style>
 </head>
 <body>
@@ -486,7 +517,18 @@ No sustituir el diseño base al hacer cambios posteriores.
  <div class="statement-main">MÁS OPCIONES.<br>MÁS OPORTUNIDADES.</div>
  <div class="statement-secondary">Encuentra una alternativa de acuerdo con el proyecto que quieres realizar.</div>
 </div></section>
-<section class="promo-auto" id="promoAuto"><strong id="promoAutoTitle">TU PRÓXIMO AUTO PUEDE ESTAR MÁS CERCA</strong><span id="promoAutoText">Elige tu auto → Ajusta tu aportación → Simula tu crédito → Inicia tu solicitud</span></section>
+<section class="mi-message-zone" id="mensajes-financiamiento">
+  <div class="mi-message-card">
+    <div class="mi-message-kicker" id="miMessageKicker">FINANCIAMIENTO VEHICULAR</div>
+    <h2 class="mi-message-title" id="miMessageTitle">TU PRÓXIMO AUTO PUEDE ESTAR MÁS CERCA</h2>
+    <p class="mi-message-route" id="miMessageRoute">Elige tu auto → ajusta tu aportación → simula tu crédito → inicia tu solicitud.</p>
+    <div class="mi-message-actions">
+      <a class="btn btn-white" id="miMessagePrimary" href="#simulador">SIMULAR AHORA</a>
+      <a class="btn btn-ghost" id="miMessageSecondary" href="#portal">INICIAR SOLICITUD</a>
+    </div>
+    <div class="mi-message-dots" id="miMessageDots" aria-label="Mensajes destacados"></div>
+  </div>
+</section>
 
 <section class="section" id="soluciones"><div class="container center">
  <div class="kicker">SOLUCIONES FINANCIERAS</div>
@@ -648,15 +690,21 @@ No sustituir el diseño base al hacer cambios posteriores.
       <div class="kicker">PRECOTIZADOR MAX INNOVA</div>
       <h2>Construye un escenario para tu proyecto.</h2>
       <div class="editorial-line"></div>
-      <p>Selecciona monto, aportación y plazo. El sistema calcula una mensualidad estimada con una tasa anual orientativa dentro del rango de 8% a 13%. El resultado es informativo y queda sujeto a evaluación.</p>
+      <p>Puedes mover los controles o capturar manualmente el monto, la aportación, el plazo y una tasa anual de simulación entre 8% y 13%. El resultado es informativo y queda sujeto a evaluación.</p>
     </div>
     <div class="finance-card">
       <div class="finance-label"><span>Valor del proyecto</span><strong class="finance-value" id="financeAmountLabel">$250,000</strong></div>
       <input class="finance-range" id="financeAmount" type="range" min="20000" max="2000000" step="10000" value="250000">
+      <input class="finance-manual" id="financeAmountManual" type="number" min="20000" max="2000000" step="1000" value="250000" aria-label="Capturar monto manualmente">
       <div class="finance-label"><span>Aportación inicial</span><strong class="finance-value" id="financeDownLabel">12%</strong></div>
       <input class="finance-range" id="financeDown" type="range" min="12" max="60" step="1" value="12">
+      <input class="finance-manual" id="financeDownManual" type="number" min="12" max="60" step="1" value="12" aria-label="Capturar aportación manualmente">
       <div class="finance-label"><span>Plazo</span><strong class="finance-value" id="financeTermLabel">24 meses</strong></div>
-      <input class="finance-range" id="financeTerm" type="range" min="6" max="60" step="6" value="24">
+      <input class="finance-range" id="financeTerm" type="range" min="6" max="60" step="1" value="24">
+      <input class="finance-manual" id="financeTermManual" type="number" min="6" max="60" step="1" value="24" aria-label="Capturar plazo manualmente">
+      <div class="finance-label"><span>Tasa anual para simulación</span><strong class="finance-value" id="financeRateLabel">11.50%</strong></div>
+      <input class="finance-range" id="financeRate" type="range" min="8" max="13" step="0.10" value="11.50">
+      <input class="finance-manual" id="financeRateManual" type="number" min="8" max="13" step="0.10" value="11.50" aria-label="Capturar tasa anual manualmente">
       <div class="finance-label"><span>¿Para qué lo buscas?</span></div>
       <div class="finance-pills" id="financePills">
         <button type="button" class="finance-pill active" data-type="Vehicular">Vehicular</button>
@@ -1325,25 +1373,28 @@ renderSectors();
 /* ===== COTIZADOR REAL + PRECOTIZACION ===== */
 (function(){
  const $=id=>document.getElementById(id);
- const amount=$("financeAmount"), down=$("financeDown"), term=$("financeTerm");
+ const amount=$("financeAmount"), down=$("financeDown"), term=$("financeTerm"), rate=$("financeRate");
+ const amountManual=$("financeAmountManual"), downManual=$("financeDownManual"), termManual=$("financeTermManual"), rateManual=$("financeRateManual");
  const money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(Number(n)||0);
  let chosen="Vehicular", lastQuote={};
- function rateFor(dp,months){
-   const downBenefit=Math.min(3,Math.max(0,(dp-12)/(40-12)*3));
-   const termBenefit=Math.min(2,Math.max(0,(60-months)/(60-12)*2));
-   return Math.max(8,Math.min(13,13-downBenefit-termBenefit));
- }
+ const clamp=(n,min,max)=>Math.min(max,Math.max(min,Number(n)||min));
  function calc(){
-   if(!amount||!down||!term)return;
-   const value=Number(amount.value), dp=Number(down.value), months=Number(term.value);
-   const downAmt=value*dp/100, principal=Math.max(0,value-downAmt), annual=rateFor(dp,months), r=annual/100/12;
+   if(!amount||!down||!term||!rate)return;
+   const value=clamp(amount.value,20000,2000000), dp=clamp(down.value,12,60), months=Math.round(clamp(term.value,6,60)), annual=clamp(rate.value,8,13);
+   amount.value=value;down.value=dp;term.value=months;rate.value=annual;
+   if(amountManual)amountManual.value=value;if(downManual)downManual.value=dp;if(termManual)termManual.value=months;if(rateManual)rateManual.value=Number(annual).toFixed(2);
+   const downAmt=value*dp/100, principal=Math.max(0,value-downAmt), r=annual/100/12;
    const monthly=r?principal*r/(1-Math.pow(1+r,-months)):principal/months;
    const total=monthly*months;
-   $("financeAmountLabel").textContent=money(value);$("financeDownLabel").textContent=dp+"%";$("financeTermLabel").textContent=months+" meses";
-   $("quoteMonthly").textContent=money(monthly);$("quoteDown").textContent=money(downAmt);$("quotePrincipal").textContent=money(principal);$("quoteRate").textContent=annual.toFixed(2)+"%";$("quoteTotal").textContent=money(total);
+   $("financeAmountLabel").textContent=money(value);$("financeDownLabel").textContent=dp+"%";$("financeTermLabel").textContent=months+" meses";$("financeRateLabel").textContent=Number(annual).toFixed(2)+"%";
+   $("quoteMonthly").textContent=money(monthly);$("quoteDown").textContent=money(downAmt);$("quotePrincipal").textContent=money(principal);$("quoteRate").textContent=Number(annual).toFixed(2)+"%";$("quoteTotal").textContent=money(total);
    lastQuote={type:chosen,value,dp,downAmt,principal,months,annual,monthly,total};
  }
- [amount,down,term].forEach(x=>x?.addEventListener("input",calc));
+ [amount,down,term,rate].forEach(x=>x?.addEventListener("input",calc));
+ [[amountManual,amount,20000,2000000],[downManual,down,12,60],[termManual,term,6,60],[rateManual,rate,8,13]].forEach(([manual,slider,min,max])=>{
+   manual?.addEventListener("input",()=>{slider.value=clamp(manual.value,min,max);calc()});
+   manual?.addEventListener("change",()=>{manual.value=clamp(manual.value,min,max);slider.value=manual.value;calc()});
+ });
  document.querySelectorAll(".finance-pill").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".finance-pill").forEach(x=>x.classList.remove("active"));b.classList.add("active");chosen=b.dataset.type;calc()}));
  function quoteText(){return `Precotización MAX INNOVA | ${lastQuote.type} | Proyecto: ${money(lastQuote.value)} | Aportación: ${lastQuote.dp}% (${money(lastQuote.downAmt)}) | Financiamiento estimado: ${money(lastQuote.principal)} | Plazo: ${lastQuote.months} meses | Tasa anual simulada: ${lastQuote.annual.toFixed(2)}% | Pago mensual estimado: ${money(lastQuote.monthly)} | Total estimado: ${money(lastQuote.total)}.`}
  $("financeApply")?.addEventListener("click",()=>{
@@ -1390,5 +1441,35 @@ function checkAdminHash(){if(location.hash==="#max-admin")setTimeout(()=>openAdm
 window.addEventListener("hashchange",checkAdminHash);checkAdminHash();
 
 </script>
+
+<script>
+(function(){
+ const messages=[
+  {k:"FINANCIAMIENTO VEHICULAR",t:"TU PRÓXIMO AUTO PUEDE ESTAR MÁS CERCA",r:"Elige tu auto → ajusta tu aportación → simula tu crédito → inicia tu solicitud.",p:"SIMULAR MI AUTO",ph:"#simulador",s:"VER OPCIONES",sh:"#soluciones"},
+  {k:"VEHÍCULOS NUEVOS Y SEMINUEVOS",t:"¿YA TE IMAGINASTE ESTRENÁNDOLO?",r:"Conoce una simulación según el valor de la unidad, tu aportación y el plazo que prefieras.",p:"COTIZAR VEHÍCULO",ph:"#simulador",s:"INICIAR SOLICITUD",sh:"#portal"},
+  {k:"TÚ ELIGES LA UNIDAD",t:"¿NUEVO O SEMINUEVO? TÚ ELIGES.",r:"Indica marca, modelo, año y valor estimado. Después revisa una simulación antes de registrar tu solicitud.",p:"IR AL COTIZADOR",ph:"#simulador",s:"SOLICITAR INFORMACIÓN",sh:"#contacto"},
+  {k:"COMPRA CON AGENCIA O PROVEEDOR",t:"ESE AUTO QUE VISTE EN LA AGENCIA...",r:"Puedes registrar los datos de la unidad y del proveedor para que formen parte de tu solicitud.",p:"REGISTRAR MI SOLICITUD",ph:"#portal",s:"CÓMO FUNCIONA",sh:"#como-funciona"},
+  {k:"APORTACIÓN DESDE 12% EN LA SIMULACIÓN",t:"ELIGE LA APORTACIÓN QUE MEJOR SE ADAPTE A TI",r:"Ajusta monto, aportación, plazo y tasa de simulación para comparar escenarios antes de continuar.",p:"AJUSTAR COTIZACIÓN",ph:"#simulador",s:"VER SOLUCIONES",sh:"#soluciones"}
+ ];
+ const title=document.getElementById("miMessageTitle"),route=document.getElementById("miMessageRoute"),
+ kicker=document.getElementById("miMessageKicker"),primary=document.getElementById("miMessagePrimary"),
+ secondary=document.getElementById("miMessageSecondary"),dots=document.getElementById("miMessageDots");
+ if(!title||!dots)return;
+ let i=0;
+ dots.innerHTML=messages.map((_,n)=>`<button type="button" class="mi-message-dot${n===0?' active':''}" aria-label="Ver mensaje ${n+1}" data-i="${n}"></button>`).join("");
+ function show(n){
+   i=n; const m=messages[i];
+   title.style.opacity="0"; route.style.opacity="0";
+   setTimeout(()=>{kicker.textContent=m.k;title.textContent=m.t;route.textContent=m.r;
+     primary.textContent=m.p;primary.href=m.ph;secondary.textContent=m.s;secondary.href=m.sh;
+     title.style.opacity="1";route.style.opacity="1";
+     dots.querySelectorAll(".mi-message-dot").forEach((d,x)=>d.classList.toggle("active",x===i));
+   },180);
+ }
+ dots.addEventListener("click",e=>{const b=e.target.closest("[data-i]");if(b)show(+b.dataset.i)});
+ setInterval(()=>show((i+1)%messages.length),6200);
+})();
+</script>
+
 </body>
 </html>
