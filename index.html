@@ -479,6 +479,26 @@ body{position:relative;overflow-x:hidden}
 .privacy-body ul{padding-left:20px}.privacy-pending{background:#fff8df;border:1px solid #ead58c;border-radius:10px;padding:12px 14px;color:#6b5719}
 .privacy-foot{padding:14px 24px;border-top:1px solid #dce8ef;background:#f7fbfd;display:flex;justify-content:flex-end}
 
+
+/* ===== RESULTADO VISUAL DE FOLIO ===== */
+.credit-result{position:relative;overflow:hidden;margin:14px 0 16px;padding:22px;border-radius:18px;border:1px solid #d6e5ee;background:linear-gradient(135deg,#f7fbfd,#edf6fb);box-shadow:0 14px 38px rgba(0,47,80,.10);animation:creditReveal .55s ease both}
+.credit-result .cr-kicker{font-size:10px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;opacity:.78}
+.credit-result .cr-title{margin:5px 0 6px;font-size:22px;line-height:1.12;font-weight:950}
+.credit-result .cr-text{margin:0;font-size:12px;line-height:1.55}
+.credit-result .cr-status{display:inline-flex;margin-top:13px;padding:7px 12px;border-radius:999px;font-size:10px;font-weight:950;letter-spacing:.4px;background:rgba(255,255,255,.72);border:1px solid currentColor}
+.credit-result.good{background:linear-gradient(135deg,#e9fff1,#d8f8e5);border-color:#9bd8b0;color:#126b37}
+.credit-result.pre{background:linear-gradient(135deg,#e8fbff,#d9f2ff);border-color:#8fd2e8;color:#00678e}
+.credit-result.progress{background:linear-gradient(135deg,#eef5ff,#e4edff);border-color:#a9c4ef;color:#174f8d}
+.credit-result.wait{background:linear-gradient(135deg,#fff9e7,#fff1c7);border-color:#e8cf75;color:#795d00}
+.credit-result.finish{background:linear-gradient(135deg,#edf9ff,#dff4ff);border-color:#94cfe9;color:#075d84}
+.credit-result.stop{background:linear-gradient(135deg,#fff1f1,#ffe2e2);border-color:#e9abab;color:#8a2929}
+.credit-result::after{content:"";position:absolute;width:160px;height:160px;border-radius:50%;right:-55px;top:-70px;background:rgba(255,255,255,.34)}
+@keyframes creditReveal{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+.folio-progress{margin:15px 0 4px}
+.folio-progress-track{height:7px;border-radius:20px;background:#dce9f0;overflow:hidden}
+.folio-progress-fill{height:100%;border-radius:20px;background:currentColor;transition:width .8s ease}
+.folio-progress-label{display:flex;justify-content:space-between;gap:10px;margin-top:6px;font-size:9px;font-weight:800;opacity:.75}
+
 </style>
 </head>
 <body>
@@ -1189,12 +1209,57 @@ async function downloadApplicationReceipt(a){
 }
 function consultNow(f){tab("consulta");consultaFolio.value=f;consult(f)}
 consultaForm.addEventListener("submit",e=>{e.preventDefault();consult(consultaFolio.value.trim())});
+
+function creditStatusVisual(status){
+ const s=String(status||"").toUpperCase();
+ const map={
+  "SOLICITUD RECIBIDA":{cls:"progress",kicker:"SOLICITUD REGISTRADA",title:"¡HEMOS RECIBIDO SU SOLICITUD!",text:"Su solicitud fue registrada correctamente. Nuestro equipo iniciará la revisión de la información proporcionada.",progress:10},
+  "DOCUMENTACIÓN PENDIENTE":{cls:"wait",kicker:"ACCIÓN REQUERIDA",title:"SU SOLICITUD SIGUE AVANZANDO",text:"Estamos en espera de documentación necesaria para continuar. Revise las indicaciones registradas en su expediente.",progress:20},
+  "DOCUMENTACIÓN EN REVISIÓN":{cls:"progress",kicker:"EXPEDIENTE EN REVISIÓN",title:"ESTAMOS REVISANDO SU DOCUMENTACIÓN",text:"La documentación recibida está siendo revisada. Por el momento no es necesario realizar ninguna acción, salvo que se le solicite información adicional.",progress:30},
+  "EN REVISIÓN":{cls:"progress",kicker:"EVALUACIÓN EN CURSO",title:"SU SOLICITUD SE ENCUENTRA EN REVISIÓN",text:"Su solicitud se encuentra en etapa de evaluación de la información y condiciones aplicables.",progress:38},
+  "PREAUTORIZADA":{cls:"pre",kicker:"TENEMOS BUENAS NOTICIAS",title:"¡SU SOLICITUD HA SIDO PREAUTORIZADA!",text:"Su solicitud avanzó favorablemente en la evaluación inicial. Consulte las indicaciones para conocer los requisitos o condiciones pendientes antes de una autorización definitiva.",progress:48},
+  "EN PROCESO":{cls:"progress",kicker:"SU SOLICITUD AVANZÓ",title:"SU SOLICITUD ESTÁ EN PROCESO",text:"Su solicitud avanzó a una etapa de gestión. Consulte las indicaciones para conocer cualquier acción requerida.",progress:52},
+  "ACEPTADA":{cls:"good",kicker:"EXCELENTES NOTICIAS",title:"¡FELICIDADES! SU CRÉDITO HA SIDO AUTORIZADO",text:"Su solicitud concluyó favorablemente la etapa de evaluación. Consulte las indicaciones registradas para conocer los siguientes pasos.",progress:60},
+  "PRESENTARSE EN SUCURSAL":{cls:"wait",kicker:"SIGUIENTE PASO",title:"ES NECESARIO PRESENTARSE EN SUCURSAL",text:"Revise la fecha, hora e indicaciones registradas para continuar con su proceso.",progress:62},
+  "CONTRATADO":{cls:"good",kicker:"OPERACIÓN FORMALIZADA",title:"SU OPERACIÓN HA SIDO CONTRATADA",text:"La formalización de su operación ha concluido y el proceso continúa con las etapas posteriores.",progress:68},
+  "ASIGNACIÓN DE CAPITAL / BANCARIZACIÓN INTERNA":{cls:"progress",kicker:"ETAPA FINANCIERA",title:"ASIGNACIÓN DE CAPITAL EN PROCESO",text:"Su operación se encuentra en el proceso interno correspondiente para la asignación del capital.",progress:73},
+  "CAPITAL ASIGNADO":{cls:"good",kicker:"OPERACIÓN EN AVANCE",title:"CAPITAL ASIGNADO",text:"El capital correspondiente ha sido asignado y la operación puede continuar a la siguiente etapa.",progress:78},
+  "PROCESO DE COMPRA":{cls:"progress",kicker:"ADQUISICIÓN EN PROCESO",title:"SU OPERACIÓN ESTÁ EN PROCESO DE COMPRA",text:"La operación se encuentra en gestión de adquisición con la agencia o proveedor correspondiente.",progress:82},
+  "FACTURACIÓN":{cls:"progress",kicker:"DOCUMENTACIÓN DE LA OPERACIÓN",title:"FACTURACIÓN EN PROCESO",text:"La documentación de facturación de la operación se encuentra en proceso.",progress:86},
+  "ASIGNACIÓN DE SEGURO":{cls:"progress",kicker:"PROTECCIÓN DE LA OPERACIÓN",title:"ASIGNACIÓN DE SEGURO",text:"Se encuentra en gestión la asignación del seguro aplicable a la operación.",progress:88},
+  "GASTOS ADICIONALES":{cls:"wait",kicker:"REVISE LAS INDICACIONES",title:"INFORMACIÓN ADICIONAL DE SU OPERACIÓN",text:"Existen conceptos adicionales relacionados con la operación. Revise las indicaciones registradas para conocer los detalles aplicables.",progress:88},
+  "EN LOGÍSTICA":{cls:"progress",kicker:"CADA VEZ MÁS CERCA",title:"SU OPERACIÓN ESTÁ EN LOGÍSTICA",text:"Su operación se encuentra en la etapa de coordinación logística previa a la entrega.",progress:92},
+  "EN PROCESO DE ENTREGA":{cls:"good",kicker:"ÚLTIMA ETAPA",title:"¡SU ENTREGA ESTÁ EN PREPARACIÓN!",text:"La entrega se encuentra en preparación o coordinación. Consulte las indicaciones registradas para conocer los detalles.",progress:96},
+  "ENTREGADO / FINALIZADO":{cls:"finish",kicker:"PROCESO CONCLUIDO",title:"¡FELICIDADES! SU PROCESO HA FINALIZADO",text:"El proceso registrado bajo este folio ha llegado a su etapa final.",progress:100},
+  "RETENIDO / EN ESPERA":{cls:"wait",kicker:"PROCESO TEMPORALMENTE EN ESPERA",title:"SU OPERACIÓN REQUIERE SEGUIMIENTO",text:"Revise las indicaciones para conocer el motivo operativo o la acción requerida.",progress:55},
+  "RECHAZADA":{cls:"stop",kicker:"RESULTADO DE LA EVALUACIÓN",title:"SU SOLICITUD NO CONTINUARÁ",text:"La solicitud no continuará bajo las condiciones evaluadas. Consulte las indicaciones registradas para conocer las alternativas disponibles, cuando correspondan.",progress:40},
+  "CANCELADO":{cls:"stop",kicker:"OPERACIÓN CANCELADA",title:"EL PROCESO HA SIDO CANCELADO",text:"La operación registrada bajo este folio ha sido cancelada.",progress:40}
+ };
+ return map[s]||{cls:"progress",kicker:"ESTATUS DE SU SOLICITUD",title:s||"SEGUIMIENTO",text:"Consulte las indicaciones registradas para conocer el estado actual de su solicitud.",progress:35};
+}
+
 async function consult(folio){
  const r=consultaResult;r.innerHTML="Consultando...";r.classList.add("show");
  const {data,error}=await db.rpc("max_innova_consultar_folio",{p_folio:folio});
  if(error||!data||!data.length){r.innerHTML="<strong>Folio no localizado.</strong><p class='help'>Verifica que esté escrito correctamente.</p>";return}
  const a=data[0];
- r.innerHTML=`<small>FOLIO</small><div class="folio">${safe(a.folio)}</div><strong>${safe(a.nombre)}</strong><p class="help">${safe(a.tipo_financiamiento)}<br>Modalidad de documentos: ${safe(a.modalidad_documentos)}</p><span class="status">${safe(a.estatus)}</span><p class="help">${safe(a.indicaciones_cliente||"")}</p>${a.fecha_cita?`<p><strong>Fecha de cita:</strong> ${safe(a.fecha_cita)}${a.hora_cita?`<br><strong>Hora:</strong> ${safe(a.hora_cita)}`:""}</p>`:""}${a.indicaciones_cita?`<p class="help">${safe(a.indicaciones_cita)}</p>`:""}`;
+ const visual=creditStatusVisual(a.estatus);
+ r.innerHTML=`<small>FOLIO</small><div class="folio">${safe(a.folio)}</div>
+ <div class="credit-result ${visual.cls}">
+   <div class="cr-kicker">${safe(visual.kicker)}</div>
+   <div class="cr-title">${safe(visual.title)}</div>
+   <p class="cr-text">${safe(visual.text)}</p>
+   <span class="cr-status">${safe(a.estatus)}</span>
+   <div class="folio-progress">
+     <div class="folio-progress-track"><div class="folio-progress-fill" style="width:${visual.progress}%"></div></div>
+     <div class="folio-progress-label"><span>REGISTRO</span><span>SEGUIMIENTO DE SU OPERACIÓN</span></div>
+   </div>
+ </div>
+ <strong>${safe(a.nombre)}</strong>
+ <p class="help">${safe(a.tipo_financiamiento)}<br>Modalidad de documentos: ${safe(a.modalidad_documentos)}</p>
+ ${a.indicaciones_cliente?`<p class="help"><strong>Indicaciones:</strong><br>${safe(a.indicaciones_cliente)}</p>`:""}
+ ${a.fecha_cita?`<p><strong>Fecha de cita:</strong> ${safe(a.fecha_cita)}${a.hora_cita?`<br><strong>Hora:</strong> ${safe(a.hora_cita)}`:""}</p>`:""}
+ ${a.indicaciones_cita?`<p class="help">${safe(a.indicaciones_cita)}</p>`:""}`;
 }
 
 /* =========================
@@ -1255,7 +1320,7 @@ function editById(id){
  adminEditor.style.display="block";
  adminEditor.dataset.id=a.id;
  adminEditor.dataset.folio=a.folio;
- const statuses=["SOLICITUD RECIBIDA","DOCUMENTACIÓN PENDIENTE","DOCUMENTACIÓN EN REVISIÓN","EN REVISIÓN","EN PROCESO","ACEPTADA","RECHAZADA","PRESENTARSE EN SUCURSAL","CONTRATADO","ASIGNACIÓN DE CAPITAL / BANCARIZACIÓN INTERNA","CAPITAL ASIGNADO","PROCESO DE COMPRA","FACTURACIÓN","ASIGNACIÓN DE SEGURO","GASTOS ADICIONALES","EN LOGÍSTICA","EN PROCESO DE ENTREGA","ENTREGADO / FINALIZADO","RETENIDO / EN ESPERA","CANCELADO"];
+ const statuses=["SOLICITUD RECIBIDA","DOCUMENTACIÓN PENDIENTE","DOCUMENTACIÓN EN REVISIÓN","EN REVISIÓN","EN PROCESO","PREAUTORIZADA","ACEPTADA","RECHAZADA","PRESENTARSE EN SUCURSAL","CONTRATADO","ASIGNACIÓN DE CAPITAL / BANCARIZACIÓN INTERNA","CAPITAL ASIGNADO","PROCESO DE COMPRA","FACTURACIÓN","ASIGNACIÓN DE SEGURO","GASTOS ADICIONALES","EN LOGÍSTICA","EN PROCESO DE ENTREGA","ENTREGADO / FINALIZADO","RETENIDO / EN ESPERA","CANCELADO"];
  adminEditor.innerHTML=`
   <h3>${safe(a.folio)} · ${safe(a.nombre)}</h3>
   <p class="help"><strong>Teléfono:</strong> ${safe(a.telefono)} · <strong>Correo:</strong> ${safe(a.correo)} · <strong>RFC:</strong> ${safe(a.rfc)}</p>
