@@ -431,6 +431,7 @@ body{position:relative;overflow-x:hidden}
 .promo-auto span{display:block;margin-top:8px;color:#d8f3fa;font-size:13px}
 @media(max-width:600px){.modal{padding:10px!important}.modal-card{max-height:calc(100vh - 20px)!important}.modal-hero img{height:220px!important}.admin-doc-item{align-items:flex-start;flex-direction:column}.sector-box{width:96%!important}}
 
+.admin-doc-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.admin-doc-actions .btn{min-width:120px}@media(max-width:600px){.admin-doc-actions{width:100%;justify-content:flex-start}}
 </style>
 </head>
 <body>
@@ -1203,11 +1204,32 @@ function editById(id){
    <div class="field full"><label>INDICACIONES PARA EL CLIENTE</label><textarea id="editNote">${safe(a.indicaciones_cliente||"")}</textarea></div>
    <div class="field full"><label>INDICACIONES DE CITA</label><textarea id="editCita">${safe(a.indicaciones_cita||"")}</textarea></div>
   </div><br>
-  <div class="admin-docs"><h4>DOCUMENTOS DEL EXPEDIENTE</h4><p class="help">Archivos privados asociados a este folio.</p><div id="adminDocList" class="admin-doc-list"><span class="help">Cargando documentos...</span></div></div>
+  <div class="admin-docs"><h4>DOCUMENTOS DEL EXPEDIENTE</h4><p class="help">Archivos privados asociados a este folio.</p><button class="btn btn-soft" type="button" onclick="downloadAllAdminDocuments()">DESCARGAR TODOS</button><div id="adminDocList" class="admin-doc-list"><span class="help">Cargando documentos...</span></div></div>
   <button class="btn btn-green" onclick="saveCurrentApp()">GUARDAR CAMBIOS</button>
   <button class="btn btn-soft" onclick="adminEditor.style.display='none'">CERRAR EXPEDIENTE</button>`;
  loadAdminDocuments(a.folio);
  adminEditor.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+
+async function downloadAdminDocument(path,name){
+ const {data,error}=await db.storage.from("max-innova-documentos").download(path);
+ if(error){alert("No se pudo descargar el documento: "+error.message);return}
+ const url=URL.createObjectURL(data),a=document.createElement("a");
+ a.href=url;a.download=name||"documento";document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+async function downloadAllAdminDocuments(){
+ const folio=adminEditor.dataset.folio;if(!folio)return;
+ const {data,error}=await db.storage.from("max-innova-documentos").list(folio,{limit:100,sortBy:{column:"name",order:"asc"}});
+ if(error){alert("No se pudieron consultar los documentos: "+error.message);return}
+ const files=(data||[]).filter(x=>x.name&&x.name!==".emptyFolderPlaceholder");
+ if(!files.length){alert("Este expediente no tiene documentos guardados.");return}
+ if(!confirm(`Se descargarán ${files.length} documento(s) del expediente ${folio}.`))return;
+ for(const file of files){
+  await downloadAdminDocument(`${folio}/${file.name}`,file.name);
+  await new Promise(r=>setTimeout(r,350));
+ }
 }
 
 async function loadAdminDocuments(folio){
@@ -1221,7 +1243,7 @@ async function loadAdminDocuments(folio){
  for(const file of files){
   const path=`${folio}/${file.name}`;
   const {data:signed,error:signError}=await db.storage.from("max-innova-documentos").createSignedUrl(path,600);
-  rows.push(`<div class="admin-doc-item"><span>${safe(file.name)}</span>${!signError&&signed?.signedUrl?`<a class="btn btn-blue" href="${signed.signedUrl}" target="_blank" rel="noopener">VER DOCUMENTO</a>`:'<span class="help">No disponible</span>'}</div>`);
+  rows.push(`<div class="admin-doc-item"><span>${safe(file.name)}</span><div class="admin-doc-actions">${!signError&&signed?.signedUrl?`<a class="btn btn-blue" href="${signed.signedUrl}" target="_blank" rel="noopener">VER DOCUMENTO</a><button class="btn btn-soft" type="button" onclick="downloadAdminDocument('${escJS(path)}','${escJS(file.name)}')">DESCARGAR</button>`:'<span class="help">No disponible</span>'}</div></div>`);
  }
  box.innerHTML=rows.join("");
 }
