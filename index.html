@@ -553,13 +553,13 @@ No sustituir el diseño base al hacer cambios posteriores.
 
 <section class="visual-finance section" id="simulador">
   <div class="container finance-grid">
-    <div class="finance-copy motion-reveal from-left">
+    <div class="finance-copy">
       <div class="kicker">EXPLORA TU PROYECTO</div>
       <h2>Visualiza el financiamiento que estás buscando.</h2>
       <div class="editorial-line"></div>
       <p>Define de manera orientativa el monto, plazo y tipo de proyecto que tienes en mente. Esta herramienta sirve para preparar mejor tu solicitud; no representa una cotización, tasa, mensualidad ni aprobación de crédito.</p>
     </div>
-    <div class="finance-card motion-reveal from-right">
+    <div class="finance-card">
       <div class="finance-label"><span>Monto aproximado</span><strong class="finance-value" id="financeAmountLabel">$250,000</strong></div>
       <input class="finance-range" id="financeAmount" type="range" min="20000" max="2000000" step="10000" value="250000">
       <div class="finance-label"><span>Plazo que te interesa explorar</span><strong class="finance-value" id="financeTermLabel">24 meses</strong></div>
@@ -766,8 +766,8 @@ const sectors=[
   reverse:true,
   items:[
    {n:"Uber",l:"https://cdn.simpleicons.org/uber",t:"Movilidad / Plataformas"},
-   {n:"DiDi",l:"https://www.google.com/s2/favicons?domain=didiglobal.com&sz=128",t:"Movilidad / Plataformas"},
-   {n:"inDrive",l:"https://www.google.com/s2/favicons?domain=indrive.com&sz=128",t:"Movilidad / Plataformas"},
+   {n:"DiDi",l:"https://cdn.simpleicons.org/didi",t:"Movilidad / Plataformas"},
+   {n:"inDrive",l:"https://cdn.simpleicons.org/indrive",t:"Movilidad / Plataformas"},
    {n:"Rappi",l:"https://cdn.simpleicons.org/rappi",t:"Movilidad / Plataformas"},
    {n:"Uber Eats",l:"https://cdn.simpleicons.org/ubereats",t:"Movilidad / Plataformas"},
    {n:"Cabify",l:"https://cdn.simpleicons.org/cabify",t:"Movilidad / Plataformas"}
@@ -983,27 +983,34 @@ async function consult(folio){
 /* =========================
    ADMIN
 ========================= */
-function openAdmin(){adminModal.classList.add("open");checkAdmin()}
-function closeAdmin(){adminModal.classList.remove("open")}
-adminModal.addEventListener("click",e=>{if(e.target===adminModal)closeAdmin()});
+function openAdmin(){
+ const modal=document.getElementById("adminModal");
+ if(!modal){alert("No se encontró el panel administrativo.");return}
+ modal.classList.add("open");
+ checkAdmin();
+}
+function closeAdmin(){document.getElementById("adminModal")?.classList.remove("open")}
+document.getElementById("adminModal")?.addEventListener("click",e=>{if(e.target===e.currentTarget)closeAdmin()});
 
-adminLoginForm.addEventListener("submit",async e=>{
- e.preventDefault();loginMessage.textContent="Ingresando...";
- const {error}=await db.auth.signInWithPassword({email:adminEmail.value.trim(),password:adminPassword.value});
- if(error){loginMessage.textContent="Correo o contraseña incorrectos.";return}
- loginMessage.textContent="";checkAdmin();
+document.getElementById("adminLoginForm")?.addEventListener("submit",async e=>{
+ e.preventDefault();document.getElementById("loginMessage").textContent="Ingresando...";
+ const email=document.getElementById("adminEmail").value.trim();
+ const password=document.getElementById("adminPassword").value;
+ const {error}=await db.auth.signInWithPassword({email,password});
+ if(error){document.getElementById("loginMessage").textContent="Correo o contraseña incorrectos.";return}
+ document.getElementById("loginMessage").textContent="";checkAdmin();
 });
 async function checkAdmin(){
  const {data}=await db.auth.getSession();
  const logged=!!data.session;
- adminLogin.style.display=logged?"none":"block";
- adminArea.classList.toggle("show",logged);
+ document.getElementById("adminLogin").style.display=logged?"none":"block";
+ document.getElementById("adminArea").classList.toggle("show",logged);
  if(logged)loadAdmin();
 }
 async function loadAdmin(){
- adminRows.innerHTML=`<tr><td colspan="9">Cargando solicitudes...</td></tr>`;
+ document.getElementById("adminRows").innerHTML=`<tr><td colspan="9">Cargando solicitudes...</td></tr>`;
  const {data,error}=await db.from("max_innova_solicitudes").select("*").order("fecha_solicitud",{ascending:false});
- if(error){adminRows.innerHTML=`<tr><td colspan="9">${safe(error.message)}</td></tr>`;return}
+ if(error){document.getElementById("adminRows").innerHTML=`<tr><td colspan="9">${safe(error.message)}</td></tr>`;return}
  adminData=data||[];
  updateStats();filterAdmin();
 }
@@ -1122,7 +1129,7 @@ renderSectors();
  }));
  const apply=document.getElementById("financeApply");
  if(apply) apply.addEventListener("click",()=>{
-   const select=document.querySelector('#tipoFinanciamiento,select[name="tipo_financiamiento"],select[name="financiamiento"]');
+   const select=document.getElementById("tipo");
    if(select){
      [...select.options].some(o=>{
        if(o.textContent.toLowerCase().includes(chosen.split(" ")[0].toLowerCase())){select.value=o.value;select.dispatchEvent(new Event("change"));return true}
@@ -1131,7 +1138,7 @@ renderSectors();
    }
    const project=document.querySelector('textarea[name="proyecto"],#proyecto');
    if(project && !project.value) project.value=`Interés en ${chosen}. Monto aproximado: ${money(amount.value)}. Plazo a explorar: ${term.value} meses.`;
-   const target=document.getElementById("solicitud")||document.querySelector("form");
+   const target=document.getElementById("portal");
    if(target) target.scrollIntoView({behavior:"smooth",block:"start"});
  });
 
