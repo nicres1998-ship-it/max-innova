@@ -726,21 +726,21 @@ No sustituir el diseño base al hacer cambios posteriores.
       <div class="kicker">PRECOTIZADOR MAX INNOVA</div>
       <h2>Construye un escenario para tu proyecto.</h2>
       <div class="editorial-line"></div>
-      <p>Puedes mover los controles o capturar manualmente el monto, la aportación, el plazo y una tasa anual de simulación entre 8% y 13%. El resultado es informativo y queda sujeto a evaluación.</p>
+      <p>Puedes mover los controles o escribir directamente el valor exacto que deseas simular. El monto manual acepta cantidades específicas; también puedes ajustar aportación, plazo y una tasa anual de simulación entre 8% y 13%.</p>
     </div>
     <div class="finance-card">
       <div class="finance-label"><span>Valor del proyecto</span><strong class="finance-value" id="financeAmountLabel">$250,000</strong></div>
-      <input class="finance-range" id="financeAmount" type="range" min="20000" max="2000000" step="10000" value="250000">
-      <input class="finance-manual" id="financeAmountManual" type="number" min="20000" max="2000000" step="1000" value="250000" aria-label="Capturar monto manualmente">
+      <input class="finance-range" id="financeAmount" type="range" min="20000" max="2000000" step="1000" value="250000">
+      <input class="finance-manual" id="financeAmountManual" type="number" min="20000" max="2000000" step="1" inputmode="numeric" value="250000" aria-label="Capturar monto manualmente">
       <div class="finance-label"><span>Aportación inicial</span><strong class="finance-value" id="financeDownLabel">12%</strong></div>
       <input class="finance-range" id="financeDown" type="range" min="12" max="60" step="1" value="12">
-      <input class="finance-manual" id="financeDownManual" type="number" min="12" max="60" step="1" value="12" aria-label="Capturar aportación manualmente">
+      <input class="finance-manual" id="financeDownManual" type="number" min="12" max="60" step="0.1" value="12" aria-label="Capturar aportación manualmente">
       <div class="finance-label"><span>Plazo</span><strong class="finance-value" id="financeTermLabel">24 meses</strong></div>
       <input class="finance-range" id="financeTerm" type="range" min="6" max="60" step="1" value="24">
       <input class="finance-manual" id="financeTermManual" type="number" min="6" max="60" step="1" value="24" aria-label="Capturar plazo manualmente">
       <div class="finance-label"><span>Tasa anual para simulación</span><strong class="finance-value" id="financeRateLabel">11.50%</strong></div>
       <input class="finance-range" id="financeRate" type="range" min="8" max="13" step="0.10" value="11.50">
-      <input class="finance-manual" id="financeRateManual" type="number" min="8" max="13" step="0.10" value="11.50" aria-label="Capturar tasa anual manualmente">
+      <input class="finance-manual" id="financeRateManual" type="number" min="8" max="13" step="0.01" value="11.50" aria-label="Capturar tasa anual manualmente">
       <div class="finance-label"><span>¿Para qué lo buscas?</span></div>
       <div class="finance-pills" id="financePills">
         <button type="button" class="finance-pill active" data-type="Vehicular">Vehicular</button>
@@ -816,6 +816,23 @@ No sustituir el diseño base al hacer cambios posteriores.
 @media(max-width:620px){.mi-branches{grid-template-columns:1fr}.mi-network-map{height:360px}.mi-alert:before{position:relative;padding:10px 15px}.mi-alert-track{padding-left:0}}
 </style>
 
+
+<style>
+.mi-branch-premium{overflow:hidden;background:linear-gradient(160deg,#ffffff 0%,#f5fbfe 100%);border:1px solid rgba(9,86,128,.14)!important}
+.mi-card-top{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:900;letter-spacing:.11em;color:#607789;margin-bottom:12px}
+.mi-city-dot{width:8px;height:8px;border-radius:50%;background:#0b6f9f;box-shadow:0 0 0 5px rgba(11,111,159,.09)}
+.mi-auto-highlight{margin-top:15px;padding:14px;border-radius:15px;background:linear-gradient(135deg,#073b63,#0b6d9e);color:#fff;box-shadow:0 10px 24px rgba(6,59,99,.14)}
+.mi-auto-highlight small{display:block;font-size:9px;font-weight:900;letter-spacing:.11em;opacity:.72}
+.mi-auto-highlight strong{display:block;font-size:16px;margin-top:5px}.mi-auto-highlight span{display:block;font-size:10px;opacity:.82;margin-top:4px;line-height:1.45}
+.mi-years{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0 12px}
+.mi-years div{padding:9px 7px;border-radius:11px;background:#f0f7fa;text-align:center}.mi-years b{display:block;color:#075985;font-size:11px}.mi-years span{font-size:10px;color:#5d7280}
+.mi-alert{background:linear-gradient(90deg,#161616,#272727)!important;border:1px solid rgba(224,174,31,.55)!important;box-shadow:0 13px 32px rgba(0,0,0,.16)!important}
+.mi-alert:before{background:linear-gradient(135deg,#a31515,#c52323)!important;border-right:1px solid rgba(255,255,255,.16)}
+.mi-alert-item{color:#f7d35a!important;font-weight:800!important;letter-spacing:.045em!important}
+.mi-alert-item:before{content:"⚠";margin-right:12px;color:#ffd95a}
+.finance-manual{font-weight:800!important;background:#fff!important;border:1px solid #cfe1ea!important}
+.finance-manual:focus{outline:none!important;border-color:#0b6f9f!important;box-shadow:0 0 0 4px rgba(11,111,159,.10)!important}
+</style>
 <section class="section" id="ubicacion">
  <div class="container">
   <div class="center">
@@ -827,40 +844,63 @@ No sustituir el diseño base al hacer cambios posteriores.
   <div id="miNetworkMap" class="mi-network-map" style="margin-top:28px"></div>
 
   <div class="mi-branches">
-   <div class="mi-branch" onclick="this.classList.toggle('open')">
-    <h3>Aguascalientes, Ags.</h3><div class="mi-role">ATENCIÓN · VENTAS · SEGUIMIENTO</div>
+   <div class="mi-branch mi-branch-premium" onclick="this.classList.toggle('open')">
+    <div class="mi-card-top"><span class="mi-city-dot"></span><span>AGUASCALIENTES, AGS.</span></div>
+    <h3>Atención · Ventas · Seguimiento</h3>
     <div class="mi-here">📍 SU SUCURSAL ES AQUÍ</div>
-    <div class="mi-branch-summary"><strong>Explora:</strong> Vehicular · Personal · Negocio/PyME</div>
-    <span class="mi-more">VER MÁS +</span>
-    <div class="mi-branch-detail">Gestión directa con el cliente, integración documental, contratación y seguimiento. En financiamiento vehicular puedes explorar alternativas desde autos urbanos y sedanes hasta SUV o unidades de trabajo, de acuerdo con tu presupuesto y evaluación.</div>
+    <div class="mi-auto-highlight"><small>TENDENCIA AUTOMOTRIZ MÉXICO 2026</small><strong>Nissan Versa · #1</strong><span>Uno de los modelos de mayor demanda nacional.</span></div>
+    <span class="mi-more">CONOCER MÁS +</span>
+    <div class="mi-branch-detail">
+      <div class="mi-years"><div><b>2024</b><span>Versa #1</span></div><div><b>2025</b><span>Versa #1</span></div><div><b>2026*</b><span>Versa #1</span></div></div>
+      <p><strong>También destacan:</strong> Aveo, K3, NP300, March, CX-30 y otros modelos de alta demanda. Desde esta sucursal puedes gestionar tu solicitud, documentación, contratación y seguimiento.</p>
+      <small>*2026: referencia del mercado mexicano con información disponible del año. Rankings nacionales AMDA/INEGI; no representan aprobaciones de MAX INNOVA.</small>
+    </div>
    </div>
 
-   <div class="mi-branch" onclick="this.classList.toggle('open')">
-    <h3>Puebla, Pue.</h3><div class="mi-role">ATENCIÓN · VENTAS · SEGUIMIENTO</div>
-    <div class="mi-branch-summary"><strong>Explora:</strong> Vehicular · Negocio/PyME · Patrimonial</div>
-    <span class="mi-more">VER MÁS +</span>
-    <div class="mi-branch-detail">Atención, recepción de documentación, contratación y seguimiento. Puedes explorar soluciones para movilidad, actividad comercial, patrimonio y crecimiento de negocio según tus necesidades y capacidad de pago.</div>
+   <div class="mi-branch mi-branch-premium" onclick="this.classList.toggle('open')">
+    <div class="mi-card-top"><span class="mi-city-dot"></span><span>PUEBLA, PUE.</span></div>
+    <h3>Atención · Ventas · Seguimiento</h3>
+    <div class="mi-auto-highlight"><small>PARA EXPLORAR</small><strong>Auto · SUV · Unidad de trabajo</strong><span>Compara opciones según tu ingreso y aportación.</span></div>
+    <span class="mi-more">CONOCER MÁS +</span>
+    <div class="mi-branch-detail">
+      <div class="mi-years"><div><b>2024</b><span>Versa #1</span></div><div><b>2025</b><span>Versa #1</span></div><div><b>2026*</b><span>Versa #1</span></div></div>
+      <p>Entre los modelos con mayor presencia nacional se encuentran Versa, Aveo, K3 y NP300. Aquí puedes iniciar y dar seguimiento a tu gestión.</p>
+      <small>Ranking nacional de mercado; la disponibilidad y viabilidad de cada vehículo dependen de precio, aportación, plazo y evaluación.</small>
+    </div>
    </div>
 
-   <div class="mi-branch" onclick="this.classList.toggle('open')">
-    <h3>Ciudad de México</h3><div class="mi-role">ADMINISTRACIÓN · CRÉDITO · LOGÍSTICA</div>
-    <div class="mi-branch-summary"><strong>Centro:</strong> Crédito · Bancarización · Logística</div>
-    <span class="mi-more">VER MÁS +</span>
-    <div class="mi-branch-detail">Centro de coordinación de procesos internos de crédito, bancarización, asignación de capital, compras, facturación, seguros, logística y programación de entregas hacia los distintos puntos de atención.</div>
+   <div class="mi-branch mi-branch-premium" onclick="this.classList.toggle('open')">
+    <div class="mi-card-top"><span class="mi-city-dot"></span><span>CIUDAD DE MÉXICO</span></div>
+    <h3>Administración · Crédito · Logística</h3>
+    <div class="mi-auto-highlight"><small>CENTRO DE OPERACIÓN</small><strong>Crédito + Bancarización + Entregas</strong><span>Coordinación central de las operaciones.</span></div>
+    <span class="mi-more">CONOCER MÁS +</span>
+    <div class="mi-branch-detail">
+      <p>Concentra los procesos internos de análisis y administración de crédito, bancarización, asignación de capital, compras, facturación, seguros, logística y programación de entregas hacia los distintos puntos de atención.</p>
+    </div>
    </div>
 
-   <div class="mi-branch" onclick="this.classList.toggle('open')">
-    <h3>Quintana Roo</h3><div class="mi-role">ATENCIÓN · VENTAS · SEGUIMIENTO</div>
-    <div class="mi-branch-summary"><strong>Explora:</strong> Vehicular · Personal · Negocio/PyME</div>
-    <span class="mi-more">VER MÁS +</span>
-    <div class="mi-branch-detail">Atención y seguimiento de solicitudes. Puedes explorar financiamiento para movilidad, vehículos de uso personal o de trabajo, proyectos personales y actividad comercial, sujeto a evaluación.</div>
+   <div class="mi-branch mi-branch-premium" onclick="this.classList.toggle('open')">
+    <div class="mi-card-top"><span class="mi-city-dot"></span><span>QUINTANA ROO</span></div>
+    <h3>Atención · Ventas · Seguimiento</h3>
+    <div class="mi-auto-highlight"><small>MOVILIDAD Y USO PERSONAL</small><strong>Sedán · SUV · Trabajo</strong><span>Explora una opción acorde con tu presupuesto.</span></div>
+    <span class="mi-more">CONOCER MÁS +</span>
+    <div class="mi-branch-detail">
+      <div class="mi-years"><div><b>2024</b><span>Versa #1</span></div><div><b>2025</b><span>Versa #1</span></div><div><b>2026*</b><span>Versa #1</span></div></div>
+      <p>Versa, Aveo, K3, NP300 y SUV compactas figuran entre las alternativas de mayor movimiento nacional. Puedes gestionar tu solicitud y seguimiento desde este punto.</p>
+      <small>Información nacional de mercado; no implica disponibilidad ni autorización.</small>
+    </div>
    </div>
 
-   <div class="mi-branch" onclick="this.classList.toggle('open')">
-    <h3>Monterrey, N.L.</h3><div class="mi-role">ATENCIÓN · VENTAS · SEGUIMIENTO</div>
-    <div class="mi-branch-summary"><strong>Explora:</strong> Vehicular · PyME · Empresarial</div>
-    <span class="mi-more">VER MÁS +</span>
-    <div class="mi-branch-detail">Atención, contratación y seguimiento. Puedes explorar alternativas para movilidad, unidades de trabajo, negocio/PyME y proyectos empresariales de acuerdo con el perfil de la solicitud.</div>
+   <div class="mi-branch mi-branch-premium" onclick="this.classList.toggle('open')">
+    <div class="mi-card-top"><span class="mi-city-dot"></span><span>MONTERREY, N.L.</span></div>
+    <h3>Atención · Ventas · Seguimiento</h3>
+    <div class="mi-auto-highlight"><small>PERSONAL Y PRODUCTIVO</small><strong>Auto · Pickup · PyME</strong><span>Opciones para movilidad o actividad productiva.</span></div>
+    <span class="mi-more">CONOCER MÁS +</span>
+    <div class="mi-branch-detail">
+      <div class="mi-years"><div><b>2024</b><span>NP300 #2</span></div><div><b>2025</b><span>NP300 #3</span></div><div><b>2026*</b><span>NP300 entre líderes</span></div></div>
+      <p>Además de sedanes de alta demanda, las pickups y unidades de trabajo pueden explorarse para necesidades productivas. La opción final depende de la evaluación individual.</p>
+      <small>Posiciones mostradas corresponden al mercado mexicano, no exclusivamente a Nuevo León.</small>
+    </div>
    </div>
   </div>
 
@@ -930,38 +970,39 @@ No sustituir el diseño base al hacer cambios posteriores.
 function miIncomeGuide(){
  var v=Number(document.getElementById('miIncome').value||0), box=document.getElementById('miIncomeResult');
  if(!v){
-  box.innerHTML='<div style="font-size:11px;letter-spacing:.1em;opacity:.75">PERFIL ORIENTATIVO</div><strong style="display:block;margin-top:5px">Ingresa tu salario mensual</strong><div class="mi-salary-note">Con un solo dato podrás visualizar una referencia inicial y opciones para explorar. El resultado no constituye una aprobación u oferta de crédito.</div>';
+  box.innerHTML='<div style="font-size:11px;letter-spacing:.1em;opacity:.75">PERFIL ORIENTATIVO</div><strong style="display:block;margin-top:5px">Ingresa tu salario mensual</strong><div class="mi-salary-note">Visualiza una referencia inicial de pago, monto aproximado y alternativas para explorar.</div>';
   return;
  }
- // Referencia conservadora: hasta 30% del ingreso declarado.
  var pago=v*.30;
- var opciones='', vehiculo='';
- if(v<10000){
-   opciones='Vehicular de entrada · Personal';
-   vehiculo='Autos urbanos o seminuevos de menor monto';
- }else if(v<18000){
+ // Monto aproximado financiable usando solo como escenario 48 meses y 11.5% anual.
+ var r=.115/12, n=48;
+ var monto=pago*(1-Math.pow(1+r,-n))/r;
+ var opciones='', autos='';
+ if(monto<180000){
+   opciones='Personal · Vehicular con mayor aportación inicial';
+   autos='Seminuevos o vehículos de menor monto';
+ }else if(monto<260000){
+   opciones='Vehicular · Personal';
+   autos='Nissan March (precio de entrada 2026 cercano a $246 mil) o seminuevos';
+ }else if(monto<340000){
    opciones='Vehicular · Personal · Negocio/PyME';
-   vehiculo='Autos urbanos, sedanes o seminuevos';
- }else if(v<30000){
+   autos='Grand i10, MG5, Versa o alternativas de precio similar';
+ }else if(monto<450000){
    opciones='Vehicular · Negocio/PyME · Patrimonial';
-   vehiculo='Sedanes, SUV compactas o unidades de trabajo';
- }else if(v<50000){
-   opciones='Vehicular · Patrimonial · PyME · Empresarial';
-   vehiculo='SUV, pickups o unidades de trabajo';
+   autos='Versa, Aveo, K3, Magnite o alternativas de precio similar';
  }else{
-   opciones='Vehicular · Patrimonial · PyME · Empresarial';
-   vehiculo='Alternativas de mayor monto según aportación y plazo';
+   opciones='Vehicular · PyME · Patrimonial · Empresarial';
+   autos='SUV, pickup, unidad de trabajo o alternativas de mayor monto';
  }
  box.innerHTML=
- '<div style="font-size:11px;letter-spacing:.1em;opacity:.75">TU PERFIL ORIENTATIVO</div>'+
- '<div style="margin-top:8px;font-size:12px;opacity:.82">Ingreso declarado</div>'+
- '<strong>$'+v.toLocaleString("es-MX",{maximumFractionDigits:0})+' / mes</strong>'+
- '<div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.18);font-size:12px;opacity:.82">Referencia inicial de pago</div>'+
- '<strong style="font-size:20px">Hasta $'+pago.toLocaleString("es-MX",{maximumFractionDigits:0})+' / mes</strong>'+
- '<div style="margin-top:13px;font-size:12px"><b>Opciones para explorar:</b><br>'+opciones+'</div>'+
- '<div style="margin-top:8px;font-size:12px"><b>En vehículo:</b><br>'+vehiculo+'</div>'+
- '<div class="mi-salary-note">Referencia ilustrativa calculada sobre 30% del ingreso declarado. El monto, vehículo, aportación, tasa, plazo y autorización dependen de la evaluación de la solicitud.</div>'+
- '<a href="#simulador" style="display:inline-block;margin-top:13px;padding:10px 15px;border-radius:11px;background:#fff;color:#075985;font-weight:900;text-decoration:none;font-size:12px">SIMULAR UNA OPCIÓN</a>';
+ '<div style="font-size:11px;letter-spacing:.1em;opacity:.75">TU ESCENARIO ORIENTATIVO</div>'+
+ '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">'+
+ '<div><span style="font-size:10px;opacity:.72">PAGO DE REFERENCIA</span><strong style="display:block;font-size:19px">$'+pago.toLocaleString("es-MX",{maximumFractionDigits:0})+'/mes</strong></div>'+
+ '<div><span style="font-size:10px;opacity:.72">MONTO APROX. A EXPLORAR*</span><strong style="display:block;font-size:19px">$'+monto.toLocaleString("es-MX",{maximumFractionDigits:0})+'</strong></div></div>'+
+ '<div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.18);font-size:12px"><b>Opciones:</b> '+opciones+'</div>'+
+ '<div style="margin-top:8px;font-size:12px"><b>Vehículos para explorar:</b><br>'+autos+'</div>'+
+ '<div class="mi-salary-note">*Escenario ilustrativo calculado con pago equivalente al 30% del ingreso, 48 meses y 11.5% anual, antes de considerar aportación inicial. No constituye preaprobación. Precio, monto, tasa, plazo, documentación y autorización están sujetos a evaluación.</div>'+
+ '<a href="#simulador" style="display:inline-block;margin-top:13px;padding:10px 15px;border-radius:11px;background:#fff;color:#075985;font-weight:900;text-decoration:none;font-size:12px">AJUSTAR EN EL COTIZADOR</a>';
 }
 </script>
 
@@ -1636,6 +1677,20 @@ renderSectors();
  const money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(Number(n)||0);
  let chosen="Vehicular", lastQuote={};
  const clamp=(n,min,max)=>Math.min(max,Math.max(min,Number(n)||min));
+ function calcFromManual(activeManual,slider,min,max){
+   if(!amount||!down||!term||!rate)return;
+   const value=clamp(amountManual && amountManual.value!=="" ? amountManual.value : amount.value,20000,2000000);
+   const dp=clamp(downManual && downManual.value!=="" ? downManual.value : down.value,12,60);
+   const months=Math.round(clamp(termManual && termManual.value!=="" ? termManual.value : term.value,6,60));
+   const annual=clamp(rateManual && rateManual.value!=="" ? rateManual.value : rate.value,8,13);
+   amount.value=value;down.value=dp;term.value=months;rate.value=annual;
+   const downAmt=value*dp/100, principal=Math.max(0,value-downAmt), r=annual/100/12;
+   const monthly=r?principal*r/(1-Math.pow(1+r,-months)):principal/months;
+   const total=monthly*months;
+   $("financeAmountLabel").textContent=money(value);$("financeDownLabel").textContent=dp+"%";$("financeTermLabel").textContent=months+" meses";$("financeRateLabel").textContent=Number(annual).toFixed(2)+"%";
+   $("quoteMonthly").textContent=money(monthly);$("quoteDown").textContent=money(downAmt);$("quotePrincipal").textContent=money(principal);$("quoteRate").textContent=Number(annual).toFixed(2)+"%";$("quoteTotal").textContent=money(total);
+   lastQuote={type:chosen,value,dp,downAmt,principal,months,annual,monthly,total};
+ }
  function calc(){
    if(!amount||!down||!term||!rate)return;
    const value=clamp(amount.value,20000,2000000), dp=clamp(down.value,12,60), months=Math.round(clamp(term.value,6,60)), annual=clamp(rate.value,8,13);
@@ -1650,8 +1705,20 @@ renderSectors();
  }
  [amount,down,term,rate].forEach(x=>x?.addEventListener("input",calc));
  [[amountManual,amount,20000,2000000],[downManual,down,12,60],[termManual,term,6,60],[rateManual,rate,8,13]].forEach(([manual,slider,min,max])=>{
-   manual?.addEventListener("input",()=>{slider.value=clamp(manual.value,min,max);calc()});
-   manual?.addEventListener("change",()=>{manual.value=clamp(manual.value,min,max);slider.value=manual.value;calc()});
+   manual?.addEventListener("input",()=>{
+     if(manual.value==="") return;
+     const raw=Number(manual.value);
+     if(!Number.isFinite(raw)) return;
+     slider.value=Math.min(max,Math.max(min,raw));
+     calcFromManual(manual,slider,min,max);
+   });
+   manual?.addEventListener("change",()=>{
+     if(manual.value==="") return;
+     const raw=clamp(manual.value,min,max);
+     manual.value=raw;
+     slider.value=raw;
+     calc();
+   });
  });
  document.querySelectorAll(".finance-pill").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".finance-pill").forEach(x=>x.classList.remove("active"));b.classList.add("active");chosen=b.dataset.type;calc()}));
  function quoteText(){return `Precotización MAX INNOVA | ${lastQuote.type} | Proyecto: ${money(lastQuote.value)} | Aportación: ${lastQuote.dp}% (${money(lastQuote.downAmt)}) | Financiamiento estimado: ${money(lastQuote.principal)} | Plazo: ${lastQuote.months} meses | Tasa anual simulada: ${lastQuote.annual.toFixed(2)}% | Pago mensual estimado: ${money(lastQuote.monthly)} | Total estimado: ${money(lastQuote.total)}.`}
