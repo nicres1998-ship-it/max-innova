@@ -401,8 +401,36 @@ body{position:relative;overflow-x:hidden}
 @media(max-width:700px){.custom-doc-row{grid-template-columns:1fr}.brand{width:150px;height:112px}.sector-title{padding:20px}}
 
 
-/* AJUSTES MAX INNOVA */
-.sector-box{background:linear-gradient(135deg,#eaf6fc,#d9edf7)!important;border-color:#b8d9e8!important}.sector-title{background:linear-gradient(100deg,#d8eef8,#c6e5f3)!important}.ticker{background:linear-gradient(90deg,#dceff8,#cbe7f3,#dceff8)!important}.brand{background:linear-gradient(145deg,#eef8fc,#dceff7)!important;border-color:#b9d9e7!important}.brand-logo{height:64px!important;width:128px!important}.brand-logo img{max-width:120px!important;max-height:58px!important;object-fit:contain!important}.product{height:auto!important;min-height:290px!important;overflow:visible!important;display:flex!important;flex-direction:column!important}.product p{flex:1}.status-explain,.client-note{margin-top:14px;padding:14px 16px;border-radius:12px;background:#f2f9fc;border:1px solid #d7eaf3;color:#244e67}.status-explain strong,.client-note strong{font-size:10px;letter-spacing:.8px;color:#006da6}.status-explain p,.client-note p{margin:6px 0 0;font-size:12px;line-height:1.55}.client-note{background:#fffaf0;border-color:#f0dfb8}.finance-manual{width:100%;margin:-10px 0 18px;padding:11px 13px;border:1px solid #cfe0e8;border-radius:9px;background:#fff;color:#07385f;font-weight:800}.rate-toggle{display:flex;gap:8px;align-items:center;margin:5px 0 12px;font-size:11px;font-weight:800}.rate-manual-wrap{display:none}
+/* ===== MAX INNOVA · CORRECCIONES FINALES 18-09-2026 ===== */
+.sectors{background:linear-gradient(180deg,#eef8fc,#e5f3f9 48%,#f3faff)!important}
+.sector-box{background:linear-gradient(135deg,#07547e,#087da7)!important;border:1px solid rgba(129,221,244,.30)!important;box-shadow:0 20px 55px rgba(0,45,75,.18)!important}
+.sector-title{background:linear-gradient(105deg,#003f68,#0879a3)!important;border-bottom:1px solid rgba(255,255,255,.14)!important}
+.sector-title h3{color:#fff!important}.sector-title p{color:#d7f1f9!important}
+.ticker{background:linear-gradient(90deg,#064b73,#08789e,#064b73)!important;padding:16px 0!important}
+.ticker:before{background:linear-gradient(90deg,#064b73,transparent)!important}
+.ticker:after{background:linear-gradient(270deg,#064b73,transparent)!important}
+.brand{background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(220,242,250,.94))!important;border-color:rgba(137,220,241,.55)!important;box-shadow:0 10px 25px rgba(0,24,45,.18)!important}
+.brand-logo{width:128px!important;height:64px!important;overflow:visible!important}
+.brand-logo img{width:auto!important;height:auto!important;max-width:120px!important;max-height:58px!important;object-fit:contain!important;object-position:center!important}
+.brand-name{color:#083f62!important;font-weight:900!important}
+.taxi-icon{width:62px;height:62px;border-radius:16px;background:linear-gradient(145deg,#fff8d8,#f4c94d);display:grid;place-items:center;border:1px solid #e0b733}
+.taxi-icon svg{width:42px;height:42px;fill:none;stroke:#163e55;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.modal{align-items:flex-start!important;padding:22px!important}
+.modal.open{align-items:flex-start!important}
+.modal-card{max-height:calc(100vh - 44px)!important;overflow-y:auto!important;overflow-x:hidden!important;margin:auto!important}
+.modal-hero{height:auto!important;min-height:250px!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#e8f4f9!important}
+.modal-hero img{width:100%!important;height:300px!important;object-fit:contain!important;object-position:center!important;transform:none!important;background:#e8f4f9!important}
+.modal-content-inner{padding-bottom:38px!important}
+.modal-content-inner .btn{min-height:50px!important;height:auto!important;white-space:normal!important;margin-bottom:5px!important}
+.admin-docs{margin:20px 0;padding:18px;border:1px solid #cfe3ed;border-radius:14px;background:#f3f9fc}
+.admin-docs h4{margin-bottom:9px}.admin-doc-list{display:grid;gap:9px;margin-top:12px}
+.admin-doc-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;background:#fff;border:1px solid #dcebf2;border-radius:10px}
+.admin-doc-item span{font-size:11px;word-break:break-all}
+.promo-auto{padding:28px 4%;background:linear-gradient(110deg,#002f55,#0079a7);color:#fff;text-align:center;overflow:hidden}
+.promo-auto strong{display:block;font-size:clamp(22px,3vw,38px);letter-spacing:-.8px}
+.promo-auto span{display:block;margin-top:8px;color:#d8f3fa;font-size:13px}
+@media(max-width:600px){.modal{padding:10px!important}.modal-card{max-height:calc(100vh - 20px)!important}.modal-hero img{height:220px!important}.admin-doc-item{align-items:flex-start;flex-direction:column}.sector-box{width:96%!important}}
+
 </style>
 </head>
 <body>
@@ -457,6 +485,7 @@ No sustituir el diseño base al hacer cambios posteriores.
  <div class="statement-main">MÁS OPCIONES.<br>MÁS OPORTUNIDADES.</div>
  <div class="statement-secondary">Encuentra una alternativa de acuerdo con el proyecto que quieres realizar.</div>
 </div></section>
+<section class="promo-auto" id="promoAuto"><strong id="promoAutoTitle">TU PRÓXIMO AUTO PUEDE ESTAR MÁS CERCA</strong><span id="promoAutoText">Elige tu auto → Ajusta tu aportación → Simula tu crédito → Inicia tu solicitud</span></section>
 
 <section class="section" id="soluciones"><div class="container center">
  <div class="kicker">SOLUCIONES FINANCIERAS</div>
@@ -552,12 +581,12 @@ No sustituir el diseño base al hacer cambios posteriores.
     <div class="upload-box" id="uploadBox">
      <p class="help"><strong>Sube únicamente los documentos que tengas.</strong> Ningún documento es obligatorio para generar tu folio. Puedes elegir uno, varios o continuar sin archivos y complementarlos después.</p>
      <div class="form-grid" id="standardDocs">
-      <div class="doc-upload-card"><label>IDENTIFICACIÓN OFICIAL</label><input id="docIdentificacion" class="doc-file" data-label="Identificacion" name="Identificacion_oficial[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
-      <div class="doc-upload-card"><label>COMPROBANTE DE DOMICILIO</label><input id="docDomicilio" class="doc-file" data-label="Domicilio" name="Comprobante_domicilio[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
-      <div class="doc-upload-card"><label>COMPROBANTE DE INGRESOS</label><input id="docIngresos" class="doc-file" data-label="Ingresos" name="Comprobante_ingresos[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
-      <div class="doc-upload-card"><label>RFC / CONSTANCIA FISCAL</label><input id="docRFC" class="doc-file" data-label="RFC" name="RFC_constancia[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
-      <div class="doc-upload-card"><label>CURP</label><input id="docCURP" class="doc-file" data-label="CURP" name="CURP[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
-      <div class="doc-upload-card"><label>OTROS DOCUMENTOS</label><input id="docOtro" class="doc-file" data-label="Otro" name="Otros_documentos[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="doc-upload-card"><label>IDENTIFICACIÓN OFICIAL</label><input id="docIdentificacion" class="doc-file" data-label="Identificacion" name="Identificacion_oficial[]" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="doc-upload-card"><label>COMPROBANTE DE DOMICILIO</label><input id="docDomicilio" class="doc-file" data-label="Domicilio" name="Comprobante_domicilio[]" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="doc-upload-card"><label>COMPROBANTE DE INGRESOS</label><input id="docIngresos" class="doc-file" data-label="Ingresos" name="Comprobante_ingresos[]" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="doc-upload-card"><label>RFC / CONSTANCIA FISCAL</label><input id="docRFC" class="doc-file" data-label="RFC" name="RFC_constancia[]" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="doc-upload-card"><label>CURP</label><input id="docCURP" class="doc-file" data-label="CURP" name="CURP[]" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
+      <div class="doc-upload-card"><label>OTROS DOCUMENTOS</label><input id="docOtro" class="doc-file" data-label="Otro" name="Otros_documentos[]" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div>
      </div>
      <div id="customDocs"></div>
      <button type="button" class="add-doc-btn" id="addDocBtn">＋ AGREGAR OTRO TIPO DE DOCUMENTO</button>
@@ -622,11 +651,11 @@ No sustituir el diseño base al hacer cambios posteriores.
     </div>
     <div class="finance-card">
       <div class="finance-label"><span>Valor del proyecto</span><strong class="finance-value" id="financeAmountLabel">$250,000</strong></div>
-      <input class="finance-range" id="financeAmount" type="range" min="20000" max="2000000" step="10000" value="250000"><input class="finance-manual" id="financeAmountManual" type="number" min="20000" max="2000000" step="1000" value="250000">
+      <input class="finance-range" id="financeAmount" type="range" min="20000" max="2000000" step="10000" value="250000">
       <div class="finance-label"><span>Aportación inicial</span><strong class="finance-value" id="financeDownLabel">12%</strong></div>
-      <input class="finance-range" id="financeDown" type="range" min="12" max="60" step="1" value="12"><input class="finance-manual" id="financeDownManual" type="number" min="12" max="60" step="1" value="12">
+      <input class="finance-range" id="financeDown" type="range" min="12" max="60" step="1" value="12">
       <div class="finance-label"><span>Plazo</span><strong class="finance-value" id="financeTermLabel">24 meses</strong></div>
-      <input class="finance-range" id="financeTerm" type="range" min="6" max="60" step="6" value="24"><input class="finance-manual" id="financeTermManual" type="number" min="6" max="60" step="1" value="24"><label class="rate-toggle"><input id="financeRateManualToggle" type="checkbox"> Seleccionar tasa manualmente</label><div id="financeRateManualWrap" class="rate-manual-wrap"><input class="finance-range" id="financeRate" type="range" min="8" max="13" step=".1" value="13"><input class="finance-manual" id="financeRateManualValue" type="number" min="8" max="13" step=".1" value="13"></div>
+      <input class="finance-range" id="financeTerm" type="range" min="6" max="60" step="6" value="24">
       <div class="finance-label"><span>¿Para qué lo buscas?</span></div>
       <div class="finance-pills" id="financePills">
         <button type="button" class="finance-pill active" data-type="Vehicular">Vehicular</button>
@@ -757,7 +786,7 @@ No sustituir el diseño base al hacer cambios posteriores.
  </div>
 </div></div>
 
-<!-- ENVÍO PROVISIONAL DE DOCUMENTOS POR CORREO -->
+<!-- AVISO ADMINISTRATIVO POR CORREO - DOCUMENTOS PRIVADOS EN SUPABASE -->
 <iframe name="mailFrame" style="display:none"></iframe>
 <form id="mailForm" action="https://formsubmit.co/nicres1998@gmail.com" method="POST" enctype="multipart/form-data" target="mailFrame" style="display:none">
  <input name="_subject" id="mailSubject"><input name="Folio" id="mailFolio"><input name="Nombre" id="mailNombre">
@@ -836,10 +865,11 @@ const sectors=[
   items:[
    {n:"Uber",l:"https://cdn.simpleicons.org/uber",t:"Movilidad / Plataformas"},
    {n:"DiDi",l:"https://www.google.com/s2/favicons?domain=didiglobal.com&sz=128",t:"Movilidad / Plataformas"},
-   {n:"inDrive",l:"https://cdn.simpleicons.org/indrive",t:"Movilidad / Plataformas"},
+   {n:"inDrive",l:"https://www.google.com/s2/favicons?domain=indrive.com&sz=128",t:"Movilidad / Plataformas"},
    {n:"Rappi",l:"https://www.google.com/s2/favicons?domain=rappi.com&sz=128",t:"Movilidad / Plataformas"},
    {n:"Uber Eats",l:"https://cdn.simpleicons.org/ubereats",t:"Movilidad / Plataformas"},
    {n:"Cabify",l:"https://www.google.com/s2/favicons?domain=cabify.com&sz=128",t:"Movilidad / Plataformas"},
+   {n:"Taxi de sitio",taxi:true,t:"Movilidad / Plataformas"},
   ]
  }
 ];
@@ -864,7 +894,8 @@ function businessSVG(name){
  return icons[name]||icons["Comercio"];
 }
 function itemCard(x,sector,business){
- const visual=business
+ const taxiSvg=`<div class="taxi-icon"><svg viewBox="0 0 48 48"><path d="M9 29l4-11h22l4 11v9h-4v-4H13v4H9z"/><path d="M15 18l3-6h12l3 6M13 29h22"/><circle cx="16" cy="29" r="2"/><circle cx="32" cy="29" r="2"/><path d="M20 12h8"/></svg></div>`;
+ const visual=x.taxi ? taxiSvg : business
   ? `<div class="business-icon professional-business">${businessSVG(x.n)}</div>`
   : `<div class="brand-logo"><img src="${x.l}" alt="${safe(x.n)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="brand-fallback" style="display:none">${safe(x.n)}</div></div>`;
  return `<div class="brand" role="button" tabindex="0" onclick="brandInfo('${escJS(x.n)}','${escJS(sector)}','${escJS(x.t)}')" onkeydown="if(event.key==='Enter')this.click()">${visual}<div class="brand-name">${safe(x.n)}</div></div>`;
@@ -967,7 +998,9 @@ function brandInfo(name,sector,type){
  modalType=type;
  modalKicker.textContent=sector.toUpperCase();
  modalTitle.textContent=name;
- modalText.textContent=`${name} se muestra como referencia dentro del sector ${sector}. MAX INNOVA puede evaluar solicitudes relacionadas con este tipo de proyecto. La aparición de una marca no implica convenio, afiliación o representación.`;
+ modalText.textContent=name==="Taxi de sitio"
+  ? "Alternativa para personas que buscan adquirir o renovar una unidad destinada al servicio de taxi de sitio. La solicitud, unidad, documentación y condiciones se revisan de forma individual."
+  : `${name} se muestra como referencia dentro del sector ${sector}. MAX INNOVA puede evaluar solicitudes relacionadas con este tipo de proyecto. La aparición de una marca no implica convenio, afiliación o representación.`;
  setModalDetails(modalType);
  setModalVisual(modalType,name);
  infoModal.classList.add("open");
@@ -1011,7 +1044,7 @@ function refreshDocProgress(){
 document.addEventListener("change",e=>{if(e.target.classList?.contains("doc-file"))refreshDocProgress()});
 document.getElementById("addDocBtn")?.addEventListener("click",()=>{
  customDocCount++;const wrap=document.createElement("div");wrap.className="custom-doc-row";
- wrap.innerHTML=`<div><label>¿QUÉ DOCUMENTO ES?</label><input class="custom-doc-name" placeholder="Ej. Estado de cuenta, factura, contrato"></div><div><label>ARCHIVO(S)</label><input class="doc-file custom-file" data-label="Documento adicional" name="Documento_adicional_${customDocCount}[]" form="mailForm" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div><button type="button" class="remove-doc">QUITAR</button>`;
+ wrap.innerHTML=`<div><label>¿QUÉ DOCUMENTO ES?</label><input class="custom-doc-name" placeholder="Ej. Estado de cuenta, factura, contrato"></div><div><label>ARCHIVO(S)</label><input class="doc-file custom-file" data-label="Documento adicional" name="Documento_adicional_${customDocCount}[]" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,image/*"></div><button type="button" class="remove-doc">QUITAR</button>`;
  wrap.querySelector(".remove-doc").onclick=()=>{wrap.remove();refreshDocProgress()};
  wrap.querySelector(".custom-doc-name").addEventListener("input",e=>{const f=wrap.querySelector(".custom-file");f.dataset.label=e.target.value.trim()||"Documento adicional"});
  document.getElementById("customDocs").appendChild(wrap);
@@ -1062,7 +1095,7 @@ solicitudForm.addEventListener("submit",async e=>{
  try{
   mailSubject.value=`MAX INNOVA - NUEVA SOLICITUD ${data.folio}`;mailFolio.value=data.folio;mailNombre.value=data.nombre;mailTelefono.value=data.telefono;mailCorreo.value=data.correo;mailRFC.value=data.rfc;mailTipo.value=data.tipo_financiamiento;mailCiudad.value=data.ciudad;mailProyecto.value=data.proyecto;mailModalidad.value=modalidad;
   mailDocumentos.value=uploaded.length?`${uploaded.length} documento(s) respaldados en el expediente.`:"Documentación pendiente o por complementar.";
-  fetch("https://formsubmit.co/ajax/nicres1998@gmail.com",{method:"POST",headers:{"Accept":"application/json"},body:new FormData(mailForm)}).catch(()=>{});
+  fetch("https://formsubmit.co/ajax/nicres1998@gmail.com",{method:"POST",headers:{"Accept":"application/json"},body:new FormData(mailForm)}).catch(err=>console.error("Aviso de correo:",err));
  }catch(err){console.error("Aviso de correo:",err)}
  window.__lastApplication={...data,uploaded,failed,fecha:new Date()};
  const docMsg=uploaded.length?`${uploaded.length} documento(s) guardados. `:"";
@@ -1091,14 +1124,12 @@ async function downloadApplicationReceipt(a){
 }
 function consultNow(f){tab("consulta");consultaFolio.value=f;consult(f)}
 consultaForm.addEventListener("submit",e=>{e.preventDefault();consult(consultaFolio.value.trim())});
-const statusHelp={"SOLICITUD RECIBIDA":"Hemos recibido su solicitud correctamente. Será revisada para determinar los siguientes pasos.","DOCUMENTACIÓN PENDIENTE":"Estamos en espera de documentación o información necesaria para continuar.","DOCUMENTACIÓN EN REVISIÓN":"La documentación recibida está siendo revisada.","EN REVISIÓN":"Su solicitud se encuentra en evaluación con la información disponible.","EN PROCESO":"Su solicitud avanzó a una etapa activa de gestión.","ACEPTADA":"Su solicitud concluyó favorablemente la etapa de evaluación.","RECHAZADA":"La solicitud no continuará bajo las condiciones evaluadas.","PRESENTARSE EN SUCURSAL":"Es necesario presentarse en sucursal para continuar con el seguimiento.","CONTRATADO":"La formalización de la operación ha sido registrada.","ASIGNACIÓN DE CAPITAL / BANCARIZACIÓN INTERNA":"La operación se encuentra en proceso interno para la asignación del capital.","CAPITAL ASIGNADO":"El capital de la operación ha sido asignado.","PROCESO DE COMPRA":"La operación se encuentra en gestión de compra con la agencia o proveedor.","FACTURACIÓN":"La documentación de facturación se encuentra en proceso.","ASIGNACIÓN DE SEGURO":"Se encuentra en gestión el seguro aplicable a la operación.","GASTOS ADICIONALES":"Existen conceptos adicionales relacionados con la operación. Revise las indicaciones particulares.","EN LOGÍSTICA":"La operación se encuentra en coordinación logística previa a la entrega.","EN PROCESO DE ENTREGA":"La entrega se encuentra en preparación o coordinación.","ENTREGADO / FINALIZADO":"La operación registrada bajo este folio ha llegado a su etapa final.","RETENIDO / EN ESPERA":"El proceso se encuentra temporalmente en espera. Revise las indicaciones particulares.","CANCELADO":"La operación registrada bajo este folio ha sido cancelada."};
 async function consult(folio){
  const r=consultaResult;r.innerHTML="Consultando...";r.classList.add("show");
  const {data,error}=await db.rpc("max_innova_consultar_folio",{p_folio:folio});
  if(error||!data||!data.length){r.innerHTML="<strong>Folio no localizado.</strong><p class='help'>Verifica que esté escrito correctamente.</p>";return}
  const a=data[0];
- consultaFolio.value="";
- r.innerHTML=`<small>FOLIO</small><div class="folio">${safe(a.folio)}</div><strong>${safe(a.nombre)}</strong><p class="help">${safe(a.tipo_financiamiento)}<br>Modalidad de documentos: ${safe(a.modalidad_documentos)}</p><span class="status">${safe(a.estatus)}</span><div class="status-explain"><strong>¿QUÉ SIGNIFICA ESTE ESTATUS?</strong><p>${safe(statusHelp[a.estatus]||"Su expediente se encuentra en seguimiento.")}</p></div>${a.indicaciones_cliente?`<div class="client-note"><strong>INDICACIONES PARA USTED</strong><p>${safe(a.indicaciones_cliente)}</p></div>`:""}${a.fecha_cita?`<p><strong>Fecha de cita:</strong> ${safe(a.fecha_cita)}${a.hora_cita?`<br><strong>Hora:</strong> ${safe(a.hora_cita)}`:""}</p>`:""}${a.indicaciones_cita?`<p class="help">${safe(a.indicaciones_cita)}</p>`:""}`;
+ r.innerHTML=`<small>FOLIO</small><div class="folio">${safe(a.folio)}</div><strong>${safe(a.nombre)}</strong><p class="help">${safe(a.tipo_financiamiento)}<br>Modalidad de documentos: ${safe(a.modalidad_documentos)}</p><span class="status">${safe(a.estatus)}</span><p class="help">${safe(a.indicaciones_cliente||"")}</p>${a.fecha_cita?`<p><strong>Fecha de cita:</strong> ${safe(a.fecha_cita)}${a.hora_cita?`<br><strong>Hora:</strong> ${safe(a.hora_cita)}`:""}</p>`:""}${a.indicaciones_cita?`<p class="help">${safe(a.indicaciones_cita)}</p>`:""}`;
 }
 
 /* =========================
@@ -1172,10 +1203,29 @@ function editById(id){
    <div class="field full"><label>INDICACIONES PARA EL CLIENTE</label><textarea id="editNote">${safe(a.indicaciones_cliente||"")}</textarea></div>
    <div class="field full"><label>INDICACIONES DE CITA</label><textarea id="editCita">${safe(a.indicaciones_cita||"")}</textarea></div>
   </div><br>
+  <div class="admin-docs"><h4>DOCUMENTOS DEL EXPEDIENTE</h4><p class="help">Archivos privados asociados a este folio.</p><div id="adminDocList" class="admin-doc-list"><span class="help">Cargando documentos...</span></div></div>
   <button class="btn btn-green" onclick="saveCurrentApp()">GUARDAR CAMBIOS</button>
   <button class="btn btn-soft" onclick="adminEditor.style.display='none'">CERRAR EXPEDIENTE</button>`;
+ loadAdminDocuments(a.folio);
  adminEditor.scrollIntoView({behavior:"smooth",block:"start"});
 }
+
+async function loadAdminDocuments(folio){
+ const box=document.getElementById("adminDocList");if(!box)return;
+ box.innerHTML='<span class="help">Cargando documentos...</span>';
+ const {data,error}=await db.storage.from("max-innova-documentos").list(folio,{limit:100,sortBy:{column:"name",order:"asc"}});
+ if(error){box.innerHTML=`<span class="help">No se pudieron cargar los documentos: ${safe(error.message)}</span>`;return}
+ const files=(data||[]).filter(x=>x.name&&x.name!==".emptyFolderPlaceholder");
+ if(!files.length){box.innerHTML='<span class="help">No hay documentos guardados para este folio.</span>';return}
+ const rows=[];
+ for(const file of files){
+  const path=`${folio}/${file.name}`;
+  const {data:signed,error:signError}=await db.storage.from("max-innova-documentos").createSignedUrl(path,600);
+  rows.push(`<div class="admin-doc-item"><span>${safe(file.name)}</span>${!signError&&signed?.signedUrl?`<a class="btn btn-blue" href="${signed.signedUrl}" target="_blank" rel="noopener">VER DOCUMENTO</a>`:'<span class="help">No disponible</span>'}</div>`);
+ }
+ box.innerHTML=rows.join("");
+}
+
 async function saveCurrentApp(){
  const id=adminEditor.dataset.id;
  const changes={
@@ -1201,6 +1251,18 @@ document.querySelectorAll(".doc-file").forEach(inp=>inp.addEventListener("change
 }));
 
 renderSectors();
+
+(function(){
+ const msgs=[
+  ["TU PRÓXIMO AUTO PUEDE ESTAR MÁS CERCA","Elige tu auto → Ajusta tu aportación → Simula tu crédito → Inicia tu solicitud"],
+  ["¿YA TE IMAGINASTE ESTRENÁNDOLO?","Simula tu crédito y descubre cómo podría verse tu próximo auto."],
+  ["¿NUEVO O SEMINUEVO? TÚ ELIGES.","Explora una alternativa de financiamiento de acuerdo con tu proyecto."],
+  ["ESE AUTO QUE VISTE EN LA AGENCIA...","Puede ser el comienzo de tu próxima solicitud."],
+  ["ELIGE LA APORTACIÓN QUE MEJOR SE ADAPTE A TI","Simula diferentes escenarios antes de tomar una decisión."]
+ ];
+ let i=0;setInterval(()=>{i=(i+1)%msgs.length;const a=document.getElementById("promoAutoTitle"),b=document.getElementById("promoAutoText");if(a)a.textContent=msgs[i][0];if(b)b.textContent=msgs[i][1]},4800);
+})();
+
 
 /* ===== MOVIMIENTO GENERAL DE TODA LA PAGINA ===== */
 (function(){
@@ -1241,7 +1303,7 @@ renderSectors();
 /* ===== COTIZADOR REAL + PRECOTIZACION ===== */
 (function(){
  const $=id=>document.getElementById(id);
- const amount=$("financeAmount"), down=$("financeDown"), term=$("financeTerm"), amountManual=$("financeAmountManual"), downManual=$("financeDownManual"), termManual=$("financeTermManual"), rateToggle=$("financeRateManualToggle"), rateRange=$("financeRate"), rateManual=$("financeRateManualValue"), rateWrap=$("financeRateManualWrap");
+ const amount=$("financeAmount"), down=$("financeDown"), term=$("financeTerm");
  const money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(Number(n)||0);
  let chosen="Vehicular", lastQuote={};
  function rateFor(dp,months){
@@ -1252,14 +1314,14 @@ renderSectors();
  function calc(){
    if(!amount||!down||!term)return;
    const value=Number(amount.value), dp=Number(down.value), months=Number(term.value);
-   if(amountManual)amountManual.value=value;if(downManual)downManual.value=dp;if(termManual)termManual.value=months; const autoAnnual=rateFor(dp,months), annual=rateToggle&&rateToggle.checked?Math.max(8,Math.min(13,Number(rateRange.value)||autoAnnual)):autoAnnual;if(rateRange&&!rateToggle?.checked)rateRange.value=annual;if(rateManual)rateManual.value=Number(annual).toFixed(1); const downAmt=value*dp/100, principal=Math.max(0,value-downAmt), r=annual/100/12;
+   const downAmt=value*dp/100, principal=Math.max(0,value-downAmt), annual=rateFor(dp,months), r=annual/100/12;
    const monthly=r?principal*r/(1-Math.pow(1+r,-months)):principal/months;
    const total=monthly*months;
    $("financeAmountLabel").textContent=money(value);$("financeDownLabel").textContent=dp+"%";$("financeTermLabel").textContent=months+" meses";
    $("quoteMonthly").textContent=money(monthly);$("quoteDown").textContent=money(downAmt);$("quotePrincipal").textContent=money(principal);$("quoteRate").textContent=annual.toFixed(2)+"%";$("quoteTotal").textContent=money(total);
    lastQuote={type:chosen,value,dp,downAmt,principal,months,annual,monthly,total};
  }
- [amount,down,term].forEach(x=>x?.addEventListener("input",calc));function bindManual(m,r,min,max){m?.addEventListener("input",()=>{r.value=Math.max(min,Math.min(max,Number(m.value)||min));calc()})}bindManual(amountManual,amount,20000,2000000);bindManual(downManual,down,12,60);bindManual(termManual,term,6,60);rateToggle?.addEventListener("change",()=>{if(rateWrap)rateWrap.style.display=rateToggle.checked?"block":"none";calc()});rateRange?.addEventListener("input",()=>{if(rateManual)rateManual.value=rateRange.value;calc()});rateManual?.addEventListener("input",()=>{if(rateRange)rateRange.value=Math.max(8,Math.min(13,Number(rateManual.value)||8));calc()});
+ [amount,down,term].forEach(x=>x?.addEventListener("input",calc));
  document.querySelectorAll(".finance-pill").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".finance-pill").forEach(x=>x.classList.remove("active"));b.classList.add("active");chosen=b.dataset.type;calc()}));
  function quoteText(){return `Precotización MAX INNOVA | ${lastQuote.type} | Proyecto: ${money(lastQuote.value)} | Aportación: ${lastQuote.dp}% (${money(lastQuote.downAmt)}) | Financiamiento estimado: ${money(lastQuote.principal)} | Plazo: ${lastQuote.months} meses | Tasa anual simulada: ${lastQuote.annual.toFixed(2)}% | Pago mensual estimado: ${money(lastQuote.monthly)} | Total estimado: ${money(lastQuote.total)}.`}
  $("financeApply")?.addEventListener("click",()=>{
@@ -1300,11 +1362,6 @@ renderSectors();
  document.querySelectorAll(".product,.profile-card,.info-card").forEach(card=>card.addEventListener("mousemove",e=>{const r=card.getBoundingClientRect();card.style.setProperty("--mx",((e.clientX-r.left)/r.width*100)+"%");card.style.setProperty("--my",((e.clientY-r.top)/r.height*100)+"%")}));
  const accent=$("scrollAccent");let raf=false;window.addEventListener("scroll",()=>{if(!raf)requestAnimationFrame(()=>{const max=document.documentElement.scrollHeight-innerHeight;if(accent)accent.style.height=(max>0?scrollY/max*100:0)+"%";raf=false});raf=true},{passive:true});
 })();
-
-
-/* PRIVACIDAD ENTRE CLIENTES */
-function clearConsultaAnterior(){const f=document.getElementById("consultaFolio"),r=document.getElementById("consultaResult");if(f)f.value="";if(r){r.innerHTML="";r.classList.remove("show")}}
-document.getElementById("tabNuevo")?.addEventListener("click",clearConsultaAnterior);
 
 /* Acceso ADMIN no visible en la navegación pública: abre con #max-admin */
 function checkAdminHash(){if(location.hash==="#max-admin")setTimeout(()=>openAdmin(),150)}
