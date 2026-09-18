@@ -837,7 +837,6 @@ const sectors=[
    {n:"Rappi",l:"https://www.google.com/s2/favicons?domain=rappi.com&sz=128",t:"Movilidad / Plataformas"},
    {n:"Uber Eats",l:"https://cdn.simpleicons.org/ubereats",t:"Movilidad / Plataformas"},
    {n:"Cabify",l:"https://www.google.com/s2/favicons?domain=cabify.com&sz=128",t:"Movilidad / Plataformas"},
-   {n:"Gaby Five",l:"https://www.google.com/s2/favicons?domain=gabyfive.com&sz=128",t:"Movilidad / Plataformas"}
   ]
  }
 ];
@@ -1155,7 +1154,7 @@ function editById(id){
  adminEditor.style.display="block";
  adminEditor.dataset.id=a.id;
  adminEditor.dataset.folio=a.folio;
- const statuses=["SOLICITUD RECIBIDA","DOCUMENTACIÓN PENDIENTE","DOCUMENTACIÓN EN REVISIÓN","EN REVISIÓN","EN PROCESO","ACEPTADA","RECHAZADA","PRESENTARSE EN SUCURSAL"];
+ const statuses=["SOLICITUD RECIBIDA","DOCUMENTACIÓN PENDIENTE","DOCUMENTACIÓN EN REVISIÓN","EN EVALUACIÓN","ACEPTADA","PRESENTARSE EN SUCURSAL","CONTRATADO","ASIGNACIÓN DE CAPITAL / BANCARIZACIÓN INTERNA","CAPITAL ASIGNADO","PROCESO DE COMPRA","FACTURACIÓN","ASIGNACIÓN DE SEGURO","GASTOS ADICIONALES","EN LOGÍSTICA","EN PROCESO DE ENTREGA","ENTREGADO / FINALIZADO","INFORMACIÓN ADICIONAL REQUERIDA","RETENIDO / EN ESPERA","CANCELADO","RECHAZADO"];
  adminEditor.innerHTML=`
   <h3>${safe(a.folio)} · ${safe(a.nombre)}</h3>
   <p class="help"><strong>Teléfono:</strong> ${safe(a.telefono)} · <strong>Correo:</strong> ${safe(a.correo)} · <strong>RFC:</strong> ${safe(a.rfc)}</p>
