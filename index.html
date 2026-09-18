@@ -400,6 +400,9 @@ body{position:relative;overflow-x:hidden}
 .add-doc-btn{margin-top:13px;border:1px dashed #37aeda;background:#fff;color:#07517e;border-radius:12px;padding:11px 15px;font-weight:900;cursor:pointer}.add-doc-btn:hover{background:#eaf8fe}
 @media(max-width:700px){.custom-doc-row{grid-template-columns:1fr}.brand{width:150px;height:112px}.sector-title{padding:20px}}
 
+
+/* AJUSTES MAX INNOVA */
+.sector-box{background:linear-gradient(135deg,#eaf6fc,#d9edf7)!important;border-color:#b8d9e8!important}.sector-title{background:linear-gradient(100deg,#d8eef8,#c6e5f3)!important}.ticker{background:linear-gradient(90deg,#dceff8,#cbe7f3,#dceff8)!important}.brand{background:linear-gradient(145deg,#eef8fc,#dceff7)!important;border-color:#b9d9e7!important}.brand-logo{height:64px!important;width:128px!important}.brand-logo img{max-width:120px!important;max-height:58px!important;object-fit:contain!important}.product{height:auto!important;min-height:290px!important;overflow:visible!important;display:flex!important;flex-direction:column!important}.product p{flex:1}.status-explain,.client-note{margin-top:14px;padding:14px 16px;border-radius:12px;background:#f2f9fc;border:1px solid #d7eaf3;color:#244e67}.status-explain strong,.client-note strong{font-size:10px;letter-spacing:.8px;color:#006da6}.status-explain p,.client-note p{margin:6px 0 0;font-size:12px;line-height:1.55}.client-note{background:#fffaf0;border-color:#f0dfb8}.finance-manual{width:100%;margin:-10px 0 18px;padding:11px 13px;border:1px solid #cfe0e8;border-radius:9px;background:#fff;color:#07385f;font-weight:800}.rate-toggle{display:flex;gap:8px;align-items:center;margin:5px 0 12px;font-size:11px;font-weight:800}.rate-manual-wrap{display:none}
 </style>
 </head>
 <body>
@@ -619,11 +622,11 @@ No sustituir el diseño base al hacer cambios posteriores.
     </div>
     <div class="finance-card">
       <div class="finance-label"><span>Valor del proyecto</span><strong class="finance-value" id="financeAmountLabel">$250,000</strong></div>
-      <input class="finance-range" id="financeAmount" type="range" min="20000" max="2000000" step="10000" value="250000">
+      <input class="finance-range" id="financeAmount" type="range" min="20000" max="2000000" step="10000" value="250000"><input class="finance-manual" id="financeAmountManual" type="number" min="20000" max="2000000" step="1000" value="250000">
       <div class="finance-label"><span>Aportación inicial</span><strong class="finance-value" id="financeDownLabel">12%</strong></div>
-      <input class="finance-range" id="financeDown" type="range" min="12" max="60" step="1" value="12">
+      <input class="finance-range" id="financeDown" type="range" min="12" max="60" step="1" value="12"><input class="finance-manual" id="financeDownManual" type="number" min="12" max="60" step="1" value="12">
       <div class="finance-label"><span>Plazo</span><strong class="finance-value" id="financeTermLabel">24 meses</strong></div>
-      <input class="finance-range" id="financeTerm" type="range" min="6" max="60" step="6" value="24">
+      <input class="finance-range" id="financeTerm" type="range" min="6" max="60" step="6" value="24"><input class="finance-manual" id="financeTermManual" type="number" min="6" max="60" step="1" value="24"><label class="rate-toggle"><input id="financeRateManualToggle" type="checkbox"> Seleccionar tasa manualmente</label><div id="financeRateManualWrap" class="rate-manual-wrap"><input class="finance-range" id="financeRate" type="range" min="8" max="13" step=".1" value="13"><input class="finance-manual" id="financeRateManualValue" type="number" min="8" max="13" step=".1" value="13"></div>
       <div class="finance-label"><span>¿Para qué lo buscas?</span></div>
       <div class="finance-pills" id="financePills">
         <button type="button" class="finance-pill active" data-type="Vehicular">Vehicular</button>
@@ -1059,7 +1062,7 @@ solicitudForm.addEventListener("submit",async e=>{
  try{
   mailSubject.value=`MAX INNOVA - NUEVA SOLICITUD ${data.folio}`;mailFolio.value=data.folio;mailNombre.value=data.nombre;mailTelefono.value=data.telefono;mailCorreo.value=data.correo;mailRFC.value=data.rfc;mailTipo.value=data.tipo_financiamiento;mailCiudad.value=data.ciudad;mailProyecto.value=data.proyecto;mailModalidad.value=modalidad;
   mailDocumentos.value=uploaded.length?`${uploaded.length} documento(s) respaldados en el expediente.`:"Documentación pendiente o por complementar.";
-  mailForm.submit();
+  fetch("https://formsubmit.co/ajax/nicres1998@gmail.com",{method:"POST",headers:{"Accept":"application/json"},body:new FormData(mailForm)}).catch(()=>{});
  }catch(err){console.error("Aviso de correo:",err)}
  window.__lastApplication={...data,uploaded,failed,fecha:new Date()};
  const docMsg=uploaded.length?`${uploaded.length} documento(s) guardados. `:"";
@@ -1088,12 +1091,14 @@ async function downloadApplicationReceipt(a){
 }
 function consultNow(f){tab("consulta");consultaFolio.value=f;consult(f)}
 consultaForm.addEventListener("submit",e=>{e.preventDefault();consult(consultaFolio.value.trim())});
+const statusHelp={"SOLICITUD RECIBIDA":"Hemos recibido su solicitud correctamente. Será revisada para determinar los siguientes pasos.","DOCUMENTACIÓN PENDIENTE":"Estamos en espera de documentación o información necesaria para continuar.","DOCUMENTACIÓN EN REVISIÓN":"La documentación recibida está siendo revisada.","EN REVISIÓN":"Su solicitud se encuentra en evaluación con la información disponible.","EN PROCESO":"Su solicitud avanzó a una etapa activa de gestión.","ACEPTADA":"Su solicitud concluyó favorablemente la etapa de evaluación.","RECHAZADA":"La solicitud no continuará bajo las condiciones evaluadas.","PRESENTARSE EN SUCURSAL":"Es necesario presentarse en sucursal para continuar con el seguimiento.","CONTRATADO":"La formalización de la operación ha sido registrada.","ASIGNACIÓN DE CAPITAL / BANCARIZACIÓN INTERNA":"La operación se encuentra en proceso interno para la asignación del capital.","CAPITAL ASIGNADO":"El capital de la operación ha sido asignado.","PROCESO DE COMPRA":"La operación se encuentra en gestión de compra con la agencia o proveedor.","FACTURACIÓN":"La documentación de facturación se encuentra en proceso.","ASIGNACIÓN DE SEGURO":"Se encuentra en gestión el seguro aplicable a la operación.","GASTOS ADICIONALES":"Existen conceptos adicionales relacionados con la operación. Revise las indicaciones particulares.","EN LOGÍSTICA":"La operación se encuentra en coordinación logística previa a la entrega.","EN PROCESO DE ENTREGA":"La entrega se encuentra en preparación o coordinación.","ENTREGADO / FINALIZADO":"La operación registrada bajo este folio ha llegado a su etapa final.","RETENIDO / EN ESPERA":"El proceso se encuentra temporalmente en espera. Revise las indicaciones particulares.","CANCELADO":"La operación registrada bajo este folio ha sido cancelada."};
 async function consult(folio){
  const r=consultaResult;r.innerHTML="Consultando...";r.classList.add("show");
  const {data,error}=await db.rpc("max_innova_consultar_folio",{p_folio:folio});
  if(error||!data||!data.length){r.innerHTML="<strong>Folio no localizado.</strong><p class='help'>Verifica que esté escrito correctamente.</p>";return}
  const a=data[0];
- r.innerHTML=`<small>FOLIO</small><div class="folio">${safe(a.folio)}</div><strong>${safe(a.nombre)}</strong><p class="help">${safe(a.tipo_financiamiento)}<br>Modalidad de documentos: ${safe(a.modalidad_documentos)}</p><span class="status">${safe(a.estatus)}</span><p class="help">${safe(a.indicaciones_cliente||"")}</p>${a.fecha_cita?`<p><strong>Fecha de cita:</strong> ${safe(a.fecha_cita)}${a.hora_cita?`<br><strong>Hora:</strong> ${safe(a.hora_cita)}`:""}</p>`:""}${a.indicaciones_cita?`<p class="help">${safe(a.indicaciones_cita)}</p>`:""}`;
+ consultaFolio.value="";
+ r.innerHTML=`<small>FOLIO</small><div class="folio">${safe(a.folio)}</div><strong>${safe(a.nombre)}</strong><p class="help">${safe(a.tipo_financiamiento)}<br>Modalidad de documentos: ${safe(a.modalidad_documentos)}</p><span class="status">${safe(a.estatus)}</span><div class="status-explain"><strong>¿QUÉ SIGNIFICA ESTE ESTATUS?</strong><p>${safe(statusHelp[a.estatus]||"Su expediente se encuentra en seguimiento.")}</p></div>${a.indicaciones_cliente?`<div class="client-note"><strong>INDICACIONES PARA USTED</strong><p>${safe(a.indicaciones_cliente)}</p></div>`:""}${a.fecha_cita?`<p><strong>Fecha de cita:</strong> ${safe(a.fecha_cita)}${a.hora_cita?`<br><strong>Hora:</strong> ${safe(a.hora_cita)}`:""}</p>`:""}${a.indicaciones_cita?`<p class="help">${safe(a.indicaciones_cita)}</p>`:""}`;
 }
 
 /* =========================
@@ -1154,7 +1159,7 @@ function editById(id){
  adminEditor.style.display="block";
  adminEditor.dataset.id=a.id;
  adminEditor.dataset.folio=a.folio;
- const statuses=["SOLICITUD RECIBIDA","DOCUMENTACIÓN PENDIENTE","DOCUMENTACIÓN EN REVISIÓN","EN EVALUACIÓN","ACEPTADA","PRESENTARSE EN SUCURSAL","CONTRATADO","ASIGNACIÓN DE CAPITAL / BANCARIZACIÓN INTERNA","CAPITAL ASIGNADO","PROCESO DE COMPRA","FACTURACIÓN","ASIGNACIÓN DE SEGURO","GASTOS ADICIONALES","EN LOGÍSTICA","EN PROCESO DE ENTREGA","ENTREGADO / FINALIZADO","INFORMACIÓN ADICIONAL REQUERIDA","RETENIDO / EN ESPERA","CANCELADO","RECHAZADO"];
+ const statuses=["SOLICITUD RECIBIDA","DOCUMENTACIÓN PENDIENTE","DOCUMENTACIÓN EN REVISIÓN","EN REVISIÓN","EN PROCESO","ACEPTADA","RECHAZADA","PRESENTARSE EN SUCURSAL","CONTRATADO","ASIGNACIÓN DE CAPITAL / BANCARIZACIÓN INTERNA","CAPITAL ASIGNADO","PROCESO DE COMPRA","FACTURACIÓN","ASIGNACIÓN DE SEGURO","GASTOS ADICIONALES","EN LOGÍSTICA","EN PROCESO DE ENTREGA","ENTREGADO / FINALIZADO","RETENIDO / EN ESPERA","CANCELADO"];
  adminEditor.innerHTML=`
   <h3>${safe(a.folio)} · ${safe(a.nombre)}</h3>
   <p class="help"><strong>Teléfono:</strong> ${safe(a.telefono)} · <strong>Correo:</strong> ${safe(a.correo)} · <strong>RFC:</strong> ${safe(a.rfc)}</p>
@@ -1236,7 +1241,7 @@ renderSectors();
 /* ===== COTIZADOR REAL + PRECOTIZACION ===== */
 (function(){
  const $=id=>document.getElementById(id);
- const amount=$("financeAmount"), down=$("financeDown"), term=$("financeTerm");
+ const amount=$("financeAmount"), down=$("financeDown"), term=$("financeTerm"), amountManual=$("financeAmountManual"), downManual=$("financeDownManual"), termManual=$("financeTermManual"), rateToggle=$("financeRateManualToggle"), rateRange=$("financeRate"), rateManual=$("financeRateManualValue"), rateWrap=$("financeRateManualWrap");
  const money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(Number(n)||0);
  let chosen="Vehicular", lastQuote={};
  function rateFor(dp,months){
@@ -1247,14 +1252,14 @@ renderSectors();
  function calc(){
    if(!amount||!down||!term)return;
    const value=Number(amount.value), dp=Number(down.value), months=Number(term.value);
-   const downAmt=value*dp/100, principal=Math.max(0,value-downAmt), annual=rateFor(dp,months), r=annual/100/12;
+   if(amountManual)amountManual.value=value;if(downManual)downManual.value=dp;if(termManual)termManual.value=months; const autoAnnual=rateFor(dp,months), annual=rateToggle&&rateToggle.checked?Math.max(8,Math.min(13,Number(rateRange.value)||autoAnnual)):autoAnnual;if(rateRange&&!rateToggle?.checked)rateRange.value=annual;if(rateManual)rateManual.value=Number(annual).toFixed(1); const downAmt=value*dp/100, principal=Math.max(0,value-downAmt), r=annual/100/12;
    const monthly=r?principal*r/(1-Math.pow(1+r,-months)):principal/months;
    const total=monthly*months;
    $("financeAmountLabel").textContent=money(value);$("financeDownLabel").textContent=dp+"%";$("financeTermLabel").textContent=months+" meses";
    $("quoteMonthly").textContent=money(monthly);$("quoteDown").textContent=money(downAmt);$("quotePrincipal").textContent=money(principal);$("quoteRate").textContent=annual.toFixed(2)+"%";$("quoteTotal").textContent=money(total);
    lastQuote={type:chosen,value,dp,downAmt,principal,months,annual,monthly,total};
  }
- [amount,down,term].forEach(x=>x?.addEventListener("input",calc));
+ [amount,down,term].forEach(x=>x?.addEventListener("input",calc));function bindManual(m,r,min,max){m?.addEventListener("input",()=>{r.value=Math.max(min,Math.min(max,Number(m.value)||min));calc()})}bindManual(amountManual,amount,20000,2000000);bindManual(downManual,down,12,60);bindManual(termManual,term,6,60);rateToggle?.addEventListener("change",()=>{if(rateWrap)rateWrap.style.display=rateToggle.checked?"block":"none";calc()});rateRange?.addEventListener("input",()=>{if(rateManual)rateManual.value=rateRange.value;calc()});rateManual?.addEventListener("input",()=>{if(rateRange)rateRange.value=Math.max(8,Math.min(13,Number(rateManual.value)||8));calc()});
  document.querySelectorAll(".finance-pill").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".finance-pill").forEach(x=>x.classList.remove("active"));b.classList.add("active");chosen=b.dataset.type;calc()}));
  function quoteText(){return `Precotización MAX INNOVA | ${lastQuote.type} | Proyecto: ${money(lastQuote.value)} | Aportación: ${lastQuote.dp}% (${money(lastQuote.downAmt)}) | Financiamiento estimado: ${money(lastQuote.principal)} | Plazo: ${lastQuote.months} meses | Tasa anual simulada: ${lastQuote.annual.toFixed(2)}% | Pago mensual estimado: ${money(lastQuote.monthly)} | Total estimado: ${money(lastQuote.total)}.`}
  $("financeApply")?.addEventListener("click",()=>{
@@ -1295,6 +1300,11 @@ renderSectors();
  document.querySelectorAll(".product,.profile-card,.info-card").forEach(card=>card.addEventListener("mousemove",e=>{const r=card.getBoundingClientRect();card.style.setProperty("--mx",((e.clientX-r.left)/r.width*100)+"%");card.style.setProperty("--my",((e.clientY-r.top)/r.height*100)+"%")}));
  const accent=$("scrollAccent");let raf=false;window.addEventListener("scroll",()=>{if(!raf)requestAnimationFrame(()=>{const max=document.documentElement.scrollHeight-innerHeight;if(accent)accent.style.height=(max>0?scrollY/max*100:0)+"%";raf=false});raf=true},{passive:true});
 })();
+
+
+/* PRIVACIDAD ENTRE CLIENTES */
+function clearConsultaAnterior(){const f=document.getElementById("consultaFolio"),r=document.getElementById("consultaResult");if(f)f.value="";if(r){r.innerHTML="";r.classList.remove("show")}}
+document.getElementById("tabNuevo")?.addEventListener("click",clearConsultaAnterior);
 
 /* Acceso ADMIN no visible en la navegación pública: abre con #max-admin */
 function checkAdminHash(){if(location.hash==="#max-admin")setTimeout(()=>openAdmin(),150)}
