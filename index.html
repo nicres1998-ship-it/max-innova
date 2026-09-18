@@ -783,14 +783,14 @@ No sustituir el diseño base al hacer cambios posteriores.
   <div class="info-card click-info" role="button" tabindex="0" onclick="openPrivacy(event)" onkeydown="if(event.key==='Enter')openPrivacy(event)"><h3>Aviso de privacidad</h3><p>Consulta el tratamiento, finalidades y mecanismos para ejercer tus derechos sobre datos personales.</p><span class="pending" style="background:#e8f6ef;color:#17643a">CONSULTAR AVISO</span></div>
   <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('INFORMACIÓN REGULATORIA','Información regulatoria','Esta sección se encuentra reservada para información regulatoria que haya sido previamente validada. No se publicarán afirmaciones regulatorias sin confirmación.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Información regulatoria</h3><p>Se publicará únicamente la información que corresponda legalmente a la operación de la empresa.</p><span class="pending">PENDIENTE DE VALIDAR</span></div>
   <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('DOMICILIO','Domicilio de atención','Aquí se mostrará el domicilio oficial para atención presencial cuando MAX INNOVA confirme los datos de la oficina o sucursal.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Domicilio</h3><p>Datos de oficina o sucursal para atención presencial.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
-  <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('CONTACTO','Canales de contacto','Esta sección mostrará los teléfonos, correo y canales oficiales de MAX INNOVA cuando sean confirmados.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Contacto</h3><p>Teléfonos, correo y canales oficiales de atención.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
+  <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('CONTACTO','Canales de contacto','Correo oficial de atención: contacto@maxinnova.mx. Los demás canales oficiales se integrarán cuando sean confirmados.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Contacto</h3><p>Correo oficial: <a href="mailto:contacto@maxinnova.mx"><strong>contacto@maxinnova.mx</strong></a></p><span class="pending">CORREO ACTIVO</span></div>
   <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('EVALUACIÓN','Proceso de evaluación','Cada solicitud se revisa conforme a la información, documentación y características del proyecto. El registro no implica aprobación.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Proceso de evaluación</h3><p>Conoce cómo se revisa y da seguimiento a una solicitud.</p><span class="pending">INFORMACIÓN GENERAL</span></div>
  </div>
 </div></section>
 
 <section class="section" id="contacto"><div class="container contact-grid">
  <div class="phone-image"><img src="telefono.png" alt="Contacto MAX INNOVA"></div>
- <div><div class="kicker">CONTACTO</div><h2>¿Quieres comenzar?</h2><p>Registra tu solicitud para obtener tu folio. Si ya tienes uno, consulta el seguimiento desde MI CUENTA.</p><button class="btn btn-blue" onclick="goPortal('nuevo')">NUEVA SOLICITUD</button> <button class="btn btn-cyan" onclick="goPortal('consulta')">CONSULTAR FOLIO</button></div>
+ <div><div class="kicker">CONTACTO</div><h2>¿Quieres comenzar?</h2><p>Registra tu solicitud para obtener tu folio. Si ya tienes uno, consulta el seguimiento desde MI CUENTA.</p><p><strong>Correo oficial:</strong> <a href="mailto:contacto@maxinnova.mx">contacto@maxinnova.mx</a></p><button class="btn btn-blue" onclick="goPortal('nuevo')">NUEVA SOLICITUD</button> <button class="btn btn-cyan" onclick="goPortal('consulta')">CONSULTAR FOLIO</button></div>
 </div></section>
 </main>
 
@@ -798,7 +798,7 @@ No sustituir el diseño base al hacer cambios posteriores.
  <div class="footer-grid">
   <div><img class="footer-logo" src="logo%20maxinnova.png" alt="MAX INNOVA"><p>Soluciones de financiamiento sujetas a evaluación, documentación, condiciones y viabilidad de cada solicitud.</p></div>
   <div><strong>NAVEGACIÓN</strong><a href="#inicio">Inicio</a><a href="#soluciones">Soluciones</a><a href="#sectores">Sectores</a><a href="#como-funciona">Cómo funciona</a><a href="#portal">Mi cuenta</a></div>
-  <div><strong>INFORMACIÓN</strong><a href="#informacion">Información fiscal</a><a href="#" onclick="openPrivacy(event)">Aviso de privacidad</a><a href="#informacion">Información regulatoria</a><a href="#contacto">Contacto</a></div>
+  <div><strong>INFORMACIÓN</strong><a href="#informacion">Información fiscal</a><a href="#" onclick="openPrivacy(event)">Aviso de privacidad</a><a href="#informacion">Información regulatoria</a><a href="mailto:contacto@maxinnova.mx">contacto@maxinnova.mx</a><a href="#contacto">Contacto</a></div>
  </div>
  <div class="footer-bottom">MAX INNOVA · Servicios Financieros · Información general sujeta a validación.</div>
 </div></footer>
@@ -1561,11 +1561,11 @@ window.addEventListener("hashchange",checkAdminHash);checkAdminHash();
    <button class="privacy-close" type="button" onclick="closePrivacy()" aria-label="Cerrar">×</button>
   </div>
   <div class="privacy-body">
-   <div class="privacy-pending"><strong>Información corporativa pendiente de completar:</strong> razón social, domicilio del responsable, correo específico para privacidad/derechos ARCO y teléfono oficial. Estos campos serán incorporados cuando la información definitiva se encuentre disponible.</div>
+   <div class="privacy-pending"><strong>Información corporativa pendiente de completar:</strong> razón social, domicilio del responsable y teléfono oficial. El correo oficial de contacto y privacidad ya se encuentra integrado.</div>
 
    <h3>I. IDENTIDAD Y DOMICILIO DEL RESPONSABLE</h3>
    <p><strong>[RAZÓN SOCIAL COMPLETA PENDIENTE]</strong>, que opera comercialmente bajo el nombre de <strong>MAX INNOVA Servicios Financieros</strong>, con domicilio en <strong>[DOMICILIO COMPLETO PENDIENTE]</strong>, será responsable del tratamiento, uso, almacenamiento y protección de los datos personales recabados de clientes, solicitantes, prospectos y usuarios.</p>
-   <p>Contacto para asuntos de privacidad: <strong>[CORREO DE PRIVACIDAD PENDIENTE]</strong> · <strong>[TELÉFONO PENDIENTE]</strong>.</p>
+   <p>Contacto para asuntos de privacidad: <strong>contacto@maxinnova.mx</strong> · <strong>[TELÉFONO PENDIENTE]</strong>.</p>
 
    <h3>II. DATOS PERSONALES QUE PODRÁN SER RECABADOS</h3>
    <p>Según resulte necesario para cada solicitud u operación, podrán tratarse datos de identificación y contacto; datos fiscales; datos laborales y de actividad económica; datos patrimoniales y financieros; información relacionada con el financiamiento solicitado; y documentación proporcionada por el titular.</p>
@@ -1595,14 +1595,14 @@ window.addEventListener("hashchange",checkAdminHash);checkAdminHash();
    </ul>
 
    <h3>V. FINALIDADES SECUNDARIAS</h3>
-   <p>Cuando resulte aplicable, los datos de contacto podrán utilizarse para informar sobre productos o servicios de MAX INNOVA, realizar encuestas de satisfacción y calidad, comunicar nuevas soluciones o promociones y realizar actividades de mercadotecnia o prospección comercial. Estas finalidades no son indispensables para tramitar una solicitud. El titular podrá solicitar que sus datos no sean utilizados para estas finalidades mediante <strong>[CORREO DE PRIVACIDAD PENDIENTE]</strong>.</p>
+   <p>Cuando resulte aplicable, los datos de contacto podrán utilizarse para informar sobre productos o servicios de MAX INNOVA, realizar encuestas de satisfacción y calidad, comunicar nuevas soluciones o promociones y realizar actividades de mercadotecnia o prospección comercial. Estas finalidades no son indispensables para tramitar una solicitud. El titular podrá solicitar que sus datos no sean utilizados para estas finalidades mediante <strong>contacto@maxinnova.mx</strong>.</p>
 
    <h3>VI. TRANSFERENCIAS Y COMUNICACIÓN DE DATOS</h3>
    <p>Los datos podrán comunicarse o transferirse cuando resulte necesario para la operación o exista fundamento legal, según corresponda, a autoridades legalmente facultadas; instituciones o entidades que intervengan legítimamente en la operación; aseguradoras; agencias, distribuidores o proveedores relacionados con la adquisición del bien; fedatarios o prestadores profesionales necesarios para formalizar la operación; y proveedores tecnológicos, de almacenamiento o procesamiento que actúen por cuenta de MAX INNOVA.</p>
    <p>Cuando una transferencia requiera legalmente consentimiento del titular, éste será solicitado previamente mediante el mecanismo correspondiente.</p>
 
    <h3>VII. DERECHOS ARCO</h3>
-   <p>El titular podrá ejercer sus derechos de <strong>Acceso, Rectificación, Cancelación y Oposición (ARCO)</strong>. La solicitud deberá permitir identificar al titular, acreditar su identidad o representación cuando corresponda, indicar el derecho que desea ejercer y describir los datos relacionados con la solicitud. El medio de contacto será <strong>[CORREO DE PRIVACIDAD PENDIENTE]</strong>.</p>
+   <p>El titular podrá ejercer sus derechos de <strong>Acceso, Rectificación, Cancelación y Oposición (ARCO)</strong>. La solicitud deberá permitir identificar al titular, acreditar su identidad o representación cuando corresponda, indicar el derecho que desea ejercer y describir los datos relacionados con la solicitud. El medio de contacto será <strong>contacto@maxinnova.mx</strong>.</p>
 
    <h3>VIII. REVOCACIÓN DEL CONSENTIMIENTO</h3>
    <p>El titular podrá solicitar la revocación del consentimiento cuando legalmente proceda. La revocación no tendrá efectos retroactivos ni impedirá tratamientos que deban mantenerse para cumplir obligaciones legales, contractuales o para la defensa de derechos.</p>
