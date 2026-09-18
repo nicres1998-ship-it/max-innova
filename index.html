@@ -463,6 +463,22 @@ body{position:relative;overflow-x:hidden}
 .finance-manual{width:100%;margin:7px 0 17px;padding:12px 14px;border:1px solid rgba(5,69,120,.18);border-radius:12px;background:#f7fbff;color:#063a69;font-weight:800;font-size:15px;outline:none}
 .finance-manual:focus{border-color:#1479bd;box-shadow:0 0 0 3px rgba(20,121,189,.10)}
 
+
+/* ===== AVISO DE PRIVACIDAD MAX INNOVA ===== */
+.privacy-consent{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:14px 16px;border:1px solid #cfe0eb;border-radius:12px;background:#f5faff;font-size:12px;line-height:1.5;color:#35556a}
+.privacy-consent input{margin-top:3px;accent-color:#075f9b;flex:0 0 auto}
+.privacy-consent a{color:#075f9b;font-weight:900;text-decoration:underline;cursor:pointer}
+.privacy-overlay{position:fixed;inset:0;z-index:99999;background:rgba(0,24,45,.72);display:none;align-items:center;justify-content:center;padding:22px}
+.privacy-overlay.show{display:flex}
+.privacy-box{width:min(980px,96vw);max-height:90vh;background:#fff;border-radius:20px;box-shadow:0 30px 90px rgba(0,0,0,.35);overflow:hidden;display:flex;flex-direction:column}
+.privacy-head{padding:20px 24px;background:linear-gradient(135deg,#00355f,#0876ae);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.privacy-head h2{margin:0;font-size:23px}.privacy-head p{margin:3px 0 0;color:#d8edf7;font-size:11px}
+.privacy-close{border:0;background:rgba(255,255,255,.14);color:#fff;width:40px;height:40px;border-radius:50%;font-size:22px;cursor:pointer}
+.privacy-body{padding:24px 28px;overflow:auto;color:#294657;font-size:12px;line-height:1.65}
+.privacy-body h3{color:#003f70;font-size:15px;margin:22px 0 7px}.privacy-body h3:first-child{margin-top:0}
+.privacy-body ul{padding-left:20px}.privacy-pending{background:#fff8df;border:1px solid #ead58c;border-radius:10px;padding:12px 14px;color:#6b5719}
+.privacy-foot{padding:14px 24px;border-top:1px solid #dce8ef;background:#f7fbfd;display:flex;justify-content:flex-end}
+
 </style>
 </head>
 <body>
@@ -638,9 +654,9 @@ No sustituir el diseño base al hacer cambios posteriores.
 
     <p class="help">El RFC se recaba como parte de la evaluación. Cualquier consulta a una Sociedad de Información Crediticia estará sujeta a la autorización y procedimiento que correspondan. El registro de la solicitud no significa aprobación del financiamiento.</p>
 
-    <label style="display:flex;gap:9px;align-items:flex-start;font-size:10px;line-height:1.5;margin:15px 0">
+    <label style="display:flex;gap:9px;align-items:flex-start;font-size:10px;line-height:1.5;margin:15px 0" class="privacy-consent">
      <input type="checkbox" id="consentimiento" required>
-     Confirmo que los datos proporcionados son correctos y autorizo su uso para registrar y dar seguimiento a esta solicitud. Antes de utilizar este portal con datos reales deberá integrarse el aviso de privacidad definitivo.
+     <span>Confirmo que los datos proporcionados son correctos y que he leído y acepto el <a href="#" onclick="openPrivacy(event)">Aviso de Privacidad</a> aplicable al registro y seguimiento de esta solicitud.</span>
     </label>
     <button class="btn btn-blue" type="submit" id="submitBtn">REGISTRAR Y GENERAR FOLIO</button>
    </form>
@@ -744,7 +760,7 @@ No sustituir el diseño base al hacer cambios posteriores.
  <p class="subtitle">Los datos corporativos y documentos oficiales se incorporarán una vez validados.</p>
  <div class="info-grid">
   <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('INFORMACIÓN FISCAL','Información fiscal','Esta sección está preparada para publicar la razón social, RFC y datos fiscales oficiales de MAX INNOVA. Los datos se integrarán cuando sean confirmados.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Información fiscal</h3><p>Razón social, RFC y datos fiscales de la empresa.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
-  <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('PRIVACIDAD','Aviso de privacidad','El aviso de privacidad debe integrarse con la información legal correspondiente antes de utilizar el portal para recopilar documentación sensible de clientes.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Aviso de privacidad</h3><p>Información sobre tratamiento y protección de datos personales.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
+  <div class="info-card click-info" role="button" tabindex="0" onclick="openPrivacy(event)" onkeydown="if(event.key==='Enter')openPrivacy(event)"><h3>Aviso de privacidad</h3><p>Consulta el tratamiento, finalidades y mecanismos para ejercer tus derechos sobre datos personales.</p><span class="pending" style="background:#e8f6ef;color:#17643a">CONSULTAR AVISO</span></div>
   <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('INFORMACIÓN REGULATORIA','Información regulatoria','Esta sección se encuentra reservada para información regulatoria que haya sido previamente validada. No se publicarán afirmaciones regulatorias sin confirmación.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Información regulatoria</h3><p>Se publicará únicamente la información que corresponda legalmente a la operación de la empresa.</p><span class="pending">PENDIENTE DE VALIDAR</span></div>
   <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('DOMICILIO','Domicilio de atención','Aquí se mostrará el domicilio oficial para atención presencial cuando MAX INNOVA confirme los datos de la oficina o sucursal.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Domicilio</h3><p>Datos de oficina o sucursal para atención presencial.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
   <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('CONTACTO','Canales de contacto','Esta sección mostrará los teléfonos, correo y canales oficiales de MAX INNOVA cuando sean confirmados.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Contacto</h3><p>Teléfonos, correo y canales oficiales de atención.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
@@ -762,7 +778,7 @@ No sustituir el diseño base al hacer cambios posteriores.
  <div class="footer-grid">
   <div><img class="footer-logo" src="logo%20maxinnova.png" alt="MAX INNOVA"><p>Soluciones de financiamiento sujetas a evaluación, documentación, condiciones y viabilidad de cada solicitud.</p></div>
   <div><strong>NAVEGACIÓN</strong><a href="#inicio">Inicio</a><a href="#soluciones">Soluciones</a><a href="#sectores">Sectores</a><a href="#como-funciona">Cómo funciona</a><a href="#portal">Mi cuenta</a></div>
-  <div><strong>INFORMACIÓN</strong><a href="#informacion">Información fiscal</a><a href="#informacion">Aviso de privacidad</a><a href="#informacion">Información regulatoria</a><a href="#contacto">Contacto</a></div>
+  <div><strong>INFORMACIÓN</strong><a href="#informacion">Información fiscal</a><a href="#" onclick="openPrivacy(event)">Aviso de privacidad</a><a href="#informacion">Información regulatoria</a><a href="#contacto">Contacto</a></div>
  </div>
  <div class="footer-bottom">MAX INNOVA · Servicios Financieros · Información general sujeta a validación.</div>
 </div></footer>
@@ -1469,6 +1485,93 @@ window.addEventListener("hashchange",checkAdminHash);checkAdminHash();
  dots.addEventListener("click",e=>{const b=e.target.closest("[data-i]");if(b)show(+b.dataset.i)});
  setInterval(()=>show((i+1)%messages.length),6200);
 })();
+</script>
+
+
+<!-- AVISO DE PRIVACIDAD INTEGRAL -->
+<div class="privacy-overlay" id="privacyOverlay" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+ <div class="privacy-box">
+  <div class="privacy-head">
+   <div><h2 id="privacyTitle">Aviso de Privacidad Integral</h2><p>MAX INNOVA Servicios Financieros · Versión preliminar, septiembre de 2026</p></div>
+   <button class="privacy-close" type="button" onclick="closePrivacy()" aria-label="Cerrar">×</button>
+  </div>
+  <div class="privacy-body">
+   <div class="privacy-pending"><strong>Información corporativa pendiente de completar:</strong> razón social, domicilio del responsable, correo específico para privacidad/derechos ARCO y teléfono oficial. Estos campos serán incorporados cuando la información definitiva se encuentre disponible.</div>
+
+   <h3>I. IDENTIDAD Y DOMICILIO DEL RESPONSABLE</h3>
+   <p><strong>[RAZÓN SOCIAL COMPLETA PENDIENTE]</strong>, que opera comercialmente bajo el nombre de <strong>MAX INNOVA Servicios Financieros</strong>, con domicilio en <strong>[DOMICILIO COMPLETO PENDIENTE]</strong>, será responsable del tratamiento, uso, almacenamiento y protección de los datos personales recabados de clientes, solicitantes, prospectos y usuarios.</p>
+   <p>Contacto para asuntos de privacidad: <strong>[CORREO DE PRIVACIDAD PENDIENTE]</strong> · <strong>[TELÉFONO PENDIENTE]</strong>.</p>
+
+   <h3>II. DATOS PERSONALES QUE PODRÁN SER RECABADOS</h3>
+   <p>Según resulte necesario para cada solicitud u operación, podrán tratarse datos de identificación y contacto; datos fiscales; datos laborales y de actividad económica; datos patrimoniales y financieros; información relacionada con el financiamiento solicitado; y documentación proporcionada por el titular.</p>
+   <p>Esto puede incluir nombre, firma, fecha de nacimiento, CURP, RFC, identificación oficial, domicilio, teléfono, correo electrónico, constancia de situación fiscal, ocupación, actividad económica, fuente de ingresos, comprobantes de ingresos, información patrimonial o bancaria proporcionada para la operación, monto solicitado, aportación, plazo, destino de recursos y características del bien, negocio o proyecto.</p>
+   <p>En operaciones vehiculares podrán tratarse datos de la unidad, como marca, modelo, versión, año, condición, precio y agencia, distribuidor o proveedor.</p>
+
+   <h3>III. DATOS PERSONALES SENSIBLES</h3>
+   <p>MAX INNOVA procurará no solicitar datos personales sensibles cuando no sean necesarios. Si algún documento entregado por el titular contiene información considerada sensible, ésta será tratada únicamente cuando resulte necesaria y conforme a la legislación aplicable. Cuando corresponda obtener consentimiento expreso, éste será solicitado por el medio adecuado.</p>
+
+   <h3>IV. FINALIDADES PRIMARIAS</h3>
+   <ul>
+    <li>Identificar y contactar al solicitante.</li>
+    <li>Registrar, administrar e identificar solicitudes mediante un folio.</li>
+    <li>Integrar, organizar y conservar el expediente.</li>
+    <li>Analizar la información proporcionada y la viabilidad de continuar con el proceso.</li>
+    <li>Evaluar información económica, financiera, patrimonial y documental relacionada con la solicitud.</li>
+    <li>Solicitar, recibir, revisar, validar y administrar documentación.</li>
+    <li>Elaborar simulaciones, precotizaciones y escenarios informativos.</li>
+    <li>Dar seguimiento al estado de la solicitud e informar requerimientos, avances, citas e instrucciones.</li>
+    <li>Formalizar, administrar y dar seguimiento a operaciones que, en su caso, sean contratadas.</li>
+    <li>Gestionar, cuando corresponda, etapas internas relacionadas con asignación de capital, bancarización interna, adquisición de bienes, facturación, seguros, logística y entrega.</li>
+    <li>Gestionar pagos, aportaciones, saldos, comprobantes y movimientos relacionados con la operación.</li>
+    <li>Atender aclaraciones, consultas, inconformidades y solicitudes de servicio.</li>
+    <li>Cumplir obligaciones contractuales, fiscales, administrativas, contables y legales aplicables.</li>
+    <li>Prevenir y detectar inconsistencias, suplantación de identidad, operaciones irregulares o usos indebidos.</li>
+    <li>Conservar evidencia documental y electrónica relacionada con la solicitud o relación contractual.</li>
+   </ul>
+
+   <h3>V. FINALIDADES SECUNDARIAS</h3>
+   <p>Cuando resulte aplicable, los datos de contacto podrán utilizarse para informar sobre productos o servicios de MAX INNOVA, realizar encuestas de satisfacción y calidad, comunicar nuevas soluciones o promociones y realizar actividades de mercadotecnia o prospección comercial. Estas finalidades no son indispensables para tramitar una solicitud. El titular podrá solicitar que sus datos no sean utilizados para estas finalidades mediante <strong>[CORREO DE PRIVACIDAD PENDIENTE]</strong>.</p>
+
+   <h3>VI. TRANSFERENCIAS Y COMUNICACIÓN DE DATOS</h3>
+   <p>Los datos podrán comunicarse o transferirse cuando resulte necesario para la operación o exista fundamento legal, según corresponda, a autoridades legalmente facultadas; instituciones o entidades que intervengan legítimamente en la operación; aseguradoras; agencias, distribuidores o proveedores relacionados con la adquisición del bien; fedatarios o prestadores profesionales necesarios para formalizar la operación; y proveedores tecnológicos, de almacenamiento o procesamiento que actúen por cuenta de MAX INNOVA.</p>
+   <p>Cuando una transferencia requiera legalmente consentimiento del titular, éste será solicitado previamente mediante el mecanismo correspondiente.</p>
+
+   <h3>VII. DERECHOS ARCO</h3>
+   <p>El titular podrá ejercer sus derechos de <strong>Acceso, Rectificación, Cancelación y Oposición (ARCO)</strong>. La solicitud deberá permitir identificar al titular, acreditar su identidad o representación cuando corresponda, indicar el derecho que desea ejercer y describir los datos relacionados con la solicitud. El medio de contacto será <strong>[CORREO DE PRIVACIDAD PENDIENTE]</strong>.</p>
+
+   <h3>VIII. REVOCACIÓN DEL CONSENTIMIENTO</h3>
+   <p>El titular podrá solicitar la revocación del consentimiento cuando legalmente proceda. La revocación no tendrá efectos retroactivos ni impedirá tratamientos que deban mantenerse para cumplir obligaciones legales, contractuales o para la defensa de derechos.</p>
+
+   <h3>IX. LIMITACIÓN DEL USO O DIVULGACIÓN</h3>
+   <p>El titular podrá solicitar la limitación del uso o divulgación de sus datos, particularmente respecto de comunicaciones promocionales, mediante el medio de contacto de privacidad que se publique en este aviso.</p>
+
+   <h3>X. SEGURIDAD Y CONSERVACIÓN</h3>
+   <p>MAX INNOVA implementará medidas administrativas, técnicas y físicas razonables y apropiadas para proteger los datos personales contra daño, pérdida, alteración, destrucción, acceso, tratamiento o uso no autorizado. Los documentos cargados mediante la plataforma serán destinados a la integración y administración del expediente correspondiente y su acceso estará sujeto a permisos.</p>
+   <p>Los datos serán conservados durante el tiempo necesario para cumplir las finalidades de su tratamiento y, posteriormente, durante los periodos que correspondan por obligaciones legales, fiscales, contractuales, administrativas o de defensa de derechos.</p>
+
+   <h3>XI. COOKIES Y TECNOLOGÍAS</h3>
+   <p>El sitio y los servicios tecnológicos utilizados por MAX INNOVA podrán generar o recibir información técnica necesaria para su funcionamiento y seguridad. Cuando se utilicen cookies, identificadores, herramientas analíticas u otras tecnologías que permitan obtener datos personales automáticamente, se informará al usuario y, cuando corresponda, se habilitarán mecanismos para administrarlas.</p>
+
+   <h3>XII. INFORMACIÓN DE TERCEROS</h3>
+   <p>Quien proporcione datos personales de un tercero declara contar con autorización o fundamento legítimo para hacerlo y deberá comunicarle la existencia del presente aviso cuando resulte aplicable.</p>
+
+   <h3>XIII. MENORES DE EDAD</h3>
+   <p>Los servicios de financiamiento están dirigidos a personas con capacidad legal para contratar. MAX INNOVA no busca recabar intencionalmente datos personales de menores de edad mediante los formularios destinados a solicitudes de financiamiento.</p>
+
+   <h3>XIV. CAMBIOS AL AVISO</h3>
+   <p>El presente aviso podrá modificarse por cambios legales, regulatorios, administrativos, tecnológicos, operativos o relacionados con los servicios. Las modificaciones estarán disponibles en este sitio y se indicará la fecha de actualización.</p>
+
+   <h3>XV. CONSENTIMIENTO</h3>
+   <p>Al proporcionar datos personales mediante los formularios, documentación física o canales habilitados, el titular reconoce haber tenido a su disposición este Aviso de Privacidad. Cuando la legislación exija consentimiento expreso o expreso y por escrito para un tratamiento determinado, éste será recabado mediante el mecanismo correspondiente y no se presumirá únicamente por el uso del sitio.</p>
+  </div>
+  <div class="privacy-foot"><button class="btn btn-blue" type="button" onclick="closePrivacy()">CERRAR AVISO</button></div>
+ </div>
+</div>
+<script>
+function openPrivacy(e){if(e)e.preventDefault();const p=document.getElementById("privacyOverlay");if(p){p.classList.add("show");document.body.style.overflow="hidden"}}
+function closePrivacy(){const p=document.getElementById("privacyOverlay");if(p){p.classList.remove("show");document.body.style.overflow=""}}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closePrivacy()});
+document.getElementById("privacyOverlay")?.addEventListener("click",e=>{if(e.target.id==="privacyOverlay")closePrivacy()});
 </script>
 
 </body>
