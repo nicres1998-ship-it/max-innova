@@ -788,77 +788,145 @@ No sustituir el diseño base al hacer cambios posteriores.
  </div>
 </div></section>
 
+
+<style>
+.mi-network-map{height:430px;border-radius:24px;overflow:hidden;border:1px solid #d7e7f0;box-shadow:0 18px 46px rgba(0,45,80,.13);background:#eef6fa}
+.mi-branches{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:22px}
+.mi-branch{position:relative;border:1px solid #d9e8f0;border-radius:19px;background:#fff;padding:18px;box-shadow:0 10px 28px rgba(0,48,82,.07);cursor:pointer;transition:.25s ease;min-height:155px}
+.mi-branch:hover{transform:translateY(-4px);box-shadow:0 17px 36px rgba(0,48,82,.13)}
+.mi-branch h3{margin:0 0 6px;font-size:18px}.mi-role{font-weight:800;color:#075985;font-size:12px;letter-spacing:.02em}
+.mi-branch-summary{margin-top:12px;font-size:12px;color:#64748b;line-height:1.55}
+.mi-branch-detail{display:none;margin-top:15px;padding-top:14px;border-top:1px solid #e3edf3;font-size:13px;line-height:1.65;color:#475569}
+.mi-branch.open .mi-branch-detail{display:block}.mi-more{display:inline-block;margin-top:10px;font-size:11px;font-weight:800;color:#075985}
+.mi-here{display:inline-block;margin-top:10px;padding:5px 9px;border-radius:999px;background:#e9f7ff;color:#075985;font-size:10px;font-weight:900;letter-spacing:.05em}
+.mi-local-data{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.mi-local-data div{background:#f5f9fc;border-radius:10px;padding:9px}.mi-local-data strong{display:block;color:#063c63;font-size:14px}.mi-local-data span{font-size:10px;color:#718096}
+.mi-salary-box{margin-top:28px;border-radius:22px;padding:26px;background:linear-gradient(135deg,#062f54,#0a6496);color:#fff;box-shadow:0 16px 42px rgba(0,45,80,.16)}
+.mi-salary-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+.mi-salary-box input{width:100%;padding:13px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.35);font-size:16px;margin-top:8px}
+.mi-salary-result{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.22);border-radius:16px;padding:18px;min-height:100px}
+.mi-salary-result strong{font-size:23px}.mi-salary-note{font-size:11px;opacity:.82;line-height:1.55;margin-top:9px}
+.mi-alert{margin-top:24px;overflow:hidden;border-radius:14px;background:linear-gradient(90deg,#f3c52e,#ffd95a,#f3c52e);border:1px solid #d4a600;color:#382b00;box-shadow:0 10px 28px rgba(112,78,0,.16);position:relative}
+.mi-alert:before{content:"PRECAUCIÓN";position:absolute;z-index:2;left:0;top:0;bottom:0;display:flex;align-items:center;padding:0 18px;background:#9e1b1b;color:#fff;font-size:11px;font-weight:900;letter-spacing:.12em;box-shadow:8px 0 18px rgba(0,0,0,.12)}
+.mi-alert-track{display:flex;width:max-content;animation:miTicker 27s linear infinite;padding-left:115px}
+.mi-alert-item{padding:13px 40px;font-size:12px;font-weight:850;letter-spacing:.025em;white-space:nowrap}
+@keyframes miTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mi-alert:hover .mi-alert-track{animation-play-state:paused}
+@media(max-width:1000px){.mi-branches{grid-template-columns:repeat(2,1fr)}.mi-salary-grid{grid-template-columns:1fr}}
+@media(max-width:620px){.mi-branches{grid-template-columns:1fr}.mi-network-map{height:360px}.mi-alert:before{position:relative;padding:10px 15px}.mi-alert-track{padding-left:0}}
+</style>
+
 <section class="section" id="ubicacion">
  <div class="container">
   <div class="center">
    <div class="kicker">PRESENCIA NACIONAL</div>
    <h2 class="title">Red nacional de <span>atención y operación</span></h2>
-   <p class="subtitle">Atención cercana al cliente con coordinación centralizada de los procesos administrativos, financieros y logísticos.</p>
+   <p class="subtitle">Ubica nuestros puntos de atención y consulta información económica general de cada entidad.</p>
   </div>
 
-  <div style="margin-top:30px;border-radius:22px;overflow:hidden;border:1px solid #d8eaf3;box-shadow:0 15px 40px rgba(0,52,95,.10);background:#fff">
-   <iframe title="Presencia nacional MAX INNOVA"
-    src="https://www.google.com/maps?q=Mexico&output=embed"
-    width="100%" height="390" style="border:0;display:block"
-    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </div>
+  <div id="miNetworkMap" class="mi-network-map" style="margin-top:28px"></div>
 
-  <div style="margin-top:24px;padding:26px;border-radius:22px;background:linear-gradient(135deg,#062d52,#0b5f91);color:white;box-shadow:0 16px 40px rgba(0,45,80,.16)">
-   <div style="font-size:12px;letter-spacing:.14em;font-weight:800;opacity:.8">MODELO DE ATENCIÓN</div>
-   <h3 style="margin:8px 0 10px;font-size:24px;color:white">Una sola operación, diferentes puntos de atención.</h3>
-   <p style="margin:0;line-height:1.75;opacity:.94">El cliente puede iniciar, gestionar y dar seguimiento a su solicitud desde el punto de atención correspondiente, mientras que los procesos administrativos, financieros y logísticos se coordinan de manera centralizada desde Ciudad de México.</p>
-  </div>
-
-  <div class="info-grid" style="margin-top:22px">
-   <div class="info-card">
-    <h3>Aguascalientes, Ags.</h3>
-    <p><strong>Atención, Ventas y Seguimiento</strong><br><br>Atención directa al cliente, orientación sobre opciones de financiamiento, integración y recepción de documentación, gestión de solicitudes, contratación y seguimiento durante las diferentes etapas del proceso.</p>
-    <span class="pending">ATENCIÓN PRESENCIAL CON CITA PREVIA</span>
+  <div class="mi-branches">
+   <div class="mi-branch" onclick="this.classList.toggle('open')">
+    <h3>Aguascalientes, Ags.</h3><div class="mi-role">ATENCIÓN · VENTAS · SEGUIMIENTO</div>
+    <div class="mi-here">📍 SU SUCURSAL ES AQUÍ</div>
+    <div class="mi-local-data"><div><strong>$6.73 mil</strong><span>salario promedio mensual, 2026-T1</span></div><div><strong>696 mil</strong><span>personas ocupadas, 2026-T1</span></div></div>
+    <span class="mi-more">VER INFORMACIÓN +</span>
+    <div class="mi-branch-detail">Atención directa, integración documental, contratación y seguimiento. Aguascalientes mantiene una importante actividad industrial y de servicios. Los datos mostrados son contexto económico estatal, no estadísticas de clientes MAX INNOVA.<br><small>Fuente: Data México / ENOE-INEGI, 2026-T1.</small></div>
    </div>
 
-   <div class="info-card">
-    <h3>Puebla, Pue.</h3>
-    <p><strong>Atención, Ventas y Seguimiento</strong><br><br>Atención directa al cliente, orientación sobre opciones de financiamiento, integración y recepción de documentación, gestión de solicitudes, contratación y seguimiento durante las diferentes etapas del proceso.</p>
-    <span class="pending">ATENCIÓN PRESENCIAL CON CITA PREVIA</span>
+   <div class="mi-branch" onclick="this.classList.toggle('open')">
+    <h3>Puebla, Pue.</h3><div class="mi-role">ATENCIÓN · VENTAS · SEGUIMIENTO</div>
+    <div class="mi-branch-summary">Punto de atención · Cita previa</div>
+    <div class="mi-local-data"><div><strong>$5.12 mil</strong><span>salario promedio mensual, 2026-T1</span></div><div><strong>3.07 M</strong><span>personas ocupadas, 2026-T1</span></div></div>
+    <span class="mi-more">VER INFORMACIÓN +</span>
+    <div class="mi-branch-detail">Entre las ocupaciones con mayor número de trabajadores se encuentran actividades agrícolas, ventas y comercio. Esto puede ayudar a contextualizar soluciones para movilidad, actividad comercial, negocio/PyME y necesidades personales, siempre sujetas a evaluación individual.<br><small>Fuente: Data México / ENOE-INEGI, 2026-T1.</small></div>
    </div>
 
-   <div class="info-card">
-    <h3>Ciudad de México</h3>
-    <p><strong>Centro de Administración, Crédito y Logística</strong><br><br>Concentra los procesos internos de análisis y administración de crédito, bancarización, asignación de capital, coordinación de compras, facturación, seguros, logística y programación de entregas hacia los distintos puntos de atención.</p>
-    <span class="pending">OPERACIÓN CENTRAL</span>
+   <div class="mi-branch" onclick="this.classList.toggle('open')">
+    <h3>Ciudad de México</h3><div class="mi-role">ADMINISTRACIÓN · CRÉDITO · LOGÍSTICA</div>
+    <div class="mi-branch-summary">Centro de operación</div>
+    <div class="mi-local-data"><div><strong>$7.49 mil</strong><span>salario promedio mensual, 2026-T1</span></div><div><strong>4.90 M</strong><span>personas ocupadas, 2026-T1</span></div></div>
+    <span class="mi-more">VER INFORMACIÓN +</span>
+    <div class="mi-branch-detail">Aquí se coordinan procesos internos de crédito, bancarización, asignación de capital, compras, facturación, seguros, logística y entregas. En la entidad destacan ventas, comercio y actividades administrativas entre las ocupaciones con mayor número de trabajadores.<br><small>Fuente: Data México / ENOE-INEGI, 2026-T1.</small></div>
    </div>
 
-   <div class="info-card">
-    <h3>Quintana Roo</h3>
-    <p><strong>Atención, Ventas y Seguimiento</strong><br><br>Atención directa al cliente, orientación sobre opciones de financiamiento, integración y recepción de documentación, gestión de solicitudes, contratación y seguimiento durante las diferentes etapas del proceso.</p>
-    <span class="pending">ATENCIÓN PRESENCIAL CON CITA PREVIA</span>
+   <div class="mi-branch" onclick="this.classList.toggle('open')">
+    <h3>Quintana Roo</h3><div class="mi-role">ATENCIÓN · VENTAS · SEGUIMIENTO</div>
+    <div class="mi-branch-summary">Punto de atención · Cita previa</div>
+    <div class="mi-local-data"><div><strong>$9.21 mil</strong><span>salario promedio mensual, 2026-T1</span></div><div><strong>1.01 M</strong><span>personas ocupadas, 2026-T1</span></div></div>
+    <span class="mi-more">VER INFORMACIÓN +</span>
+    <div class="mi-branch-detail">Entre las ocupaciones con mayor presencia se encuentran ventas, transporte de pasajeros y servicios de alimentos. Esto permite mostrar opciones relacionadas con movilidad, actividad comercial, negocio/PyME y necesidades personales sin asumir que una opción es adecuada para todos.<br><small>Fuente: Data México / ENOE-INEGI, 2026-T1.</small></div>
    </div>
 
-   <div class="info-card">
-    <h3>Monterrey, N.L.</h3>
-    <p><strong>Atención, Ventas y Seguimiento</strong><br><br>Atención directa al cliente, orientación sobre opciones de financiamiento, integración y recepción de documentación, gestión de solicitudes, contratación y seguimiento durante las diferentes etapas del proceso.</p>
-    <span class="pending">ATENCIÓN PRESENCIAL CON CITA PREVIA</span>
-   </div>
-  </div>
-
-  <div style="margin-top:22px;padding:22px 24px;border-radius:18px;background:#f4f9fc;border:1px solid #dcebf3">
-   <h3 style="margin-top:0">Horarios y citas</h3>
-   <p style="line-height:1.75"><strong>Lunes a viernes:</strong> 10:00 a.m. a 5:30 p.m.<br><strong>Sábados:</strong> únicamente con cita previa.<br><strong>Domingos:</strong> sin servicio.</p>
-   <p style="line-height:1.75">Toda cita presencial debe contar previamente con seguimiento o información sobre el servicio de interés. Para solicitar una cita directamente, comuníquese a través de nuestros canales oficiales.</p>
-   <p style="margin-bottom:0"><strong>Correo:</strong> <a href="mailto:contacto@maxinnova.mx">contacto@maxinnova.mx</a><br><strong>Ubicación exacta:</strong> disponible al confirmar la cita.</p>
-  </div>
-
-  <p style="margin:18px auto 0;max-width:980px;font-size:12px;line-height:1.65;color:#607485;text-align:center">Los puntos de atención pueden operar a través de la estructura corporativa o sociedades vinculadas y, por ello, utilizar una denominación comercial distinta. La ubicación exacta y disponibilidad para atención presencial se proporcionan al confirmar una cita.</p>
-
-  <div style="margin:22px auto 0;max-width:1050px;padding:18px 22px;border-radius:16px;background:linear-gradient(135deg,#062d52,#0b5f91);color:#fff;box-shadow:0 12px 30px rgba(0,45,80,.14);display:flex;gap:16px;align-items:flex-start">
-   <div aria-hidden="true" style="font-size:24px;line-height:1">🛡️</div>
-   <div>
-    <div style="font-size:12px;letter-spacing:.12em;font-weight:800;opacity:.82;margin-bottom:5px">SEGURIDAD EN NUESTROS PUNTOS DE ATENCIÓN</div>
-    <p style="margin:0;line-height:1.65;font-size:14px;opacity:.96">Por seguridad, nuestros puntos de atención no funcionan como centros de concentración o resguardo de recursos financieros. Las instalaciones cuentan con <strong>monitoreo y videovigilancia permanente las 24 horas, los 365 días del año</strong>, como medida preventiva para la protección de clientes, colaboradores e instalaciones.</p>
+   <div class="mi-branch" onclick="this.classList.toggle('open')">
+    <h3>Monterrey, N.L.</h3><div class="mi-role">ATENCIÓN · VENTAS · SEGUIMIENTO</div>
+    <div class="mi-branch-summary">Punto de atención · Cita previa</div>
+    <div class="mi-local-data"><div><strong>$9.25 mil</strong><span>salario promedio mensual, 2026-T1</span></div><div><strong>2.92 M</strong><span>personas ocupadas, 2026-T1</span></div></div>
+    <span class="mi-more">VER INFORMACIÓN +</span>
+    <div class="mi-branch-detail">Comercio, ventas y conducción de vehículos de carga se encuentran entre las ocupaciones con mayor número de trabajadores. El perfil económico puede relacionarse con soluciones de movilidad, negocio/PyME y financiamiento empresarial, sujeto a evaluación de cada solicitante.<br><small>Fuente: Data México / ENOE-INEGI, 2026-T1.</small></div>
    </div>
   </div>
+
+  <div class="mi-salary-box">
+   <div class="mi-salary-grid">
+    <div>
+     <div style="font-size:11px;font-weight:900;letter-spacing:.13em;opacity:.78">ORIENTADOR DE CAPACIDAD DE PAGO</div>
+     <h3 style="font-size:24px;margin:7px 0 7px;color:#fff">¿Qué mensualidad podría ajustarse mejor a tus ingresos?</h3>
+     <p style="margin:0;opacity:.9;line-height:1.65">Ingresa tu ingreso mensual. Esta herramienta no aprueba un crédito ni determina una tasa; únicamente genera una referencia para ayudarte a entrar al simulador con una mensualidad prudente.</p>
+     <input id="miIncome" type="number" min="0" step="500" placeholder="Ej. 20000" oninput="miIncomeGuide()">
+    </div>
+    <div id="miIncomeResult" class="mi-salary-result">
+     <div style="font-size:12px;opacity:.82">REFERENCIA MENSUAL</div>
+     <strong>Ingresa tus ingresos</strong>
+     <div class="mi-salary-note">El cálculo usa como referencia ilustrativa hasta 25% del ingreso mensual. No considera otras deudas, gastos, historial, enganche ni capacidad crediticia real.</div>
+    </div>
+   </div>
+  </div>
+
+  <div class="mi-alert" aria-label="Aviso de precaución y seguridad">
+   <div class="mi-alert-track">
+    <div class="mi-alert-item">⚠ SEGURIDAD EN PUNTOS DE ATENCIÓN · NO FUNCIONAN COMO CENTROS DE CONCENTRACIÓN O RESGUARDO DE RECURSOS FINANCIEROS · MONITOREO Y VIDEOVIGILANCIA PERMANENTE 24 HORAS · 365 DÍAS DEL AÑO</div>
+    <div class="mi-alert-item">⚠ SEGURIDAD EN PUNTOS DE ATENCIÓN · NO FUNCIONAN COMO CENTROS DE CONCENTRACIÓN O RESGUARDO DE RECURSOS FINANCIEROS · MONITOREO Y VIDEOVIGILANCIA PERMANENTE 24 HORAS · 365 DÍAS DEL AÑO</div>
+   </div>
+  </div>
+
+  <div style="margin-top:22px;padding:20px 22px;border-radius:18px;background:#f4f9fc;border:1px solid #dcebf3">
+   <p style="margin:0;line-height:1.7"><strong>Horario:</strong> lunes a viernes de 10:00 a.m. a 5:30 p.m. · <strong>Sábados:</strong> únicamente con cita previa · <strong>Domingos:</strong> sin servicio.</p>
+   <p style="margin:8px 0 0;line-height:1.7">Toda atención presencial requiere seguimiento o información previa para agendar. La ubicación exacta se proporciona al confirmar la cita. <strong>contacto@maxinnova.mx</strong></p>
+  </div>
+
+  <p style="margin:16px auto 0;max-width:980px;font-size:11px;line-height:1.6;color:#6b7d8a;text-align:center">Los puntos de atención pueden operar a través de la estructura corporativa o sociedades vinculadas y, por ello, utilizar una denominación comercial distinta. Los indicadores económicos son información general de la entidad y no representan estadísticas de solicitudes, aprobaciones o clientes de MAX INNOVA.</p>
  </div>
 </section>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function(){
+ function initNetworkMap(){
+  var el=document.getElementById('miNetworkMap');
+  if(!el || !window.L || el.dataset.ready) return;
+  el.dataset.ready='1';
+  var map=L.map('miNetworkMap',{scrollWheelZoom:false}).setView([23.8,-102.2],5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap'}).addTo(map);
+  [
+   [21.8853,-102.2916,'Aguascalientes, Ags.','SU SUCURSAL ES AQUÍ'],
+   [19.0414,-98.2063,'Puebla, Pue.','Atención, Ventas y Seguimiento'],
+   [19.4326,-99.1332,'Ciudad de México','Administración, Crédito y Logística'],
+   [21.1619,-86.8515,'Quintana Roo','Atención, Ventas y Seguimiento'],
+   [25.6866,-100.3161,'Monterrey, N.L.','Atención, Ventas y Seguimiento']
+  ].forEach(function(p){L.marker([p[0],p[1]]).addTo(map).bindPopup('<strong>'+p[2]+'</strong><br>'+p[3]);});
+ }
+ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initNetworkMap); else initNetworkMap();
+})();
+function miIncomeGuide(){
+ var v=Number(document.getElementById('miIncome').value||0), box=document.getElementById('miIncomeResult');
+ if(!v){box.innerHTML='<div style="font-size:12px;opacity:.82">REFERENCIA MENSUAL</div><strong>Ingresa tus ingresos</strong><div class="mi-salary-note">El cálculo usa como referencia ilustrativa hasta 25% del ingreso mensual. No considera otras deudas, gastos, historial, enganche ni capacidad crediticia real.</div>';return;}
+ var ref=v*.25;
+ box.innerHTML='<div style="font-size:12px;opacity:.82">REFERENCIA ORIENTATIVA</div><strong>Hasta $'+ref.toLocaleString("es-MX",{maximumFractionDigits:0})+' / mes</strong><div class="mi-salary-note">Referencia ilustrativa equivalente al 25% de tus ingresos declarados. No constituye aprobación, recomendación financiera personalizada ni oferta de crédito. Usa el simulador para comparar monto, aportación, plazo y tasa.</div><a href="#simulador" style="display:inline-block;margin-top:12px;padding:9px 13px;border-radius:10px;background:#fff;color:#075985;font-weight:800;text-decoration:none;font-size:12px">IR AL SIMULADOR</a>';
+}
+</script>
 
 <section class="section" id="contacto"><div class="container contact-grid">
  <div class="phone-image"><img src="telefono.png" alt="Contacto MAX INNOVA"></div>
