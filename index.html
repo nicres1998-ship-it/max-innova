@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>MAX INNOVA | Servicios Financieros</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 <style>
 :root{
   --navy:#00345f;--dark:#001f38;--blue:#006da6;--cyan:#16bce8;
@@ -367,6 +368,20 @@ body{position:relative;overflow-x:hidden}
 @media(max-width:820px){.finance-grid{grid-template-columns:1fr;gap:28px}.visual-finance{padding:66px 0}.finance-card{padding:24px}.section-watermark{font-size:90px;letter-spacing:-5px}}
 @media(prefers-reduced-motion:reduce){.ambient-orb,.hero-left:after,.modal-hero img{animation:none!important}}
 
+
+/* ===== COTIZADOR + VEHICULO ===== */
+.quote-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.quote-box{padding:17px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:rgba(255,255,255,.08)}
+.quote-box small{display:block;font-size:9px;letter-spacing:1px;opacity:.75;margin-bottom:7px}.quote-box strong{font-size:21px}
+.quote-main{grid-column:1/-1;background:linear-gradient(120deg,rgba(22,188,232,.2),rgba(255,255,255,.08))}
+.quote-main strong{font-size:34px}.finance-card .field label{color:#d9eef8}.finance-card .field input,.finance-card .field select{background:rgba(255,255,255,.96)}
+.finance-card .btn-light{background:#fff;color:#00345f}.quote-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.vehicle-panel{display:none;grid-column:1/-1;padding:20px;border:1px solid #cce6f1;border-radius:14px;background:linear-gradient(145deg,#f8fdff,#edf8fc)}
+.vehicle-panel.show{display:block}.vehicle-panel h4{margin-bottom:6px}.vehicle-mini{font-size:10px;color:#668092;line-height:1.55;margin-bottom:15px}
+.vehicle-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.internal-access{display:none!important}
+@media(max-width:650px){.quote-grid{grid-template-columns:1fr}.quote-main{grid-column:auto}.quote-main strong{font-size:28px}}
+
 </style>
 </head>
 <body>
@@ -490,6 +505,20 @@ No sustituir el diseño base al hacer cambios posteriores.
      </div>
      <div class="field full"><label>CIUDAD / ESTADO</label><input id="ciudad"></div>
      <div class="field full"><label>¿QUÉ DESEAS FINANCIAR?</label><textarea id="proyecto" placeholder="Describe brevemente tu proyecto o necesidad."></textarea></div>
+     <div class="vehicle-panel" id="vehiclePanel">
+      <h4>Datos del vehículo</h4><p class="vehicle-mini">Si ya sabes qué unidad deseas, registra los datos. Si todavía no la eliges, puedes continuar sin llenarlos.</p>
+      <div class="form-grid">
+       <div class="field"><label>MARCA</label><input id="vehMarca" placeholder="Ej. Toyota"></div>
+       <div class="field"><label>MODELO</label><input id="vehModelo" placeholder="Ej. Corolla"></div>
+       <div class="field"><label>AÑO</label><input id="vehAnio" type="number" min="1990" max="2035" placeholder="2026"></div>
+       <div class="field"><label>VERSIÓN</label><input id="vehVersion" placeholder="Ej. XLE CVT"></div>
+       <div class="field"><label>CONDICIÓN</label><select id="vehCondicion"><option value="">Selecciona</option><option>Nuevo</option><option>Seminuevo</option></select></div>
+       <div class="field"><label>PRECIO DE LA UNIDAD</label><input id="vehPrecio" type="number" min="0" step="1000" placeholder="Precio aproximado"></div>
+       <div class="field full"><label>AGENCIA / PROVEEDOR</label><input id="vehProveedor" placeholder="Si ya lo tienes ubicado"></div>
+      </div>
+      <div class="vehicle-actions"><button type="button" class="btn btn-soft" id="vehicleSheetBtn">DESCARGAR FICHA DEL VEHÍCULO</button></div>
+      <p class="vehicle-mini">La ficha descargable identifica la unidad seleccionada. Las especificaciones técnicas de motor, potencia, transmisión y equipamiento se incorporarán cuando se conecte una fuente automotriz verificable para México.</p>
+     </div>
     </div>
 
     <p class="help"><strong>¿Cómo deseas presentar tu documentación?</strong></p>
@@ -499,7 +528,7 @@ No sustituir el diseño base al hacer cambios posteriores.
     </div>
 
     <div class="upload-box" id="uploadBox">
-     <div class="field"><label>DOCUMENTOS PARA REVISIÓN</label><input id="documentos" type="file" multiple accept=".pdf,.jpg,.jpeg,.png"></div>
+     <div class="field"><label>DOCUMENTOS PARA REVISIÓN</label><input id="documentos" name="Documentos_adjuntos[]" type="file" multiple accept=".pdf,.jpg,.jpeg,.png"></div>
      <p class="help">Selecciona únicamente los documentos necesarios. Los archivos seleccionados se almacenan en el espacio documental privado asociado a tu folio para revisión administrativa.</p>
     </div>
 
@@ -554,15 +583,17 @@ No sustituir el diseño base al hacer cambios posteriores.
 <section class="visual-finance section" id="simulador">
   <div class="container finance-grid">
     <div class="finance-copy">
-      <div class="kicker">EXPLORA TU PROYECTO</div>
-      <h2>Visualiza el financiamiento que estás buscando.</h2>
+      <div class="kicker">PRECOTIZADOR MAX INNOVA</div>
+      <h2>Construye un escenario para tu proyecto.</h2>
       <div class="editorial-line"></div>
-      <p>Define de manera orientativa el monto, plazo y tipo de proyecto que tienes en mente. Esta herramienta sirve para preparar mejor tu solicitud; no representa una cotización, tasa, mensualidad ni aprobación de crédito.</p>
+      <p>Selecciona monto, aportación y plazo. El sistema calcula una mensualidad estimada con una tasa anual orientativa dentro del rango de 8% a 13%. El resultado es informativo y queda sujeto a evaluación.</p>
     </div>
     <div class="finance-card">
-      <div class="finance-label"><span>Monto aproximado</span><strong class="finance-value" id="financeAmountLabel">$250,000</strong></div>
+      <div class="finance-label"><span>Valor del proyecto</span><strong class="finance-value" id="financeAmountLabel">$250,000</strong></div>
       <input class="finance-range" id="financeAmount" type="range" min="20000" max="2000000" step="10000" value="250000">
-      <div class="finance-label"><span>Plazo que te interesa explorar</span><strong class="finance-value" id="financeTermLabel">24 meses</strong></div>
+      <div class="finance-label"><span>Aportación inicial</span><strong class="finance-value" id="financeDownLabel">12%</strong></div>
+      <input class="finance-range" id="financeDown" type="range" min="12" max="60" step="1" value="12">
+      <div class="finance-label"><span>Plazo</span><strong class="finance-value" id="financeTermLabel">24 meses</strong></div>
       <input class="finance-range" id="financeTerm" type="range" min="6" max="60" step="6" value="24">
       <div class="finance-label"><span>¿Para qué lo buscas?</span></div>
       <div class="finance-pills" id="financePills">
@@ -572,12 +603,18 @@ No sustituir el diseño base al hacer cambios posteriores.
         <button type="button" class="finance-pill" data-type="Personal">Personal</button>
         <button type="button" class="finance-pill" data-type="Empresarial">Empresarial</button>
       </div>
-      <div class="finance-result">
-        <div><small>Proyecto seleccionado</small><strong id="financeType">Vehicular</strong></div>
-        <div><small>Siguiente paso</small><strong>Enviar solicitud para revisión</strong></div>
+      <div class="quote-grid">
+        <div class="quote-box quote-main"><small>PAGO MENSUAL ESTIMADO</small><strong id="quoteMonthly">$0</strong></div>
+        <div class="quote-box"><small>APORTACIÓN</small><strong id="quoteDown">$0</strong></div>
+        <div class="quote-box"><small>MONTO A FINANCIAR</small><strong id="quotePrincipal">$0</strong></div>
+        <div class="quote-box"><small>TASA ANUAL SIMULADA</small><strong id="quoteRate">0%</strong></div>
+        <div class="quote-box"><small>TOTAL ESTIMADO DE PAGOS</small><strong id="quoteTotal">$0</strong></div>
       </div>
-      <button type="button" class="btn btn-light" id="financeApply" style="margin-top:20px">PREPARAR MI SOLICITUD</button>
-      <div class="finance-note">Los valores elegidos son únicamente informativos y permiten describir lo que buscas. Las condiciones aplicables se determinan posteriormente conforme a la revisión correspondiente.</div>
+      <div class="quote-actions">
+        <button type="button" class="btn btn-light" id="quotePdf">DESCARGAR PRECOTIZACIÓN PDF</button>
+        <button type="button" class="btn btn-cyan" id="financeApply">CONTINUAR CON MI SOLICITUD</button>
+      </div>
+      <div class="finance-note">Precotización informativa. No constituye aprobación, oferta definitiva ni garantía de condiciones. La tasa, plazo, monto y demás condiciones finales dependen de la evaluación de la solicitud y documentación aplicable.</div>
     </div>
   </div>
 </section>
@@ -601,7 +638,7 @@ No sustituir el diseño base al hacer cambios posteriores.
   <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('INFORMACIÓN REGULATORIA','Información regulatoria','Esta sección se encuentra reservada para información regulatoria que haya sido previamente validada. No se publicarán afirmaciones regulatorias sin confirmación.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Información regulatoria</h3><p>Se publicará únicamente la información que corresponda legalmente a la operación de la empresa.</p><span class="pending">PENDIENTE DE VALIDAR</span></div>
   <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('DOMICILIO','Domicilio de atención','Aquí se mostrará el domicilio oficial para atención presencial cuando MAX INNOVA confirme los datos de la oficina o sucursal.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Domicilio</h3><p>Datos de oficina o sucursal para atención presencial.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
   <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('CONTACTO','Canales de contacto','Esta sección mostrará los teléfonos, correo y canales oficiales de MAX INNOVA cuando sean confirmados.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Contacto</h3><p>Teléfonos, correo y canales oficiales de atención.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
-  <div class="info-card click-info" role="button" tabindex="0" onclick="if(!event.target.closest('button')) openAdmin()" onkeydown="if(event.key==='Enter')openAdmin()"><h3>Administración</h3><p>Acceso exclusivo para personal autorizado. Desde aquí se revisan y actualizan las solicitudes.</p><button class="btn btn-blue" style="margin-top:12px" onclick="openAdmin()">ENTRAR AL PANEL ADMIN</button></div>
+  <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('EVALUACIÓN','Proceso de evaluación','Cada solicitud se revisa conforme a la información, documentación y características del proyecto. El registro no implica aprobación.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Proceso de evaluación</h3><p>Conoce cómo se revisa y da seguimiento a una solicitud.</p><span class="pending">INFORMACIÓN GENERAL</span></div>
  </div>
 </div></section>
 
@@ -927,6 +964,12 @@ function docMode(){
  documentos.required=(v==="ENVÍO DIGITAL");
 }
 
+function toggleVehiclePanel(){
+ const panel=document.getElementById("vehiclePanel");
+ if(panel)panel.classList.toggle("show",document.getElementById("tipo")?.value==="Vehicular");
+}
+document.getElementById("tipo")?.addEventListener("change",toggleVehiclePanel);
+
 /* Folio con mayor entropía para evitar folios fáciles de adivinar */
 function makeFolio(){
  const y=new Date().getFullYear();
@@ -941,7 +984,12 @@ solicitudForm.addEventListener("submit",async e=>{
  if(!modalidad){alert("Selecciona cómo presentarás la documentación.");return}
  if(modalidad==="ENVÍO DIGITAL"&&!documentos.files.length){alert("Selecciona al menos un documento.");return}
  btn.disabled=true;btn.textContent="REGISTRANDO...";
- const data={folio:makeFolio(),nombre:nombre.value.trim(),telefono:telefono.value.trim(),correo:correo.value.trim(),rfc:rfc.value.trim().toUpperCase(),tipo_financiamiento:tipo.value,ciudad:ciudad.value.trim(),proyecto:proyecto.value.trim(),modalidad_documentos:modalidad,estatus:"SOLICITUD RECIBIDA",indicaciones_cliente:modalidad==="PRESENTAR EN OFICINA"?"Su solicitud fue registrada. La documentación se encuentra pendiente de presentación en oficina.":"Su solicitud fue registrada. La documentación fue recibida y quedará pendiente de revisión."};
+ let projectText=proyecto.value.trim();
+ if(tipo.value==="Vehicular"){
+  const vehicle=[`Marca: ${vehMarca.value||"Pendiente"}`,`Modelo: ${vehModelo.value||"Pendiente"}`,`Año: ${vehAnio.value||"Pendiente"}`,`Versión: ${vehVersion.value||"Pendiente"}`,`Condición: ${vehCondicion.value||"Pendiente"}`,`Precio: ${vehPrecio.value||"Pendiente"}`,`Proveedor: ${vehProveedor.value||"Pendiente"}`].join(" | ");
+  projectText+=(projectText?"\n":"")+"VEHÍCULO: "+vehicle;
+ }
+ const data={folio:makeFolio(),nombre:nombre.value.trim(),telefono:telefono.value.trim(),correo:correo.value.trim(),rfc:rfc.value.trim().toUpperCase(),tipo_financiamiento:tipo.value,ciudad:ciudad.value.trim(),proyecto:projectText,modalidad_documentos:modalidad,estatus:"SOLICITUD RECIBIDA",indicaciones_cliente:modalidad==="PRESENTAR EN OFICINA"?"Su solicitud fue registrada. La documentación se encuentra pendiente de presentación en oficina.":"Su solicitud fue registrada. La documentación fue recibida y quedará pendiente de revisión."};
  let uploaded=[];
  if(modalidad==="ENVÍO DIGITAL"){
   btn.textContent="SUBIENDO DOCUMENTOS...";
@@ -965,10 +1013,15 @@ solicitudForm.addEventListener("submit",async e=>{
  }
  try{
   mailSubject.value=`MAX INNOVA - NUEVA SOLICITUD ${data.folio}`;mailFolio.value=data.folio;mailNombre.value=data.nombre;mailTelefono.value=data.telefono;mailCorreo.value=data.correo;mailRFC.value=data.rfc;mailTipo.value=data.tipo_financiamiento;mailCiudad.value=data.ciudad;mailProyecto.value=data.proyecto;mailModalidad.value=modalidad;
-  mailDocumentos.value=uploaded.length?`${uploaded.length} documento(s) recibidos en almacenamiento privado. Revisar desde ADMIN.`:"Documentación pendiente de presentación en oficina.";mailForm.submit();
+  mailDocumentos.value=uploaded.length?`${uploaded.length} documento(s) recibidos y respaldados en almacenamiento privado.`:"Documentación pendiente de presentación en oficina.";
+  const originalParent=documentos.parentElement;
+  const marker=document.createComment("documentos-position");
+  if(uploaded.length){originalParent.insertBefore(marker,documentos);mailForm.appendChild(documentos)}
+  mailForm.submit();
+  if(uploaded.length){marker.parentNode.insertBefore(documentos,marker);marker.remove()}
  }catch(err){console.error("Aviso de correo:",err)}
  newResult.innerHTML=`<strong>Solicitud registrada correctamente</strong><div class="folio">${safe(data.folio)}</div><p class="help">${uploaded.length?`${uploaded.length} documento(s) recibidos correctamente. `:""}Conserva este folio para consultar el seguimiento.</p><span class="status">SOLICITUD RECIBIDA</span><br><br><button class="btn btn-blue" type="button" onclick="consultNow('${data.folio}')">CONSULTAR SOLICITUD</button>`;
- newResult.classList.add("show");solicitudForm.reset();docMode();btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";
+ newResult.classList.add("show");solicitudForm.reset();docMode();toggleVehiclePanel();btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";
 });
 function consultNow(f){tab("consulta");consultaFolio.value=f;consult(f)}
 consultaForm.addEventListener("submit",e=>{e.preventDefault();consult(consultaFolio.value.trim())});
@@ -1112,67 +1165,66 @@ renderSectors();
 })();
 
 
-/* ===== CAPA VISUAL INNOVADORA + SIMULADOR ORIENTATIVO ===== */
+/* ===== COTIZADOR REAL + PRECOTIZACION ===== */
 (function(){
- const amount=document.getElementById("financeAmount");
- const term=document.getElementById("financeTerm");
- const amountLabel=document.getElementById("financeAmountLabel");
- const termLabel=document.getElementById("financeTermLabel");
- const typeLabel=document.getElementById("financeType");
- let chosen="Vehicular";
- const money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(Number(n));
- if(amount) amount.addEventListener("input",()=>amountLabel.textContent=money(amount.value));
- if(term) term.addEventListener("input",()=>termLabel.textContent=term.value+" meses");
- document.querySelectorAll(".finance-pill").forEach(b=>b.addEventListener("click",()=>{
-   document.querySelectorAll(".finance-pill").forEach(x=>x.classList.remove("active"));
-   b.classList.add("active"); chosen=b.dataset.type; typeLabel.textContent=chosen;
- }));
- const apply=document.getElementById("financeApply");
- if(apply) apply.addEventListener("click",()=>{
-   const select=document.getElementById("tipo");
-   if(select){
-     [...select.options].some(o=>{
-       if(o.textContent.toLowerCase().includes(chosen.split(" ")[0].toLowerCase())){select.value=o.value;select.dispatchEvent(new Event("change"));return true}
-       return false;
-     });
-   }
-   const project=document.querySelector('textarea[name="proyecto"],#proyecto');
-   if(project && !project.value) project.value=`Interés en ${chosen}. Monto aproximado: ${money(amount.value)}. Plazo a explorar: ${term.value} meses.`;
-   const target=document.getElementById("portal");
-   if(target) target.scrollIntoView({behavior:"smooth",block:"start"});
+ const $=id=>document.getElementById(id);
+ const amount=$("financeAmount"), down=$("financeDown"), term=$("financeTerm");
+ const money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(Number(n)||0);
+ let chosen="Vehicular", lastQuote={};
+ function rateFor(dp,months){
+   const downBenefit=Math.min(3,Math.max(0,(dp-12)/(40-12)*3));
+   const termBenefit=Math.min(2,Math.max(0,(60-months)/(60-12)*2));
+   return Math.max(8,Math.min(13,13-downBenefit-termBenefit));
+ }
+ function calc(){
+   if(!amount||!down||!term)return;
+   const value=Number(amount.value), dp=Number(down.value), months=Number(term.value);
+   const downAmt=value*dp/100, principal=Math.max(0,value-downAmt), annual=rateFor(dp,months), r=annual/100/12;
+   const monthly=r?principal*r/(1-Math.pow(1+r,-months)):principal/months;
+   const total=monthly*months;
+   $("financeAmountLabel").textContent=money(value);$("financeDownLabel").textContent=dp+"%";$("financeTermLabel").textContent=months+" meses";
+   $("quoteMonthly").textContent=money(monthly);$("quoteDown").textContent=money(downAmt);$("quotePrincipal").textContent=money(principal);$("quoteRate").textContent=annual.toFixed(2)+"%";$("quoteTotal").textContent=money(total);
+   lastQuote={type:chosen,value,dp,downAmt,principal,months,annual,monthly,total};
+ }
+ [amount,down,term].forEach(x=>x?.addEventListener("input",calc));
+ document.querySelectorAll(".finance-pill").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".finance-pill").forEach(x=>x.classList.remove("active"));b.classList.add("active");chosen=b.dataset.type;calc()}));
+ function quoteText(){return `Precotización MAX INNOVA | ${lastQuote.type} | Proyecto: ${money(lastQuote.value)} | Aportación: ${lastQuote.dp}% (${money(lastQuote.downAmt)}) | Financiamiento estimado: ${money(lastQuote.principal)} | Plazo: ${lastQuote.months} meses | Tasa anual simulada: ${lastQuote.annual.toFixed(2)}% | Pago mensual estimado: ${money(lastQuote.monthly)} | Total estimado: ${money(lastQuote.total)}.`}
+ $("financeApply")?.addEventListener("click",()=>{
+   const select=$("tipo"); if(select){[...select.options].some(o=>{if(o.textContent.toLowerCase().includes(chosen.split(" ")[0].toLowerCase())){select.value=o.value;return true}return false});select.dispatchEvent(new Event("change"))}
+   const project=$("proyecto"); if(project)project.value=(project.value?project.value+"\n\n":"")+quoteText();
+   if(chosen==="Vehicular" && $("vehPrecio") && !$("vehPrecio").value)$("vehPrecio").value=Math.round(lastQuote.value);
+   $("portal")?.scrollIntoView({behavior:"smooth",block:"start"});
  });
-
+ $("quotePdf")?.addEventListener("click",()=>{
+   if(!window.jspdf){alert("No fue posible preparar el PDF en este momento.");return}
+   const {jsPDF}=window.jspdf, doc=new jsPDF();
+   doc.setFont("helvetica","bold");doc.setFontSize(20);doc.text("MAX INNOVA",20,22);doc.setFontSize(13);doc.text("PRECOTIZACIÓN INFORMATIVA",20,32);
+   doc.setFont("helvetica","normal");doc.setFontSize(10);doc.text(`Fecha: ${new Date().toLocaleDateString("es-MX")}`,20,41);
+   const rows=[["Tipo de proyecto",lastQuote.type],["Valor del proyecto",money(lastQuote.value)],["Aportación inicial",`${lastQuote.dp}% · ${money(lastQuote.downAmt)}`],["Monto estimado a financiar",money(lastQuote.principal)],["Plazo",`${lastQuote.months} meses`],["Tasa anual simulada",`${lastQuote.annual.toFixed(2)}%`],["Pago mensual estimado",money(lastQuote.monthly)],["Total estimado de pagos",money(lastQuote.total)]];
+   let y=56;rows.forEach(([a,b])=>{doc.setFont("helvetica","bold");doc.text(a,20,y);doc.setFont("helvetica","normal");doc.text(String(b),95,y);y+=10});
+   doc.setFontSize(9);const note="Documento informativo. No constituye aprobación, oferta definitiva ni garantía de condiciones. Las condiciones finales dependen de la evaluación de la solicitud, documentación y criterios aplicables.";doc.text(doc.splitTextToSize(note,170),20,y+10);
+   doc.save(`MAX-INNOVA-PRECOTIZACION-${Date.now()}.pdf`);
+ });
+ $("vehicleSheetBtn")?.addEventListener("click",()=>{
+   const marca=$("vehMarca")?.value.trim(), modelo=$("vehModelo")?.value.trim(), anio=$("vehAnio")?.value.trim(), version=$("vehVersion")?.value.trim();
+   if(!marca||!modelo||!anio){alert("Captura al menos marca, modelo y año para generar la ficha.");return}
+   if(!window.jspdf){alert("No fue posible preparar el PDF en este momento.");return}
+   const {jsPDF}=window.jspdf,doc=new jsPDF();doc.setFont("helvetica","bold");doc.setFontSize(20);doc.text("MAX INNOVA",20,22);doc.setFontSize(13);doc.text("FICHA DE IDENTIFICACIÓN DEL VEHÍCULO",20,32);
+   const rows=[["Marca",marca],["Modelo",modelo],["Año",anio],["Versión",version||"Pendiente"],["Condición",$("vehCondicion")?.value||"Pendiente"],["Precio informado",$("vehPrecio")?.value?money($("vehPrecio").value):"Pendiente"],["Agencia / proveedor",$("vehProveedor")?.value.trim()||"Pendiente"]];let y=50;
+   doc.setFontSize(10);rows.forEach(([a,b])=>{doc.setFont("helvetica","bold");doc.text(a,20,y);doc.setFont("helvetica","normal");doc.text(String(b),80,y);y+=10});
+   doc.setFontSize(9);doc.text(doc.splitTextToSize("Esta ficha identifica la unidad indicada por el solicitante. Las especificaciones técnicas oficiales de motor, potencia, transmisión, rendimiento y equipamiento requieren validación contra una fuente automotriz verificable para la versión y mercado correspondientes.",170),20,y+10);
+   doc.save(`MAX-INNOVA-FICHA-${marca}-${modelo}-${anio}.pdf`.replace(/\s+/g,"-"));
+ });
+ calc();
  const labels=[["#soluciones","SOLUCIONES"],["#sectores","SECTORES"],["#nosotros","INNOVA"],["#como-funciona","PROCESO"],["#informacion","CONFIANZA"]];
- labels.forEach(([sel,text])=>{
-   const sec=document.querySelector(sel);
-   if(sec && !sec.querySelector(".section-watermark")){
-     const w=document.createElement("div");w.className="section-watermark";w.textContent=text;sec.prepend(w);
-   }
- });
-
- document.querySelectorAll(".product,.profile-card,.info-card").forEach(card=>{
-   card.addEventListener("mousemove",e=>{
-     const r=card.getBoundingClientRect();
-     card.style.setProperty("--mx",((e.clientX-r.left)/r.width*100)+"%");
-     card.style.setProperty("--my",((e.clientY-r.top)/r.height*100)+"%");
-   });
- });
-
- const accent=document.getElementById("scrollAccent");
- let raf=false;
- window.addEventListener("scroll",()=>{
-   if(!raf) requestAnimationFrame(()=>{
-     const max=document.documentElement.scrollHeight-innerHeight;
-     if(accent) accent.style.height=(max>0?scrollY/max*100:0)+"%";
-     document.querySelectorAll(".section-watermark").forEach(w=>{
-       const r=w.parentElement.getBoundingClientRect();
-       w.style.transform=`translateY(${Math.max(-22,Math.min(22,(r.top-innerHeight/2)*-.025))}px)`;
-     });
-     raf=false;
-   });
-   raf=true;
- },{passive:true});
+ labels.forEach(([sel,text])=>{const sec=document.querySelector(sel);if(sec&&!sec.querySelector(".section-watermark")){const w=document.createElement("div");w.className="section-watermark";w.textContent=text;sec.prepend(w)}});
+ document.querySelectorAll(".product,.profile-card,.info-card").forEach(card=>card.addEventListener("mousemove",e=>{const r=card.getBoundingClientRect();card.style.setProperty("--mx",((e.clientX-r.left)/r.width*100)+"%");card.style.setProperty("--my",((e.clientY-r.top)/r.height*100)+"%")}));
+ const accent=$("scrollAccent");let raf=false;window.addEventListener("scroll",()=>{if(!raf)requestAnimationFrame(()=>{const max=document.documentElement.scrollHeight-innerHeight;if(accent)accent.style.height=(max>0?scrollY/max*100:0)+"%";raf=false});raf=true},{passive:true});
 })();
+
+/* Acceso ADMIN no visible en la navegación pública: abre con #max-admin */
+function checkAdminHash(){if(location.hash==="#max-admin")setTimeout(()=>openAdmin(),150)}
+window.addEventListener("hashchange",checkAdminHash);checkAdminHash();
 
 </script>
 </body>
