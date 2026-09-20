@@ -518,6 +518,25 @@ body{position:relative;overflow-x:hidden}
 .payment-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.payment-choice button{min-height:100px;border:1px solid #d5e6ee;border-radius:14px;background:#f8fcfe;color:#00345f;font-weight:900;padding:14px}
 @media(max-width:760px){.client-actions-grid,.payment-choice{grid-template-columns:1fr}.fiscal-row{grid-template-columns:1fr}}
 </style>
+
+<style id="mi-final-corrections">
+/* Correcciones acumuladas: no elimina funciones existentes */
+.mi-public-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}
+.mi-public-action{border:1px solid #cfe3ed;background:#fff;border-radius:14px;padding:20px 15px;text-align:center;color:#00345f;font-weight:900;box-shadow:0 8px 24px rgba(0,52,95,.06)}
+.mi-public-action:hover{transform:translateY(-2px);border-color:#16bce8}
+.mi-admin-home-actions{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0}
+.mi-admin-home-actions button{min-height:70px;border:1px solid #d5e6ee;border-radius:12px;background:#f7fbfd;color:#00345f;font-size:10px;font-weight:900;padding:10px}
+.mi-admin-home-actions button:hover{background:#eaf7fc;border-color:#16bce8}
+.info-grid{grid-template-columns:repeat(6,1fr)!important}
+.info-grid>.info-card{grid-column:span 2}
+.info-grid>.info-card:nth-last-child(2),.info-grid>.info-card:last-child{grid-column:span 3}
+.location-grid,.locations-grid,.branch-grid,.branches-grid{grid-template-columns:repeat(3,1fr)!important}
+.mi-amort-wrap{margin-top:16px;overflow:auto;border:1px solid #dbe8ee;border-radius:12px}
+.mi-amort{width:100%;min-width:650px;border-collapse:collapse}.mi-amort th{background:#edf7fb;color:#00345f}.mi-amort th,.mi-amort td{padding:9px;border-bottom:1px solid #e4edf2;font-size:10px;text-align:right}.mi-amort th:first-child,.mi-amort td:first-child{text-align:center}
+@media(max-width:900px){.mi-public-actions{grid-template-columns:1fr}.mi-admin-home-actions{grid-template-columns:repeat(2,1fr)}.info-grid{grid-template-columns:1fr 1fr!important}.info-grid>.info-card{grid-column:auto!important}.location-grid,.locations-grid,.branch-grid,.branches-grid{grid-template-columns:1fr 1fr!important}}
+@media(max-width:560px){.mi-admin-home-actions,.info-grid,.location-grid,.locations-grid,.branch-grid,.branches-grid{grid-template-columns:1fr!important}}
+</style>
+
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -776,6 +795,17 @@ No sustituir el diseño base al hacer cambios posteriores.
  </div>
 </div></section>
 
+
+<section class="section" id="mi-access-center">
+ <div class="container">
+  <div class="center"><div class="kicker">PORTAL MAX INNOVA</div><h2 class="title">TU OPERACIÓN <span>EN UN SOLO LUGAR</span></h2><p class="subtitle">Cotiza, consulta tu operación, realiza o reporta pagos y descarga tu estado de cuenta cuando tu financiamiento se encuentre activo.</p></div>
+  <div class="mi-public-actions">
+   <button class="mi-public-action" onclick="document.querySelector('#quoteBox,#simulador,#cotizador')?.scrollIntoView({behavior:'smooth'});">COTIZAR MI VEHÍCULO<br><small>Simulación para clientes</small></button>
+   <button class="mi-public-action" onclick="openClientService('pago')">PAGOS<br><small>Realizar o subir un pago</small></button>
+   <button class="mi-public-action" onclick="openClientService('estado')">ESTADO DE CUENTA<br><small>Consultar / descargar</small></button>
+  </div>
+ </div>
+</section>
 <section class="section" id="informacion"><div class="container center">
  <div class="kicker">INFORMACIÓN</div><h2 class="title">Información y <span>transparencia.</span></h2>
  <p class="subtitle">Consulta información corporativa, fiscal, de privacidad y nuestros canales oficiales de atención.</p>
@@ -2102,7 +2132,23 @@ const MIQ=(()=>{
  title('DATOS DEL CLIENTE');line('Nombre',x.client.name);line('RFC',x.client.rfc);line('Teléfono',x.client.phone);line('Correo',x.client.email);line('Ciudad / Estado',x.client.city);line('Asesor',x.advisor);
  title('VEHÍCULO SOLICITADO');line('Marca',x.car.brand);line('Submarca / Modelo',x.car.model);line('Versión',x.car.version);line('Año',x.car.year);line('Transmisión',x.car.trans);line('Color solicitado',(x.car.color||'—')+' · SUJETO A DISPONIBILIDAD');line('Condición',x.car.condition);line('Agencia / Proveedor',x.car.provider);line('Precio cotizado',x.car.price?money(x.car.price):'—');
  title('PROPUESTA FINANCIERA');line('Valor del proyecto',money(x.f.value));line('Aportación inicial',money(x.f.down));line('Monto a financiar',money(x.f.principal));line('Plazo',x.f.months+' meses');line('Tasa anual simulada',x.f.annual.toFixed(2)+'%');line('Mensualidad estimada',money(x.f.monthly));
- if(y>210){doc.addPage();y=20}title('REQUISITOS PARA CONTINUAR');doc.setFont('helvetica','normal');doc.setFontSize(7.5);let req=doc.splitTextToSize(x.req,170);doc.text(req,18,y);y+=req.length*4+6;title('INFORMACIÓN IMPORTANTE');doc.setFontSize(7);let legal='Imagen de referencia. El color, equipamiento, accesorios y características visuales pueden variar respecto de la unidad objeto de la operación. La versión, transmisión, equipamiento, color y disponibilidad están sujetos a existencia y confirmación al formalizar la operación. Cotización sujeta a evaluación, validación documental y condiciones definitivas autorizadas. No constituye por sí misma aprobación definitiva ni reserva de una unidad.';doc.text(doc.splitTextToSize(legal,170),18,y);y+=25;doc.line(25,y+10,85,y+10);doc.line(125,y+10,185,y+10);doc.setFontSize(7);doc.text('SOLICITANTE',47,y+16);doc.text('MAX INNOVA',145,y+16);doc.setFontSize(6.5);doc.text('MAX INNOVA Servicios Financieros · ESTRATEGIAS MAX INNOVA, S.A. DE C.V. · RFC EMI250217IP7',18,285);doc.text(`maxinnova.mx · contacto@maxinnova.mx · ${folio} · V${String(version).padStart(2,'0')}`,18,290);doc.save(`MAX-INNOVA-COTIZACION-${folio}-V${String(version).padStart(2,'0')}.pdf`);if(typeof miAudit==='function')await miAudit(x.client.app||folio,'DESCARGA DE COTIZACIÓN',`PDF ${folio} V${version}`)}
+ if(y>210){doc.addPage();y=20}title('REQUISITOS PARA CONTINUAR');doc.setFont('helvetica','normal');doc.setFontSize(7.5);let req=doc.splitTextToSize(x.req,170);doc.text(req,18,y);y+=req.length*4+6;title('INFORMACIÓN IMPORTANTE');doc.setFontSize(7);let legal='Imagen de referencia. El color, equipamiento, accesorios y características visuales pueden variar respecto de la unidad objeto de la operación. La versión, transmisión, equipamiento, color y disponibilidad están sujetos a existencia y confirmación al formalizar la operación. Cotización sujeta a evaluación, validación documental y condiciones definitivas autorizadas. No constituye por sí misma aprobación definitiva ni reserva de una unidad.';doc.text(doc.splitTextToSize(legal,170),18,y);y+=25;doc.line(25,y+10,85,y+10);doc.line(125,y+10,185,y+10);doc.setFontSize(7);doc.text('SOLICITANTE',47,y+16);doc.text('MAX INNOVA',145,y+16);doc.setFontSize(6.5);doc.text('MAX INNOVA Servicios Financieros · ESTRATEGIAS MAX INNOVA, S.A. DE C.V. · RFC EMI250217IP7',18,285);doc.text(`maxinnova.mx · contacto@maxinnova.mx · ${folio} · V${String(version).padStart(2,'0')}`,18,290);doc.addPage();let ay=18;doc.setTextColor(0,52,95);doc.setFont('helvetica','bold');doc.setFontSize(13);doc.text('TABLA DE AMORTIZACION · MENSUALIDAD FIJA',15,ay);ay+=9;doc.setFontSize(7);doc.setFont('helvetica','normal');doc.text(`Folio ${folio} · V${String(version).padStart(2,'0')} · Plazo ${x.f.months} meses · Mensualidad fija estimada ${money(x.f.monthly)}`,15,ay);ay+=8;
+ const rows=amortRows();doc.setFontSize(7);for(const r of rows){if(ay>278){doc.addPage();ay=18;doc.setFont('helvetica','bold');doc.text('No.',15,ay);doc.text('Mensualidad',35,ay);doc.text('Capital',75,ay);doc.text('Interes',112,ay);doc.text('Saldo',150,ay);doc.setFont('helvetica','normal');ay+=6}doc.text(String(r.n),15,ay);doc.text(money(r.pay),35,ay);doc.text(money(r.capital),75,ay);doc.text(money(r.interest),112,ay);doc.text(money(r.balance),150,ay);ay+=5;}
+ doc.save(`MAX-INNOVA-COTIZACION-${folio}-V${String(version).padStart(2,'0')}.pdf`);if(typeof miAudit==='function')await miAudit(x.client.app||folio,'DESCARGA DE COTIZACIÓN',`PDF ${folio} V${version}`)}
+ 
+ function amortRows(){
+   if(!calc)return [];
+   let bal=calc.principal, r=calc.annual/1200, rows=[];
+   for(let i=1;i<=calc.months;i++){
+     let interest=r?bal*r:0, capital=calc.monthly-interest;
+     if(i===calc.months){capital=bal}
+     let pay=(i===calc.months)?capital+interest:calc.monthly;
+     bal=Math.max(0,bal-capital);
+     rows.push({n:i,pay,capital,interest,balance:bal});
+   }
+   return rows;
+ }
+
  return {open,close,image,current,calc:doCalc,preview,draft,generate,pdf};
 })();
 if(location.hash==='#cotizador-asesores')setTimeout(MIQ.open,250);
@@ -2136,6 +2182,34 @@ window.lookupClientService=async function(){
    if(folio&&box&&!/SOLICITUD AÚN ESTÁ EN PROCESO/.test(box.innerText)&&!/OPERACIÓN EN ACTIVACIÓN/.test(box.innerText))miPaymentsHome(folio);
  }
 };
+</script>
+
+
+<script id="mi-admin-home-final">
+(function(){
+ function addAdminHome(){
+  const area=document.querySelector('.admin-area.show,.admin-area');
+  if(!area||document.getElementById('miAdminHomeActions'))return;
+  const bar=document.createElement('div');bar.id='miAdminHomeActions';bar.className='mi-admin-home-actions';
+  const actions=[
+   ['NUEVA SOLICITUD',()=>document.querySelector('[onclick*="AdminNew"],[onclick*="adminNew"],[onclick*="Nueva"]')?.click()],
+   ['SOLICITUDES',()=>document.querySelector('.table-wrap')?.scrollIntoView({behavior:'smooth'})],
+   ['CLIENTES',()=>document.querySelector('.admin-search')?.focus()],
+   ['COTIZACIONES',()=>{if(window.MIQ)MIQ.open()}],
+   ['OPERACIONES',()=>alert('Abre el expediente del cliente para consultar o registrar la operación.')],
+   ['PAGOS',()=>alert('Abre el expediente del cliente para registrar, validar o consultar pagos.')],
+   ['ESTADOS DE CUENTA',()=>alert('Abre el expediente del cliente y usa GENERAR / ACTUALIZAR ESTADO DE CUENTA cuando la operación esté activa.')],
+   ['DOCUMENTOS',()=>alert('Abre el expediente para consultar sus documentos.')],
+   ['CITAS',()=>alert('Las citas se administran desde el expediente del cliente.')],
+   ['BITÁCORA',()=>alert('La bitácora se consulta desde el expediente y el módulo administrativo.')]
+  ];
+  actions.forEach(([t,fn])=>{let b=document.createElement('button');b.textContent=t;b.onclick=fn;bar.appendChild(b)});
+  const anchor=area.querySelector('.admin-toolbar,.admin-stats,.admin-card')||area.firstElementChild;
+  anchor?.parentNode.insertBefore(bar,anchor);
+ }
+ new MutationObserver(addAdminHome).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class'],childList:true});
+ setTimeout(addAdminHome,500);
+})();
 </script>
 
 </body>
