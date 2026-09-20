@@ -545,6 +545,8 @@ body{position:relative;overflow-x:hidden}
 .folio-progress-fill{height:100%;border-radius:20px;background:currentColor;transition:width .8s ease}
 .folio-progress-label{display:flex;justify-content:space-between;gap:10px;margin-top:6px;font-size:9px;font-weight:800;opacity:.75}
 
+
+.old-finance-control{display:none!important}.vehicle-price-card{background:#fff;border:1px solid #d8e4eb;border-radius:18px;padding:20px;margin-top:16px;color:#173d55}.vehicle-price-card .vpc-title{font-weight:950;letter-spacing:1.5px;color:#00345f;margin-bottom:10px}.vehicle-price-card>div:not(.vpc-title){display:flex;justify-content:space-between;gap:18px;padding:9px 0;border-bottom:1px solid #edf2f5}.vehicle-price-card .vpc-ref b{font-size:22px;color:#00345f}.vehicle-price-card small{display:block;margin-top:10px;color:#687f8d}.manual-vehicle-box{background:#fff8e8;border:1px solid #eed28c;border-radius:16px;padding:18px;margin-top:14px;color:#493b19}.professional-terms,.professional-amort{margin-top:22px}.pt-head{display:flex;justify-content:space-between;gap:16px;align-items:end;margin-bottom:12px}.pt-head span{font-weight:950;letter-spacing:1px}.pt-head small{max-width:520px}.professional-term-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.professional-term-card{background:#fff;border:2px solid #dce8ee;border-radius:16px;padding:17px;color:#163d55;cursor:pointer;box-shadow:0 8px 22px rgba(0,42,72,.06)}.professional-term-card.selected{border-color:#11bfe8;box-shadow:0 10px 28px rgba(0,169,214,.20)}.professional-term-card .term{font-weight:950;color:#00345f;font-size:17px}.professional-term-card .rate{font-size:13px;color:#617987}.professional-term-card .payment{font-weight:950;font-size:24px;color:#006d9b;margin:9px 0}.professional-term-card .detail{font-size:12px;line-height:1.55;color:#5b7180}.professional-term-card .badge{display:inline-block;background:#e7f8fd;color:#006a91;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:900;margin-top:7px}.professional-amort{background:#fff;border-radius:18px;padding:18px;color:#173d55}.pa-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:14px}.pa-head small{display:block;color:#687f8d;font-size:10px;font-weight:800}.pa-head strong{display:block;color:#00345f;font-size:20px;margin-top:3px}.amort-table{width:100%;border-collapse:collapse;min-width:980px;background:#fff}.amort-table th{background:#00345f!important;color:#fff!important;padding:11px 9px;text-align:right;font-size:11px}.amort-table th:first-child{text-align:center}.amort-table td{padding:10px 9px;border-bottom:1px solid #e5edf1;text-align:right;color:#203f51!important;background:#fff!important;font-weight:600}.amort-table tr:nth-child(even) td{background:#f4f8fa!important}.amort-table td:first-child{text-align:center;font-weight:900;color:#00345f!important}.quote-vehicle-preview{background:#fff!important}.quote-vehicle-preview img{object-fit:contain!important;background:#fff!important}.quote-vehicle-preview #quoteVehicleImage{max-height:230px}.service-options{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:900px){.professional-term-grid{grid-template-columns:repeat(2,1fr)}.service-options{grid-template-columns:1fr}}@media(max-width:560px){.professional-term-grid{grid-template-columns:1fr}.pt-head,.pa-head{display:block}.pa-head>div{margin-bottom:10px}}
 </style>
 </head>
 <body>
@@ -601,6 +603,7 @@ No sustituir el diseño base al hacer cambios posteriores.
  <div class="client-actions" aria-label="Acciones para clientes">
   <button class="btn btn-pay" type="button" onclick="openPaymentModal()">QUIERO PAGAR</button>
   <button class="btn btn-account" type="button" onclick="openStatementModal()">DESCARGAR ESTADO DE CUENTA</button>
+  <button class="btn btn-account" type="button" onclick="openInvoiceModal()">FACTURAR</button>
  </div>
 </div></section>
 <section class="mi-message-zone" id="mensajes-financiamiento">
@@ -811,7 +814,9 @@ No sustituir el diseño base al hacer cambios posteriores.
         <div class="field"><label>COLOR DISPONIBLE</label><select id="quoteVehicleColor" disabled><option value="">Selecciona una versión</option></select></div>
         <div class="field"><label>CONDICIÓN</label><select id="quoteVehicleCondition"><option>Nuevo</option><option>Seminuevo</option></select></div>
         <div class="field"><label>AGENCIA / PROVEEDOR</label><input id="quoteVehicleProvider" placeholder="Agencia o proveedor"></div>
-        <div class="quote-vehicle-preview" id="quoteVehiclePreview"><div><img id="quoteBrandLogo" alt="Logotipo de la marca"></div><div><strong id="quoteVehicleTitle"></strong><img id="quoteVehicleImage" alt="Imagen de referencia del vehículo"><small>Imagen ilustrativa correspondiente a la marca y modelo seleccionados.</small></div></div><div id="quoteVehiclePriceCard" class="mi-price-card"><small>PRECIO DEL VEHÍCULO</small><div><span>Precio de lista</span><b id="quoteVehicleListPrice">No disponible</b></div><div><span>Precio promocional</span><b id="quoteVehiclePromoPrice">No disponible</b></div><div class="main"><span>Precio de referencia</span><b id="quoteVehicleRefPrice">Selecciona una versión</b></div><p id="quoteVehiclePriceSource">El precio se toma del catálogo; el cliente no lo captura.</p></div>
+        <div class="quote-vehicle-preview" id="quoteVehiclePreview"><div><img id="quoteBrandLogo" alt="Logotipo de la marca"></div><div><strong id="quoteVehicleTitle"></strong><img id="quoteVehicleImage" alt="Fotografía del vehículo"><small id="quoteImageNote">Fotografía de catálogo cuando se encuentre disponible.</small></div></div>
+        <div class="manual-vehicle-box" id="manualVehicleBox" style="display:none"><strong>CAPTURA MANUAL DE VERSIÓN</strong><p>El catálogo todavía no tiene esta combinación. Puedes continuar sin bloquear la cotización.</p><div class="quote-form-grid"><div class="field"><label>VERSIÓN</label><input id="manualVersion"></div><div class="field"><label>TRANSMISIÓN</label><input id="manualTransmission"></div><div class="field"><label>COLOR</label><input id="manualColor"></div><div class="field"><label>PRECIO DE REFERENCIA</label><input id="manualVehiclePrice" type="number" min="0" step="1000"></div></div></div>
+        <div class="vehicle-price-card" id="vehiclePriceCard"><div class="vpc-title">PRECIO DEL VEHÍCULO</div><div><span>Precio de lista</span><b id="vehicleListPrice">—</b></div><div><span>Precio promocional</span><b id="vehiclePromoPrice">—</b></div><div class="vpc-ref"><span>Precio de referencia</span><b id="vehicleReferencePrice">Selecciona una versión</b></div><small id="vehiclePriceSource">El precio se toma del catálogo; el cliente no lo captura.</small></div>
        </div>
       </div>
       <div class="finance-label"><span>3. ¿Cuánto crédito necesitas para financiar esta unidad?</span><strong class="finance-value" id="financeAmountLabel">$250,000</strong></div>
@@ -820,18 +825,21 @@ No sustituir el diseño base al hacer cambios posteriores.
       <div class="finance-label"><span>Aportación inicial estimada</span><strong class="finance-value" id="financeDownLabel">12%</strong></div>
       <input class="finance-range" id="financeDown" type="range" min="12" max="60" step="1" value="12">
       <input class="finance-manual" id="financeDownManual" type="number" min="12" max="60" step="0.1" value="12" aria-label="Capturar aportación manualmente">
-      <div class="finance-label"><span>4. Elige tu plazo</span><strong class="finance-value" id="financeTermLabel">24 meses</strong></div>
-      <input id="financeTerm" type="hidden" value="24"><input id="financeTermManual" type="hidden" value="24"><input id="financeRate" type="hidden" value="8.2"><input id="financeRateManual" type="hidden" value="8.2">
-      <div id="termComparison" class="mi-term-comparison"></div>
+      <div class="finance-label old-finance-control"><span>Plazo</span><strong class="finance-value" id="financeTermLabel">24 meses</strong></div>
+      <input class="finance-range old-finance-control" id="financeTerm" type="range" min="6" max="60" step="1" value="24">
+      <input class="finance-manual old-finance-control" id="financeTermManual" type="number" min="6" max="60" step="1" value="24" aria-label="Capturar plazo manualmente">
+      <div class="finance-label old-finance-control"><span>Tasa anual para simulación</span><strong class="finance-value" id="financeRateLabel">11.50%</strong></div>
+      <input class="finance-range old-finance-control" id="financeRate" type="range" min="8" max="13" step="0.10" value="11.50">
+      <input class="finance-manual old-finance-control" id="financeRateManual" type="number" min="8" max="13" step="0.01" value="11.50" aria-label="Capturar tasa anual manualmente">
+      <div class="professional-terms"><div class="pt-head"><span>4. ELIGE EL PLAZO</span><small>Compara los cuatro escenarios. La tabla inferior corresponde únicamente al plazo seleccionado.</small></div><div id="professionalTermCards" class="professional-term-grid"></div></div>
+      <div class="professional-amort"><div class="pa-head"><div><small>PLAN SELECCIONADO</small><strong id="selectedPlanTitle">24 MESES · 8.2%</strong></div><div><small>MENSUALIDAD FIJA</small><strong id="selectedFixedPayment">$0.00</strong></div></div><div class="table-wrap"><table class="amort-table"><thead><tr><th>Pago</th><th>Saldo inicial</th><th>Capital</th><th>Interés</th><th>IVA interés</th><th>Mensualidad fija</th><th>Pagado acumulado</th><th>Saldo insoluto</th></tr></thead><tbody id="professionalAmortBody"></tbody></table></div></div>
       <div class="quote-grid">
-        <div class="quote-box quote-main"><small>MENSUALIDAD FIJA</small><strong id="quoteMonthly">$0</strong></div>
-        <div class="quote-box"><small>APORTACIÓN INICIAL</small><strong id="quoteDown">$0</strong></div>
+        <div class="quote-box quote-main"><small>PAGO MENSUAL ESTIMADO</small><strong id="quoteMonthly">$0</strong></div>
+        <div class="quote-box"><small>APORTACIÓN INICIAL ESTIMADA</small><strong id="quoteDown">$0</strong></div>
         <div class="quote-box"><small>MONTO DE CRÉDITO SOLICITADO</small><strong id="quotePrincipal">$0</strong></div>
-        <div class="quote-box"><small>TASA ANUAL DEL PLAZO</small><strong id="quoteRate">0%</strong></div>
+        <div class="quote-box"><small>TASA ANUAL SIMULADA</small><strong id="quoteRate">0%</strong></div>
         <div class="quote-box"><small>TOTAL ESTIMADO DE PAGOS</small><strong id="quoteTotal">$0</strong></div>
       </div>
-      <div id="financeBreakdown" class="finance-note"></div>
-      <div class="mi-amort-wrap"><h3>Tabla de amortización del plazo seleccionado</h3><div class="mi-amort-scroll"><table class="mi-amort-table"><thead><tr><th>Pago</th><th>Saldo inicial</th><th>Capital</th><th>Interés</th><th>IVA interés</th><th>Mensualidad fija</th><th>Pagado acumulado</th><th>Saldo insoluto</th></tr></thead><tbody id="amortizationBody"></tbody></table></div></div>
       <div class="quote-actions">
         <button type="button" class="btn btn-light" id="quotePdf">GENERAR Y DESCARGAR COTIZACIÓN</button>
         <button type="button" class="btn btn-cyan" id="financeApply">PASAR DATOS A SOLICITUD</button>
@@ -909,8 +917,6 @@ No sustituir el diseño base al hacer cambios posteriores.
 .mi-alert-item:before{content:"⚠";margin-right:12px;color:#ffd95a}
 .finance-manual{font-weight:800!important;background:#fff!important;border:1px solid #cfe1ea!important}
 .finance-manual:focus{outline:none!important;border-color:#0b6f9f!important;box-shadow:0 0 0 4px rgba(11,111,159,.10)!important}
-
-.mi-price-card{grid-column:1/-1;background:#f7fbfd;border:1px solid #d8e7ef;border-radius:18px;padding:18px;margin-top:8px}.mi-price-card>small{font-weight:900;letter-spacing:.12em;color:#00345f}.mi-price-card>div{display:flex;justify-content:space-between;gap:20px;padding:8px 0;border-bottom:1px solid #e6eef3}.mi-price-card .main{font-size:1.12rem;border-bottom:0}.mi-price-card .main b{color:#00345f;font-size:1.35rem}.mi-price-card p{margin:8px 0 0;color:#637987;font-size:.82rem}.mi-term-comparison{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0 18px}.mi-term-card{border:1px solid #cddde6;border-radius:16px;padding:14px;background:#fff;cursor:pointer;transition:.2s}.mi-term-card:hover,.mi-term-card.selected{border:2px solid #00a9d6;box-shadow:0 8px 22px rgba(0,52,95,.12);transform:translateY(-1px)}.mi-term-card .top{display:flex;justify-content:space-between;font-weight:900;color:#00345f}.mi-term-card .pay{display:block;font-size:1.25rem;color:#00345f;margin:10px 0 4px}.mi-term-card small{display:block;color:#657b88;margin-top:4px}.mi-amort-wrap{margin-top:20px}.mi-amort-wrap h3{color:#00345f}.mi-amort-scroll{overflow:auto;border:1px solid #d8e7ef;border-radius:14px}.mi-amort-table{width:100%;border-collapse:collapse;min-width:950px;font-size:.82rem}.mi-amort-table th{background:#00345f;color:#fff;padding:10px;white-space:nowrap}.mi-amort-table td{padding:9px 10px;border-bottom:1px solid #edf2f5;text-align:right}.mi-amort-table td:first-child{text-align:center}.mi-amort-table tr:nth-child(even){background:#f8fbfd}@media(max-width:900px){.mi-term-comparison{grid-template-columns:1fr 1fr}}
 </style>
 <section class="section" id="ubicacion">
  <div class="container">
@@ -1134,6 +1140,7 @@ function miIncomeGuide(){
   <div id="paymentOptions" class="service-panel show">
    <div class="service-options">
     <button class="service-option" type="button" onclick="showPaymentPanel('online')"><span class="service-option-icon">$</span><strong>PAGAR MENSUALIDAD</strong><span>Consulta tu mensualidad y las cuentas bancarias disponibles.</span></button>
+    <button class="service-option" type="button" onclick="showPaymentPanel('reference')"><span class="service-option-icon">▣</span><strong>QUIERO REFERENCIA / FICHA DE PAGO</strong><span>Consulta los datos de pago o una referencia asignada a tu folio.</span></button>
     <button class="service-option" type="button" onclick="showPaymentPanel('proof')"><span class="service-option-icon">↥</span><strong>REGISTRAR PAGO</strong><span>Sube el comprobante de un pago realizado fuera de la página.</span></button>
    </div>
    <div class="secure-note"><span>🔒</span><span>La información se utiliza únicamente para identificar tu operación y registrar el movimiento correspondiente.</span></div>
@@ -1154,6 +1161,7 @@ function miIncomeGuide(){
    </form>
   </div>
 
+  <div id="referencePaymentPanel" class="service-panel"><button class="service-back" type="button" onclick="showPaymentPanel('options')">← REGRESAR</button><div class="kicker">REFERENCIA DE PAGO</div><h2>Ficha / referencia de pago</h2><form id="referencePaymentForm"><div class="form-grid"><div class="field"><label>FOLIO</label><input id="referenceFolio" required></div><div class="field"><label>TELÉFONO REGISTRADO</label><input id="referencePhone" inputmode="tel" required></div></div><button class="btn btn-blue" type="submit">CONSULTAR REFERENCIA</button><div class="service-message" id="referencePaymentMessage"></div></form><div class="payment-summary" id="referencePaymentResult"></div></div>
   <div id="proofPaymentPanel" class="service-panel">
    <button class="service-back" type="button" onclick="showPaymentPanel('options')">← REGRESAR</button>
    <div class="kicker">COMPROBANTE EXTERNO</div><h2>Registrar pago</h2>
@@ -1191,6 +1199,10 @@ function miIncomeGuide(){
   <div class="account-result" id="accountResult"></div>
  </div>
 </div></div>
+
+
+<!-- FACTURACIÓN -->
+<div class="modal" id="invoiceModal" aria-hidden="true"><div class="modal-card service-modal-card"><button class="close" type="button" onclick="closeInvoiceModal()">×</button><div class="service-head"><div class="kicker">FACTURACIÓN</div><h2>Solicitar factura / CFDI</h2><p>Registra la información del pago que deseas facturar.</p></div><div class="service-body"><form id="invoiceForm"><div class="form-grid"><div class="field"><label>FOLIO *</label><input id="invoiceFolio" required></div><div class="field"><label>MONTO DEL PAGO *</label><input id="invoiceAmount" type="number" min="0.01" step="0.01" required></div><div class="field full"><label>CONCEPTO *</label><input id="invoiceConcept" required></div></div><button class="btn btn-blue" type="submit">REGISTRAR SOLICITUD</button><div class="service-message" id="invoiceMessage"></div></form></div></div></div>
 
 <!-- PANEL ADMIN -->
 <div class="modal" id="adminModal"><div class="modal-card" style="width:min(1150px,100%)">
@@ -1286,17 +1298,24 @@ function populateVehicleModels(){
  document.getElementById("vehVersionList").innerHTML="";
  document.getElementById("vehicleVisual")?.classList.remove("show");
 }
-const BRAND_DOMAINS={"Nissan":"nissan.com.mx","Toyota":"toyota.mx","Mazda":"mazda.mx","Kia":"kia.com","Chevrolet":"chevrolet.com.mx","Ford":"ford.mx","Volkswagen":"vw.com.mx","Honda":"honda.mx","Hyundai":"hyundai.com.mx","BYD":"bydauto.com.mx","MG":"mgmotor.com.mx","Chirey":"chirey.mx","Omoda":"omoda.mx","Jaecoo":"jaecoo.mx","GWM":"gwm-mx.com","JAC":"jac.mx","Peugeot":"peugeot.com.mx","Renault":"renault.com.mx","SEAT":"seat.mx","Cupra":"cupraofficial.mx","Jeep":"jeep.com.mx","RAM":"ram.com.mx","BMW":"bmw.com.mx","Audi":"audi.com.mx","Mercedes-Benz":"mercedes-benz.com.mx","Volvo":"volvocars.com"};
-function officialBrandLogo(marca){const d=BRAND_DOMAINS[marca];return d?`https://www.google.com/s2/favicons?domain=${encodeURIComponent(d)}&sz=256`:""}
-function cleanVehiclePlaceholder(marca,modelo){const label=(marca+" "+modelo).replace(/[<>&]/g,"");const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520"><rect width="1000" height="520" fill="white"/><g fill="none" stroke="#b8c7cf" stroke-width="10"><path d="M170 340h660l-55-110c-18-36-52-58-92-58H393c-41 0-76 22-96 58l-62 110z"/><path d="M330 238h390"/><circle cx="310" cy="355" r="54"/><circle cx="710" cy="355" r="54"/></g><text x="500" y="455" text-anchor="middle" font-family="Arial" font-size="30" fill="#607985">${label}</text></svg>`;return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg)}
+async function wikipediaImage(title){
+ const languages=["es","en"];
+ for(const language of languages){
+  try{
+   const response=await fetch(`https://${language}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);
+   if(!response.ok)continue;const data=await response.json();const url=data.originalimage?.source||data.thumbnail?.source;if(url)return url;
+  }catch(error){}
+ }
+ return "";
+}
 async function imageUrlToDataUrl(url){
  if(!url)return "";try{const response=await fetch(url);if(!response.ok)return "";const blob=await response.blob();return await new Promise(resolve=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result||"");reader.onerror=()=>resolve("");reader.readAsDataURL(blob)})}catch(error){return ""}
 }
 async function updateVehicleVisual(){
  const marca=vehicleFieldValue("vehMarca"),modelo=vehicleFieldValue("vehModelo"),visual=document.getElementById("vehicleVisual"),logo=document.getElementById("vehicleBrandLogo"),photo=document.getElementById("vehicleModelImage"),message=document.getElementById("vehicleImageMessage"),title=document.getElementById("vehicleVisualTitle");
  if(!visual||!marca||!modelo){visual?.classList.remove("show");return}
- const request=++vehicleImageRequest;visual.classList.add("show");title.textContent=`${marca} ${modelo}`;logo.hidden=true;photo.hidden=true;message.hidden=false;message.textContent="Cargando identidad del vehículo…";
- const brandUrl=officialBrandLogo(marca),modelUrl=cleanVehiclePlaceholder(marca,modelo);if(request!==vehicleImageRequest)return;
+ const request=++vehicleImageRequest;visual.classList.add("show");title.textContent=`${marca} ${modelo}`;logo.hidden=true;photo.hidden=true;message.hidden=false;message.textContent="Buscando logotipo e imagen de referencia…";
+ const [brandUrl,modelUrl]=await Promise.all([wikipediaImage(marca),wikipediaImage(`${marca} ${modelo}`)]);if(request!==vehicleImageRequest)return;
  if(brandUrl){logo.src=brandUrl;logo.alt=`Logotipo ${marca}`;logo.hidden=false}else{logo.removeAttribute("src");logo.hidden=true}
  if(modelUrl){photo.src=modelUrl;photo.alt=`${marca} ${modelo}, imagen de referencia`;photo.hidden=false;message.hidden=true}else{photo.removeAttribute("src");photo.hidden=true;message.hidden=false;message.textContent="No se encontró una fotografía automática para este modelo. La cotización puede continuar normalmente."}
 }
@@ -1322,17 +1341,14 @@ async function loadQuoteVehicleVersions(){
  const trans=document.getElementById("quoteVehicleTransmission"),color=document.getElementById("quoteVehicleColor");if(trans){trans.disabled=true;trans.innerHTML='<option value="">Selecciona una versión</option>'}if(color){color.disabled=true;color.innerHTML='<option value="">Selecciona una versión</option>'}await updateQuoteVehiclePreview();
 }
 async function applyQuoteVersion(){
- const select=document.getElementById("quoteVehicleVersion"),selected=select?._versions?.find(v=>String(v.id)===String(select.value)),trans=document.getElementById("quoteVehicleTransmission"),color=document.getElementById("quoteVehicleColor");
+ const select=document.getElementById("quoteVehicleVersion"),selected=select?._versions?.find(v=>v.id===select.value),trans=document.getElementById("quoteVehicleTransmission"),color=document.getElementById("quoteVehicleColor");
  if(trans){const transmissions=[...new Set(String(selected?.transmision||"").split(/\s*[,/|]\s*/).filter(Boolean))];trans.disabled=!transmissions.length;trans.innerHTML=transmissions.length?'<option value="">Selecciona una transmisión</option>'+transmissions.map(t=>`<option>${safe(t)}</option>`).join(""):'<option value="">Sin transmisiones registradas para esta versión</option>';if(transmissions.length===1)trans.value=transmissions[0]}
  if(!color)return;color.disabled=true;color.innerHTML='<option value="">Cargando colores disponibles…</option>';let colors=[];if(selected?.id){const result=await db.from("max_innova_colores_catalogo").select("nombre").eq("version_id",selected.id).eq("activo",true).order("nombre");if(!result.error)colors=result.data||[]}
  color.disabled=!colors.length;color.innerHTML=colors.length?'<option value="">Selecciona un color</option>'+colors.map(c=>`<option>${safe(c.nombre)}</option>`).join(""):'<option value="">Sin colores registrados para esta versión</option>';
- const list=Number(selected?.precio_lista_original||0),promo=Number(selected?.precio_promocional||0),ref=Number(selected?.precio_referencia||selected?.valor_comercial_actual||promo||list||0),fmt=n=>n?new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(n):"No disponible";
- document.getElementById("quoteVehicleListPrice").textContent=fmt(list);document.getElementById("quoteVehiclePromoPrice").textContent=fmt(promo);document.getElementById("quoteVehicleRefPrice").textContent=fmt(ref);document.getElementById("quoteVehiclePriceSource").textContent=selected?.fuente?`Fuente: ${selected.fuente}${selected.fecha_precio?" · "+selected.fecha_precio:""}`:"Precio tomado del catálogo interno; sujeto a actualización.";
- await updateQuoteVehiclePreview();
 }
 async function updateQuoteVehiclePreview(){
  const marca=document.getElementById("quoteVehicleBrand")?.value,modelo=document.getElementById("quoteVehicleModel")?.value,preview=document.getElementById("quoteVehiclePreview");if(!preview||!marca||!modelo){preview?.classList.remove("show");return}preview.classList.add("show");document.getElementById("quoteVehicleTitle").textContent=`${marca} ${modelo}`;
- const logoUrl=officialBrandLogo(marca),imageUrl=cleanVehiclePlaceholder(marca,modelo);const logo=document.getElementById("quoteBrandLogo"),image=document.getElementById("quoteVehicleImage");if(logo){logo.src=logoUrl||"logo%20maxinnova.png"}if(image){image.src=imageUrl}
+ const [logoUrl,imageUrl]=await Promise.all([wikipediaImage(marca),wikipediaImage(`${marca} ${modelo}`)]);const logo=document.getElementById("quoteBrandLogo"),image=document.getElementById("quoteVehicleImage");if(logo){logo.src=logoUrl||"logo%20maxinnova.png"}if(image){image.src=imageUrl||"logo%20maxinnova.png"}
 }
 document.getElementById("quoteVehicleBrand")?.addEventListener("change",populateQuoteVehicleModels);
 document.getElementById("quoteVehicleModel")?.addEventListener("change",loadQuoteVehicleVersions);
@@ -2021,14 +2037,58 @@ renderSectors();
 
 /* ===== COTIZADOR REAL + PRECOTIZACION ===== */
 (function(){
- const $=id=>document.getElementById(id); const amount=$("financeAmount"),down=$("financeDown"),amountManual=$("financeAmountManual"),downManual=$("financeDownManual");
- const plans={24:{rate:8.2},36:{rate:9.0},48:{rate:9.5},60:{rate:8.0,preferred:true}},IVA=.16; let chosen="Vehicular",lastQuote={};
- const money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",minimumFractionDigits:2}).format(Number(n)||0); const clamp=(n,min,max)=>Math.min(max,Math.max(min,Number(n)||min));
- function buildSchedule(principal,months){const annual=plans[months].rate,r=annual/100/12,j=r*(1+IVA),payment=j?principal*j/(1-Math.pow(1+j,-months)):principal/months;let balance=principal,paid=0,rows=[];for(let m=1;m<=months;m++){const opening=balance,interest=opening*r,iva=interest*IVA;let capital=payment-interest-iva;if(m===months)capital=opening;let actual=capital+interest+iva;balance=Math.max(0,opening-capital);paid+=actual;rows.push({m,opening,capital,interest,iva,payment:actual,paid,balance});}return{months,annual,monthly:rows[0]?.payment||0,total:paid,totalInterest:rows.reduce((a,x)=>a+x.interest,0),totalIva:rows.reduce((a,x)=>a+x.iva,0),rows};}
- function calc(){const credit=clamp(amountManual?.value||amount?.value,20000,2000000),dp=clamp(downManual?.value||down?.value,12,60),months=Number($("financeTermManual")?.value)||24;amount.value=credit;amountManual.value=credit;down.value=dp;downManual.value=dp;const downAmt=credit*dp/100,sc=buildSchedule(credit,months);$("financeAmountLabel").textContent=money(credit);$("financeDownLabel").textContent=dp+"%";$("financeTermLabel").textContent=months+" meses";$("quoteMonthly").textContent=money(sc.monthly);$("quoteDown").textContent=money(downAmt);$("quotePrincipal").textContent=money(credit);$("quoteRate").textContent=sc.annual.toFixed(1)+"%"+(plans[months].preferred?" · PLAN PREFERENTE":"");$("quoteTotal").textContent=money(sc.total);$("financeBreakdown").innerHTML=`Intereses totales: <b>${money(sc.totalInterest)}</b> · IVA total sobre intereses: <b>${money(sc.totalIva)}</b> · La mensualidad permanece fija; capital aumenta e interés disminuye.`;$("termComparison").innerHTML=Object.keys(plans).map(k=>{const x=buildSchedule(credit,+k);return `<div class="mi-term-card ${+k===months?'selected':''}" data-term="${k}"><div class="top"><span>${k} MESES</span><span>${x.annual.toFixed(1)}%</span></div><strong class="pay">${money(x.monthly)}</strong><small>Mensualidad fija</small><small>Interés: ${money(x.totalInterest)}</small><small>IVA intereses: ${money(x.totalIva)}</small><small>Total: ${money(x.total)}</small>${plans[k].preferred?'<small><b>PLAN PREFERENTE</b></small>':''}</div>`}).join("");$("termComparison").querySelectorAll("[data-term]").forEach(c=>c.onclick=()=>{$("financeTermManual").value=c.dataset.term;$("financeTerm").value=c.dataset.term;calc()});$("amortizationBody").innerHTML=sc.rows.map(x=>`<tr><td>${x.m}</td><td>${money(x.opening)}</td><td>${money(x.capital)}</td><td>${money(x.interest)}</td><td>${money(x.iva)}</td><td><b>${money(x.payment)}</b></td><td>${money(x.paid)}</td><td>${money(x.balance)}</td></tr>`).join("");lastQuote={type:chosen,value:credit,dp,downAmt,principal:credit,months,annual:sc.annual,monthly:sc.monthly,total:sc.total,totalInterest:sc.totalInterest,totalIva:sc.totalIva,schedule:sc.rows};}
- [amount,amountManual,down,downManual].forEach(x=>x?.addEventListener("input",calc)); document.querySelectorAll(".finance-pill").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".finance-pill").forEach(x=>x.classList.remove("active"));b.classList.add("active");chosen=b.dataset.type;calc()}));
+ const $=id=>document.getElementById(id);
+ const amount=$("financeAmount"), down=$("financeDown"), term=$("financeTerm"), rate=$("financeRate");
+ const amountManual=$("financeAmountManual"), downManual=$("financeDownManual"), termManual=$("financeTermManual"), rateManual=$("financeRateManual");
+ const money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(Number(n)||0);
+ let chosen="Vehicular", lastQuote={};
+ const clamp=(n,min,max)=>Math.min(max,Math.max(min,Number(n)||min));
+ function calcFromManual(activeManual,slider,min,max){
+   if(!amount||!down||!term||!rate)return;
+   const value=clamp(amountManual && amountManual.value!=="" ? amountManual.value : amount.value,20000,2000000);
+   const dp=clamp(downManual && downManual.value!=="" ? downManual.value : down.value,12,60);
+   const months=Math.round(clamp(termManual && termManual.value!=="" ? termManual.value : term.value,6,60));
+   const annual=clamp(rateManual && rateManual.value!=="" ? rateManual.value : rate.value,8,13);
+   amount.value=value;down.value=dp;term.value=months;rate.value=annual;
+   const principal=value, downAmt=value*dp/100, r=annual/100/12;
+   const monthly=r?principal*r/(1-Math.pow(1+r,-months)):principal/months;
+   const total=monthly*months;
+   $("financeAmountLabel").textContent=money(value);$("financeDownLabel").textContent=dp+"%";$("financeTermLabel").textContent=months+" meses";$("financeRateLabel").textContent=Number(annual).toFixed(2)+"%";
+   $("quoteMonthly").textContent=money(monthly);$("quoteDown").textContent=money(downAmt);$("quotePrincipal").textContent=money(principal);$("quoteRate").textContent=Number(annual).toFixed(2)+"%";$("quoteTotal").textContent=money(total);
+   lastQuote={type:chosen,value,dp,downAmt,principal,months,annual,monthly,total};
+ }
+ function calc(){
+   if(!amount||!down||!term||!rate)return;
+   const value=clamp(amount.value,20000,2000000), dp=clamp(down.value,12,60), months=Math.round(clamp(term.value,6,60)), annual=clamp(rate.value,8,13);
+   amount.value=value;down.value=dp;term.value=months;rate.value=annual;
+   if(amountManual)amountManual.value=value;if(downManual)downManual.value=dp;if(termManual)termManual.value=months;if(rateManual)rateManual.value=Number(annual).toFixed(2);
+   const principal=value, downAmt=value*dp/100, r=annual/100/12;
+   const monthly=r?principal*r/(1-Math.pow(1+r,-months)):principal/months;
+   const total=monthly*months;
+   $("financeAmountLabel").textContent=money(value);$("financeDownLabel").textContent=dp+"%";$("financeTermLabel").textContent=months+" meses";$("financeRateLabel").textContent=Number(annual).toFixed(2)+"%";
+   $("quoteMonthly").textContent=money(monthly);$("quoteDown").textContent=money(downAmt);$("quotePrincipal").textContent=money(principal);$("quoteRate").textContent=Number(annual).toFixed(2)+"%";$("quoteTotal").textContent=money(total);
+   lastQuote={type:chosen,value,dp,downAmt,principal,months,annual,monthly,total};
+ }
+ [amount,down,term,rate].forEach(x=>x?.addEventListener("input",calc));
+ [[amountManual,amount,20000,2000000],[downManual,down,12,60],[termManual,term,6,60],[rateManual,rate,8,13]].forEach(([manual,slider,min,max])=>{
+   manual?.addEventListener("input",()=>{
+     if(manual.value==="") return;
+     const raw=Number(manual.value);
+     if(!Number.isFinite(raw)) return;
+     slider.value=Math.min(max,Math.max(min,raw));
+     calcFromManual(manual,slider,min,max);
+   });
+   manual?.addEventListener("change",()=>{
+     if(manual.value==="") return;
+     const raw=clamp(manual.value,min,max);
+     manual.value=raw;
+     slider.value=raw;
+     calc();
+   });
+ });
+ document.querySelectorAll(".finance-pill").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".finance-pill").forEach(x=>x.classList.remove("active"));b.classList.add("active");chosen=b.dataset.type;calc()}));
  function quoteDetails(){
-   const versionSelect=$("quoteVehicleVersion"),versionRow=versionSelect?._versions?.find(v=>String(v.id)===String(versionSelect.value));
+   const versionSelect=$("quoteVehicleVersion"),versionRow=versionSelect?._versions?.find(v=>v.id===versionSelect.value);
    return {name:$("quoteClientName")?.value.trim()||"",phone:$("quoteClientPhone")?.value.trim()||"",email:$("quoteClientEmail")?.value.trim()||"",city:$("quoteClientCity")?.value.trim()||"",advisor:$("quoteAdvisor")?.value.trim()||"",existingFolio:$("quoteExistingFolio")?.value.trim().toUpperCase()||"",brand:$("quoteVehicleBrand")?.value||"",model:$("quoteVehicleModel")?.value||"",year:$("quoteVehicleYear")?.value||"",version:versionRow?.version||"",transmission:$("quoteVehicleTransmission")?.value||"",color:$("quoteVehicleColor")?.value||"",condition:$("quoteVehicleCondition")?.value||"",provider:$("quoteVehicleProvider")?.value.trim()||""};
  }
  function validateQuote(){
@@ -2214,5 +2274,35 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closePrivacy()});
 document.getElementById("privacyOverlay")?.addEventListener("click",e=>{if(e.target.id==="privacyOverlay")closePrivacy()});
 </script>
 
+<script>
+/* MAX INNOVA · INTEGRACIÓN FINAL DEL COTIZADOR Y SERVICIOS */
+(function(){
+ const $=id=>document.getElementById(id); const IVA=.16; const PLANS={24:8.2,36:9.0,48:9.5,60:8.0}; let selectedTerm=24;
+ const mx=n=>new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',minimumFractionDigits:2}).format(Number(n)||0);
+ const brandDomains={Acura:'acura.com.mx',Audi:'audi.com.mx',BMW:'bmw.com.mx',Buick:'buick.com.mx',Cadillac:'cadillac.com.mx',Chevrolet:'chevrolet.com.mx',Chirey:'chirey.mx',Chrysler:'chrysler.com.mx',Cupra:'cupraofficial.mx',Dodge:'dodge.com.mx',Fiat:'fiat.com.mx',Ford:'ford.mx',GMC:'gmc.com.mx',Honda:'honda.mx',Hyundai:'hyundai.com.mx',Infiniti:'infiniti.mx',JAC:'jac.mx',Jeep:'jeep.com.mx',Kia:'kia.com',Lexus:'lexus.mx',Lincoln:'lincoln.com.mx',Mazda:'mazda.mx','Mercedes-Benz':'mercedes-benz.com.mx',MG:'mgmotor.com.mx',MINI:'mini.com.mx',Mitsubishi:'mitsubishimotors.com.mx',Nissan:'nissan.com.mx',Peugeot:'peugeot.com.mx',Porsche:'porsche.com',RAM:'ram.com.mx',Renault:'renault.com.mx',SEAT:'seat.mx',Subaru:'subaru.com.mx',Suzuki:'suzuki.com.mx',Tesla:'tesla.com',Toyota:'toyota.mx',Volkswagen:'vw.com.mx',Volvo:'volvocars.com'};
+ function versionRow(){const sel=$('quoteVehicleVersion'); return sel && sel._versions ? (sel._versions.find(v=>String(v.id)===String(sel.value))||null) : null}
+ function vehiclePrice(){const v=versionRow(); const manual=Number($('manualVehiclePrice')?.value||0); return Number(v?.precio_promocional||v?.precio_referencia||v?.precio_lista_original||v?.valor_comercial_actual||manual||0)}
+ function requestedCredit(){return Math.max(0,Number($('financeAmountManual')?.value||$('financeAmount')?.value||0))}
+ function buildSchedule(principal,months,annual){const rm=(annual/100)/12, effective=rm*(1+IVA); const payment=effective?principal*effective/(1-Math.pow(1+effective,-months)):principal/months; let bal=principal,paid=0,rows=[];for(let n=1;n<=months;n++){let interest=bal*rm,iva=interest*IVA,capital=payment-interest-iva;if(n===months||capital>bal)capital=bal;let actual=capital+interest+iva;let start=bal;bal=Math.max(0,bal-capital);paid+=actual;rows.push({n,start,capital,interest,iva,payment:actual,paid,balance:bal})}return{payment,rows,total:paid,totalInterest:rows.reduce((a,r)=>a+r.interest,0),totalIva:rows.reduce((a,r)=>a+r.iva,0)}}
+ function updatePrices(){const v=versionRow(),price=vehiclePrice(); if($('vehicleListPrice'))$('vehicleListPrice').textContent=v?.precio_lista_original?mx(v.precio_lista_original):'No disponible';if($('vehiclePromoPrice'))$('vehiclePromoPrice').textContent=v?.precio_promocional?mx(v.precio_promocional):'No aplica / no disponible';if($('vehicleReferencePrice'))$('vehicleReferencePrice').textContent=price?mx(price):'Captura manualmente';if($('vehiclePriceSource'))$('vehiclePriceSource').textContent=v?.fuente?`Fuente: ${v.fuente}${v.fecha_precio?' · Actualización: '+v.fecha_precio:''}`:'Precio pendiente de validación de catálogo.'; const max=price||2000000;if($('financeAmount'))$('financeAmount').max=max;if($('financeAmountManual'))$('financeAmountManual').max=max;}
+ function renderFinance(){const principal=requestedCredit(); const downPct=Math.max(12,Number($('financeDownManual')?.value||12)); const down=principal*downPct/100; const cards=$('professionalTermCards'); if(!cards)return;cards.innerHTML=Object.entries(PLANS).map(([m,r])=>{const sc=buildSchedule(principal,+m,r);return `<div class="professional-term-card ${+m===selectedTerm?'selected':''}" data-prof-term="${m}"><div class="term">${m} MESES</div><div class="rate">Tasa anual ${r.toFixed(1)}%</div><div class="payment">${mx(sc.payment)}</div><div class="detail">Mensualidad fija<br>Interés total: ${mx(sc.totalInterest)}<br>IVA sobre intereses: ${mx(sc.totalIva)}<br>Total: ${mx(sc.total)}</div>${+m===60?'<span class="badge">PLAN PREFERENTE</span>':''}</div>`}).join('');cards.querySelectorAll('[data-prof-term]').forEach(c=>c.onclick=()=>{selectedTerm=+c.dataset.profTerm;if($('financeTermManual'))$('financeTermManual').value=selectedTerm;renderFinance()});const rate=PLANS[selectedTerm],sc=buildSchedule(principal,selectedTerm,rate);if($('selectedPlanTitle'))$('selectedPlanTitle').textContent=`${selectedTerm} MESES · ${rate.toFixed(1)}%${selectedTerm===60?' · PLAN PREFERENTE':''}`;if($('selectedFixedPayment'))$('selectedFixedPayment').textContent=mx(sc.payment);if($('quoteMonthly'))$('quoteMonthly').textContent=mx(sc.payment);if($('quoteDown'))$('quoteDown').textContent=mx(down);if($('quotePrincipal'))$('quotePrincipal').textContent=mx(principal);if($('quoteRate'))$('quoteRate').textContent=rate.toFixed(1)+'%';if($('quoteTotal'))$('quoteTotal').textContent=mx(sc.total);if($('financeTermLabel'))$('financeTermLabel').textContent=selectedTerm+' meses';if($('financeRateLabel'))$('financeRateLabel').textContent=rate.toFixed(1)+'%';const body=$('professionalAmortBody');if(body)body.innerHTML=sc.rows.map(r=>`<tr><td>${r.n}</td><td>${mx(r.start)}</td><td>${mx(r.capital)}</td><td>${mx(r.interest)}</td><td>${mx(r.iva)}</td><td>${mx(r.payment)}</td><td>${mx(r.paid)}</td><td>${mx(r.balance)}</td></tr>`).join('');window.MAX_INNOVA_FINANCE={principal,downPct,down,term:selectedTerm,rate,...sc};}
+ function manualMode(on){const b=$('manualVehicleBox');if(b)b.style.display=on?'block':'none';}
+ const originalLoad=window.loadQuoteVehicleVersions; if(typeof originalLoad==='function'){window.loadQuoteVehicleVersions=async function(){await originalLoad.apply(this,arguments);const sel=$('quoteVehicleVersion');const no=!sel?._versions?.length;manualMode(no);updatePrices();renderFinance()}}
+ const originalApply=window.applyQuoteVersion; if(typeof originalApply==='function'){window.applyQuoteVersion=async function(){const sel=$('quoteVehicleVersion');const row=sel?._versions?.find(v=>String(v.id)===String(sel.value));if(row){const t=$('quoteVehicleTransmission');if(t){t.disabled=false;t.innerHTML=`<option>${row.transmision||'Por confirmar'}</option>`} const img=row.imagen_url||row.foto_url||row.image_url||'';if($('quoteVehicleImage')){if(img){$('quoteVehicleImage').src=img;$('quoteVehicleImage').style.display='block';$('quoteImageNote').textContent='Fotografía de catálogo del vehículo seleccionado.'}else{$('quoteVehicleImage').removeAttribute('src');$('quoteVehicleImage').style.display='none';$('quoteImageNote').textContent='Fotografía del vehículo pendiente de carga en catálogo.'}}}try{await originalApply.apply(this,arguments)}catch(e){}updatePrices();renderFinance()}}
+ $('quoteVehicleVersion')?.addEventListener('change',()=>setTimeout(()=>{updatePrices();renderFinance()},80));$('manualVehiclePrice')?.addEventListener('input',()=>{updatePrices();renderFinance()});['financeAmount','financeAmountManual','financeDown','financeDownManual'].forEach(id=>$(id)?.addEventListener('input',()=>setTimeout(renderFinance,0)));
+ // Logo limpio: nunca buscar imágenes aleatorias. Usa logo del catálogo si existe; de lo contrario favicon oficial del fabricante.
+ $('quoteVehicleBrand')?.addEventListener('change',()=>{const brand=$('quoteVehicleBrand').value,domain=brandDomains[brand];if($('quoteBrandLogo')&&domain){$('quoteBrandLogo').src=`https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=256`;$('quoteBrandLogo').style.objectFit='contain'}if($('quoteVehicleImage')){$('quoteVehicleImage').removeAttribute('src');$('quoteVehicleImage').style.display='none'}if($('quoteImageNote'))$('quoteImageNote').textContent='Selecciona modelo y versión para mostrar una fotografía de catálogo.'});
+ // Servicios
+ window.openInvoiceModal=()=>{$('invoiceModal')?.classList.add('open');$('invoiceModal')?.setAttribute('aria-hidden','false')};window.closeInvoiceModal=()=>{$('invoiceModal')?.classList.remove('open');$('invoiceModal')?.setAttribute('aria-hidden','true')};$('invoiceModal')?.addEventListener('click',e=>{if(e.target===e.currentTarget)closeInvoiceModal()});
+ const oldShow=window.showPaymentPanel;window.showPaymentPanel=function(name){['paymentOptions','onlinePaymentPanel','referencePaymentPanel','proofPaymentPanel'].forEach(id=>$(id)?.classList.remove('show'));$(name==='online'?'onlinePaymentPanel':name==='reference'?'referencePaymentPanel':name==='proof'?'proofPaymentPanel':'paymentOptions')?.classList.add('show')};
+ $('invoiceForm')?.addEventListener('submit',async e=>{e.preventDefault();const folio=$('invoiceFolio').value.trim().toUpperCase(),amount=Number($('invoiceAmount').value),concept=$('invoiceConcept').value.trim();try{if(typeof db!=='undefined'){await db.from('max_innova_facturacion_solicitudes').insert({folio,monto:amount,concepto:concept,estatus:'RECIBIDA',origen:'PORTAL CLIENTE'})}setServiceMessage('invoiceMessage','Información recibida. Solicitud de facturación registrada. Tu factura o CFDI se generará una vez que tu carpeta de expediente se encuentre completa y la información necesaria haya sido validada. Si hace falta algún dato o documento, se te notificará por los canales registrados.','ok')}catch(err){setServiceMessage('invoiceMessage','Información recibida. La solicitud quedó preparada, pero el módulo administrativo de facturación todavía debe habilitarse en la base de datos.','ok')}});
+ $('referencePaymentForm')?.addEventListener('submit',async e=>{e.preventDefault();clearServiceMessage('referencePaymentMessage');try{const client=await verifyClient($('referenceFolio').value,$('referencePhone').value);const {data:accounts}=await db.from('max_innova_cuentas_bancarias').select('*').eq('activa',true).order('orden',{ascending:true});let ref=null;try{const r=await db.from('max_innova_referencias_pago').select('*').eq('folio',client.folio).eq('activa',true).order('created_at',{ascending:false}).limit(1).maybeSingle();ref=r.data}catch(_e){}const banks=(accounts||[]).map(a=>`<div class="modal-detail"><strong>${safe(a.banco)}</strong><p><b>Beneficiario:</b> ${safe(a.beneficiario)}<br>${a.clabe?'<b>CLABE:</b> '+safe(a.clabe)+'<br>':''}${a.numero_cuenta?'<b>Cuenta:</b> '+safe(a.numero_cuenta):''}</p></div>`).join('');$('referencePaymentResult').innerHTML=`<div class="modal-detail"><strong>${safe(client.nombre)}</strong><p>Folio ${safe(client.folio)}</p>${ref?`<p><b>Referencia asignada:</b> ${safe(ref.referencia||'')}<br><b>Importe:</b> ${ref.monto?mx(ref.monto):'Por confirmar'}<br><b>Concepto:</b> ${safe(ref.concepto||'')}</p>`:'<p>No existe una referencia de pago asignada a este folio. No se generará un importe automático.</p>'}</div><div class="modal-detail-grid">${banks}</div>`;$('referencePaymentResult').classList.add('show');setServiceMessage('referencePaymentMessage','Consulta realizada correctamente.','ok')}catch(err){setServiceMessage('referencePaymentMessage',err.message||'No fue posible consultar la referencia.') }});
+ // Mensajes administrativos solicitados, visibles sin inventar mensualidades/estados.
+ const monthlyInfo=document.createElement('div');monthlyInfo.className='secure-note';monthlyInfo.innerHTML='<span>ℹ️</span><span>La mensualidad se requerirá una vez concluido tu proceso y realizado el primer corte aplicable. Los pagos se realizan durante los primeros 3 días de cada mes. El corte administrativo es el día 10 de cada mes.</span>';$('onlinePaymentForm')?.insertBefore(monthlyInfo,$('continuePaymentBtn'));
+ // Estado de cuenta: cambia mensaje técnico por el mensaje acordado.
+ const sf=$('statementForm'); if(sf){sf.addEventListener('submit',()=>setTimeout(()=>{const m=$('statementMessage');if(m?.classList.contains('show')&&/no tiene un crédito|no tiene.*estado|todavía no tiene/i.test(m.textContent))m.textContent='Estado de cuenta aún no disponible. Por el momento no existe un estado de cuenta disponible para este folio. Este documento se habilitará una vez que existan movimientos registrados y hayan sido validados administrativamente.'},600))}
+ setTimeout(()=>{updatePrices();renderFinance()},250);
+})();
+</script>
 </body>
 </html>
