@@ -2140,7 +2140,7 @@ async function renderAdvisorDrafts(){
  box.innerHTML=(data||[]).length?data.map(x=>`<div class="mi-note"><b>${safe(x.nombre_cliente||"Cliente")}</b> · ${safe((x.marca||"")+" "+(x.modelo||""))} · ${money(Number(x.monto_financiado||0))}<br><small>${safe(x.estatus_seguimiento||"COTIZACIÓN")}</small></div>`).join(""):'<div class="mi-note">Sin cotizaciones guardadas.</div>';
  }catch(e){box.innerHTML='<div class="mi-note">Inicia sesión como asesor para consultar tus registros.</div>';}
 }
-function advisorSection(){renderAdvisorDrafts();document.getElementById("advisorExtra")?.scrollIntoView({behavior:"smooth"})})}
+function advisorSection(){renderAdvisorDrafts();document.getElementById("advisorExtra")?.scrollIntoView({behavior:"smooth"})}
 document.addEventListener("DOMContentLoaded",()=>{
  if(location.hash==="#asesor"){openAdvisorPortal()}
  if(location.hash==="#mi-cuenta"){openClientPortal()}
