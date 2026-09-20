@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>Verificar cotización | MAX INNOVA</title>
+ <style>
+  :root{--navy:#00345f;--cyan:#16bce8;--ink:#203a4a;--muted:#607b8e;--pale:#f1f8fb}
+  *{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#eef8fc,#fff);font-family:Arial,Helvetica,sans-serif;color:var(--ink);min-height:100vh;display:grid;place-items:center;padding:24px}.card{width:min(620px,100%);background:#fff;border-radius:22px;box-shadow:0 24px 70px #00345f24;overflow:hidden}.top{height:9px;background:var(--navy)}.body{padding:36px}.logo{width:190px;max-width:55%;margin-bottom:26px}.badge{display:inline-flex;gap:8px;align-items:center;background:#e7f8ed;color:#176b3a;border-radius:999px;padding:9px 14px;font-weight:700;font-size:13px}.dot{width:9px;height:9px;border-radius:50%;background:#16845f}.title{color:var(--navy);font-size:28px;margin:18px 0 8px}.intro{color:var(--muted);line-height:1.55;margin:0 0 24px}.data{background:var(--pale);border-radius:14px;padding:6px 18px}.row{display:grid;grid-template-columns:155px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid #dcebf1}.row:last-child{border-bottom:0}.row span{color:var(--muted);font-size:13px}.row strong{color:var(--navy);overflow-wrap:anywhere}.notice{margin-top:22px;border-left:4px solid var(--cyan);padding:10px 14px;background:#f8fcfe;color:var(--muted);font-size:13px;line-height:1.5}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.btn{display:inline-block;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700}.primary{background:var(--navy);color:#fff}.soft{background:#eaf6fb;color:var(--navy)}@media(max-width:520px){.body{padding:26px 20px}.row{grid-template-columns:1fr;gap:5px}.title{font-size:23px}}
+ </style>
+</head>
+<body>
+ <main class="card"><div class="top"></div><div class="body">
+  <img class="logo" src="logo%20maxinnova.png" alt="MAX INNOVA">
+  <div class="badge"><span class="dot"></span>Documento identificado</div>
+  <h1 class="title">Verificación de cotización</h1>
+  <p class="intro">Este código corresponde a una cotización emitida desde el cotizador de MAX INNOVA.</p>
+  <section class="data">
+   <div class="row"><span>Número de cotización</span><strong id="quote">No disponible</strong></div>
+   <div class="row"><span>Código de integridad</span><strong id="code">No disponible</strong></div>
+   <div class="row"><span>Cliente</span><strong id="client">No disponible</strong></div>
+   <div class="row"><span>Vehículo</span><strong id="vehicle">No disponible</strong></div>
+  </section>
+  <div class="notice">La consulta del QR identifica el documento, pero no constituye aprobación de crédito. Para confirmar vigencia, condiciones o autenticidad administrativa, contacte directamente a MAX INNOVA.</div>
+  <div class="actions"><a class="btn primary" href="/">IR A MAX INNOVA</a><a class="btn soft" href="mailto:contacto@maxinnova.mx">SOLICITAR VALIDACIÓN</a></div>
+ </div></main>
+ <script>
+  const p=new URLSearchParams(location.search),put=(id,key)=>{const value=p.get(key);document.getElementById(id).textContent=value||"No disponible"};put("quote","cotizacion");put("code","codigo");put("client","cliente");put("vehicle","vehiculo");
+ </script>
+</body>
+</html>
