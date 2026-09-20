@@ -411,6 +411,16 @@ body{position:relative;overflow-x:hidden}
 .vehicle-panel{display:none;grid-column:1/-1;padding:20px;border:1px solid #cce6f1;border-radius:14px;background:linear-gradient(145deg,#f8fdff,#edf8fc)}
 .vehicle-panel.show{display:block}.vehicle-panel h4{margin-bottom:6px}.vehicle-mini{font-size:10px;color:#668092;line-height:1.55;margin-bottom:15px}
 .vehicle-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.vehicle-visual{display:none;grid-column:1/-1;margin-top:4px;padding:16px;border:1px solid #b8dfed;border-radius:14px;background:#fff;box-shadow:0 8px 24px rgba(0,52,95,.08)}
+.vehicle-visual.show{display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px;align-items:center}
+.vehicle-brand-box{min-height:92px;display:flex;align-items:center;justify-content:center;padding:12px;border-radius:12px;background:#f5fafc}
+.vehicle-brand-box img{max-width:86px;max-height:64px;object-fit:contain}
+.vehicle-photo-box{position:relative;min-height:210px;overflow:hidden;border-radius:12px;background:linear-gradient(135deg,#eaf4f8,#cfe4ed);display:flex;align-items:center;justify-content:center}
+.vehicle-photo-box img{width:100%;height:240px;object-fit:contain;background:#fff}
+.vehicle-image-loading{padding:24px;color:#527183;text-align:center;font-size:12px;font-weight:700}
+.vehicle-reference{margin:9px 0 0;font-size:9px;color:#6b8190;line-height:1.45}
+.vehicle-visual-title{margin:0 0 9px;color:#00345f;font-size:15px}
+@media(max-width:640px){.vehicle-visual.show{grid-template-columns:1fr}.vehicle-brand-box{min-height:72px}.vehicle-photo-box img{height:205px}}
 .internal-access{display:none!important}
 @media(max-width:650px){.quote-grid{grid-template-columns:1fr}.quote-main{grid-column:auto}.quote-main strong{font-size:28px}}
 
@@ -684,7 +694,10 @@ No sustituir el diseño base al hacer cambios posteriores.
        <div class="field"><label>KILOMETRAJE</label><input id="vehKilometraje" type="number" min="0" step="1" placeholder="0"></div>
        <div class="field"><label>PRECIO DE LA UNIDAD</label><input id="vehPrecio" type="number" min="0" step="1000" placeholder="Precio aproximado"></div>
        <div class="field full"><label>AGENCIA / PROVEEDOR</label><input id="vehProveedor" placeholder="Si ya lo tienes ubicado"></div>
-       <div class="field full"><label>FOTOGRAFÍA DE LA UNIDAD</label><input id="vehFoto" type="file" accept="image/*" capture="environment"><p class="vehicle-mini">Puedes elegir una imagen o tomar una fotografía desde el celular.</p></div>
+       <div class="vehicle-visual" id="vehicleVisual" aria-live="polite">
+        <div class="vehicle-brand-box"><img id="vehicleBrandLogo" alt="Logotipo de la marca" hidden></div>
+        <div><h5 class="vehicle-visual-title" id="vehicleVisualTitle">Vista del vehículo</h5><div class="vehicle-photo-box"><div class="vehicle-image-loading" id="vehicleImageMessage">Selecciona marca y modelo para mostrar la unidad.</div><img id="vehicleModelImage" alt="Imagen de referencia del vehículo" hidden></div><p class="vehicle-reference">Imagen automática de referencia. El color, año, versión y equipamiento pueden variar; la unidad definitiva se confirma con la agencia o proveedor.</p></div>
+       </div>
       </div>
       <button type="button" class="catalog-manual-btn" id="vehicleManualBtn">¿NO APARECE? CAPTURAR MARCA Y MODELO MANUALMENTE</button>
       <div class="manual-vehicle-fields" id="manualVehicleFields"><div class="form-grid"><div class="field"><label>MARCA MANUAL</label><input id="vehMarcaManual" placeholder="Escribe la marca"></div><div class="field"><label>MODELO MANUAL</label><input id="vehModeloManual" placeholder="Escribe el modelo o submarca"></div></div></div>
@@ -1220,6 +1233,7 @@ let adminData=[];
 const VEHICLE_CATALOG_FALLBACK={"Acura":["Integra","TLX","RDX","MDX"],"Alfa Romeo":["Giulia","Stelvio","Tonale"],"Audi":["A1","A3","A4","A5","A6","A7","A8","Q2","Q3","Q4 e-tron","Q5","Q7","Q8","e-tron GT"],"BAIC":["U5 Plus","X35","X55","X7","BJ40"],"BMW":["Serie 1","Serie 2","Serie 3","Serie 4","Serie 5","Serie 7","X1","X2","X3","X4","X5","X6","X7","i4","i5","i7","iX1","iX"],"Buick":["Envista","Encore GX","Envision","Enclave"],"BYD":["Dolphin Mini","Dolphin","Yuan Plus","Song Pro","Song Plus","Seal","King","Han","Tang","Shark","Sealion 7"],"Cadillac":["CT4","CT5","XT4","XT5","XT6","Escalade","Lyriq","Optiq"],"Changan":["Alsvin","CS35 Plus","CS55 Plus","CS75 Plus","UNI-T","UNI-K","Hunter","Deepal S07"],"Chery":["Arrizo 5","Tiggo 2 Pro","Tiggo 4 Pro","Tiggo 7 Pro","Tiggo 8 Pro"],"Chevrolet":["Aveo","Onix","Cavalier","Groove","Tracker","Captiva","Equinox","Blazer","Traverse","Tahoe","Suburban","Trax","S10 Max","Colorado","Cheyenne","Silverado","Montana","Bolt EUV"],"Chrysler":["Pacifica"],"Citroën":["Berlingo","Jumpy"],"Cupra":["Ibiza","León","Ateca","Formentor","Born","Tavascan","Terramar"],"Dodge":["Attitude","Charger","Durango","Journey","Hornet"],"Fiat":["Mobi","Argo","Pulse","Fastback","Strada","Fiorino","Ducato"],"Ford":["Mustang","Territory","Bronco Sport","Bronco","Escape","Edge","Explorer","Expedition","Maverick","Ranger","F-150","Lobo","Transit","E-Transit","Mustang Mach-E"],"GAC":["Emzoom","Empow","GS3 Emzoom","GS4","GS8","M8","Aion Y","Aion ES"],"Geely":["GX3 Pro","Coolray","Cityray","Starray","Emgrand","Okavango","Geometry C"],"GMC":["Terrain","Acadia","Yukon","Canyon","Sierra","Hummer EV"],"Haval":["Jolion","H6","Dargo"],"Honda":["City","Civic","Accord","BR-V","HR-V","CR-V","Pilot","Odyssey"],"Hyundai":["Grand i10","HB20","Elantra","Creta","Venue","Tucson","Santa Fe","Palisade","Kona","Ioniq 5"],"Infiniti":["Q50","QX50","QX55","QX60","QX80"],"JAC":["J7","JS2","JS3","JS4","JS6","JS8","E10X","E30X","E J7","Frison T6","Frison T8"],"Jaecoo":["J7","J8"],"Jeep":["Renegade","Compass","Commander","Wrangler","Gladiator","Grand Cherokee","Wagoneer"],"Jetour":["X70","X70 Plus","X90 Plus","Dashing","T2"],"Kia":["K3","K4","Forte","Rio","Soul","Seltos","Sonet","Sportage","Sorento","Telluride","Carnival","Niro","EV5","EV6","EV9"],"KGM":["Tivoli","Korando","Torres","Rexton","Musso"],"Land Rover":["Range Rover Evoque","Discovery Sport","Defender","Discovery","Range Rover Velar","Range Rover Sport","Range Rover"],"Lexus":["IS","ES","LS","UX","NX","RX","GX","LX","RZ","LM"],"Lincoln":["Corsair","Nautilus","Aviator","Navigator"],"Maserati":["Grecale","Levante","Ghibli","Quattroporte","GranTurismo"],"Mazda":["Mazda2","Mazda3","Mazda6","CX-3","CX-30","CX-5","CX-50","CX-70","CX-90","MX-5"],"Mercedes-Benz":["Clase A","Clase C","Clase E","Clase S","CLA","CLE","GLA","GLB","GLC","GLE","GLS","Clase G","EQA","EQB","EQE","EQS","Vito","Sprinter"],"MG":["MG3","MG5","GT","ZS","HS","RX5","One","Marvel R","Cyberster"],"MINI":["Cooper","Cooper 5 Puertas","Convertible","Countryman","Aceman"],"Mitsubishi":["Mirage G4","L200","Outlander","Outlander PHEV","Eclipse Cross","Montero Sport","Xpander","Xpander Cross"],"Nissan":["March","V-Drive","Versa","Sentra","Altima","Kicks","Kicks Play","Magnite","X-Trail","Pathfinder","Murano","Frontier","NP300","Urvan","Leaf"],"Omoda":["C5","C5 EV","O5","O5 GT"],"Peugeot":["208","2008","3008","5008","Rifter","Partner","Expert","Manager"],"Porsche":["718","911","Panamera","Macan","Cayenne","Taycan"],"RAM":["700","1200","1500","2500","4000","ProMaster Rapid","ProMaster"],"Renault":["Kwid","Logan","Sandero","Stepway","Duster","Koleos","Kardian","Oroch","Kangoo","Master"],"SEAT":["Ibiza","Arona","León","Ateca","Tarraco"],"Subaru":["Impreza","WRX","BRZ","Crosstrek","Forester","Outback","Evoltis","Solterra"],"Suzuki":["Ignis","Swift","Swift Sport","Dzire","Baleno","Ciaz","Fronx","Jimny","Vitara","S-Cross","Ertiga","XL7"],"Tesla":["Model 3","Model Y","Model S","Model X","Cybertruck"],"Toyota":["Yaris","Yaris Sedán","Corolla","Corolla Hybrid","Camry","Prius","Raize","Avanza","Corolla Cross","RAV4","Highlander","Sienna","Sequoia","Land Cruiser","Hilux","Tacoma","Tundra","GR86","Supra"],"Volkswagen":["Polo","Virtus","Jetta","Jetta GLI","Golf GTI","Taigun","T-Cross","Nivus","Taos","Tiguan","Teramont","Cross Sport","Saveiro","Amarok","Caddy","Crafter","ID.4"],"Volvo":["EX30","EX40","EC40","XC40","XC60","XC90","S60","S90","V60"],"Zeekr":["X","001","009"]};
 let vehicleCatalogRows=[];
 let vehicleManualMode=false;
+let vehicleImageRequest=0;
 function vehicleFieldValue(id){
  const field=document.getElementById(id);
  if(id==="vehMarca"&&vehicleManualMode)return document.getElementById("vehMarcaManual")?.value.trim()||"";
@@ -1245,6 +1259,28 @@ function populateVehicleModels(){
  const models=vehicleCatalogRows.filter(x=>x.marca===marca).map(x=>x.modelo).sort((a,b)=>a.localeCompare(b,"es"));
  model.disabled=!marca;model.innerHTML='<option value="">Selecciona un modelo</option>'+[...new Set(models)].map(x=>`<option>${safe(x)}</option>`).join("");
  document.getElementById("vehVersionList").innerHTML="";
+ document.getElementById("vehicleVisual")?.classList.remove("show");
+}
+async function wikipediaImage(title){
+ const languages=["es","en"];
+ for(const language of languages){
+  try{
+   const response=await fetch(`https://${language}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`);
+   if(!response.ok)continue;const data=await response.json();const url=data.originalimage?.source||data.thumbnail?.source;if(url)return url;
+  }catch(error){}
+ }
+ return "";
+}
+async function imageUrlToDataUrl(url){
+ if(!url)return "";try{const response=await fetch(url);if(!response.ok)return "";const blob=await response.blob();return await new Promise(resolve=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result||"");reader.onerror=()=>resolve("");reader.readAsDataURL(blob)})}catch(error){return ""}
+}
+async function updateVehicleVisual(){
+ const marca=vehicleFieldValue("vehMarca"),modelo=vehicleFieldValue("vehModelo"),visual=document.getElementById("vehicleVisual"),logo=document.getElementById("vehicleBrandLogo"),photo=document.getElementById("vehicleModelImage"),message=document.getElementById("vehicleImageMessage"),title=document.getElementById("vehicleVisualTitle");
+ if(!visual||!marca||!modelo){visual?.classList.remove("show");return}
+ const request=++vehicleImageRequest;visual.classList.add("show");title.textContent=`${marca} ${modelo}`;logo.hidden=true;photo.hidden=true;message.hidden=false;message.textContent="Buscando logotipo e imagen de referencia…";
+ const [brandUrl,modelUrl]=await Promise.all([wikipediaImage(marca),wikipediaImage(`${marca} ${modelo}`)]);if(request!==vehicleImageRequest)return;
+ if(brandUrl){logo.src=brandUrl;logo.alt=`Logotipo ${marca}`;logo.hidden=false}else{logo.removeAttribute("src");logo.hidden=true}
+ if(modelUrl){photo.src=modelUrl;photo.alt=`${marca} ${modelo}, imagen de referencia`;photo.hidden=false;message.hidden=true}else{photo.removeAttribute("src");photo.hidden=true;message.hidden=false;message.textContent="No se encontró una fotografía automática para este modelo. La cotización puede continuar normalmente."}
 }
 async function loadVehicleVersions(){
  const marca=document.getElementById("vehMarca")?.value,modelo=document.getElementById("vehModelo")?.value,anio=Number(document.getElementById("vehAnio")?.value),list=document.getElementById("vehVersionList");if(!list||!marca||!modelo||!anio)return;
@@ -1253,13 +1289,17 @@ async function loadVehicleVersions(){
  if(error){list.innerHTML="";return}
  list.innerHTML=(data||[]).map(v=>`<option value="${safe(v.version)}">${safe(v.transmision||"")}</option>`).join("");
  if(data?.length===1){document.getElementById("vehVersion").value=data[0].version;if(data[0].transmision)document.getElementById("vehTransmision").value=data[0].transmision;if(data[0].precio_referencia)document.getElementById("vehPrecio").value=data[0].precio_referencia}
+ updateVehicleVisual();
 }
 document.getElementById("vehMarca")?.addEventListener("change",populateVehicleModels);
-document.getElementById("vehModelo")?.addEventListener("change",loadVehicleVersions);
+document.getElementById("vehModelo")?.addEventListener("change",()=>{loadVehicleVersions();updateVehicleVisual()});
 document.getElementById("vehAnio")?.addEventListener("change",loadVehicleVersions);
+document.getElementById("vehMarcaManual")?.addEventListener("change",updateVehicleVisual);
+document.getElementById("vehModeloManual")?.addEventListener("change",updateVehicleVisual);
 document.getElementById("vehicleManualBtn")?.addEventListener("click",()=>{
  vehicleManualMode=!vehicleManualMode;document.getElementById("manualVehicleFields")?.classList.toggle("show",vehicleManualMode);
  document.getElementById("vehicleManualBtn").textContent=vehicleManualMode?"USAR CATÁLOGO AUTOMOTRIZ":"¿NO APARECE? CAPTURAR MARCA Y MODELO MANUALMENTE";
+ if(!vehicleManualMode)document.getElementById("vehicleVisual")?.classList.remove("show");else updateVehicleVisual();
 });
 loadVehicleCatalog();
 
@@ -2011,7 +2051,10 @@ renderSectors();
    const {jsPDF}=window.jspdf,doc=new jsPDF();try{const img=new Image();img.src="logo%20maxinnova.png";await new Promise((ok,no)=>{img.onload=ok;img.onerror=no});doc.addImage(img,"PNG",18,10,48,18)}catch(e){}
    doc.setFillColor(0,52,95);doc.rect(0,0,210,8,"F");doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.setFontSize(17);doc.text("FICHA TÉCNICA DEL VEHÍCULO",20,40);
    doc.setFontSize(13);doc.text(`${marca} ${modelo} ${anio}`,20,50);doc.setFontSize(9);doc.setTextColor(70,95,110);doc.text(`Versión: ${version}`,20,57);
-   const rows=[["Transmisión",vehicleFieldValue("vehTransmision")||"Por definir"],["Color",vehicleFieldValue("vehColor")||"Por definir"],["Condición",vehicleFieldValue("vehCondicion")||"Por definir"],["Kilometraje",vehicleFieldValue("vehKilometraje")||"0"],["Precio de referencia",vehicleFieldValue("vehPrecio")?money(vehicleFieldValue("vehPrecio")):"Por definir"],["Agencia / proveedor",vehicleFieldValue("vehProveedor")||"Por definir"]];let y=72;rows.forEach(([a,b],i)=>{if(i%2===0){doc.setFillColor(244,250,253);doc.rect(18,y-6,174,9,"F")}doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.text(a,21,y);doc.setFont("helvetica","normal");doc.setTextColor(35,65,82);doc.text(String(b),82,y);y+=10});
+   const logoData=await imageUrlToDataUrl(document.getElementById("vehicleBrandLogo")?.src||"");const vehicleData=await imageUrlToDataUrl(document.getElementById("vehicleModelImage")?.src||"");
+   try{if(logoData)doc.addImage(logoData,logoData.includes("image/png")?"PNG":"JPEG",164,13,27,18,undefined,"FAST")}catch(e){}
+   try{if(vehicleData)doc.addImage(vehicleData,vehicleData.includes("image/png")?"PNG":"JPEG",119,46,72,48,undefined,"FAST")}catch(e){}
+   const rows=[["Transmisión",vehicleFieldValue("vehTransmision")||"Por definir"],["Color",vehicleFieldValue("vehColor")||"Por definir"],["Condición",vehicleFieldValue("vehCondicion")||"Por definir"],["Kilometraje",vehicleFieldValue("vehKilometraje")||"0"],["Precio de referencia",vehicleFieldValue("vehPrecio")?money(vehicleFieldValue("vehPrecio")):"Por definir"],["Agencia / proveedor",vehicleFieldValue("vehProveedor")||"Por definir"]];let y=72;rows.forEach(([a,b],i)=>{if(i%2===0){doc.setFillColor(244,250,253);doc.rect(18,y-6,94,9,"F")}doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.text(a,21,y);doc.setFont("helvetica","normal");doc.setTextColor(35,65,82);doc.text(String(b).slice(0,24),70,y);y+=10});
    const sections=[["MOTOR Y DESEMPEÑO","La motorización, potencia, torque, rendimiento y tipo de combustible se mostrarán conforme a la versión exacta seleccionada."],["TRANSMISIÓN Y MANEJO","Tipo de transmisión, tracción, modos de manejo y características de conducción correspondientes a la versión."],["SEGURIDAD","Bolsas de aire, frenos, asistencias, control de estabilidad, cámara, sensores y sistemas de seguridad incluidos en la versión."],["TECNOLOGÍA Y CONECTIVIDAD","Pantalla, conectividad, audio, puertos, integración con smartphone y demás tecnología incluida."],["CONFORT Y EQUIPAMIENTO","Aire acondicionado, vestiduras, asientos, cristales, iluminación, rines y equipamiento interior/exterior de la versión."],["DIMENSIONES Y CAPACIDADES","Medidas, capacidad de pasajeros, cajuela, tanque y demás capacidades aplicables."]];
    y=112;sections.forEach(([t,d])=>{doc.setFillColor(238,248,252);doc.roundedRect(18,y-6,174,8,2,2,"F");doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.setFontSize(9);doc.text(t,21,y);doc.setFont("helvetica","normal");doc.setTextColor(55,75,88);doc.setFontSize(8);doc.text(doc.splitTextToSize(d,166),21,y+8);y+=28});
    doc.setFontSize(7.5);doc.setTextColor(85,100,110);doc.text(doc.splitTextToSize("La ficha definitiva se integra con las especificaciones correspondientes a la marca, modelo, año y versión exactos disponibles para el mercado aplicable. Los datos técnicos deben coincidir con la información oficial del fabricante o agencia.",170),20,278);
