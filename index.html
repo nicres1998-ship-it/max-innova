@@ -90,6 +90,10 @@ header{height:86px;background:#fff;position:sticky;top:0;z-index:1000;box-shadow
 .account-sheet-body{padding:18px}.account-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:17px}
 .account-metric{padding:13px;border-radius:10px;background:#f1f8fb}.account-metric span{display:block;font-size:9px;color:#698392;font-weight:900}.account-metric b{display:block;margin-top:5px;font-size:17px;color:#003f69}
 .service-message{display:none;margin-top:14px;padding:13px;border-radius:10px;font-size:11px;line-height:1.5}.service-message.show{display:block}.service-message.ok{background:#e8f8f1;color:#176548}.service-message.error{background:#fff0f0;color:#983939}
+.catalog-manual-btn{margin:14px 0 0;border:0;background:transparent;color:#006da6;font-size:10px;font-weight:900;text-decoration:underline}
+.manual-vehicle-fields{display:none;margin-top:13px;padding:15px;border:1px dashed #7ebbd3;border-radius:12px;background:#f5fbfe}.manual-vehicle-fields.show{display:block}
+.catalog-status{margin-top:13px;padding:10px 12px;border-radius:9px;background:#edf8fc;color:#527183;font-size:10px;line-height:1.5}
+.color-preview{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.color-dot{width:25px;height:25px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #c4d7e0}
 @media(max-width:950px){.statement-inner{align-items:flex-start}.client-actions{justify-content:flex-start}.statement-secondary{display:none}}
 @media(max-width:600px){.client-actions{margin-top:18px}.client-actions .btn{width:100%;min-width:0}.service-options,.account-metrics{grid-template-columns:1fr}.service-head,.service-body{padding-left:20px;padding-right:20px}}
 
@@ -668,18 +672,25 @@ No sustituir el diseño base al hacer cambios posteriores.
      <div class="field full"><label>CIUDAD / ESTADO</label><input id="ciudad"></div>
      <div class="field full"><label>¿QUÉ DESEAS FINANCIAR?</label><textarea id="proyecto" placeholder="Describe brevemente tu proyecto o necesidad."></textarea></div>
      <div class="vehicle-panel" id="vehiclePanel">
-      <h4>Datos del vehículo</h4><p class="vehicle-mini">Si ya sabes qué unidad deseas, registra los datos. Si todavía no la eliges, puedes continuar sin llenarlos.</p>
+      <h4>Catálogo automotriz MAX INNOVA</h4><p class="vehicle-mini">Selecciona marca, modelo y año. Si la unidad todavía no aparece, usa la captura manual sin detener la cotización.</p>
       <div class="form-grid">
-       <div class="field"><label>MARCA</label><input id="vehMarca" placeholder="Ej. Toyota"></div>
-       <div class="field"><label>MODELO</label><input id="vehModelo" placeholder="Ej. Corolla"></div>
-       <div class="field"><label>AÑO</label><input id="vehAnio" type="number" min="1990" max="2035" placeholder="2026"></div>
-       <div class="field"><label>VERSIÓN</label><input id="vehVersion" placeholder="Ej. XLE CVT"></div>
+       <div class="field"><label>MARCA</label><select id="vehMarca"><option value="">Selecciona una marca</option></select></div>
+       <div class="field"><label>MODELO / SUBMARCA</label><select id="vehModelo" disabled><option value="">Primero selecciona la marca</option></select></div>
+       <div class="field"><label>AÑO</label><select id="vehAnio"><option value="">Selecciona</option><option>2023</option><option>2024</option><option>2025</option><option>2026</option><option value="2027">2027 · PROVISIONAL</option></select></div>
+       <div class="field"><label>VERSIÓN</label><input id="vehVersion" list="vehVersionList" placeholder="Ej. XLE CVT"><datalist id="vehVersionList"></datalist></div>
+       <div class="field"><label>TRANSMISIÓN</label><select id="vehTransmision"><option value="">Selecciona</option><option>Manual</option><option>Automática</option><option>CVT</option><option>DCT</option><option>Eléctrica de una velocidad</option><option>Otra / Por confirmar</option></select></div>
+       <div class="field"><label>COLOR</label><input id="vehColor" list="vehColorList" placeholder="Ej. Blanco Perlado"><datalist id="vehColorList"><option>Blanco</option><option>Blanco Perlado</option><option>Negro</option><option>Gris</option><option>Plata</option><option>Azul</option><option>Rojo</option><option>Verde</option><option>Café</option><option>Beige</option></datalist></div>
        <div class="field"><label>CONDICIÓN</label><select id="vehCondicion"><option value="">Selecciona</option><option>Nuevo</option><option>Seminuevo</option></select></div>
+       <div class="field"><label>KILOMETRAJE</label><input id="vehKilometraje" type="number" min="0" step="1" placeholder="0"></div>
        <div class="field"><label>PRECIO DE LA UNIDAD</label><input id="vehPrecio" type="number" min="0" step="1000" placeholder="Precio aproximado"></div>
        <div class="field full"><label>AGENCIA / PROVEEDOR</label><input id="vehProveedor" placeholder="Si ya lo tienes ubicado"></div>
+       <div class="field full"><label>FOTOGRAFÍA DE LA UNIDAD</label><input id="vehFoto" type="file" accept="image/*" capture="environment"><p class="vehicle-mini">Puedes elegir una imagen o tomar una fotografía desde el celular.</p></div>
       </div>
+      <button type="button" class="catalog-manual-btn" id="vehicleManualBtn">¿NO APARECE? CAPTURAR MARCA Y MODELO MANUALMENTE</button>
+      <div class="manual-vehicle-fields" id="manualVehicleFields"><div class="form-grid"><div class="field"><label>MARCA MANUAL</label><input id="vehMarcaManual" placeholder="Escribe la marca"></div><div class="field"><label>MODELO MANUAL</label><input id="vehModeloManual" placeholder="Escribe el modelo o submarca"></div></div></div>
+      <div class="catalog-status" id="vehicleCatalogStatus">Cargando catálogo automotriz…</div>
       <div class="vehicle-actions"><button type="button" class="btn btn-soft" id="vehicleSheetBtn">DESCARGAR FICHA DEL VEHÍCULO</button></div>
-      <p class="vehicle-mini">La ficha está pensada para mostrar al cliente la información del vehículo seleccionado: características, seguridad, tecnología, confort, dimensiones y equipamiento de la versión disponible.</p>
+      <p class="vehicle-mini">Años 2023–2026 corresponden a la base operativa. Las opciones 2027 se consideran provisionales hasta su confirmación por cada fabricante.</p>
      </div>
     </div>
 
@@ -1086,7 +1097,7 @@ function miIncomeGuide(){
  <div class="service-body">
   <div id="paymentOptions" class="service-panel show">
    <div class="service-options">
-    <button class="service-option" type="button" onclick="showPaymentPanel('online')"><span class="service-option-icon">$</span><strong>PAGAR MENSUALIDAD</strong><span>Consulta tu mensualidad y continúa al pago en línea.</span></button>
+    <button class="service-option" type="button" onclick="showPaymentPanel('online')"><span class="service-option-icon">$</span><strong>PAGAR MENSUALIDAD</strong><span>Consulta tu mensualidad y las cuentas bancarias disponibles.</span></button>
     <button class="service-option" type="button" onclick="showPaymentPanel('proof')"><span class="service-option-icon">↥</span><strong>REGISTRAR PAGO</strong><span>Sube el comprobante de un pago realizado fuera de la página.</span></button>
    </div>
    <div class="secure-note"><span>🔒</span><span>La información se utiliza únicamente para identificar tu operación y registrar el movimiento correspondiente.</span></div>
@@ -1094,15 +1105,15 @@ function miIncomeGuide(){
 
   <div id="onlinePaymentPanel" class="service-panel">
    <button class="service-back" type="button" onclick="showPaymentPanel('options')">← REGRESAR</button>
-   <div class="kicker">PAGO EN LÍNEA</div><h2>Pagar mensualidad</h2>
+   <div class="kicker">DATOS BANCARIOS</div><h2>Pagar mensualidad</h2>
    <form id="onlinePaymentForm">
     <div class="form-grid">
      <div class="field"><label>FOLIO</label><input id="payFolio" autocomplete="off" placeholder="MI-2026-..." required></div>
      <div class="field"><label>TELÉFONO REGISTRADO</label><input id="payPhone" inputmode="tel" autocomplete="tel" placeholder="10 dígitos" required></div>
     </div>
     <div class="payment-summary" id="paymentSummary"></div>
-    <div class="secure-note"><span>🛡️</span><span>El cobro con tarjeta será procesado por una pasarela certificada. MAX INNOVA no almacenará los datos completos de tu tarjeta.</span></div>
-    <button class="btn btn-blue" id="continuePaymentBtn" type="submit">CONSULTAR Y CONTINUAR AL PAGO</button>
+    <div class="secure-note"><span>🛡️</span><span>Realiza el pago únicamente a una cuenta mostrada como activa y confirma que el beneficiario coincida antes de transferir.</span></div>
+    <button class="btn btn-blue" id="continuePaymentBtn" type="submit">CONSULTAR MENSUALIDAD Y CUENTAS</button>
     <div class="service-message" id="onlinePaymentMessage"></div>
    </form>
   </div>
@@ -1204,6 +1215,56 @@ let modalType="";
 let adminData=[];
 
 /* =========================
+   CATÁLOGO AUTOMOTRIZ 2023-2027
+========================= */
+const VEHICLE_CATALOG_FALLBACK={"Acura":["Integra","TLX","RDX","MDX"],"Alfa Romeo":["Giulia","Stelvio","Tonale"],"Audi":["A1","A3","A4","A5","A6","A7","A8","Q2","Q3","Q4 e-tron","Q5","Q7","Q8","e-tron GT"],"BAIC":["U5 Plus","X35","X55","X7","BJ40"],"BMW":["Serie 1","Serie 2","Serie 3","Serie 4","Serie 5","Serie 7","X1","X2","X3","X4","X5","X6","X7","i4","i5","i7","iX1","iX"],"Buick":["Envista","Encore GX","Envision","Enclave"],"BYD":["Dolphin Mini","Dolphin","Yuan Plus","Song Pro","Song Plus","Seal","King","Han","Tang","Shark","Sealion 7"],"Cadillac":["CT4","CT5","XT4","XT5","XT6","Escalade","Lyriq","Optiq"],"Changan":["Alsvin","CS35 Plus","CS55 Plus","CS75 Plus","UNI-T","UNI-K","Hunter","Deepal S07"],"Chery":["Arrizo 5","Tiggo 2 Pro","Tiggo 4 Pro","Tiggo 7 Pro","Tiggo 8 Pro"],"Chevrolet":["Aveo","Onix","Cavalier","Groove","Tracker","Captiva","Equinox","Blazer","Traverse","Tahoe","Suburban","Trax","S10 Max","Colorado","Cheyenne","Silverado","Montana","Bolt EUV"],"Chrysler":["Pacifica"],"Citroën":["Berlingo","Jumpy"],"Cupra":["Ibiza","León","Ateca","Formentor","Born","Tavascan","Terramar"],"Dodge":["Attitude","Charger","Durango","Journey","Hornet"],"Fiat":["Mobi","Argo","Pulse","Fastback","Strada","Fiorino","Ducato"],"Ford":["Mustang","Territory","Bronco Sport","Bronco","Escape","Edge","Explorer","Expedition","Maverick","Ranger","F-150","Lobo","Transit","E-Transit","Mustang Mach-E"],"GAC":["Emzoom","Empow","GS3 Emzoom","GS4","GS8","M8","Aion Y","Aion ES"],"Geely":["GX3 Pro","Coolray","Cityray","Starray","Emgrand","Okavango","Geometry C"],"GMC":["Terrain","Acadia","Yukon","Canyon","Sierra","Hummer EV"],"Haval":["Jolion","H6","Dargo"],"Honda":["City","Civic","Accord","BR-V","HR-V","CR-V","Pilot","Odyssey"],"Hyundai":["Grand i10","HB20","Elantra","Creta","Venue","Tucson","Santa Fe","Palisade","Kona","Ioniq 5"],"Infiniti":["Q50","QX50","QX55","QX60","QX80"],"JAC":["J7","JS2","JS3","JS4","JS6","JS8","E10X","E30X","E J7","Frison T6","Frison T8"],"Jaecoo":["J7","J8"],"Jeep":["Renegade","Compass","Commander","Wrangler","Gladiator","Grand Cherokee","Wagoneer"],"Jetour":["X70","X70 Plus","X90 Plus","Dashing","T2"],"Kia":["K3","K4","Forte","Rio","Soul","Seltos","Sonet","Sportage","Sorento","Telluride","Carnival","Niro","EV5","EV6","EV9"],"KGM":["Tivoli","Korando","Torres","Rexton","Musso"],"Land Rover":["Range Rover Evoque","Discovery Sport","Defender","Discovery","Range Rover Velar","Range Rover Sport","Range Rover"],"Lexus":["IS","ES","LS","UX","NX","RX","GX","LX","RZ","LM"],"Lincoln":["Corsair","Nautilus","Aviator","Navigator"],"Maserati":["Grecale","Levante","Ghibli","Quattroporte","GranTurismo"],"Mazda":["Mazda2","Mazda3","Mazda6","CX-3","CX-30","CX-5","CX-50","CX-70","CX-90","MX-5"],"Mercedes-Benz":["Clase A","Clase C","Clase E","Clase S","CLA","CLE","GLA","GLB","GLC","GLE","GLS","Clase G","EQA","EQB","EQE","EQS","Vito","Sprinter"],"MG":["MG3","MG5","GT","ZS","HS","RX5","One","Marvel R","Cyberster"],"MINI":["Cooper","Cooper 5 Puertas","Convertible","Countryman","Aceman"],"Mitsubishi":["Mirage G4","L200","Outlander","Outlander PHEV","Eclipse Cross","Montero Sport","Xpander","Xpander Cross"],"Nissan":["March","V-Drive","Versa","Sentra","Altima","Kicks","Kicks Play","Magnite","X-Trail","Pathfinder","Murano","Frontier","NP300","Urvan","Leaf"],"Omoda":["C5","C5 EV","O5","O5 GT"],"Peugeot":["208","2008","3008","5008","Rifter","Partner","Expert","Manager"],"Porsche":["718","911","Panamera","Macan","Cayenne","Taycan"],"RAM":["700","1200","1500","2500","4000","ProMaster Rapid","ProMaster"],"Renault":["Kwid","Logan","Sandero","Stepway","Duster","Koleos","Kardian","Oroch","Kangoo","Master"],"SEAT":["Ibiza","Arona","León","Ateca","Tarraco"],"Subaru":["Impreza","WRX","BRZ","Crosstrek","Forester","Outback","Evoltis","Solterra"],"Suzuki":["Ignis","Swift","Swift Sport","Dzire","Baleno","Ciaz","Fronx","Jimny","Vitara","S-Cross","Ertiga","XL7"],"Tesla":["Model 3","Model Y","Model S","Model X","Cybertruck"],"Toyota":["Yaris","Yaris Sedán","Corolla","Corolla Hybrid","Camry","Prius","Raize","Avanza","Corolla Cross","RAV4","Highlander","Sienna","Sequoia","Land Cruiser","Hilux","Tacoma","Tundra","GR86","Supra"],"Volkswagen":["Polo","Virtus","Jetta","Jetta GLI","Golf GTI","Taigun","T-Cross","Nivus","Taos","Tiguan","Teramont","Cross Sport","Saveiro","Amarok","Caddy","Crafter","ID.4"],"Volvo":["EX30","EX40","EC40","XC40","XC60","XC90","S60","S90","V60"],"Zeekr":["X","001","009"]};
+let vehicleCatalogRows=[];
+let vehicleManualMode=false;
+function vehicleFieldValue(id){
+ const field=document.getElementById(id);
+ if(id==="vehMarca"&&vehicleManualMode)return document.getElementById("vehMarcaManual")?.value.trim()||"";
+ if(id==="vehModelo"&&vehicleManualMode)return document.getElementById("vehModeloManual")?.value.trim()||"";
+ return field?.value?.trim?.()||field?.value||"";
+}
+async function loadVehicleCatalog(){
+ const brand=document.getElementById("vehMarca"),status=document.getElementById("vehicleCatalogStatus");if(!brand)return;
+ try{
+  const {data,error}=await db.from("max_innova_vehiculos_catalogo").select("id,marca,modelo,anios").eq("activo",true).order("marca").order("modelo");
+  if(error)throw error;vehicleCatalogRows=data||[];
+  const brands=[...new Set(vehicleCatalogRows.map(x=>x.marca))];
+  brand.innerHTML='<option value="">Selecciona una marca</option>'+brands.map(x=>`<option>${safe(x)}</option>`).join("");
+  if(status)status.textContent=`Catálogo conectado: ${brands.length} marcas y ${vehicleCatalogRows.length} modelos. Las versiones pueden completarse manualmente.`;
+ }catch(err){
+  vehicleCatalogRows=Object.entries(VEHICLE_CATALOG_FALLBACK).flatMap(([marca,models])=>models.map(modelo=>({marca,modelo,anios:[2023,2024,2025,2026,2027]})));
+  brand.innerHTML='<option value="">Selecciona una marca</option>'+Object.keys(VEHICLE_CATALOG_FALLBACK).map(x=>`<option>${safe(x)}</option>`).join("");
+  if(status)status.textContent="Catálogo local disponible. Ejecuta el SQL del catálogo para habilitar versiones administrables en Supabase.";
+ }
+}
+function populateVehicleModels(){
+ const marca=document.getElementById("vehMarca")?.value||"",model=document.getElementById("vehModelo");if(!model)return;
+ const models=vehicleCatalogRows.filter(x=>x.marca===marca).map(x=>x.modelo).sort((a,b)=>a.localeCompare(b,"es"));
+ model.disabled=!marca;model.innerHTML='<option value="">Selecciona un modelo</option>'+[...new Set(models)].map(x=>`<option>${safe(x)}</option>`).join("");
+ document.getElementById("vehVersionList").innerHTML="";
+}
+async function loadVehicleVersions(){
+ const marca=document.getElementById("vehMarca")?.value,modelo=document.getElementById("vehModelo")?.value,anio=Number(document.getElementById("vehAnio")?.value),list=document.getElementById("vehVersionList");if(!list||!marca||!modelo||!anio)return;
+ const row=vehicleCatalogRows.find(x=>x.marca===marca&&x.modelo===modelo);if(!row?.id){list.innerHTML="";return}
+ const {data,error}=await db.from("max_innova_versiones_catalogo").select("version,transmision,precio_referencia").eq("vehiculo_id",row.id).eq("anio",anio).eq("activo",true).order("version");
+ if(error){list.innerHTML="";return}
+ list.innerHTML=(data||[]).map(v=>`<option value="${safe(v.version)}">${safe(v.transmision||"")}</option>`).join("");
+ if(data?.length===1){document.getElementById("vehVersion").value=data[0].version;if(data[0].transmision)document.getElementById("vehTransmision").value=data[0].transmision;if(data[0].precio_referencia)document.getElementById("vehPrecio").value=data[0].precio_referencia}
+}
+document.getElementById("vehMarca")?.addEventListener("change",populateVehicleModels);
+document.getElementById("vehModelo")?.addEventListener("change",loadVehicleVersions);
+document.getElementById("vehAnio")?.addEventListener("change",loadVehicleVersions);
+document.getElementById("vehicleManualBtn")?.addEventListener("click",()=>{
+ vehicleManualMode=!vehicleManualMode;document.getElementById("manualVehicleFields")?.classList.toggle("show",vehicleManualMode);
+ document.getElementById("vehicleManualBtn").textContent=vehicleManualMode?"USAR CATÁLOGO AUTOMOTRIZ":"¿NO APARECE? CAPTURAR MARCA Y MODELO MANUALMENTE";
+});
+loadVehicleCatalog();
+
+
+/* =========================
    PAGOS Y ESTADO DE CUENTA
 ========================= */
 const el=id=>document.getElementById(id);
@@ -1237,15 +1298,20 @@ el("onlinePaymentForm")?.addEventListener("submit",async e=>{
  e.preventDefault();const btn=el("continuePaymentBtn");clearServiceMessage("onlinePaymentMessage");btn.disabled=true;btn.textContent="CONSULTANDO...";
  try{
   const client=await verifyClient(el("payFolio").value,el("payPhone").value);
-  const {data:credit,error}=await db.from("max_innova_creditos").select("*").eq("folio",client.folio).maybeSingle();
+  const [{data:credit,error},{data:accounts,error:accountsError}]=await Promise.all([
+   db.from("max_innova_creditos").select("*").eq("folio",client.folio).maybeSingle(),
+   db.from("max_innova_cuentas_bancarias").select("*").eq("activa",true).order("orden",{ascending:true})
+  ]);
   if(error)throw new Error("El módulo de créditos todavía no está habilitado en la base de datos.");
+  if(accountsError)throw new Error("No fue posible consultar las cuentas bancarias disponibles.");
   if(!credit)throw new Error("Este folio todavía no tiene un crédito contratado con una mensualidad disponible.");
   const due=Number(credit.proxima_mensualidad||credit.mensualidad||0);
-  el("paymentSummary").innerHTML=`<strong>${safe(client.nombre)}</strong><p class="help">Folio ${safe(client.folio)}</p><div class="account-metrics"><div class="account-metric"><span>MENSUALIDAD</span><b>${moneyMX(due)}</b></div><div class="account-metric"><span>PRÓXIMO VENCIMIENTO</span><b>${safe(credit.proximo_vencimiento||"Por confirmar")}</b></div><div class="account-metric"><span>SALDO</span><b>${moneyMX(credit.saldo_actual)}</b></div></div>`;
+  const bankCards=(accounts||[]).map(a=>`<div class="modal-detail"><strong>${safe(a.banco)}</strong><p><b>Beneficiario:</b> ${safe(a.beneficiario)}<br>${a.clabe?`<b>CLABE:</b> <span>${safe(a.clabe)}</span> <button type="button" class="service-back" onclick="navigator.clipboard.writeText('${safe(a.clabe)}')">COPIAR</button><br>`:""}${a.numero_cuenta?`<b>Cuenta:</b> ${safe(a.numero_cuenta)}<br>`:""}${a.numero_tarjeta?`<b>Tarjeta:</b> ${safe(a.numero_tarjeta)}<br>`:""}${safe(a.instrucciones||"")}</p></div>`).join("");
+  el("paymentSummary").innerHTML=`<strong>${safe(client.nombre)}</strong><p class="help">Folio ${safe(client.folio)}</p><div class="account-metrics"><div class="account-metric"><span>MENSUALIDAD</span><b>${moneyMX(due)}</b></div><div class="account-metric"><span>PRÓXIMO VENCIMIENTO</span><b>${safe(credit.proximo_vencimiento||"Por confirmar")}</b></div><div class="account-metric"><span>SALDO</span><b>${moneyMX(credit.saldo_actual)}</b></div></div><h3 style="margin:14px 0 9px">Cuentas disponibles</h3><div class="modal-detail-grid">${bankCards||'<div class="modal-detail"><p>No hay cuentas bancarias activas registradas. Solicita los datos al área administrativa.</p></div>'}</div><br><button type="button" class="btn btn-cyan" onclick="showPaymentPanel('proof');document.getElementById('proofFolio').value='${safe(client.folio)}';document.getElementById('proofPhone').value='${safe(el("payPhone").value)}'">YA REALICÉ EL PAGO</button>`;
   el("paymentSummary").classList.add("show");
-  setServiceMessage("onlinePaymentMessage","La mensualidad fue localizada. Falta conectar la cuenta de la pasarela de pago para abrir el cobro seguro.","ok");
+  setServiceMessage("onlinePaymentMessage","Verifica el beneficiario, realiza la transferencia y después registra tu comprobante.","ok");
  }catch(err){setServiceMessage("onlinePaymentMessage",err.message||"No fue posible consultar la mensualidad.")}
- finally{btn.disabled=false;btn.textContent="CONSULTAR Y CONTINUAR AL PAGO"}
+ finally{btn.disabled=false;btn.textContent="CONSULTAR MENSUALIDAD Y CUENTAS"}
 });
 
 el("proofPaymentForm")?.addEventListener("submit",async e=>{
@@ -1566,7 +1632,7 @@ solicitudForm.addEventListener("submit",async e=>{
  const docInputs=[...document.querySelectorAll(".doc-file")];
  let projectText=proyecto.value.trim();
  if(tipo.value==="Vehicular"){
-  const vehicle=[`Marca: ${vehMarca.value||"Pendiente"}`,`Modelo: ${vehModelo.value||"Pendiente"}`,`Año: ${vehAnio.value||"Pendiente"}`,`Versión: ${vehVersion.value||"Pendiente"}`,`Condición: ${vehCondicion.value||"Pendiente"}`,`Precio: ${vehPrecio.value||"Pendiente"}`,`Proveedor: ${vehProveedor.value||"Pendiente"}`].join(" | ");
+  const vehicle=[`Marca: ${vehicleFieldValue("vehMarca")||"Pendiente"}`,`Modelo: ${vehicleFieldValue("vehModelo")||"Pendiente"}`,`Año: ${vehicleFieldValue("vehAnio")||"Pendiente"}`,`Versión: ${vehicleFieldValue("vehVersion")||"Pendiente"}`,`Transmisión: ${vehicleFieldValue("vehTransmision")||"Pendiente"}`,`Color: ${vehicleFieldValue("vehColor")||"Pendiente"}`,`Condición: ${vehicleFieldValue("vehCondicion")||"Pendiente"}`,`Kilometraje: ${vehicleFieldValue("vehKilometraje")||"0"}`,`Precio: ${vehicleFieldValue("vehPrecio")||"Pendiente"}`,`Proveedor: ${vehicleFieldValue("vehProveedor")||"Pendiente"}`].join(" | ");
   projectText+=(projectText?"\n":"")+"VEHÍCULO: "+vehicle;
  }
  const data={folio:makeFolio(),nombre:nombre.value.trim(),telefono:telefono.value.trim(),correo:correo.value.trim(),rfc:rfc.value.trim().toUpperCase(),tipo_financiamiento:tipo.value,ciudad:ciudad.value.trim(),proyecto:projectText,modalidad_documentos:modalidad,estatus:"SOLICITUD RECIBIDA",indicaciones_cliente:"Su solicitud fue registrada correctamente. Si tiene documentación pendiente podrá complementarla durante el seguimiento."};
@@ -1940,12 +2006,12 @@ renderSectors();
    doc.save(`MAX-INNOVA-PRECOTIZACION-${Date.now()}.pdf`);
  });
  $("vehicleSheetBtn")?.addEventListener("click",async()=>{
-   const marca=$("vehMarca")?.value.trim()||"Vehículo seleccionado", modelo=$("vehModelo")?.value.trim()||"Modelo por definir", anio=$("vehAnio")?.value.trim()||"Año por definir", version=$("vehVersion")?.value.trim()||"Versión por definir";
+   const marca=vehicleFieldValue("vehMarca")||"Vehículo seleccionado", modelo=vehicleFieldValue("vehModelo")||"Modelo por definir", anio=vehicleFieldValue("vehAnio")||"Año por definir", version=vehicleFieldValue("vehVersion")||"Versión por definir";
    if(!window.jspdf){alert("No fue posible preparar el PDF en este momento.");return}
    const {jsPDF}=window.jspdf,doc=new jsPDF();try{const img=new Image();img.src="logo%20maxinnova.png";await new Promise((ok,no)=>{img.onload=ok;img.onerror=no});doc.addImage(img,"PNG",18,10,48,18)}catch(e){}
    doc.setFillColor(0,52,95);doc.rect(0,0,210,8,"F");doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.setFontSize(17);doc.text("FICHA TÉCNICA DEL VEHÍCULO",20,40);
    doc.setFontSize(13);doc.text(`${marca} ${modelo} ${anio}`,20,50);doc.setFontSize(9);doc.setTextColor(70,95,110);doc.text(`Versión: ${version}`,20,57);
-   const rows=[["Condición",$("vehCondicion")?.value||"Por definir"],["Precio de referencia",$("vehPrecio")?.value?money($("vehPrecio").value):"Por definir"],["Agencia / proveedor",$("vehProveedor")?.value.trim()||"Por definir"]];let y=72;rows.forEach(([a,b],i)=>{if(i%2===0){doc.setFillColor(244,250,253);doc.rect(18,y-6,174,9,"F")}doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.text(a,21,y);doc.setFont("helvetica","normal");doc.setTextColor(35,65,82);doc.text(String(b),82,y);y+=10});
+   const rows=[["Transmisión",vehicleFieldValue("vehTransmision")||"Por definir"],["Color",vehicleFieldValue("vehColor")||"Por definir"],["Condición",vehicleFieldValue("vehCondicion")||"Por definir"],["Kilometraje",vehicleFieldValue("vehKilometraje")||"0"],["Precio de referencia",vehicleFieldValue("vehPrecio")?money(vehicleFieldValue("vehPrecio")):"Por definir"],["Agencia / proveedor",vehicleFieldValue("vehProveedor")||"Por definir"]];let y=72;rows.forEach(([a,b],i)=>{if(i%2===0){doc.setFillColor(244,250,253);doc.rect(18,y-6,174,9,"F")}doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.text(a,21,y);doc.setFont("helvetica","normal");doc.setTextColor(35,65,82);doc.text(String(b),82,y);y+=10});
    const sections=[["MOTOR Y DESEMPEÑO","La motorización, potencia, torque, rendimiento y tipo de combustible se mostrarán conforme a la versión exacta seleccionada."],["TRANSMISIÓN Y MANEJO","Tipo de transmisión, tracción, modos de manejo y características de conducción correspondientes a la versión."],["SEGURIDAD","Bolsas de aire, frenos, asistencias, control de estabilidad, cámara, sensores y sistemas de seguridad incluidos en la versión."],["TECNOLOGÍA Y CONECTIVIDAD","Pantalla, conectividad, audio, puertos, integración con smartphone y demás tecnología incluida."],["CONFORT Y EQUIPAMIENTO","Aire acondicionado, vestiduras, asientos, cristales, iluminación, rines y equipamiento interior/exterior de la versión."],["DIMENSIONES Y CAPACIDADES","Medidas, capacidad de pasajeros, cajuela, tanque y demás capacidades aplicables."]];
    y=112;sections.forEach(([t,d])=>{doc.setFillColor(238,248,252);doc.roundedRect(18,y-6,174,8,2,2,"F");doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.setFontSize(9);doc.text(t,21,y);doc.setFont("helvetica","normal");doc.setTextColor(55,75,88);doc.setFontSize(8);doc.text(doc.splitTextToSize(d,166),21,y+8);y+=28});
    doc.setFontSize(7.5);doc.setTextColor(85,100,110);doc.text(doc.splitTextToSize("La ficha definitiva se integra con las especificaciones correspondientes a la marca, modelo, año y versión exactos disponibles para el mercado aplicable. Los datos técnicos deben coincidir con la información oficial del fabricante o agencia.",170),20,278);
