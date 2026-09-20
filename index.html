@@ -65,6 +65,34 @@ header{height:86px;background:#fff;position:sticky;top:0;z-index:1000;box-shadow
 .statement-main{font-size:25px;font-weight:900}
 .statement-secondary{font:italic 20px Georgia,serif}
 
+/* ACCIONES PARA CLIENTES: PAGOS Y ESTADO DE CUENTA */
+.client-actions{display:flex;gap:11px;align-items:center;justify-content:flex-end;flex-wrap:wrap;position:relative;z-index:2}
+.client-actions .btn{min-width:205px;box-shadow:0 10px 26px rgba(0,39,70,.18)}
+.btn-account{background:#fff;color:var(--navy);border:1px solid rgba(255,255,255,.75)}
+.btn-pay{background:var(--navy);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.service-modal-card{width:min(790px,100%)!important;padding:0!important;overflow:hidden!important}
+.service-head{padding:30px 34px 25px;background:linear-gradient(125deg,#00345f,#057cae);color:#fff}
+.service-head .kicker{color:#aeeeff}.service-head h2{margin:0 0 8px}.service-head p{color:#dff5fc}
+.service-body{padding:28px 34px 34px}
+.service-options{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.service-option{padding:22px;border:1px solid #cfe5ef;border-radius:16px;background:linear-gradient(145deg,#fff,#f1f9fc);text-align:left;color:var(--text);transition:.2s}
+.service-option:hover{transform:translateY(-3px);border-color:#19add8;box-shadow:0 13px 30px rgba(0,75,115,.11)}
+.service-option-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:#e3f7fd;color:#006b9f;font-size:24px;margin-bottom:14px}
+.service-option strong{display:block;font-size:15px;margin-bottom:7px}.service-option span{font-size:11px;line-height:1.55;color:#647f8f}
+.service-panel{display:none}.service-panel.show{display:block}
+.service-back{border:0;background:none;color:#006b9f;font-size:11px;font-weight:900;margin-bottom:16px;padding:0}
+.secure-note{display:flex;gap:10px;align-items:flex-start;margin:17px 0;padding:14px;border-radius:11px;background:#edf9fd;color:#587687;font-size:10px;line-height:1.55}
+.payment-summary{display:none;margin:18px 0;padding:17px;border-radius:12px;background:#f0f9fc;border:1px solid #cde7f1}
+.payment-summary.show{display:block}
+.account-result{display:none;margin-top:20px}.account-result.show{display:block}
+.account-sheet{border:1px solid #cfe3ed;border-radius:14px;overflow:hidden}
+.account-sheet-head{padding:18px;background:#00345f;color:#fff;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.account-sheet-body{padding:18px}.account-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:17px}
+.account-metric{padding:13px;border-radius:10px;background:#f1f8fb}.account-metric span{display:block;font-size:9px;color:#698392;font-weight:900}.account-metric b{display:block;margin-top:5px;font-size:17px;color:#003f69}
+.service-message{display:none;margin-top:14px;padding:13px;border-radius:10px;font-size:11px;line-height:1.5}.service-message.show{display:block}.service-message.ok{background:#e8f8f1;color:#176548}.service-message.error{background:#fff0f0;color:#983939}
+@media(max-width:950px){.statement-inner{align-items:flex-start}.client-actions{justify-content:flex-start}.statement-secondary{display:none}}
+@media(max-width:600px){.client-actions{margin-top:18px}.client-actions .btn{width:100%;min-width:0}.service-options,.account-metrics{grid-template-columns:1fr}.service-head,.service-body{padding-left:20px;padding-right:20px}}
+
 .products{display:grid;grid-template-columns:repeat(5,1fr);gap:15px;margin-top:40px}
 .product{min-height:270px;padding:28px 18px;border:1px solid #d9edf6;border-radius:18px;background:linear-gradient(145deg,#f3fbff,#e3f6fd);text-align:center;cursor:pointer;transition:.25s}
 .product:hover{transform:translateY(-6px);box-shadow:0 15px 30px rgba(0,75,115,.12)}
@@ -552,6 +580,10 @@ No sustituir el diseño base al hacer cambios posteriores.
 <section class="statement"><div class="statement-inner">
  <div class="statement-main">MÁS OPCIONES.<br>MÁS OPORTUNIDADES.</div>
  <div class="statement-secondary">Encuentra una alternativa de acuerdo con el proyecto que quieres realizar.</div>
+ <div class="client-actions" aria-label="Acciones para clientes">
+  <button class="btn btn-pay" type="button" onclick="openPaymentModal()">QUIERO PAGAR</button>
+  <button class="btn btn-account" type="button" onclick="openStatementModal()">DESCARGAR ESTADO DE CUENTA</button>
+ </div>
 </div></section>
 <section class="mi-message-zone" id="mensajes-financiamiento">
   <div class="mi-message-card">
@@ -1047,6 +1079,72 @@ function miIncomeGuide(){
  <button class="btn btn-blue" onclick="modalApply()">INICIAR SOLICITUD</button>
 </div></div></div>
 
+<!-- PAGOS DE CLIENTES -->
+<div class="modal" id="paymentModal" aria-hidden="true"><div class="modal-card service-modal-card">
+ <button class="close" type="button" onclick="closePaymentModal()" aria-label="Cerrar">×</button>
+ <div class="service-head"><div class="kicker">PORTAL DE PAGOS</div><h2>¿Cómo deseas realizar tu pago?</h2><p>Selecciona una opción para continuar de manera segura.</p></div>
+ <div class="service-body">
+  <div id="paymentOptions" class="service-panel show">
+   <div class="service-options">
+    <button class="service-option" type="button" onclick="showPaymentPanel('online')"><span class="service-option-icon">$</span><strong>PAGAR MENSUALIDAD</strong><span>Consulta tu mensualidad y continúa al pago en línea.</span></button>
+    <button class="service-option" type="button" onclick="showPaymentPanel('proof')"><span class="service-option-icon">↥</span><strong>REGISTRAR PAGO</strong><span>Sube el comprobante de un pago realizado fuera de la página.</span></button>
+   </div>
+   <div class="secure-note"><span>🔒</span><span>La información se utiliza únicamente para identificar tu operación y registrar el movimiento correspondiente.</span></div>
+  </div>
+
+  <div id="onlinePaymentPanel" class="service-panel">
+   <button class="service-back" type="button" onclick="showPaymentPanel('options')">← REGRESAR</button>
+   <div class="kicker">PAGO EN LÍNEA</div><h2>Pagar mensualidad</h2>
+   <form id="onlinePaymentForm">
+    <div class="form-grid">
+     <div class="field"><label>FOLIO</label><input id="payFolio" autocomplete="off" placeholder="MI-2026-..." required></div>
+     <div class="field"><label>TELÉFONO REGISTRADO</label><input id="payPhone" inputmode="tel" autocomplete="tel" placeholder="10 dígitos" required></div>
+    </div>
+    <div class="payment-summary" id="paymentSummary"></div>
+    <div class="secure-note"><span>🛡️</span><span>El cobro con tarjeta será procesado por una pasarela certificada. MAX INNOVA no almacenará los datos completos de tu tarjeta.</span></div>
+    <button class="btn btn-blue" id="continuePaymentBtn" type="submit">CONSULTAR Y CONTINUAR AL PAGO</button>
+    <div class="service-message" id="onlinePaymentMessage"></div>
+   </form>
+  </div>
+
+  <div id="proofPaymentPanel" class="service-panel">
+   <button class="service-back" type="button" onclick="showPaymentPanel('options')">← REGRESAR</button>
+   <div class="kicker">COMPROBANTE EXTERNO</div><h2>Registrar pago</h2>
+   <form id="proofPaymentForm">
+    <div class="form-grid">
+     <div class="field"><label>FOLIO</label><input id="proofFolio" autocomplete="off" placeholder="MI-2026-..." required></div>
+     <div class="field"><label>TELÉFONO REGISTRADO</label><input id="proofPhone" inputmode="tel" autocomplete="tel" placeholder="10 dígitos" required></div>
+     <div class="field"><label>IMPORTE PAGADO</label><input id="proofAmount" type="number" min="1" step="0.01" placeholder="$0.00" required></div>
+     <div class="field"><label>FECHA DEL PAGO</label><input id="proofDate" type="date" required></div>
+     <div class="field"><label>MEDIO DE PAGO</label><select id="proofMethod" required><option value="">Selecciona</option><option>Transferencia</option><option>Depósito bancario</option><option>Pago en ventanilla</option><option>Otro</option></select></div>
+     <div class="field"><label>REFERENCIA U OPERACIÓN</label><input id="proofReference" maxlength="80" placeholder="Número de referencia"></div>
+     <div class="field full"><label>COMPROBANTE</label><input id="proofFile" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*" capture="environment" required><p class="help">Puedes seleccionar un archivo o tomar una fotografía. Tamaño máximo: 15 MB.</p></div>
+    </div>
+    <button class="btn btn-blue" id="proofSubmitBtn" type="submit">ENVIAR COMPROBANTE</button>
+    <div class="service-message" id="proofPaymentMessage"></div>
+   </form>
+  </div>
+ </div>
+</div></div>
+
+<!-- ESTADO DE CUENTA -->
+<div class="modal" id="statementModal" aria-hidden="true"><div class="modal-card service-modal-card">
+ <button class="close" type="button" onclick="closeStatementModal()" aria-label="Cerrar">×</button>
+ <div class="service-head"><div class="kicker">PORTAL DE CLIENTES</div><h2>Descargar estado de cuenta</h2><p>Identifica tu operación para consultar el saldo y los movimientos registrados.</p></div>
+ <div class="service-body">
+  <form id="statementForm">
+   <div class="form-grid">
+    <div class="field"><label>FOLIO</label><input id="statementFolio" autocomplete="off" placeholder="MI-2026-..." required></div>
+    <div class="field"><label>TELÉFONO REGISTRADO</label><input id="statementPhone" inputmode="tel" autocomplete="tel" placeholder="10 dígitos" required></div>
+   </div>
+   <div class="secure-note"><span>🔐</span><span>Los datos deben coincidir con los registrados en tu expediente.</span></div>
+   <button class="btn btn-blue" id="statementSearchBtn" type="submit">CONSULTAR ESTADO DE CUENTA</button>
+   <div class="service-message" id="statementMessage"></div>
+  </form>
+  <div class="account-result" id="accountResult"></div>
+ </div>
+</div></div>
+
 <!-- PANEL ADMIN -->
 <div class="modal" id="adminModal"><div class="modal-card" style="width:min(1150px,100%)">
  <button class="close" onclick="closeAdmin()">×</button>
@@ -1104,6 +1202,105 @@ const SUPABASE_KEY="sb_publishable_ks62KAcuW3LWThoUIUixNw_8ZAthlRG";
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let modalType="";
 let adminData=[];
+
+/* =========================
+   PAGOS Y ESTADO DE CUENTA
+========================= */
+const el=id=>document.getElementById(id);
+function digits(value){return String(value||"").replace(/\D/g,"")}
+function moneyMX(value){return Number(value||0).toLocaleString("es-MX",{style:"currency",currency:"MXN"})}
+function setServiceMessage(id,text,type="error"){
+ const box=el(id);if(!box)return;box.textContent=text;box.className=`service-message show ${type}`;
+}
+function clearServiceMessage(id){const box=el(id);if(box){box.textContent="";box.className="service-message"}}
+function openPaymentModal(){el("paymentModal")?.classList.add("open");el("paymentModal")?.setAttribute("aria-hidden","false");showPaymentPanel("options")}
+function closePaymentModal(){el("paymentModal")?.classList.remove("open");el("paymentModal")?.setAttribute("aria-hidden","true")}
+function openStatementModal(){el("statementModal")?.classList.add("open");el("statementModal")?.setAttribute("aria-hidden","false")}
+function closeStatementModal(){el("statementModal")?.classList.remove("open");el("statementModal")?.setAttribute("aria-hidden","true")}
+function showPaymentPanel(name){
+ ["paymentOptions","onlinePaymentPanel","proofPaymentPanel"].forEach(id=>el(id)?.classList.remove("show"));
+ el(name==="online"?"onlinePaymentPanel":name==="proof"?"proofPaymentPanel":"paymentOptions")?.classList.add("show");
+ clearServiceMessage("onlinePaymentMessage");clearServiceMessage("proofPaymentMessage");
+}
+el("paymentModal")?.addEventListener("click",e=>{if(e.target===e.currentTarget)closePaymentModal()});
+el("statementModal")?.addEventListener("click",e=>{if(e.target===e.currentTarget)closeStatementModal()});
+el("proofDate") && (el("proofDate").value=new Date().toISOString().slice(0,10));
+
+async function verifyClient(folio,phone){
+ const cleanFolio=String(folio||"").trim().toUpperCase(),cleanPhone=digits(phone);
+ if(!cleanFolio||cleanPhone.length<10)throw new Error("Captura un folio válido y el teléfono registrado a 10 dígitos.");
+ const {data,error}=await db.from("max_innova_solicitudes").select("folio,nombre,telefono,estatus").eq("folio",cleanFolio).eq("telefono",cleanPhone).maybeSingle();
+ if(error)throw error;if(!data)throw new Error("Los datos no coinciden con un expediente registrado.");return data;
+}
+
+el("onlinePaymentForm")?.addEventListener("submit",async e=>{
+ e.preventDefault();const btn=el("continuePaymentBtn");clearServiceMessage("onlinePaymentMessage");btn.disabled=true;btn.textContent="CONSULTANDO...";
+ try{
+  const client=await verifyClient(el("payFolio").value,el("payPhone").value);
+  const {data:credit,error}=await db.from("max_innova_creditos").select("*").eq("folio",client.folio).maybeSingle();
+  if(error)throw new Error("El módulo de créditos todavía no está habilitado en la base de datos.");
+  if(!credit)throw new Error("Este folio todavía no tiene un crédito contratado con una mensualidad disponible.");
+  const due=Number(credit.proxima_mensualidad||credit.mensualidad||0);
+  el("paymentSummary").innerHTML=`<strong>${safe(client.nombre)}</strong><p class="help">Folio ${safe(client.folio)}</p><div class="account-metrics"><div class="account-metric"><span>MENSUALIDAD</span><b>${moneyMX(due)}</b></div><div class="account-metric"><span>PRÓXIMO VENCIMIENTO</span><b>${safe(credit.proximo_vencimiento||"Por confirmar")}</b></div><div class="account-metric"><span>SALDO</span><b>${moneyMX(credit.saldo_actual)}</b></div></div>`;
+  el("paymentSummary").classList.add("show");
+  setServiceMessage("onlinePaymentMessage","La mensualidad fue localizada. Falta conectar la cuenta de la pasarela de pago para abrir el cobro seguro.","ok");
+ }catch(err){setServiceMessage("onlinePaymentMessage",err.message||"No fue posible consultar la mensualidad.")}
+ finally{btn.disabled=false;btn.textContent="CONSULTAR Y CONTINUAR AL PAGO"}
+});
+
+el("proofPaymentForm")?.addEventListener("submit",async e=>{
+ e.preventDefault();const btn=el("proofSubmitBtn"),file=el("proofFile").files[0];clearServiceMessage("proofPaymentMessage");
+ if(!file){setServiceMessage("proofPaymentMessage","Selecciona o toma una fotografía del comprobante.");return}
+ if(file.size>15*1024*1024){setServiceMessage("proofPaymentMessage","El comprobante supera el límite de 15 MB.");return}
+ btn.disabled=true;btn.textContent="ENVIANDO...";
+ try{
+  const client=await verifyClient(el("proofFolio").value,el("proofPhone").value);
+  const ext=(file.name.split(".").pop()||"dat").replace(/[^a-z0-9]/gi,"").toLowerCase();
+  const path=`${client.folio}/${Date.now()}_${crypto.randomUUID()}.${ext}`;
+  const {error:uploadError}=await db.storage.from("max-innova-comprobantes").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type||"application/octet-stream"});
+  if(uploadError)throw uploadError;
+  const payment={folio:client.folio,cliente_nombre:client.nombre,importe:Number(el("proofAmount").value),fecha_pago:el("proofDate").value,medio_pago:el("proofMethod").value,referencia:el("proofReference").value.trim(),comprobante_path:path,estatus:"PENDIENTE DE VALIDAR",origen:"PORTAL CLIENTE"};
+  const {error:insertError}=await db.from("max_innova_pagos").insert(payment);
+  if(insertError){await db.storage.from("max-innova-comprobantes").remove([path]);throw insertError}
+  setServiceMessage("proofPaymentMessage","Comprobante recibido correctamente. El pago quedó pendiente de validación administrativa.","ok");
+  e.target.reset();el("proofDate").value=new Date().toISOString().slice(0,10);
+ }catch(err){setServiceMessage("proofPaymentMessage",err.message||"No fue posible registrar el comprobante.")}
+ finally{btn.disabled=false;btn.textContent="ENVIAR COMPROBANTE"}
+});
+
+el("statementForm")?.addEventListener("submit",async e=>{
+ e.preventDefault();const btn=el("statementSearchBtn");clearServiceMessage("statementMessage");el("accountResult")?.classList.remove("show");btn.disabled=true;btn.textContent="CONSULTANDO...";
+ try{
+  const client=await verifyClient(el("statementFolio").value,el("statementPhone").value);
+  const [{data:credit,error:creditError},{data:payments,error:paymentsError}]=await Promise.all([
+   db.from("max_innova_creditos").select("*").eq("folio",client.folio).maybeSingle(),
+   db.from("max_innova_pagos").select("*").eq("folio",client.folio).order("fecha_pago",{ascending:false})
+  ]);
+  if(creditError||paymentsError)throw new Error("El módulo de estados de cuenta todavía no está habilitado en la base de datos.");
+  if(!credit)throw new Error("Este expediente todavía no tiene un crédito contratado ni un estado de cuenta disponible.");
+  const valid=(payments||[]).filter(p=>p.estatus==="VALIDADO"),paid=valid.reduce((sum,p)=>sum+Number(p.importe||0),0);
+  const state={client,credit,payments:payments||[],paid,generated:new Date()};window.__accountStatement=state;
+  const rows=state.payments.length?state.payments.map(p=>`<tr><td>${safe(p.fecha_pago||"")}</td><td>${safe(p.referencia||"Sin referencia")}</td><td>${safe(p.estatus||"")}</td><td>${moneyMX(p.importe)}</td></tr>`).join(""):'<tr><td colspan="4">Sin movimientos registrados.</td></tr>';
+  el("accountResult").innerHTML=`<div class="account-sheet"><div class="account-sheet-head"><div><small>ESTADO DE CUENTA</small><strong style="display:block;margin-top:5px">${safe(client.nombre)}</strong></div><div><small>FOLIO</small><strong style="display:block;margin-top:5px">${safe(client.folio)}</strong></div></div><div class="account-sheet-body"><div class="account-metrics"><div class="account-metric"><span>SALDO ACTUAL</span><b>${moneyMX(credit.saldo_actual)}</b></div><div class="account-metric"><span>PRÓXIMO PAGO</span><b>${moneyMX(credit.proxima_mensualidad||credit.mensualidad)}</b></div><div class="account-metric"><span>FECHA LÍMITE</span><b>${safe(credit.proximo_vencimiento||"Por confirmar")}</b></div></div><div class="table-wrap"><table style="min-width:600px"><thead><tr><th>FECHA</th><th>REFERENCIA</th><th>ESTATUS</th><th>IMPORTE</th></tr></thead><tbody>${rows}</tbody></table></div><br><button class="btn btn-blue" type="button" onclick="downloadAccountStatement()">DESCARGAR ESTADO DE CUENTA EN PDF</button></div></div>`;
+  el("accountResult").classList.add("show");
+ }catch(err){setServiceMessage("statementMessage",err.message||"No fue posible consultar el estado de cuenta.")}
+ finally{btn.disabled=false;btn.textContent="CONSULTAR ESTADO DE CUENTA"}
+});
+
+async function downloadAccountStatement(){
+ const s=window.__accountStatement;if(!s||!window.jspdf){alert("No fue posible preparar el estado de cuenta.");return}
+ const {jsPDF}=window.jspdf,doc=new jsPDF();
+ try{const img=new Image();img.src="logo%20maxinnova.png";await new Promise((ok,no)=>{img.onload=ok;img.onerror=no});doc.addImage(img,"PNG",18,10,48,18)}catch(e){}
+ doc.setFillColor(0,52,95);doc.rect(0,0,210,8,"F");doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.setFontSize(18);doc.text("ESTADO DE CUENTA",20,41);
+ doc.setFontSize(8);doc.setFont("helvetica","normal");doc.setTextColor(80,100,112);doc.text(`Generado: ${s.generated.toLocaleString("es-MX")}`,20,48);
+ const info=[["Cliente",s.client.nombre],["Folio",s.client.folio],["Monto financiado",moneyMX(s.credit.monto_financiado)],["Mensualidad",moneyMX(s.credit.mensualidad)],["Saldo actual",moneyMX(s.credit.saldo_actual)],["Próximo vencimiento",s.credit.proximo_vencimiento||"Por confirmar"]];let y=63;
+ info.forEach(([k,v],i)=>{if(i%2===0){doc.setFillColor(244,250,253);doc.rect(18,y-6,174,9,"F")}doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.text(k,21,y);doc.setFont("helvetica","normal");doc.setTextColor(40,65,80);doc.text(String(v||""),82,y);y+=10});
+ y+=8;doc.setFillColor(0,52,95);doc.setTextColor(255,255,255);doc.rect(18,y-5,174,8,"F");doc.text("FECHA",20,y);doc.text("REFERENCIA",52,y);doc.text("ESTATUS",110,y);doc.text("IMPORTE",160,y);y+=9;
+ (s.payments||[]).forEach((p,i)=>{if(y>274){doc.addPage();y=20}if(i%2===0){doc.setFillColor(247,251,253);doc.rect(18,y-5,174,7,"F")}doc.setTextColor(45,70,85);doc.text(String(p.fecha_pago||""),20,y);doc.text(String(p.referencia||"-").slice(0,25),52,y);doc.text(String(p.estatus||""),110,y);doc.text(moneyMX(p.importe),160,y);y+=7});
+ if(!(s.payments||[]).length){doc.setTextColor(80,95,105);doc.text("Sin movimientos registrados.",20,y);y+=10}
+ doc.setFontSize(7.5);doc.setTextColor(80,95,105);doc.text(doc.splitTextToSize("Documento informativo generado con los movimientos registrados en MAX INNOVA. Los pagos pendientes de validación no se aplican al saldo hasta concluir su revisión administrativa.",170),20,Math.min(282,y+12));
+ doc.save(`MAX-INNOVA-ESTADO-DE-CUENTA-${s.client.folio}.pdf`);
+}
 
 /* =========================
    4 CINTAS
