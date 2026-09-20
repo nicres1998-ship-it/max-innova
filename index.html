@@ -547,6 +547,12 @@ body{position:relative;overflow-x:hidden}
 #adminModal .admin-area{max-width:1500px;margin:auto}
 
 </style>
+<style id="mi-visible-access-patch">
+.mi-header-access{display:flex;align-items:center;gap:8px}
+.mi-advisor-access{border:1px solid #b9dce9;background:#eef9fd;color:#00345f;border-radius:9px;padding:13px 16px;font-size:10px;font-weight:900;letter-spacing:.4px;cursor:pointer}
+.mi-advisor-access:hover{background:#dff4fb}
+@media(max-width:600px){.mi-header-access{gap:5px}.mi-advisor-access{padding:10px 8px;font-size:8px}.account{padding:10px 9px!important;font-size:9px!important}}
+</style>
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -572,7 +578,7 @@ No sustituir el diseño base al hacer cambios posteriores.
   <a href="#informacion">INFORMACIÓN</a>
   <a href="#contacto">CONTACTO</a>
  </nav>
- <button class="account" onclick="goPortal('consulta')">♙ MI CUENTA</button>
+ <div class="mi-header-access"><button class="mi-advisor-access" onclick="openAdvisorPortal()">PORTAL ASESOR</button><button class="account" onclick="openClientPortal()">♙ MI CUENTA</button></div>
 </div>
 </header>
 
@@ -2142,7 +2148,7 @@ async function renderAdvisorDrafts(){
 }
 function advisorSection(){renderAdvisorDrafts();document.getElementById("advisorExtra")?.scrollIntoView({behavior:"smooth"})}
 document.addEventListener("DOMContentLoaded",()=>{
- if(location.hash==="#asesor"){openAdvisorPortal()}
+ if(location.hash==="#asesor" || location.hash==="#max-asesor"){openAdvisorPortal()}
  if(location.hash==="#mi-cuenta"){openClientPortal()}
 });
 </script>
