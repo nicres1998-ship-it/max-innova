@@ -537,6 +537,86 @@ body{position:relative;overflow-x:hidden}
 @media(max-width:560px){.mi-admin-home-actions,.info-grid,.location-grid,.locations-grid,.branch-grid,.branches-grid{grid-template-columns:1fr!important}}
 </style>
 
+
+<style id="mi-order-only-final">
+/* ORDEN VISUAL FINAL — conserva contenido y funciones */
+.mi-q-open{display:none!important}
+
+/* Ritmo y jerarquía: no rediseña, sólo uniforma */
+main section,.section{scroll-margin-top:96px}
+.section{padding-top:68px!important;padding-bottom:68px!important}
+.section + .section{border-top:1px solid rgba(216,234,243,.42)}
+.container{width:min(1180px,92%)}
+.title{max-width:900px;margin-left:auto;margin-right:auto}
+.subtitle{max-width:760px}
+
+/* Tarjetas y bloques alineados */
+.products,.profile-box,.info-grid,.steps,.location-grid,.locations-grid,.branch-grid,.branches-grid{
+  align-items:stretch
+}
+.product,.profile-card,.info-card,.step,
+.location-grid>*,.locations-grid>*,.branch-grid>*,.branches-grid>*{
+  height:100%
+}
+
+/* Información: sin hueco residual */
+.info-grid{
+  display:grid!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:16px!important;
+}
+.info-grid>.info-card{grid-column:span 2!important}
+.info-grid>.info-card:nth-last-child(2),
+.info-grid>.info-card:last-child{grid-column:span 3!important}
+
+/* Sucursales: todas pertenecen al mismo bloque 3x2 */
+.location-grid,.locations-grid,.branch-grid,.branches-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:18px!important;
+}
+.location-grid>*,.locations-grid>*,.branch-grid>*,.branches-grid>*{
+  margin:0!important
+}
+
+/* Accesos públicos juntos, claros y sin funciones internas */
+#mi-access-center{background:linear-gradient(180deg,#f8fcfe,#fff)}
+#mi-access-center .mi-public-actions{
+  max-width:980px;margin:26px auto 0!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important
+}
+#mi-access-center .mi-public-action{min-height:92px}
+
+/* ADMON: accesos al entrar, ordenados */
+.mi-admin-home-actions{
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:10px!important
+}
+
+/* Modales: imagen/logo siempre contenidos, sin recortes feos */
+.modal-card img,.sector-modal img,.brand-modal img{
+  max-width:100%!important;
+  object-fit:contain!important;
+  object-position:center!important
+}
+.modal-card{box-shadow:0 28px 80px rgba(0,31,56,.24)}
+
+/* Evitar espacios verticales heredados de elementos vacíos */
+.info-card:empty,.modal-detail:empty{display:none!important}
+
+@media(max-width:950px){
+ .info-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .info-grid>.info-card{grid-column:auto!important}
+ .location-grid,.locations-grid,.branch-grid,.branches-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .mi-admin-home-actions{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:600px){
+ .section{padding-top:52px!important;padding-bottom:52px!important}
+ .info-grid,.location-grid,.locations-grid,.branch-grid,.branches-grid,
+ #mi-access-center .mi-public-actions,.mi-admin-home-actions{grid-template-columns:1fr!important}
+}
+</style>
+
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -639,8 +719,8 @@ No sustituir el diseño base al hacer cambios posteriores.
 <section class="client-actions" id="operaciones-cliente"><div class="container">
  <div class="center"><div class="kicker">CLIENTES MAX INNOVA</div><h2 class="title" style="font-size:32px">Gestiona tu <span>operación</span></h2><p class="subtitle">Utiliza el mismo folio de tu solicitud para consultar las funciones disponibles según la etapa de tu proceso.</p></div>
  <div class="client-actions-grid">
-  <div class="client-action" onclick="openClientService('pago')"><div style="font-size:25px">💳</div><b>PAGOS Y COMPROBANTES</b><span>Consulta tus movimientos y registra comprobantes de mensualidad, aportaciones, seguro u otros conceptos de tu operación.</span></div>
-  <div class="client-action" onclick="openClientService('estado')"><div style="font-size:25px">📄</div><b>DESCARGAR MI ESTADO DE CUENTA</b><span>Disponible para operaciones formalizadas y activas.</span></div>
+  <div class="client-action" onclick="miOpenPayments()"><div style="font-size:25px">💳</div><b>PAGOS Y COMPROBANTES</b><span>Consulta tus movimientos y registra comprobantes de mensualidad, aportaciones, seguro u otros conceptos de tu operación.</span></div>
+  <div class="client-action" onclick="miOpenAccount()"><div style="font-size:25px">📄</div><b>DESCARGAR MI ESTADO DE CUENTA</b><span>Disponible para operaciones formalizadas y activas.</span></div>
   <div class="client-action" onclick="openClientService('operacion')"><div style="font-size:25px">🔎</div><b>CONSULTAR MI OPERACIÓN</b><span>Consulta solicitud, operación, próximos pagos, documentos e indicaciones.</span></div>
  </div>
 </div></section>
@@ -800,9 +880,9 @@ No sustituir el diseño base al hacer cambios posteriores.
  <div class="container">
   <div class="center"><div class="kicker">PORTAL MAX INNOVA</div><h2 class="title">TU OPERACIÓN <span>EN UN SOLO LUGAR</span></h2><p class="subtitle">Cotiza, consulta tu operación, realiza o reporta pagos y descarga tu estado de cuenta cuando tu financiamiento se encuentre activo.</p></div>
   <div class="mi-public-actions">
-   <button class="mi-public-action" onclick="document.querySelector('#quoteBox,#simulador,#cotizador')?.scrollIntoView({behavior:'smooth'});">COTIZAR MI VEHÍCULO<br><small>Simulación para clientes</small></button>
-   <button class="mi-public-action" onclick="openClientService('pago')">PAGOS<br><small>Realizar o subir un pago</small></button>
-   <button class="mi-public-action" onclick="openClientService('estado')">ESTADO DE CUENTA<br><small>Consultar / descargar</small></button>
+   <button class="mi-public-action" onclick="miGoPublicQuote()">COTIZAR MI VEHÍCULO<br><small>Simulación para clientes</small></button>
+   <button class="mi-public-action" onclick="miOpenPayments()">PAGOS<br><small>Realizar o subir un pago</small></button>
+   <button class="mi-public-action" onclick="miOpenAccount()">MI CUENTA<br><small>Estatus, documentos y estado de cuenta</small></button>
   </div>
  </div>
 </section>
@@ -2052,7 +2132,6 @@ window.sendPaymentProof=async function(folio){const f=q('paymentProof')?.files?.
 @media(max-width:560px){.mi-qgrid,.mi-sum,.mi-pgrid,.mi-pay2{grid-template-columns:1fr}.mi-span2,.mi-span4{grid-column:auto}.mi-qtitle{align-items:start;flex-direction:column}.mi-paper{padding:18px}}
 </style>
 
-<button class="mi-q-open" onclick="MIQ.open()">COTIZADOR ASESORES</button>
 <div id="miQ" class="mi-q">
  <div class="mi-qtop"><img src="logo%20maxinnova.png" alt="MAX INNOVA"><div><b>PORTAL DE COTIZACIONES</b> <button class="mi-qclose" onclick="MIQ.close()">×</button></div></div>
  <div class="mi-qbody">
@@ -2185,30 +2264,62 @@ window.lookupClientService=async function(){
 </script>
 
 
-<script id="mi-admin-home-final">
+<script id="mi-order-only-final-js">
 (function(){
- function addAdminHome(){
-  const area=document.querySelector('.admin-area.show,.admin-area');
-  if(!area||document.getElementById('miAdminHomeActions'))return;
-  const bar=document.createElement('div');bar.id='miAdminHomeActions';bar.className='mi-admin-home-actions';
-  const actions=[
-   ['NUEVA SOLICITUD',()=>document.querySelector('[onclick*="AdminNew"],[onclick*="adminNew"],[onclick*="Nueva"]')?.click()],
-   ['SOLICITUDES',()=>document.querySelector('.table-wrap')?.scrollIntoView({behavior:'smooth'})],
-   ['CLIENTES',()=>document.querySelector('.admin-search')?.focus()],
-   ['COTIZACIONES',()=>{if(window.MIQ)MIQ.open()}],
-   ['OPERACIONES',()=>alert('Abre el expediente del cliente para consultar o registrar la operación.')],
-   ['PAGOS',()=>alert('Abre el expediente del cliente para registrar, validar o consultar pagos.')],
-   ['ESTADOS DE CUENTA',()=>alert('Abre el expediente del cliente y usa GENERAR / ACTUALIZAR ESTADO DE CUENTA cuando la operación esté activa.')],
-   ['DOCUMENTOS',()=>alert('Abre el expediente para consultar sus documentos.')],
-   ['CITAS',()=>alert('Las citas se administran desde el expediente del cliente.')],
-   ['BITÁCORA',()=>alert('La bitácora se consulta desde el expediente y el módulo administrativo.')]
+  function visible(el){return el && el.offsetParent!==null}
+  window.miGoPublicQuote=function(){
+    const candidates=[
+      document.getElementById('simulador'),
+      document.getElementById('cotizador'),
+      document.querySelector('[id*="simul"]'),
+      document.querySelector('.quote-box'),
+      document.querySelector('[class*="calculator"]')
+    ].filter(Boolean);
+    if(candidates[0]){candidates[0].scrollIntoView({behavior:'smooth',block:'start'});return}
+    const btn=[...document.querySelectorAll('button,a')].find(x=>/cotiza|simula/i.test((x.textContent||'')) && !/asesor/i.test(x.textContent||''));
+    if(btn){btn.click();return}
+    alert('El cotizador público permanece disponible en la sección de financiamiento.');
+  };
+  window.miOpenPayments=function(){
+    if(typeof openClientService==='function'){openClientService('pago');return}
+    document.querySelector('#portal,.portal')?.scrollIntoView({behavior:'smooth'});
+  };
+  window.miOpenAccount=function(){
+    const a=document.querySelector('.account');
+    if(a){a.click();return}
+    document.querySelector('#portal,.portal')?.scrollIntoView({behavior:'smooth'});
+  };
+
+  /* Si se entra directamente al hash interno, no muestra launcher público. */
+  if(location.hash==='#cotizador-asesores' && window.MIQ) setTimeout(()=>MIQ.open(),100);
+
+  /* Reordena únicamente el bloque de sucursales existente, sin cambiar sus datos. */
+  const loc=document.querySelector('.location-grid,.locations-grid,.branch-grid,.branches-grid');
+  if(loc){
+    const cards=[...loc.children];
+    cards.forEach(c=>{c.style.order='0'});
+  }
+})();
+</script>
+
+
+<script id="mi-admin-shortcuts-safe">
+(function(){
+ function add(){
+  const area=document.querySelector('.admin-area.show');
+  if(!area||document.getElementById('miAdminSafe'))return;
+  const bar=document.createElement('div');bar.id='miAdminSafe';bar.className='mi-admin-home-actions';
+  const defs=[
+   ['SOLICITUDES',()=>area.querySelector('.table-wrap')?.scrollIntoView({behavior:'smooth'})],
+   ['CLIENTES',()=>area.querySelector('.admin-search')?.focus()],
+   ['COTIZACIONES',()=>window.MIQ?.open()]
   ];
-  actions.forEach(([t,fn])=>{let b=document.createElement('button');b.textContent=t;b.onclick=fn;bar.appendChild(b)});
-  const anchor=area.querySelector('.admin-toolbar,.admin-stats,.admin-card')||area.firstElementChild;
-  anchor?.parentNode.insertBefore(bar,anchor);
+  defs.forEach(([t,fn])=>{const b=document.createElement('button');b.textContent=t;b.onclick=fn;bar.appendChild(b)});
+  const anchor=area.querySelector('.admin-stats,.admin-toolbar,.admin-card');
+  if(anchor) anchor.parentNode.insertBefore(bar,anchor); else area.prepend(bar);
  }
- new MutationObserver(addAdminHome).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class'],childList:true});
- setTimeout(addAdminHome,500);
+ new MutationObserver(add).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+ setTimeout(add,300);
 })();
 </script>
 
