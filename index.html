@@ -6,6 +6,7 @@
 <title>MAX INNOVA | Servicios Financieros</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
 <style>
 :root{
   --navy:#00345f;--dark:#001f38;--blue:#006da6;--cyan:#16bce8;
@@ -500,6 +501,23 @@ body{position:relative;overflow-x:hidden}
 .folio-progress-label{display:flex;justify-content:space-between;gap:10px;margin-top:6px;font-size:9px;font-weight:800;opacity:.75}
 
 </style>
+
+<style>
+/* ACTUALIZACIÓN INTEGRAL MAX INNOVA */
+#infoModal .modal-hero{background:linear-gradient(135deg,#dceef7,#f7fbfd);min-height:330px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#infoModal .modal-hero img{width:100%!important;height:330px!important;object-fit:contain!important;object-position:center!important;background:linear-gradient(135deg,#dceef7,#f7fbfd)}
+#adminModal{padding:0!important}
+#adminModal>.modal-card{width:100vw!important;max-width:none!important;height:100vh!important;max-height:none!important;border-radius:0!important;padding:34px 4%!important}
+.client-actions{padding:34px 0;background:linear-gradient(135deg,#eef8fc,#fff)}
+.client-actions-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.client-action{border:1px solid #d5e7f0;border-radius:18px;padding:22px;background:#fff;box-shadow:0 10px 28px rgba(0,52,95,.07);cursor:pointer;transition:.2s}
+.client-action:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,52,95,.12)}
+.client-action b{display:block;font-size:15px;color:#00345f;margin:8px 0}.client-action span{font-size:11px;line-height:1.55;color:#607b8e}
+.fiscal-sheet{display:grid;gap:10px;margin-top:18px}.fiscal-row{display:grid;grid-template-columns:180px 1fr;gap:12px;padding:12px;border-bottom:1px solid #e5eef3;font-size:12px}.fiscal-row b{color:#00345f}
+.audit-list{margin-top:14px;display:grid;gap:8px}.audit-item{padding:12px 14px;border:1px solid #dbe8ef;border-radius:11px;background:#f8fbfd;font-size:11px;line-height:1.55}
+.payment-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.payment-choice button{min-height:100px;border:1px solid #d5e6ee;border-radius:14px;background:#f8fcfe;color:#00345f;font-weight:900;padding:14px}
+@media(max-width:760px){.client-actions-grid,.payment-choice{grid-template-columns:1fr}.fiscal-row{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -595,6 +613,16 @@ No sustituir el diseño base al hacer cambios posteriores.
  <div class="profile-box">
   <div class="profile-card click-info" role="button" tabindex="0" onclick="if(!event.target.closest('button')) showInfo('PERSONAS','Soluciones para personas','Opciones para vehículo, vivienda, patrimonio, proyectos y necesidades personales. Cada solicitud se revisa de forma individual y está sujeta a evaluación y documentación.','Personal')" onkeydown="if(event.key==='Enter'&&!event.target.closest('button'))this.click()"><h3>Personas</h3><p>Vehículo, vivienda, proyectos personales, patrimonio y otras necesidades sujetas a evaluación.</p><br><button class="btn btn-blue" onclick="goPortal('nuevo')">INICIAR SOLICITUD</button></div>
   <div class="profile-card click-info" role="button" tabindex="0" onclick="if(!event.target.closest('button')) showInfo('NEGOCIOS','Soluciones para negocios y empresas','Alternativas para capital de trabajo, equipamiento, expansión, movilidad, operación y proyectos empresariales, sujetas a evaluación.','Negocio / PyME')" onkeydown="if(event.key==='Enter'&&!event.target.closest('button'))this.click()"><h3>Negocios y empresas</h3><p>Capital de trabajo, equipamiento, expansión, movilidad, operación y proyectos empresariales.</p><br><button class="btn btn-blue" onclick="prefillType('Negocio / PyME')">SOLICITAR EVALUACIÓN</button></div>
+ </div>
+</div></section>
+
+
+<section class="client-actions" id="operaciones-cliente"><div class="container">
+ <div class="center"><div class="kicker">CLIENTES MAX INNOVA</div><h2 class="title" style="font-size:32px">Gestiona tu <span>operación</span></h2><p class="subtitle">Utiliza el mismo folio de tu solicitud para consultar las funciones disponibles según la etapa de tu proceso.</p></div>
+ <div class="client-actions-grid">
+  <div class="client-action" onclick="openClientService('pago')"><div style="font-size:25px">💳</div><b>PAGAR MI MENSUALIDAD</b><span>Pago desde el sitio, comprobante de pago externo o pago presencial con cita previa.</span></div>
+  <div class="client-action" onclick="openClientService('estado')"><div style="font-size:25px">📄</div><b>DESCARGAR MI ESTADO DE CUENTA</b><span>Disponible para operaciones formalizadas y activas.</span></div>
+  <div class="client-action" onclick="openClientService('operacion')"><div style="font-size:25px">🔎</div><b>CONSULTAR MI OPERACIÓN</b><span>Consulta solicitud, operación, próximos pagos, documentos e indicaciones.</span></div>
  </div>
 </div></section>
 
@@ -777,11 +805,10 @@ No sustituir el diseño base al hacer cambios posteriores.
 
 <section class="section" id="informacion"><div class="container center">
  <div class="kicker">INFORMACIÓN</div><h2 class="title">Información y <span>transparencia.</span></h2>
- <p class="subtitle">Los datos corporativos y documentos oficiales se incorporarán una vez validados.</p>
+ <p class="subtitle">Consulta información corporativa, fiscal, de privacidad y nuestros canales oficiales de atención.</p>
  <div class="info-grid">
-  <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('INFORMACIÓN FISCAL','Información fiscal','Esta sección está preparada para publicar la razón social, RFC y datos fiscales oficiales de MAX INNOVA. Los datos se integrarán cuando sean confirmados.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Información fiscal</h3><p>Razón social, RFC y datos fiscales de la empresa.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
+  <div class="info-card click-info" role="button" tabindex="0" onclick="openFiscalInfo()" onkeydown="if(event.key==='Enter')openFiscalInfo()"><h3>Información fiscal</h3><p><strong>MAX INNOVA Servicios Financieros</strong><br>ESTRATEGIAS MAX INNOVA, S.A. DE C.V.<br>RFC: EMI250217IP7</p><span class="pending" style="background:#e8f6ef;color:#17643a">INFORMACIÓN VERIFICADA</span></div>
   <div class="info-card click-info" role="button" tabindex="0" onclick="openPrivacy(event)" onkeydown="if(event.key==='Enter')openPrivacy(event)"><h3>Aviso de privacidad</h3><p>Consulta el tratamiento, finalidades y mecanismos para ejercer tus derechos sobre datos personales.</p><span class="pending" style="background:#e8f6ef;color:#17643a">CONSULTAR AVISO</span></div>
-  <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('INFORMACIÓN REGULATORIA','Información regulatoria','Esta sección se encuentra reservada para información regulatoria que haya sido previamente validada. No se publicarán afirmaciones regulatorias sin confirmación.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Información regulatoria</h3><p>Se publicará únicamente la información que corresponda legalmente a la operación de la empresa.</p><span class="pending">PENDIENTE DE VALIDAR</span></div>
   <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('UBICACIÓN Y HORARIOS','Atención en Aguascalientes, Ags.','Atención presencial con cita previa. Lunes a viernes de 10:00 a.m. a 5:30 p.m. Sábados únicamente con cita previa. Domingos sin servicio. Para agendar una visita es necesario contar previamente con seguimiento o información sobre el servicio de interés. Para solicitar una cita directa, comuníquese por nuestros canales oficiales. La ubicación exacta se proporciona al confirmar la cita.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Ubicación y horarios</h3><p><strong>Presencia nacional:</strong> Aguascalientes, Puebla, Ciudad de México, Quintana Roo y Monterrey.<br><br>CDMX concentra Administración, Crédito y Logística; los demás puntos brindan Atención, Ventas y Seguimiento.</p><span class="pending">ATENCIÓN CON CITA PREVIA</span></div>
   <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('CONTACTO','Canales de contacto','Correo oficial de atención: contacto@maxinnova.mx. Los demás canales oficiales se integrarán cuando sean confirmados.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Contacto</h3><p>Correo oficial: <a href="mailto:contacto@maxinnova.mx"><strong>contacto@maxinnova.mx</strong></a></p><span class="pending">CORREO ACTIVO</span></div>
   <div class="info-card click-info" role="button" tabindex="0" onclick="showInfo('EVALUACIÓN','Proceso de evaluación','Cada solicitud se revisa conforme a la información, documentación y características del proyecto. El registro no implica aprobación.','Personal')" onkeydown="if(event.key==='Enter')this.click()"><h3>Proceso de evaluación</h3><p>Conoce cómo se revisa y da seguimiento a una solicitud.</p><span class="pending">INFORMACIÓN GENERAL</span></div>
@@ -902,6 +929,16 @@ No sustituir el diseño base al hacer cambios posteriores.
       <small>Posiciones mostradas corresponden al mercado mexicano, no exclusivamente a Nuevo León.</small>
     </div>
    </div>
+  
+   <div class="mi-branch mi-branch-premium mi-fiscal-branch" onclick="this.classList.toggle('open')">
+    <div class="mi-card-top"><span class="mi-city-dot"></span><span>POZA RICA, VERACRUZ</span></div>
+    <h3>Corporativo General · Domicilio Fiscal</h3>
+    <div class="mi-here" style="background:#fff3cd;color:#704d00">🔒 ACCESO RESTRINGIDO</div>
+    <div class="mi-auto-highlight"><small>USO CORPORATIVO Y FISCAL</small><strong>Sin atención al público</strong><span>No funciona como sucursal ni punto de contacto.</span></div>
+    <span class="mi-more">VER INFORMACIÓN +</span>
+    <div class="mi-branch-detail"><p><strong>Av. Uno No. 413, Depto. 7, Col. Benito Juárez, C.P. 93310, Poza Rica de Hidalgo, Veracruz de Ignacio de la Llave.</strong></p><p>Ubicación de uso exclusivamente corporativo, administrativo y fiscal. No recibe clientes, proveedores ni personal operativo. El acceso se encuentra restringido a Administración y Socios autorizados. Para atención, trámites, pagos o entrega de documentación utilice únicamente los canales oficiales y puntos de atención indicados por MAX INNOVA.</p></div>
+   </div>
+
   </div>
 
   <div class="mi-salary-box" style="padding:30px;border-radius:26px">
@@ -962,7 +999,8 @@ No sustituir el diseño base al hacer cambios posteriores.
    [19.0414,-98.2063,'Puebla, Pue.','Atención, Ventas y Seguimiento'],
    [19.4326,-99.1332,'Ciudad de México','Administración, Crédito y Logística'],
    [21.1619,-86.8515,'Quintana Roo','Atención, Ventas y Seguimiento'],
-   [25.6866,-100.3161,'Monterrey, N.L.','Atención, Ventas y Seguimiento']
+   [25.6866,-100.3161,'Monterrey, N.L.','Atención, Ventas y Seguimiento'],
+   [20.5332,-97.4595,'Poza Rica, Veracruz','Corporativo General · Domicilio Fiscal · Acceso restringido · Sin atención al público']
   ].forEach(function(p){L.marker([p[0],p[1]]).addTo(map).bindPopup('<strong>'+p[2]+'</strong><br>'+p[3]);});
  }
  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initNetworkMap); else initNetworkMap();
@@ -1016,7 +1054,7 @@ function miIncomeGuide(){
  <div class="footer-grid">
   <div><img class="footer-logo" src="logo%20maxinnova.png" alt="MAX INNOVA"><p>Soluciones de financiamiento sujetas a evaluación, documentación, condiciones y viabilidad de cada solicitud.</p></div>
   <div><strong>NAVEGACIÓN</strong><a href="#inicio">Inicio</a><a href="#soluciones">Soluciones</a><a href="#sectores">Sectores</a><a href="#como-funciona">Cómo funciona</a><a href="#portal">Mi cuenta</a></div>
-  <div><strong>INFORMACIÓN</strong><a href="#informacion">Información fiscal</a><a href="#" onclick="openPrivacy(event)">Aviso de privacidad</a><a href="#informacion">Información regulatoria</a><a href="mailto:contacto@maxinnova.mx">contacto@maxinnova.mx</a><a href="#contacto">Contacto</a></div>
+  <div><strong>INFORMACIÓN</strong><a href="#informacion">Información fiscal</a><a href="#" onclick="openPrivacy(event)">Aviso de privacidad</a><a href="mailto:contacto@maxinnova.mx">contacto@maxinnova.mx</a><a href="#contacto">Contacto</a></div>
  </div>
  <div class="footer-bottom">MAX INNOVA · Servicios Financieros · Información general sujeta a validación.</div>
 </div></footer>
@@ -1141,7 +1179,7 @@ const sectors=[
  },
  {
   title:"Comercio, negocio y PyME",
-  desc:"Giros de negocio como los que teníamos originalmente, ahora representados con iconos.",
+  desc:"Giros comerciales y actividades productivas que pueden formar parte de una solicitud de financiamiento.",
   reverse:false,
   business:true,
   items:[
@@ -1248,7 +1286,7 @@ const modalPhotos={
  "Negocio / PyME":"https://images.unsplash.com/photo-1725075224409-6859f34439b4?auto=format&fit=crop&w=1400&q=82",
  "Empresarial":"https://images.unsplash.com/photo-1758518730151-cf64fddb4f0a?auto=format&fit=crop&w=1400&q=82",
  "Personal":"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1400&q=82",
- "Movilidad / Plataformas":"https://images.unsplash.com/photo-1760143489034-af3b3e49fc3e?auto=format&fit=crop&w=1400&q=82",
+ "Movilidad / Plataformas":"data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 700'%3E%3Crect width='1400' height='700' fill='%2300345f'/%3E%3Crect x='180' y='155' rx='34' width='520' height='320' fill='%23ffffff' opacity='.96'/%3E%3Crect x='225' y='220' width='430' height='55' rx='12' fill='%23006da6'/%3E%3Ccircle cx='585' cy='390' r='42' fill='%2316bce8'/%3E%3Cpath d='M820 410h360l-45-125H920l-100 125zm55 0v85h40v-35h230v35h40v-85' fill='%2316bce8'/%3E%3Ccircle cx='930' cy='455' r='38' fill='%23fff'/%3E%3Ccircle cx='1115' cy='455' r='38' fill='%23fff'/%3E%3Ctext x='180' y='590' fill='%23fff' font-family='Arial' font-size='44' font-weight='700'%3EMOVILIDAD %26 PAGOS%3C/text%3E%3C/svg%3E",
  "Gastos jurídicos":"laptop.png"
 };
 function setModalVisual(type,label){
@@ -1797,19 +1835,25 @@ window.addEventListener("hashchange",checkAdminHash);checkAdminHash();
 </script>
 
 
+
+<!-- INFORMACIÓN FISCAL -->
+<div class="modal" id="fiscalModal"><div class="modal-card"><button class="close" onclick="fiscalModal.classList.remove('open')">×</button><div class="kicker">INFORMACIÓN FISCAL</div><h2>MAX INNOVA Servicios Financieros</h2><div class="fiscal-sheet"><div class="fiscal-row"><b>Razón social</b><span>ESTRATEGIAS MAX INNOVA, S.A. DE C.V.</span></div><div class="fiscal-row"><b>RFC</b><span>EMI250217IP7</span></div><div class="fiscal-row"><b>Situación fiscal</b><span>ACTIVO</span></div><div class="fiscal-row"><b>Domicilio fiscal</b><span>Av. Uno No. 413, Depto. 7, Col. Benito Juárez, C.P. 93310, Poza Rica de Hidalgo, Veracruz de Ignacio de la Llave.</span></div></div><p class="help">El domicilio fiscal es de uso corporativo y fiscal. No brinda atención al público.</p><a class="btn btn-blue" target="_blank" rel="noopener" href="https://siat.sat.gob.mx/app/qr/faces/pages/mobile/validadorqr.jsf?D1=10&D2=1&D3=25080290459_EMI250217IP7">VALIDAR INFORMACIÓN EN EL SAT</a></div></div>
+
+<!-- SERVICIOS DEL CLIENTE -->
+<div class="modal" id="clientServiceModal"><div class="modal-card" style="width:min(820px,100%)"><button class="close" onclick="clientServiceModal.classList.remove('open')">×</button><div class="kicker">PORTAL DEL CLIENTE</div><h2 id="clientServiceTitle">Consultar operación</h2><p id="clientServiceIntro">Ingresa tu folio para continuar.</p><div class="field" style="margin:18px 0"><label>FOLIO MAX INNOVA</label><input id="clientServiceFolio" placeholder="MI-2026-..."></div><button class="btn btn-blue" onclick="lookupClientService()">CONTINUAR</button><div id="clientServiceResult" class="result" style="display:block;margin-top:18px"></div></div></div>
+
 <!-- AVISO DE PRIVACIDAD INTEGRAL -->
 <div class="privacy-overlay" id="privacyOverlay" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
  <div class="privacy-box">
   <div class="privacy-head">
-   <div><h2 id="privacyTitle">Aviso de Privacidad Integral</h2><p>MAX INNOVA Servicios Financieros · Versión preliminar, septiembre de 2026</p></div>
+   <div><h2 id="privacyTitle">Aviso de Privacidad Integral</h2><p>MAX INNOVA Servicios Financieros</p></div>
    <button class="privacy-close" type="button" onclick="closePrivacy()" aria-label="Cerrar">×</button>
   </div>
   <div class="privacy-body">
-   <div class="privacy-pending"><strong>Información corporativa pendiente de completar:</strong> razón social, domicilio del responsable y teléfono oficial. El correo oficial de contacto y privacidad ya se encuentra integrado.</div>
 
    <h3>I. IDENTIDAD Y DOMICILIO DEL RESPONSABLE</h3>
-   <p><strong>[RAZÓN SOCIAL COMPLETA PENDIENTE]</strong>, que opera comercialmente bajo el nombre de <strong>MAX INNOVA Servicios Financieros</strong>, con domicilio en <strong>[DOMICILIO COMPLETO PENDIENTE]</strong>, será responsable del tratamiento, uso, almacenamiento y protección de los datos personales recabados de clientes, solicitantes, prospectos y usuarios.</p>
-   <p>Contacto para asuntos de privacidad: <strong>contacto@maxinnova.mx</strong> · <strong>[TELÉFONO PENDIENTE]</strong>.</p>
+   <p><strong>ESTRATEGIAS MAX INNOVA, S.A. DE C.V.</strong>, que opera comercialmente bajo el nombre de <strong>MAX INNOVA Servicios Financieros</strong>, con domicilio fiscal en <strong>Av. Uno No. 413, Depto. 7, Col. Benito Juárez, C.P. 93310, Poza Rica de Hidalgo, Veracruz de Ignacio de la Llave</strong>, será responsable del tratamiento, uso, almacenamiento y protección de los datos personales recabados de clientes, solicitantes, prospectos y usuarios.</p>
+   <p>Contacto para asuntos de privacidad: <strong>contacto@maxinnova.mx</strong>.</p>
 
    <h3>II. DATOS PERSONALES QUE PODRÁN SER RECABADOS</h3>
    <p>Según resulte necesario para cada solicitud u operación, podrán tratarse datos de identificación y contacto; datos fiscales; datos laborales y de actividad económica; datos patrimoniales y financieros; información relacionada con el financiamiento solicitado; y documentación proporcionada por el titular.</p>
@@ -1883,5 +1927,42 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closePrivacy()});
 document.getElementById("privacyOverlay")?.addEventListener("click",e=>{if(e.target.id==="privacyOverlay")closePrivacy()});
 </script>
 
+\n<script>
+/* ===== ACTUALIZACIÓN INTEGRAL: FISCAL, CLIENTES, PAGOS, BITÁCORA Y COTIZACIÓN ===== */
+const MI_FISCAL={comercial:"MAX INNOVA Servicios Financieros",razon:"ESTRATEGIAS MAX INNOVA, S.A. DE C.V.",rfc:"EMI250217IP7",domicilio:"Av. Uno No. 413, Depto. 7, Col. Benito Juárez, C.P. 93310, Poza Rica de Hidalgo, Veracruz de Ignacio de la Llave"};
+function openFiscalInfo(){document.getElementById("fiscalModal")?.classList.add("open")}
+let clientServiceMode="operacion";
+function openClientService(mode){clientServiceMode=mode;const titles={pago:"Pagar mi mensualidad",estado:"Descargar mi estado de cuenta",operacion:"Consultar mi operación"};document.getElementById("clientServiceTitle").textContent=titles[mode]||titles.operacion;document.getElementById("clientServiceResult").innerHTML='<span class="help">Ingresa tu folio para consultar la información registrada.</span>';document.getElementById("clientServiceModal").classList.add("open")}
+async function lookupClientService(){
+ const folio=(document.getElementById("clientServiceFolio").value||"").trim().toUpperCase(),box=document.getElementById("clientServiceResult");if(!folio){box.innerHTML='<b>Ingresa tu folio.</b>';return}
+ box.innerHTML='Consultando...';
+ const {data,error}=await db.rpc("max_innova_consultar_folio",{p_folio:folio});const a=Array.isArray(data)?data[0]:data;if(error||!a){box.innerHTML='<b>No encontramos ese folio.</b><p class="help">Revisa que esté escrito exactamente como aparece en tu comprobante.</p>';return}
+ const active=["CONTRATADO","ASIGNACIÓN DE CAPITAL / BANCARIZACIÓN INTERNA","CAPITAL ASIGNADO","PROCESO DE COMPRA","FACTURACIÓN","ASIGNACIÓN DE SEGURO","GASTOS ADICIONALES","EN LOGÍSTICA","EN PROCESO DE ENTREGA","ENTREGADO / FINALIZADO"].includes(a.estatus);
+ if(clientServiceMode==="pago"&&!active){box.innerHTML=`<h3>TU SOLICITUD AÚN ESTÁ EN PROCESO</h3><p class="help">Estatus actual: <b>${safe(a.estatus)}</b>. Las opciones de pago estarán disponibles cuando tu financiamiento se encuentre formalizado y activo.</p><button class="btn btn-soft" onclick="clientServiceModal.classList.remove('open');goPortal('consulta')">CONSULTAR SOLICITUD</button>`;return}
+ if(clientServiceMode==="estado"&&!active){box.innerHTML=`<h3>TU FINANCIAMIENTO AÚN NO CUENTA CON ESTADO DE CUENTA</h3><p class="help">Estatus actual: <b>${safe(a.estatus)}</b>. El estado de cuenta estará disponible cuando la operación se formalice y active.</p><button class="btn btn-soft" onclick="clientServiceModal.classList.remove('open');goPortal('consulta')">CONSULTAR SOLICITUD</button>`;return}
+ if(clientServiceMode==="operacion"&&!active){box.innerHTML=`<h3>SEGUIMIENTO DE SOLICITUD</h3><p><b>${safe(a.folio)}</b> · ${safe(a.nombre)}</p><p class="help">Estatus: <b>${safe(a.estatus)}</b></p>${a.indicaciones_cliente?`<p class="help"><b>Indicaciones:</b> ${safe(a.indicaciones_cliente)}</p>`:""}<button class="btn btn-blue" onclick="clientServiceModal.classList.remove('open');goPortal('consulta')">VER SEGUIMIENTO</button>`;return}
+ const {data:op}=await db.from("max_innova_operaciones").select("*").eq("folio",folio).maybeSingle();
+ if(!op){box.innerHTML='<h3>OPERACIÓN EN ACTIVACIÓN</h3><p class="help">Tu solicitud ya se encuentra formalizada. La información financiera estará disponible en cuanto Administración termine de registrar la operación.</p>';return}
+ if(clientServiceMode==="pago"){box.innerHTML=`<h3>¿CÓMO DESEAS REALIZAR TU PAGO?</h3><p class="help">Mensualidad registrada: <b>${op.mensualidad?money(op.mensualidad):"Por confirmar"}</b> · Vencimiento: <b>${safe(op.fecha_vencimiento||"Por confirmar")}</b></p><div class="payment-choice"><button onclick="paymentWeb()">PAGAR DESDE EL SITIO</button><button onclick="paymentUpload('${safe(folio)}')">YA REALICÉ MI PAGO<br><small>Subir comprobante</small></button><button onclick="paymentBranch()">PAGAR EN SUCURSAL<br><small>Con cita previa</small></button></div><p class="help"><b>Mantén tu financiamiento al corriente.</b> Realiza tus pagos en tiempo y forma para evitar cargos, penalizaciones o consecuencias previstas en las condiciones de tu contrato.</p>`;return}
+ if(clientServiceMode==="estado"){box.innerHTML=`<h3>ESTADO DE CUENTA</h3><p class="help">Folio: <b>${safe(folio)}</b><br>Monto financiado: <b>${op.monto_financiado?money(op.monto_financiado):"—"}</b><br>Mensualidad: <b>${op.mensualidad?money(op.mensualidad):"—"}</b><br>Saldo actual: <b>${op.saldo_actual!=null?money(op.saldo_actual):"—"}</b><br>Próximo vencimiento: <b>${safe(op.fecha_vencimiento||"—")}</b></p><button class="btn btn-blue" onclick="downloadStatement('${safe(folio)}')">DESCARGAR ESTADO DE CUENTA</button>`;return}
+ box.innerHTML=`<h3>MI OPERACIÓN</h3><p><b>${safe(folio)}</b> · ${safe(a.nombre)}</p><p class="help">Estatus: <b>${safe(a.estatus)}</b><br>Monto autorizado: <b>${op.monto_autorizado?money(op.monto_autorizado):"—"}</b><br>Aportación: <b>${op.aportacion?money(op.aportacion):"—"}</b><br>Monto financiado: <b>${op.monto_financiado?money(op.monto_financiado):"—"}</b><br>Plazo: <b>${safe(op.plazo_meses||"—")} meses</b><br>Mensualidad: <b>${op.mensualidad?money(op.mensualidad):"—"}</b><br>Próximo vencimiento: <b>${safe(op.fecha_vencimiento||"—")}</b></p><button class="btn btn-blue" onclick="clientServiceMode='pago';lookupClientService()">PAGAR MENSUALIDAD</button> <button class="btn btn-soft" onclick="clientServiceMode='estado';lookupClientService()">ESTADO DE CUENTA</button>`;
+}
+function paymentWeb(){alert("El pago directo desde el sitio se habilitará únicamente cuando MAX INNOVA integre el proveedor de pagos autorizado. No ingreses datos bancarios en formularios distintos a los canales oficiales.")}
+function paymentBranch(){document.getElementById("clientServiceResult").innerHTML='<h3>PAGO EN SUCURSAL CON CITA PREVIA</h3><p class="help">La atención para pago presencial requiere cita confirmada. Solicita tu cita por los canales oficiales de MAX INNOVA. No acudas al domicilio fiscal: esa ubicación no brinda atención al público.</p><a class="btn btn-blue" href="mailto:contacto@maxinnova.mx?subject=Cita%20para%20pago%20en%20sucursal">SOLICITAR CITA</a>'}
+function paymentUpload(folio){document.getElementById("clientServiceResult").innerHTML=`<h3>SUBIR COMPROBANTE</h3><p class="help">El comprobante será recibido para validación. <b>Subirlo no significa que el pago ya esté aplicado.</b></p><div class="field"><label>COMPROBANTE (PDF/JPG/PNG)</label><input id="paymentProof" type="file" accept=".pdf,.jpg,.jpeg,.png,image/*"></div><br><button class="btn btn-blue" onclick="sendPaymentProof('${folio}')">ENVIAR PARA VALIDACIÓN</button>`}
+async function sendPaymentProof(folio){const f=document.getElementById("paymentProof")?.files?.[0];if(!f){alert("Selecciona tu comprobante.");return}if(f.size>15*1024*1024){alert("El archivo no puede superar 15 MB.");return}const clean=f.name.replace(/[^a-zA-Z0-9._-]/g,"_");const path=`${folio}/PAGOS/${Date.now()}_${clean}`;const {error}=await db.storage.from("max-innova-documentos").upload(path,f,{upsert:false});if(error){alert("No se pudo enviar el comprobante: "+error.message);return}await db.from("max_innova_pagos").insert({folio,monto:null,estatus:"COMPROBANTE RECIBIDO / PENDIENTE DE VALIDACIÓN",comprobante_path:path,origen:"PORTAL WEB"});document.getElementById("clientServiceResult").innerHTML='<h3>COMPROBANTE RECIBIDO</h3><p class="help">Quedó registrado como <b>PENDIENTE DE VALIDACIÓN</b>. El pago se reflejará en tu operación únicamente después de ser revisado y aplicado por Administración.</p>'}
+async function downloadStatement(folio){const {data:op}=await db.from("max_innova_operaciones").select("*").eq("folio",folio).maybeSingle();const {data:mov}=await db.from("max_innova_pagos").select("*").eq("folio",folio).eq("estatus","PAGO APLICADO").order("fecha_pago",{ascending:false});if(!window.jspdf||!op){alert("No fue posible generar el estado de cuenta.");return}const {jsPDF}=window.jspdf,doc=new jsPDF();doc.setFillColor(0,52,95);doc.rect(0,0,210,10,"F");doc.setTextColor(0,52,95);doc.setFont("helvetica","bold");doc.setFontSize(18);doc.text("ESTADO DE CUENTA",18,28);doc.setFontSize(9);doc.text(MI_FISCAL.razon,18,36);doc.setFont("helvetica","normal");doc.text(`RFC: ${MI_FISCAL.rfc} · Folio: ${folio}`,18,42);let y=56;[["Monto financiado",op.monto_financiado?money(op.monto_financiado):"—"],["Mensualidad",op.mensualidad?money(op.mensualidad):"—"],["Saldo actual",op.saldo_actual!=null?money(op.saldo_actual):"—"],["Fecha de corte",op.fecha_corte||"—"],["Próximo vencimiento",op.fecha_vencimiento||"—"]].forEach(([a,b])=>{doc.setFont("helvetica","bold");doc.text(a,18,y);doc.setFont("helvetica","normal");doc.text(String(b),85,y);y+=9});doc.setFont("helvetica","bold");doc.text("MOVIMIENTOS APLICADOS",18,y+8);y+=17;(mov||[]).forEach(x=>{doc.setFont("helvetica","normal");doc.text(`${x.fecha_pago||x.created_at||""}   ${x.monto?money(x.monto):""}   ${x.estatus}`,18,y);y+=8});doc.save(`MAX-INNOVA-ESTADO-CUENTA-${folio}.pdf`)}
+
+async function miAudit(folio,accion,detalle,antes=null,despues=null){try{const {data:u}=await db.auth.getUser();await db.from("max_innova_bitacora").insert({folio,accion,detalle,valor_anterior:antes,valor_nuevo:despues,usuario_id:u?.user?.id||null,usuario_email:u?.user?.email||"PORTAL WEB"})}catch(e){console.warn("Bitácora:",e)}}
+const _saveCurrentApp=window.saveCurrentApp;window.saveCurrentApp=async function(){const id=adminEditor.dataset.id,folio=adminEditor.dataset.folio,old=adminData.find(x=>String(x.id)===String(id));const changes={estatus:editStatus.value,fecha_cita:editDate.value||null,hora_cita:editTime.value||null,indicaciones_cliente:editNote.value.trim(),indicaciones_cita:editCita.value.trim()};const {error}=await db.from("max_innova_solicitudes").update(changes).eq("id",id);if(error){alert("No se pudo guardar: "+error.message);return}await miAudit(folio,"ACTUALIZACIÓN DE EXPEDIENTE","Se actualizaron datos del expediente.",old?.estatus||null,changes.estatus);alert("Cambios guardados correctamente.");adminEditor.style.display="none";await loadAdmin()};
+const _editById=window.editById;window.editById=function(id){_editById(id);setTimeout(()=>{const a=adminData.find(x=>String(x.id)===String(id));if(!a)return;const extra=document.createElement("div");extra.className="admin-card";extra.innerHTML=`<h3>BITÁCORA DEL FOLIO</h3><p class="help">Movimientos registrados y usuario que realizó cada cambio.</p><button class="btn btn-soft" onclick="loadAudit('${a.folio}')">CONSULTAR REGISTRO</button><div id="auditList" class="audit-list"></div>`;adminEditor.appendChild(extra)},50)};
+async function loadAudit(folio){const box=document.getElementById("auditList");box.innerHTML="Cargando...";const {data,error}=await db.from("max_innova_bitacora").select("*").eq("folio",folio).order("created_at",{ascending:false});if(error){box.innerHTML='<span class="help">La bitácora estará disponible después de ejecutar la actualización SQL.</span>';return}box.innerHTML=(data||[]).map(x=>`<div class="audit-item"><b>${safe(x.accion)}</b><br>${new Date(x.created_at).toLocaleString("es-MX")} · ${safe(x.usuario_email||"Sistema")}<br>${safe(x.detalle||"")}${x.valor_anterior||x.valor_nuevo?`<br><small>${safe(x.valor_anterior||"—")} → ${safe(x.valor_nuevo||"—")}</small>`:""}</div>`).join("")||'<span class="help">Aún no hay movimientos registrados.</span>'}
+
+/* Cotización formal: intercepta el botón actual y genera folio + QR verificable */
+document.getElementById("quotePdf")?.addEventListener("click",async function(e){if(!window.jspdf||!window.QRCode)return;e.preventDefault();e.stopImmediatePropagation();if(typeof lastQuote==="undefined"||!lastQuote){alert("Primero realiza una simulación.");return}const folio=`MI-COT-${new Date().getFullYear()}-${String(Date.now()).slice(-8)}`;let qr="";try{qr=await QRCode.toDataURL(`https://maxinnova.mx/#verificar-cotizacion=${encodeURIComponent(folio)}`,{width:220,margin:1})}catch(_){}const {jsPDF}=window.jspdf,doc=new jsPDF();try{const img=new Image();img.src="logo%20maxinnova.png";await new Promise((ok,no)=>{img.onload=ok;img.onerror=no});doc.addImage(img,"PNG",18,12,48,18)}catch(_){}doc.setFillColor(0,52,95);doc.rect(0,0,210,8,"F");doc.setTextColor(0,52,95);doc.setFont("helvetica","bold");doc.setFontSize(18);doc.text("COTIZACIÓN DE FINANCIAMIENTO",18,42);doc.setFontSize(9);doc.text(`Folio: ${folio}`,18,50);doc.setFont("helvetica","normal");doc.text(`Fecha: ${new Date().toLocaleString("es-MX")}`,18,56);doc.text(MI_FISCAL.razon+" · RFC "+MI_FISCAL.rfc,18,62);if(qr){doc.addImage(qr,"PNG",158,18,32,32);doc.setFontSize(6.5);doc.text("Escanee para verificar autenticidad y vigencia",150,54)}const rows=[["Tipo de proyecto",lastQuote.type],["Valor del proyecto",money(lastQuote.value)],["Aportación inicial",`${lastQuote.dp}% · ${money(lastQuote.downAmt)}`],["Monto estimado a financiar",money(lastQuote.principal)],["Plazo",`${lastQuote.months} meses`],["Tasa anual simulada",`${lastQuote.annual.toFixed(2)}%`],["Pago mensual estimado",money(lastQuote.monthly)]];let y=76;rows.forEach(([a,b],i)=>{if(i%2===0){doc.setFillColor(244,250,253);doc.rect(18,y-6,174,9,"F")}doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.text(a,21,y);doc.setFont("helvetica","normal");doc.setTextColor(35,65,82);doc.text(String(b),102,y);y+=10});doc.setDrawColor(100,120,130);doc.line(25,210,85,210);doc.line(125,210,185,210);doc.setFontSize(8);doc.text("SOLICITANTE",48,216);doc.text("MAX INNOVA",143,216);doc.setFontSize(7.5);doc.setTextColor(80,95,105);doc.text(doc.splitTextToSize("Cotización informativa sujeta a evaluación y a las condiciones definitivas autorizadas para la operación. No constituye por sí misma autorización definitiva del financiamiento.",170),20,235);try{await db.from("max_innova_cotizaciones").insert({folio_cotizacion:folio,folio_solicitud:null,version:1,tipo:lastQuote.type,valor_proyecto:lastQuote.value,aportacion:lastQuote.downAmt,monto_financiar:lastQuote.principal,plazo_meses:lastQuote.months,tasa_anual:lastQuote.annual,mensualidad:lastQuote.monthly,estatus:"VIGENTE"})}catch(_){}doc.save(`MAX-INNOVA-COTIZACION-${folio}.pdf`)},true);
+
+async function verifyQuoteFromHash(){const m=location.hash.match(/^#verificar-cotizacion=(.+)$/);if(!m)return;const folio=decodeURIComponent(m[1]);const {data,error}=await db.from("max_innova_cotizaciones").select("*").eq("folio_cotizacion",folio).maybeSingle();openClientService("operacion");const box=document.getElementById("clientServiceResult");document.getElementById("clientServiceTitle").textContent="Verificación de cotización";if(error||!data){box.innerHTML='<h3>COTIZACIÓN NO LOCALIZADA</h3><p class="help">No fue posible validar este folio en el registro.</p>';return}box.innerHTML=`<h3>✓ DOCUMENTO REGISTRADO</h3><p class="help"><b>Folio:</b> ${safe(data.folio_cotizacion)}<br><b>Versión:</b> ${safe(data.version)}<br><b>Tipo:</b> ${safe(data.tipo)}<br><b>Fecha:</b> ${new Date(data.created_at).toLocaleDateString("es-MX")}<br><b>Estatus:</b> ${safe(data.estatus)}</p><p class="help">La información corresponde al registro de MAX INNOVA. La cotización no constituye por sí misma autorización definitiva del financiamiento.</p>`}
+window.addEventListener("hashchange",verifyQuoteFromHash);setTimeout(verifyQuoteFromHash,250);
+</script>\n
 </body>
 </html>
