@@ -625,6 +625,41 @@ input,select,textarea,button{max-width:100%}
 .trust-security{border-radius:20px;padding:28px 24px;color:#fff;background:linear-gradient(160deg,#073b63,#032b4d 68%,#021f39);box-shadow:0 18px 42px rgba(0,38,70,.17);display:flex;flex-direction:column}.trust-security .shield{width:54px;height:54px;border:2px solid #d9a323;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#f0b52a;font-size:24px;font-weight:900;margin-bottom:22px}.trust-security h3{font-size:24px;line-height:1.12;margin:8px 0 14px;color:#fff}.trust-security p{font-size:12.5px;line-height:1.65;color:#d9e7ef}.trust-security hr{width:42px;border:0;border-top:2px solid #d7a027;margin:22px 0}.trust-security ul{list-style:none;padding:0;margin:0 0 22px}.trust-security li{margin:0 0 12px;color:#eef7fb;font-size:12px}.trust-security>a{margin-top:auto;min-height:42px;border:1px solid rgba(255,255,255,.45);border-radius:10px;color:#fff;text-decoration:none;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center}
 @media(max-width:1050px){.trust-layout{grid-template-columns:1fr}.trust-security{min-height:280px}}@media(max-width:900px){.trust-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.trust-head{text-align:left}.trust-grid{grid-template-columns:1fr!important}.trust-card{grid-template-columns:42px 1fr;min-height:0;padding:19px}.trust-icon{width:42px;height:42px}.trust-btn{width:100%}.trust-security{padding:22px}.trust-security h3{font-size:22px}}
 </style>
+
+<style id="max-innova-sector-modal-v82">
+.modal-hero{
+  position:relative!important;
+  min-height:320px!important;
+  background-position:center!important;
+  background-size:cover!important;
+  background-repeat:no-repeat!important;
+}
+.modal-hero:before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(4,38,61,.28),rgba(255,255,255,.10),rgba(4,38,61,.28));
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+}
+.modal-hero img{
+  position:relative;z-index:1;width:100%!important;height:320px!important;
+  object-fit:contain!important;object-position:center!important;
+  background:transparent!important;transform:none!important;animation:none!important;
+}
+.modal-hero-shade,.modal-hero-label{z-index:2}
+.modal-content-inner{background:#fff}
+.modal-market-box{
+  margin-top:14px;padding:15px 16px;border-radius:13px;
+  border:1px solid #d8eaf3;background:linear-gradient(145deg,#f8fcfe,#eef8fc);
+}
+.modal-market-box strong{display:block;color:#075d8d;font-size:10px;letter-spacing:.10em;margin-bottom:7px}
+.modal-market-box p{margin:0!important;font-size:12px!important;line-height:1.6!important}
+.modal-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.modal-tag{padding:6px 9px;border-radius:999px;background:#edf7fb;border:1px solid #d2e8f2;color:#07567f;font-size:9px;font-weight:900}
+@media(max-width:600px){
+ .modal-hero{min-height:220px!important}
+ .modal-hero img{height:220px!important}
+}
+</style>
+
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -1181,6 +1216,11 @@ function miIncomeGuide(){
 <p id="modalReview">Se revisa la información proporcionada y la viabilidad general del proyecto.</p>
 </div>
 </div>
+<div class="modal-market-box" id="modalMarketBox">
+<strong id="modalMarketTitle">INFORMACIÓN ÚTIL</strong>
+<p id="modalMarketText">Información relacionada con esta opción.</p>
+<div class="modal-tags" id="modalTags"></div>
+</div>
 <div style="background:#eff9fd;border-radius:12px;padding:18px;margin:20px 0;font-size:12px;line-height:1.7;color:#496c7f">La disponibilidad, características, requisitos, condiciones y aprobación dependen de la evaluación correspondiente. La información mostrada es general y no representa una aprobación.</div>
 <button class="btn btn-blue" onclick="modalApply()">INICIAR SOLICITUD</button>
 </div></div></div>
@@ -1664,7 +1704,7 @@ const sectors=[
  },
  {
   title:"Comercio, negocio y PyME",
-  desc:"Giros de negocio como los que teníamos originalmente, ahora representados con iconos.",
+  desc:"Opciones de crédito para equipamiento, inventario, expansión y capital de trabajo según el giro.",
   reverse:false,
   business:true,
   items:[
@@ -1686,7 +1726,7 @@ const sectors=[
  },
  {
   title:"Movilidad y plataformas",
-  desc:"Plataformas relacionadas con movilidad y generación de ingresos.",
+  desc:"Opciones para unidades destinadas a movilidad y generación de ingresos mediante plataformas.",
   reverse:true,
   items:[
    {n:"Uber",l:"https://cdn.simpleicons.org/uber",t:"Movilidad / Plataformas"},
@@ -1774,11 +1814,74 @@ const modalPhotos={
  "Movilidad / Plataformas":"https://images.unsplash.com/photo-1760143489034-af3b3e49fc3e?auto=format&fit=crop&w=1400&q=82",
  "Gastos jurídicos":"laptop.png"
 };
-function setModalVisual(type,label){
+
+const sectorProfiles={
+ "Panadería":{use:"Crédito para horno, batidora, vitrinas, refrigeración, adecuación del local, inventario y capital de trabajo.",photo:"https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1600&q=88",tags:["EQUIPAMIENTO","INVENTARIO","CAPITAL DE TRABAJO"]},
+ "Restaurante":{use:"Crédito para cocina, refrigeración, mobiliario, adecuaciones, inventario inicial, expansión o capital de trabajo.",photo:"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=88",tags:["COCINA","MOBILIARIO","EXPANSIÓN"]},
+ "Cafetería":{use:"Crédito para máquina de espresso, molino, barra, mobiliario, refrigeración, insumos y apertura o ampliación del punto de venta.",photo:"https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1600&q=88",tags:["EQUIPO","LOCAL","INSUMOS"]},
+ "Lavandería":{use:"Crédito para lavadoras, secadoras, instalación, adecuaciones, sistemas de cobro y capital de trabajo.",photo:"https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=1600&q=88",tags:["MAQUINARIA","ADECUACIÓN","OPERACIÓN"]},
+ "Taller":{use:"Crédito para elevadores, compresores, herramienta, diagnóstico, alineación, inventario de refacciones y adecuación del taller.",photo:"https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1600&q=88",tags:["HERRAMIENTA","EQUIPO","REFACCIONES"]},
+ "Abarrotes":{use:"Crédito para refrigeradores, anaqueles, punto de venta, inventario, remodelación y capital de trabajo.",photo:"https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1600&q=88",tags:["INVENTARIO","REFRIGERACIÓN","PUNTO DE VENTA"]},
+ "Ferretería":{use:"Crédito para inventario, exhibidores, anaqueles, herramientas, equipo de reparto, ampliación y capital de trabajo.",photo:"https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=1600&q=88",tags:["INVENTARIO","HERRAMIENTAS","EXPANSIÓN"]},
+ "Estética":{use:"Crédito para sillones, estaciones, lavacabezas, aparatología, mobiliario, adecuación e insumos.",photo:"https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1600&q=88",tags:["MOBILIARIO","APARATOLOGÍA","INSUMOS"]},
+ "Consultorio":{use:"Crédito para equipamiento, mobiliario, adecuación, tecnología, instrumental y capital de trabajo, sujeto al giro profesional.",photo:"https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1600&q=88",tags:["EQUIPO","MOBILIARIO","TECNOLOGÍA"]},
+ "Papelería":{use:"Crédito para inventario, copiadoras, impresión, cómputo, mobiliario y capital de trabajo.",photo:"https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1600&q=88",tags:["INVENTARIO","IMPRESIÓN","CÓMPUTO"]},
+ "Farmacia":{use:"Crédito para mobiliario, refrigeración, sistemas, inventario y adecuación del establecimiento, sujeto a documentación aplicable.",photo:"https://images.unsplash.com/photo-1586015555751-63bb77f4322a?auto=format&fit=crop&w=1600&q=88",tags:["INVENTARIO","REFRIGERACIÓN","SISTEMAS"]},
+ "Ropa":{use:"Crédito para inventario, mobiliario, exhibición, punto de venta, remodelación y expansión.",photo:"https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=88",tags:["INVENTARIO","EXHIBICIÓN","EXPANSIÓN"]},
+ "Tecnología":{use:"Crédito para inventario, cómputo, equipo especializado, mobiliario, software y capital de trabajo.",photo:"https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=88",tags:["EQUIPO","INVENTARIO","SOFTWARE"]},
+ "Comercio":{use:"Crédito para inventario, equipamiento, adecuación, expansión y capital de trabajo de acuerdo con el giro.",photo:"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=88",tags:["CAPITAL DE TRABAJO","EQUIPO","EXPANSIÓN"]}
+};
+
+const platformProfiles={
+ "Uber":{text:"Puede evaluarse financiamiento de una unidad para trabajar en plataforma. Uber solicita, entre otros puntos, vehículo de 4 puertas, cinturones, ABS, bolsas de aire y aire acondicionado; los requisitos específicos dependen de ciudad y categoría.",tags:["4 PUERTAS","SEGURIDAD","GENERACIÓN DE INGRESOS"]},
+ "DiDi":{text:"Puede evaluarse financiamiento para una unidad destinada a DiDi. Los requisitos cambian por ciudad; DiDi publica criterios de modelo, documentación y tarjeta de circulación para el registro.",tags:["PLATAFORMA","DOCUMENTACIÓN","UNIDAD"]},
+ "inDrive":{text:"Alternativa para evaluar una unidad destinada a movilidad por aplicación. La elegibilidad final depende de los requisitos vigentes de la plataforma y de la evaluación de crédito.",tags:["MOVILIDAD","UNIDAD","EVALUACIÓN"]},
+ "Rappi":{text:"Puede evaluarse equipamiento o unidad relacionada con actividades de reparto y generación de ingresos, de acuerdo con el proyecto y perfil del solicitante.",tags:["REPARTO","GENERACIÓN DE INGRESOS","EVALUACIÓN"]},
+ "Uber Eats":{text:"Puede evaluarse una unidad o proyecto destinado a reparto. La modalidad y requisitos aplicables dependen de la actividad, ciudad y documentación disponible.",tags:["REPARTO","MOVILIDAD","PROYECTO"]},
+ "Cabify":{text:"Puede evaluarse financiamiento para una unidad destinada a servicios de movilidad, sujeto a requisitos vigentes de la plataforma y evaluación individual.",tags:["MOVILIDAD","UNIDAD","EVALUACIÓN"]},
+ "Taxi de sitio":{text:"Alternativa para adquirir o renovar una unidad destinada al servicio de taxi de sitio, sujeta a documentación, permisos aplicables y evaluación individual.",tags:["UNIDAD","SERVICIO","EVALUACIÓN"]}
+};
+
+const vehicleDeliveryPhotos=[
+ "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=1600&q=88",
+ "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1600&q=88",
+ "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=88",
+ "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=88"
+];
+const homeDeliveryPhotos=[
+ "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1600&q=88",
+ "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=88",
+ "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=88",
+ "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=88"
+];
+const platformPhotos=[
+ "https://images.unsplash.com/photo-1515569067071-ec3b51335dd0?auto=format&fit=crop&w=1600&q=88",
+ "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1600&q=88",
+ "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1600&q=88",
+ "https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1600&q=88"
+];
+function stableIndex(name,len){
+ let h=0; for(const ch of String(name)) h=(h*31+ch.charCodeAt(0))>>>0;
+ return h%len;
+}
+function models2026ForBrand(name){
+ if(!Array.isArray(MAX_INNOVA_V63_CATALOG))return[];
+ return [...new Set(MAX_INNOVA_V63_CATALOG.filter(r=>Number(r.anio)===2026 && String(r.marca).toLowerCase()===String(name).toLowerCase()).map(r=>r.modelo).filter(Boolean))].slice(0,8);
+}
+function setMarketInfo(title,text,tags=[]){
+ const box=document.getElementById("modalMarketBox"),t=document.getElementById("modalMarketTitle"),p=document.getElementById("modalMarketText"),tag=document.getElementById("modalTags");
+ if(!box)return;
+ t.textContent=title||"INFORMACIÓN ÚTIL";
+ p.innerHTML=text||"";
+ tag.innerHTML=(tags||[]).map(x=>`<span class="modal-tag">${safe(x)}</span>`).join("");
+}
+
+function setModalVisual(type,label,customSrc){
  const img=document.getElementById("modalImage"), hero=document.getElementById("modalHero"), tag=document.getElementById("modalHeroLabel");
  if(!img||!hero)return;
- const src=modalPhotos[type]||modalPhotos["Personal"];
+ const src=customSrc||modalPhotos[type]||modalPhotos["Personal"];
  img.src=src; img.alt=label||"Proyecto de financiamiento";
+ hero.style.backgroundImage=`linear-gradient(rgba(225,241,248,.28),rgba(225,241,248,.28)),url("${src}")`;
  tag.textContent=label||"MAX INNOVA";
  hero.classList.remove("visual-in"); void hero.offsetWidth; hero.classList.add("visual-in");
 }
@@ -1802,6 +1905,7 @@ function showInfo(kicker,title,text,type){
 }
 function product(name){
  modalType=name;
+ setMarketInfo("INFORMACIÓN ÚTIL","Consulta los requisitos y condiciones aplicables a esta alternativa de financiamiento.",["SUJETO A EVALUACIÓN"]);
  modalKicker.textContent="INFORMACIÓN GENERAL";
  modalTitle.textContent="Financiamiento "+name;
  modalText.textContent=productText(name);
@@ -1824,11 +1928,48 @@ function brandInfo(name,sector,type){
  modalType=type;
  modalKicker.textContent=sector.toUpperCase();
  modalTitle.textContent=name;
- modalText.textContent=name==="Taxi de sitio"
-  ? "Alternativa para personas que buscan adquirir o renovar una unidad destinada al servicio de taxi de sitio. La solicitud, unidad, documentación y condiciones se revisan de forma individual."
-  : `${name} se muestra como referencia dentro del sector ${sector}. MAX INNOVA puede evaluar solicitudes relacionadas con este tipo de proyecto. La aparición de una marca no implica convenio, afiliación o representación.`;
- setModalDetails(modalType);
- setModalVisual(modalType,name);
+ let customPhoto=null;
+
+ if(type==="Vehicular"){
+   const models=models2026ForBrand(name);
+   const marketNotes={
+    "Nissan":"Como referencia de mercado, Nissan encabezó las ventas de marcas en México de enero a agosto de 2026; Versa fue el modelo más vendido del país en enero de 2026.",
+    "Chevrolet":"Chevrolet forma parte de General Motors, segundo grupo por participación en el mercado mexicano en agosto de 2026; Aveo estuvo entre los modelos de mayor volumen al inicio del año.",
+    "Toyota":"Toyota se ubicó entre las marcas de mayor volumen del mercado mexicano durante 2026.",
+    "Volkswagen":"Grupo Volkswagen se mantuvo entre los grupos con mayor participación del mercado mexicano durante 2026.",
+    "Kia":"Kia se mantuvo dentro de las marcas de mayor volumen en México durante 2026.",
+    "Mazda":"Mazda se mantuvo dentro de las marcas de mayor volumen en México durante 2026.",
+    "Honda":"La disponibilidad de modelos y versiones se consulta conforme al catálogo 2026 cargado en MAX INNOVA.",
+    "Hyundai":"Hyundai se mantuvo dentro de las marcas de mayor volumen en México durante 2026."
+   };
+   modalText.textContent=`${name} se muestra como referencia para solicitudes de financiamiento vehicular. La aparición de la marca no implica convenio, afiliación ni representación.`;
+   setModalDetails(type);
+   const list=models.length?models.join(" · "):"Consulta disponibilidad de modelos y versiones al realizar tu cotización.";
+   setMarketInfo("MODELOS 2026 Y REFERENCIA DE MERCADO",`${marketNotes[name]||"Consulta los modelos 2026 disponibles en nuestro catálogo."}<br><br><b>Modelos 2026 en catálogo:</b> ${safe(list)}`,["FINANCIAMIENTO VEHICULAR","MODELOS 2026","SUJETO A EVALUACIÓN"]);
+   customPhoto=vehicleDeliveryPhotos[stableIndex(name,vehicleDeliveryPhotos.length)];
+ }else if(type==="Patrimonial / Vivienda"){
+   modalText.textContent=`${name} se muestra como referencia dentro del sector vivienda y patrimonio. MAX INNOVA puede evaluar proyectos de adquisición, construcción, remodelación o inversión inmobiliaria. La aparición de la marca no implica convenio, afiliación ni representación.`;
+   setModalDetails(type);
+   setMarketInfo("PROYECTOS DE VIVIENDA","El financiamiento puede evaluarse para vivienda nueva o usada, proyectos patrimoniales, construcción, remodelación o necesidades relacionadas con el inmueble, de acuerdo con el perfil y documentación del solicitante.",["VIVIENDA","PATRIMONIO","PROYECTO INMOBILIARIO"]);
+   customPhoto=homeDeliveryPhotos[stableIndex(name,homeDeliveryPhotos.length)];
+ }else if(type==="Negocio / PyME"){
+   const p=sectorProfiles[name]||sectorProfiles["Comercio"];
+   modalText.textContent=`MAX INNOVA puede evaluar solicitudes para un negocio de ${name.toLowerCase()}, considerando el destino del crédito, la actividad, documentación y viabilidad del proyecto.`;
+   setModalDetails(type);
+   setMarketInfo("¿PARA QUÉ PUEDE UTILIZARSE?",p.use,p.tags);
+   customPhoto=p.photo;
+ }else if(type==="Movilidad / Plataformas"){
+   const p=platformProfiles[name]||platformProfiles["Uber"];
+   modalText.textContent=name==="Taxi de sitio" ? p.text : `${name} se muestra como referencia para proyectos de movilidad y generación de ingresos. La aparición de la plataforma no implica convenio, afiliación ni representación.`;
+   setModalDetails(type);
+   setMarketInfo("PLAN PARA MOVILIDAD",`${p.text}<br><br><b>MAX INNOVA:</b> pueden evaluarse solicitudes aun cuando exista historial en Buró de Crédito. La autorización y condiciones dependen de la evaluación; en determinados casos el financiamiento de la unidad puede condicionarse a la instalación y permanencia de un dispositivo de rastreo durante la vigencia del crédito.`,p.tags);
+   customPhoto=platformPhotos[stableIndex(name,platformPhotos.length)];
+ }else{
+   modalText.textContent=`${name} se muestra como referencia dentro del sector ${sector}. MAX INNOVA puede evaluar solicitudes relacionadas con este tipo de proyecto.`;
+   setModalDetails(type);
+   setMarketInfo("INFORMACIÓN GENERAL","La solicitud se analiza de forma individual conforme al destino, documentación y viabilidad del proyecto.",["EVALUACIÓN INDIVIDUAL"]);
+ }
+ setModalVisual(type,name,customPhoto);
  infoModal.classList.add("open");
 }
 function closeInfo(){infoModal.classList.remove("open")}
