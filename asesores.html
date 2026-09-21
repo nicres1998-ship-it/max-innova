@@ -15,7 +15,7 @@
 </style>
 </head>
 <body>
-<section class="login" id="loginView"><div class="login-card"><div class="brand">MAX <span>INNOVA</span></div><h1>Panel de Asesor</h1><p class="muted">Acceso privado MAX INNOVA para cotizaciones, clientes, expedientes y seguimientos.</p><form id="loginForm"><div class="field"><label>USUARIO / CORREO</label><input id="loginEmail" type="email" autocomplete="username" required placeholder="asesor@maxinnova.mx"></div><div class="field"><label>CONTRASEÑA</label><input id="loginPassword" type="password" autocomplete="current-password" required placeholder="••••••••"></div><button class="btn btn-primary btn-block">INGRESAR</button><button class="btn btn-cyan btn-block" type="button" id="demoAccessBtn" style="margin-top:10px;display:none">ENTRAR EN MODO PRUEBA</button></form><div class="message" id="loginMessage"></div></div></section>
+<section class="login" id="loginView"><div class="login-card"><div class="brand">MAX <span>INNOVA</span></div><h1>Panel de Asesor</h1><p class="muted">Acceso privado MAX INNOVA para cotizaciones, clientes, expedientes y seguimientos.</p><form id="loginForm"><div class="field"><label>USUARIO / CORREO</label><input id="loginEmail" type="text" autocomplete="username" required placeholder="ADMONGENERAL o correo"></div><div class="field"><label>CONTRASEÑA</label><input id="loginPassword" type="password" autocomplete="current-password" required placeholder="••••••••"></div><button class="btn btn-primary btn-block">INGRESAR</button><button class="btn btn-cyan btn-block" type="button" id="demoAccessBtn" style="margin-top:10px;display:none">ENTRAR EN MODO PRUEBA</button></form><div class="message" id="loginMessage"></div></div></section>
 <div class="app hidden" id="appView"><aside class="sidebar"><div class="brand">MAX <span>INNOVA</span></div><div class="advisor-name"><b id="advisorName">Asesor</b><br><small id="advisorRole">ASESOR</small></div><nav class="nav"><button class="active" data-page="resumen">INICIO</button><button data-page="cotizador">NUEVA COTIZACIÓN</button><button data-page="clientes">CLIENTES Y EXPEDIENTES</button><button data-page="cotizaciones">COTIZACIONES</button><button data-page="precios">CATÁLOGO Y PRECIOS</button><button data-page="tareas">SEGUIMIENTOS</button></nav><div class="sidebar-bottom"><button class="btn btn-soft btn-block" id="logoutBtn">CERRAR SESIÓN</button></div></aside><main class="content"><header class="topbar"><div><h1 id="pageTitle">INICIO</h1><p class="muted">Tu operación comercial en un solo lugar</p></div><button class="btn btn-cyan" id="quickQuoteBtn">+ NUEVA COTIZACIÓN</button></header>
 <section class="page active" id="page-resumen"><div class="advisor-flow"><div class="flow-step"><b>1</b><span>COTIZA</span><small>Simula sin registrar al prospecto</small></div><div class="flow-step"><b>2</b><span>REGISTRA Y GENERA PDF</span><small>Al confirmar, se crea o relaciona el expediente</small></div><div class="flow-step"><b>3</b><span>DA SEGUIMIENTO</span><small>Todo queda dentro del mismo cliente</small></div></div><div class="quick-actions"><button class="btn btn-primary" type="button" onclick="goPage('cotizador')">+ NUEVA COTIZACIÓN</button><button class="btn btn-soft" type="button" onclick="goPage('clientes')">BUSCAR CLIENTE / EXPEDIENTE</button><button class="btn btn-soft" type="button" onclick="goPage('tareas')">VER SEGUIMIENTOS</button></div><div class="stats"><div class="stat"><small>CLIENTES</small><strong id="statClients">0</strong></div><div class="stat"><small>EXPEDIENTES ACTIVOS</small><strong id="statFiles">0</strong></div><div class="stat"><small>COTIZACIONES</small><strong id="statQuotes">0</strong></div><div class="stat"><small>TAREAS PENDIENTES</small><strong id="statTasks">0</strong></div></div><div class="card"><div class="section-title"><h3>Próximos seguimientos</h3></div><div id="dashboardTasks" class="timeline"></div></div></section>
 <section class="page" id="page-clientes"><div class="section-guide"><h2>Clientes y expedientes</h2><p>Busca una sola vez al cliente. Dentro de su expediente encontrarás sus cotizaciones, notas y seguimientos; una nueva cotización no crea otro expediente.</p></div><div class="card"><div class="toolbar"><input id="clientSearch" placeholder="Buscar nombre, teléfono, correo o folio"><select id="clientStatus"><option value="">Todos los estatus</option><option>PROSPECTO</option><option>COTIZANDO</option><option>SOLICITUD</option><option>CONTRATADO</option><option>EN SEGUIMIENTO</option><option>NO INTERESADO</option></select><button class="btn btn-primary" id="newClientBtn">REGISTRAR CLIENTE MANUALMENTE</button></div><div class="table-wrap"><table><thead><tr><th>CLIENTE</th><th>TELÉFONO</th><th>FOLIO</th><th>ESTATUS</th><th>PRÓXIMO CONTACTO</th><th></th></tr></thead><tbody id="clientRows"></tbody></table></div></div><div id="clientDetail"></div></section>
@@ -37,9 +37,41 @@ if(location.protocol==="file:"){const d=$("demoAccessBtn");if(d)d.style.display=
 const money=n=>Number(n||0).toLocaleString("es-MX",{style:"currency",currency:"MXN",minimumFractionDigits:2,maximumFractionDigits:2}),safe=s=>String(s??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
 function msg(id,text,type="error"){const e=$(id);e.textContent=text;e.className=`message show ${type}`}function openModal(id){$(id).classList.add("open")}function closeModal(id){$(id).classList.remove("open")}document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>closeModal(b.dataset.close));
 async function init(){const {data}=await db.auth.getSession();if(data.session)await enter(data.session.user)}
-$("loginForm").onsubmit=async e=>{e.preventDefault();const {data,error}=await db.auth.signInWithPassword({email:$("loginEmail").value,password:$("loginPassword").value});if(error)return msg("loginMessage",error.message);await enter(data.user)};
+$("loginForm").onsubmit=async e=>{
+  e.preventDefault();
+  const raw=$("loginEmail").value.trim();
+  const password=$("loginPassword").value;
+  const email=raw.includes("@")?raw.toLowerCase():raw.toLowerCase()+"@maxinnova.mx";
+  msg("loginMessage","Validando acceso...");
+  const {data,error}=await db.auth.signInWithPassword({email,password});
+  if(error)return msg("loginMessage","Usuario o contraseña incorrectos.");
+  await enter(data.user);
+};
 $("demoAccessBtn").onclick=async()=>{user={id:"demo-asesor"};profile={nombre:"ASESOR DE PRUEBA",rol:"ASESOR"};$("advisorName").textContent=profile.nombre;$("advisorRole").textContent=profile.rol;$("loginView").classList.add("hidden");$("appView").classList.remove("hidden");document.querySelector('[data-page="cotizador"]').click();await loadBrands();$("qBrand").value="";$("qModel").innerHTML='<option value="">Modelo / Submarca</option>';$("qVersion").innerHTML='<option value="">Versión</option>';$("qTransmission").value="";$("qColor").value="";$("qPrice").value="";$("qDown").value="12";$("qBonus").value="0";calcQuote();};
-async function enter(u){user=u;const {data,error}=await db.from("max_innova_usuarios").select("*").eq("id",u.id).eq("activo",true).single();if(error||!data){await db.auth.signOut();return msg("loginMessage","La cuenta no está autorizada como asesor activo.")}profile=data;$("advisorName").textContent=data.nombre;$("advisorRole").textContent=data.rol;$("loginView").classList.add("hidden");$("appView").classList.remove("hidden");await refreshAll();await loadBrands()}
+async function enter(u){
+  user=u;
+  const {data,error}=await db.from("max_innova_asesores")
+    .select("id,auth_user_id,nombre,usuario,rol,activo")
+    .eq("auth_user_id",u.id)
+    .eq("activo",true)
+    .maybeSingle();
+  if(error||!data){
+    await db.auth.signOut();
+    return msg("loginMessage","La cuenta no está autorizada o está inactiva.");
+  }
+  const rol=String(data.rol||"").toUpperCase();
+  if(!["ADMON","ASESOR"].includes(rol)){
+    await db.auth.signOut();
+    return msg("loginMessage","La cuenta no tiene un rol autorizado.");
+  }
+  profile={...data,rol};
+  $("advisorName").textContent=data.nombre||data.usuario||"USUARIO";
+  $("advisorRole").textContent=rol;
+  $("loginView").classList.add("hidden");
+  $("appView").classList.remove("hidden");
+  await refreshAll();
+  await loadBrands();
+}
 $("logoutBtn").onclick=async()=>{await db.auth.signOut();location.reload()};function goPage(page){const b=document.querySelector(`.nav button[data-page="${page}"]`);if(!b)return;document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$("page-"+page).classList.add("active");$("pageTitle").textContent=b.textContent;if(page==="precios")loadPrices();if(page==="cotizaciones")loadQuotes();if(page==="tareas")loadTasks();window.scrollTo(0,0)}window.goPage=goPage;document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>goPage(b.dataset.page));
 async function refreshAll(){await Promise.all([loadClients(),loadFiles(),loadTasks(),loadQuotes()]);renderStats();fillSelectors()}
 async function loadClients(){let q=db.from("max_innova_clientes_asesor").select("*").order("updated_at",{ascending:false});const {data}=await q;clients=data||[];renderClients()}
