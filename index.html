@@ -696,10 +696,10 @@ No sustituir el diseño base al hacer cambios posteriores.
 <div class="form-grid">
 <div class="field"><label>MARCA</label><select id="vehMarca"><option value="">Selecciona una marca</option></select></div>
 <div class="field"><label>MODELO / SUBMARCA</label><select disabled="" id="vehModelo"><option value="">Primero selecciona la marca</option></select></div>
-<div class="field"><label>AÑO</label><select id="vehAnio"><option value="">Selecciona</option><option>2023</option><option>2024</option><option>2025</option><option>2026</option><option value="2027">2027 · PROVISIONAL</option></select></div>
+<div class="field"><label>AÑO</label><select id="vehAnio"><option value="">Selecciona</option><option>2023</option><option>2024</option><option>2025</option><option>2026</option><option value="2027">2027 · PROVISIONAL</option><option value="__manual__">OTRO / CAPTURAR MANUAL</option></select><input id="vehAnioManual" class="hidden" type="number" min="1900" max="2100" placeholder="Escribe el año" style="margin-top:8px"/></div>
 <div class="field"><label>VERSIÓN</label><input id="vehVersion" list="vehVersionList" placeholder="Ej. XLE CVT"/><datalist id="vehVersionList"></datalist></div>
-<div class="field"><label>TRANSMISIÓN</label><select id="vehTransmision"><option value="">Selecciona</option><option>Manual</option><option>Automática</option><option>CVT</option><option>DCT</option><option>Eléctrica de una velocidad</option><option>Otra / Por confirmar</option></select></div>
-<div class="field"><label>COLOR</label><input id="vehColor" list="vehColorList" placeholder="Ej. Blanco Perlado"/><datalist id="vehColorList"><option>Blanco</option><option>Blanco Perlado</option><option>Negro</option><option>Gris</option><option>Plata</option><option>Azul</option><option>Rojo</option><option>Verde</option><option>Café</option><option>Beige</option></datalist></div>
+<div class="field"><label>TRANSMISIÓN</label><select id="vehTransmision"><option value="">Selecciona</option><option>Manual</option><option>Automática</option><option>CVT</option><option>DCT</option><option>Eléctrica de una velocidad</option><option value="__manual__">OTRA / CAPTURAR MANUAL</option></select><input id="vehTransmisionManual" class="hidden" placeholder="Escribe la transmisión" style="margin-top:8px"/></div>
+<div class="field"><label>COLOR</label><input id="vehColor" list="vehColorList" placeholder="Escribe o selecciona el color"/><datalist id="vehColorList"><option>Blanco</option><option>Blanco Perlado</option><option>Negro</option><option>Gris</option><option>Plata</option><option>Azul</option><option>Rojo</option><option>Verde</option><option>Café</option><option>Beige</option></datalist><small class="help">También puedes escribir cualquier color manualmente.</small></div>
 <div class="field"><label>CONDICIÓN</label><select id="vehCondicion"><option value="">Selecciona</option><option>Nuevo</option><option>Seminuevo</option></select></div>
 <div class="field"><label>KILOMETRAJE</label><input id="vehKilometraje" min="0" placeholder="0" step="1" type="number"/></div>
 <div class="field"><label>PRECIO DE LA UNIDAD</label><input id="vehPrecio" min="0" placeholder="Precio aproximado" step="1000" type="number"/></div>
@@ -1254,8 +1254,10 @@ let vehicleManualMode=false;
 let vehicleImageRequest=0;
 function vehicleFieldValue(id){
  const field=document.getElementById(id);
- if(id==="vehMarca"&&vehicleManualMode)return document.getElementById("vehMarcaManual")?.value.trim()||"";
- if(id==="vehModelo"&&vehicleManualMode)return document.getElementById("vehModeloManual")?.value.trim()||"";
+ if(id==="vehMarca"&&(vehicleManualMode||field?.value==="__manual__"))return document.getElementById("vehMarcaManual")?.value.trim()||"";
+ if(id==="vehModelo"&&(vehicleManualMode||field?.value==="__manual__"))return document.getElementById("vehModeloManual")?.value.trim()||"";
+ if(id==="vehAnio"&&field?.value==="__manual__")return document.getElementById("vehAnioManual")?.value.trim()||"";
+ if(id==="vehTransmision"&&field?.value==="__manual__")return document.getElementById("vehTransmisionManual")?.value.trim()||"";
  return field?.value?.trim?.()||field?.value||"";
 }
 async function loadVehicleCatalog(){
@@ -1264,12 +1266,12 @@ async function loadVehicleCatalog(){
   const {data,error}=await db.from("max_innova_vehiculos_catalogo").select("id,marca,modelo,anios").eq("activo",true).order("marca").order("modelo");
   if(error)throw error;vehicleCatalogRows=data||[];
   const brands=[...new Set(vehicleCatalogRows.map(x=>x.marca))];
-  brand.innerHTML='<option value="">Selecciona una marca</option>'+brands.map(x=>`<option>${safe(x)}</option>`).join("");
+  brand.innerHTML='<option value="">Selecciona una marca</option>'+brands.map(x=>`<option>${safe(x)}</option>`).join("")+'<option value="__manual__">OTRA / CAPTURAR MANUAL</option>';
   const quoteBrand=document.getElementById("quoteVehicleBrand");if(quoteBrand)quoteBrand.innerHTML='<option value="">Selecciona una marca</option>'+brands.map(x=>`<option>${safe(x)}</option>`).join("");
   if(status)status.textContent=`Catálogo conectado: ${brands.length} marcas y ${vehicleCatalogRows.length} modelos. V16 no presume disponibilidad por año: sólo muestra combinaciones expresamente cargadas y permite captura manual cuando faltan datos.`;
  }catch(err){
   vehicleCatalogRows=Object.entries(VEHICLE_CATALOG_FALLBACK).flatMap(([marca,models])=>models.map(modelo=>({marca,modelo,anios:null,catalogo_local:true})));
-  brand.innerHTML='<option value="">Selecciona una marca</option>'+Object.keys(VEHICLE_CATALOG_FALLBACK).map(x=>`<option>${safe(x)}</option>`).join("");
+  brand.innerHTML='<option value="">Selecciona una marca</option>'+Object.keys(VEHICLE_CATALOG_FALLBACK).map(x=>`<option>${safe(x)}</option>`).join("")+'<option value="__manual__">OTRA / CAPTURAR MANUAL</option>';
   const quoteBrand=document.getElementById("quoteVehicleBrand");if(quoteBrand)quoteBrand.innerHTML='<option value="">Selecciona una marca</option>'+Object.keys(VEHICLE_CATALOG_FALLBACK).map(x=>`<option>${safe(x)}</option>`).join("");
   if(status)status.textContent="Catálogo local de marcas y modelos disponible. Año, versión, transmisión, color y precio sólo se consideran confirmados cuando existen en la base administrable.";
  }
@@ -1277,7 +1279,7 @@ async function loadVehicleCatalog(){
 function populateVehicleModels(){
  const marca=document.getElementById("vehMarca")?.value||"",model=document.getElementById("vehModelo");if(!model)return;
  const models=vehicleCatalogRows.filter(x=>x.marca===marca).map(x=>x.modelo).sort((a,b)=>a.localeCompare(b,"es"));
- model.disabled=!marca;model.innerHTML='<option value="">Selecciona un modelo</option>'+[...new Set(models)].map(x=>`<option>${safe(x)}</option>`).join("");
+ model.disabled=!marca;model.innerHTML='<option value="">Selecciona un modelo</option>'+[...new Set(models)].map(x=>`<option>${safe(x)}</option>`).join("")+'<option value="__manual__">OTRO / CAPTURAR MANUAL</option>';
  document.getElementById("vehVersionList").innerHTML="";
  document.getElementById("vehicleVisual")?.classList.remove("show");
 }
@@ -1349,9 +1351,26 @@ document.getElementById("quoteVehicleBrand")?.addEventListener("change",populate
 document.getElementById("quoteVehicleModel")?.addEventListener("change",loadQuoteVehicleVersions);
 document.getElementById("quoteVehicleYear")?.addEventListener("change",()=>{populateQuoteVehicleModels();loadQuoteVehicleVersions()});
 document.getElementById("quoteVehicleVersion")?.addEventListener("change",applyQuoteVersion);
-document.getElementById("vehMarca")?.addEventListener("change",populateVehicleModels);
-document.getElementById("vehModelo")?.addEventListener("change",()=>{loadVehicleVersions();updateVehicleVisual()});
-document.getElementById("vehAnio")?.addEventListener("change",loadVehicleVersions);
+document.getElementById("vehMarca")?.addEventListener("change",()=>{
+ const manual=document.getElementById("vehMarca")?.value==="__manual__";
+ if(manual){vehicleManualMode=true;document.getElementById("manualVehicleFields")?.classList.add("show");document.getElementById("vehicleManualBtn").textContent="USAR CATÁLOGO AUTOMOTRIZ";const m=document.getElementById("vehModelo");m.disabled=false;m.innerHTML='<option value="__manual__">CAPTURAR MODELO MANUAL</option>';document.getElementById("vehMarcaManual")?.focus();}
+ else{if(vehicleManualMode){vehicleManualMode=false;document.getElementById("manualVehicleFields")?.classList.remove("show");document.getElementById("vehicleManualBtn").textContent="¿NO APARECE? CAPTURAR MARCA Y MODELO MANUALMENTE";}populateVehicleModels();}
+});
+document.getElementById("vehModelo")?.addEventListener("change",()=>{
+ const manual=document.getElementById("vehModelo")?.value==="__manual__";
+ if(manual){vehicleManualMode=true;document.getElementById("manualVehicleFields")?.classList.add("show");document.getElementById("vehicleManualBtn").textContent="USAR CATÁLOGO AUTOMOTRIZ";document.getElementById("vehModeloManual")?.focus();}
+ else{loadVehicleVersions();updateVehicleVisual();}
+});
+document.getElementById("vehAnio")?.addEventListener("change",()=>{
+ const manual=document.getElementById("vehAnio")?.value==="__manual__";
+ document.getElementById("vehAnioManual")?.classList.toggle("hidden",!manual);
+ if(manual)document.getElementById("vehAnioManual")?.focus(); else loadVehicleVersions();
+});
+document.getElementById("vehTransmision")?.addEventListener("change",()=>{
+ const manual=document.getElementById("vehTransmision")?.value==="__manual__";
+ document.getElementById("vehTransmisionManual")?.classList.toggle("hidden",!manual);
+ if(manual)document.getElementById("vehTransmisionManual")?.focus();
+});
 document.getElementById("vehMarcaManual")?.addEventListener("change",updateVehicleVisual);
 document.getElementById("vehModeloManual")?.addEventListener("change",updateVehicleVisual);
 document.getElementById("vehicleManualBtn")?.addEventListener("click",()=>{
