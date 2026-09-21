@@ -1249,6 +1249,66 @@ a[href*="asesores.html"],button[onclick*="asesores.html"]{display:none!important
 }
 </style>
 
+
+<style id="max-innova-v125-modal-photo-polish">
+/* V125: foto de ficha proporcionada, sin deformación y sin rótulos heredados */
+#infoModal .modal-hero{
+  height:clamp(250px,32vh,340px)!important;
+  min-height:250px!important;
+  background:#eaf3f7!important;
+  overflow:hidden!important;
+}
+#infoModal .modal-hero img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center center!important;
+  transform:none!important;
+  padding:0!important;
+}
+#infoModal .modal-hero.photo-error img{object-fit:contain!important;padding:22px!important}
+#infoModal .modal-hero-label{left:22px!important;bottom:38px!important;max-width:calc(100% - 90px)!important}
+#infoModal .modal-photo-caption{left:22px!important;right:80px!important;bottom:17px!important;white-space:normal!important}
+@media(max-width:600px){
+ #infoModal .modal-hero{height:210px!important;min-height:210px!important}
+ #infoModal .modal-hero-label{left:15px!important;bottom:34px!important;font-size:10px!important}
+ #infoModal .modal-photo-caption{left:15px!important;right:60px!important;bottom:13px!important;font-size:8px!important}
+}
+</style>
+
+<style id="max-innova-v127-no-photo-crop">
+/* V127: ninguna fotografía de fichas se recorta. Se conserva completa y centrada. */
+#infoModal .modal-hero{
+  height:clamp(300px,42vh,440px)!important;
+  min-height:300px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  background:linear-gradient(180deg,#edf6fa,#f8fbfc)!important;
+  overflow:hidden!important;
+}
+#infoModal .modal-hero img,
+.modal.open .modal-hero img{
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  padding:0!important;
+  transform:none!important;
+  background:transparent!important;
+}
+#infoModal .modal-hero.photo-error img{object-fit:contain!important;padding:18px!important}
+@media(max-width:900px){
+  #infoModal .modal-hero{height:clamp(270px,38vh,370px)!important;min-height:270px!important}
+}
+@media(max-width:600px){
+  #infoModal .modal-hero{height:260px!important;min-height:260px!important}
+  #infoModal .modal-hero img,.modal.open .modal-hero img{object-fit:contain!important;object-position:center center!important}
+  #infoModal .modal-hero.photo-error img{padding:12px!important}
+}
+</style>
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -2482,9 +2542,11 @@ function setMarketInfo(title,text,tags=[]){
  tag.innerHTML=(tags||[]).map(x=>`<span class="modal-tag">${safe(x)}</span>`).join("");
 }
 
-function setModalVisual(type,label,customSrc){
+function setModalVisual(type,label,customSrc,captionText){
  const img=document.getElementById("modalImage"), hero=document.getElementById("modalHero"), tag=document.getElementById("modalHeroLabel");
  if(!img||!hero)return;
+ const caption=document.getElementById("modalPhotoCaption");
+ if(caption) caption.textContent=captionText||"";
  const automotiveFallbacks=(typeof vehicleDeliveryPhotos!=="undefined"?vehicleDeliveryPhotos:[]);
  const homeFallbacks=(typeof homeDeliveryPhotos!=="undefined"?homeDeliveryPhotos:[]);
  const mobilityFallbacks=(typeof platformPhotos!=="undefined"?platformPhotos:[]);
@@ -2498,7 +2560,7 @@ function setModalVisual(type,label,customSrc){
  else if(type==="Movilidad / Plataformas") fallbacks=mobilityFallbacks;
  else if(type==="Negocio / PyME"||type==="Empresarial") fallbacks=businessFallbacks;
  else fallbacks=[modalPhotos[type]||modalPhotos["Personal"]];
- const candidates=[customSrc,modalPhotos[type],...fallbacks].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i);
+ const candidates=[customSrc,...fallbacks,modalPhotos[type]].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i);
  let index=0;
  hero.classList.remove("v99-fallback","showing-logo","photo-error");
  hero.style.display="block";
@@ -2568,6 +2630,7 @@ function brandInfo(name,sector,type){
  modalKicker.textContent=sector.toUpperCase();
  modalTitle.textContent=name;
  let customPhoto=null;
+ let photoCaption="";
 
  if(type==="Vehicular"){
    const models=models2026ForBrand(name);
@@ -2586,16 +2649,16 @@ function brandInfo(name,sector,type){
    const list=models.length?models.join(" · "):"Consulta disponibilidad de modelos y versiones al realizar tu cotización.";
    setMarketInfo("MARCA, MODELOS 2026 Y FINANCIAMIENTO",`${marketNotes[name]||"Consulta los modelos 2026 disponibles en nuestro catálogo."}<br><br><b>Modelos 2026 disponibles en el catálogo MAX INNOVA:</b> ${safe(list)}<div class="modal-rich-grid"><div class="modal-rich-item"><b>¿QUÉ PUEDES COTIZAR?</b><span>Unidad nueva o proyecto vehicular conforme al modelo, versión, precio y aportación del cliente.</span></div><div class="modal-rich-item"><b>¿QUÉ SE EVALÚA?</b><span>Perfil del solicitante, monto solicitado, aportación, documentación y condiciones de la operación.</span></div></div>`,["MODELOS 2026","FINANCIAMIENTO VEHICULAR","SUJETO A EVALUACIÓN"]);
    customPhoto=brandDeliveryPhotos[name]||null;
-   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent=`MÉXICO · ${name.toUpperCase()} · ENTREGA / AGENCIA`;
+   photoCaption=`MÉXICO · ${name.toUpperCase()} · ENTREGA / AGENCIA`;
 
  }else if(type==="Patrimonial / Vivienda"){
-   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent="REFERENCIA VISUAL · VIVIENDA Y PATRIMONIO";
+   photoCaption="REFERENCIA VISUAL · VIVIENDA Y PATRIMONIO";
    modalText.textContent=`${name} se muestra como referencia dentro del sector vivienda y patrimonio. MAX INNOVA puede evaluar proyectos de adquisición, construcción, remodelación o inversión inmobiliaria. La aparición de la marca no implica convenio, afiliación ni representación.`;
    setModalDetails(type);
    setMarketInfo("PROYECTOS DE VIVIENDA","El financiamiento puede evaluarse para vivienda nueva o usada, proyectos patrimoniales, construcción, remodelación o necesidades relacionadas con el inmueble, de acuerdo con el perfil y documentación del solicitante.",["VIVIENDA","PATRIMONIO","PROYECTO INMOBILIARIO"]);
    customPhoto=homeDeliveryPhotos[stableIndex(name,homeDeliveryPhotos.length)];
  }else if(type==="Negocio / PyME"){
-   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent=`REFERENCIA VISUAL · ${name.toUpperCase()} · PROYECTO DE NEGOCIO`;
+   photoCaption=`REFERENCIA VISUAL · ${name.toUpperCase()} · PROYECTO DE NEGOCIO`;
    const p=sectorProfiles[name]||sectorProfiles["Comercio"];
    modalText.textContent=`MAX INNOVA puede evaluar solicitudes para un negocio de ${name.toLowerCase()}, considerando el destino del crédito, la actividad, documentación y viabilidad del proyecto.`;
    setModalDetails(type);
@@ -2607,13 +2670,13 @@ function brandInfo(name,sector,type){
    setModalDetails(type);
    setMarketInfo("PLAN PREFERENCIAL PARA PLATAFORMAS",`${p.text}<div class="modal-rich-grid"><div class="modal-rich-item"><b>VEHÍCULOS / UNIDADES DE REFERENCIA</b><span>${p.vehicles}</span></div><div class="modal-rich-item"><b>OBJETIVO DEL PLAN</b><span>Facilitar la adquisición de una unidad que pueda utilizarse como herramienta de trabajo y generación de ingresos.</span></div></div><div class="modal-plan-highlight"><b>PLAN PREFERENCIAL MAX INNOVA</b><span>Plan enfocado en personas que buscan una unidad como herramienta de trabajo. Se pueden evaluar solicitudes aun con historial en Buró de Crédito; no implica aprobación automática. La autorización, aportación, plazo y demás condiciones se determinan en la evaluación. Cuando el perfil de riesgo lo requiera, el financiamiento puede quedar condicionado a la instalación y permanencia de un dispositivo de rastreo en la unidad durante la vigencia del crédito.</span></div>`,p.tags);
    customPhoto=platformContextPhotos[name]||null;
-   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent=`MÉXICO · ${name.toUpperCase()} · ACTIVIDAD DE REFERENCIA`;
+   photoCaption=`MÉXICO · ${name.toUpperCase()} · ACTIVIDAD DE REFERENCIA`;
  }else{
    modalText.textContent=`${name} se muestra como referencia dentro del sector ${sector}. MAX INNOVA puede evaluar solicitudes relacionadas con este tipo de proyecto.`;
    setModalDetails(type);
    setMarketInfo("INFORMACIÓN GENERAL","La solicitud se analiza de forma individual conforme al destino, documentación y viabilidad del proyecto.",["EVALUACIÓN INDIVIDUAL"]);
  }
- setModalVisual(type,name,customPhoto);
+ setModalVisual(type,name,customPhoto,photoCaption);
  infoModal.classList.add("open");
 }
 function closeInfo(){infoModal.classList.remove("open")}
@@ -3964,6 +4027,215 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   });
   window.addEventListener('resize',()=>{ if(!jump.classList.contains('open')) hardReset(); });
+});
+</script>
+
+
+<!-- ===== V124 · IR A RESPONSIVO, COMPACTO Y CON ICONOS ===== -->
+<style id="lic-max-v124-mobile-menu-style">
+/* Menú final: limpio, discreto y fuera del contenedor transformado de LIC. MAX. */
+#licMaxMenu.licmax-menu-floating,
+#licMaxMenu.licmax-menu-portal{
+  position:fixed!important;
+  width:264px!important;
+  max-width:calc(100vw - 24px)!important;
+  max-height:min(470px,72dvh)!important;
+  overflow:auto!important;
+  padding:8px!important;
+  border:1px solid rgba(8,91,132,.14)!important;
+  border-radius:18px!important;
+  background:rgba(255,255,255,.98)!important;
+  box-shadow:0 18px 48px rgba(0,42,68,.22)!important;
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+  transform:none!important;
+  z-index:10050!important;
+  scrollbar-width:thin;
+  backdrop-filter:blur(12px);
+}
+#licMaxMenu .licmax-menu-close{
+  position:sticky!important;top:0!important;float:right!important;
+  width:28px!important;height:28px!important;min-height:28px!important;
+  margin:0 0 5px 6px!important;padding:0!important;
+  border:1px solid #dbeaf0!important;border-radius:50%!important;
+  display:grid!important;place-items:center!important;
+  background:#f5fafc!important;color:#0a567b!important;
+  font-size:17px!important;font-weight:900!important;line-height:1!important;
+  box-shadow:none!important;z-index:3!important;
+}
+#licMaxMenu button[data-go]{
+  min-height:38px!important;padding:7px 9px!important;margin:2px 0!important;
+  display:flex!important;align-items:center!important;gap:8px!important;
+  border:0!important;border-radius:11px!important;background:transparent!important;
+  color:#164f6d!important;font-size:10.5px!important;font-weight:800!important;
+  text-align:left!important;white-space:normal!important;
+}
+#licMaxMenu button[data-go]:hover,
+#licMaxMenu button[data-go]:focus-visible{background:#eef8fb!important;outline:none!important}
+#licMaxMenu button[data-go] span{
+  flex:0 0 27px!important;width:27px!important;height:27px!important;
+  display:grid!important;place-items:center!important;border-radius:9px!important;
+  background:linear-gradient(145deg,#edf9fc,#dff2f8)!important;
+  color:#075c82!important;font-size:14px!important;line-height:1!important;
+}
+@media(max-width:620px){
+  #licMaxMenu.licmax-menu-portal{
+    left:12px!important;right:12px!important;top:auto!important;bottom:74px!important;
+    width:auto!important;max-width:none!important;max-height:min(58dvh,430px)!important;
+    padding:7px!important;border-radius:16px!important;
+    display:grid!important;grid-template-columns:1fr 1fr!important;gap:3px 5px!important;
+  }
+  #licMaxMenu.licmax-menu-portal .licmax-menu-close{
+    grid-column:2!important;justify-self:end!important;margin:0 0 2px!important;
+  }
+  #licMaxMenu.licmax-menu-portal button[data-go]{
+    min-height:42px!important;margin:0!important;padding:6px 7px!important;
+    font-size:9.5px!important;line-height:1.15!important;
+  }
+  #licMaxMenu.licmax-menu-portal button[data-go] span{
+    flex-basis:25px!important;width:25px!important;height:25px!important;font-size:13px!important;
+  }
+}
+@media(max-width:360px){
+  #licMaxMenu.licmax-menu-portal{left:8px!important;right:8px!important;bottom:66px!important;grid-template-columns:1fr!important;max-height:62dvh!important}
+  #licMaxMenu.licmax-menu-portal .licmax-menu-close{grid-column:1!important}
+}
+</style>
+<script id="lic-max-v124-mobile-menu-script">
+document.addEventListener('DOMContentLoaded',()=>{
+  const root=document.getElementById('licMaxRoot');
+  const jump=document.getElementById('licMaxJump');
+  const menu=document.getElementById('licMaxMenu');
+  if(!root||!jump||!menu)return;
+
+  const icons={inicio:'⌂',soluciones:'◆',sectores:'🚘',simulador:'▣',portal:'▤','como-funciona':'⚙',informacion:'ⓘ',ubicacion:'⌖',contacto:'✉'};
+  menu.querySelectorAll('button[data-go]').forEach(btn=>{
+    const sp=btn.querySelector('span');
+    if(sp && icons[btn.dataset.go]) sp.textContent=icons[btn.dataset.go];
+  });
+
+  function isMobile(){return matchMedia('(max-width:620px)').matches}
+  function portalOpen(){
+    if(!jump.classList.contains('open'))return;
+    if(isMobile()){
+      if(menu.parentElement!==document.body) document.body.appendChild(menu);
+      menu.classList.add('licmax-menu-portal','licmax-menu-floating');
+      menu.style.left='12px';menu.style.right='12px';menu.style.top='auto';menu.style.bottom='74px';
+    }
+  }
+  function portalClose(){
+    if(jump.classList.contains('open'))return;
+    menu.classList.remove('licmax-menu-portal','licmax-menu-floating');
+    menu.style.left='';menu.style.right='';menu.style.top='';menu.style.bottom='';
+    if(menu.parentElement!==jump) jump.appendChild(menu);
+  }
+  function sync(){
+    if(jump.classList.contains('open')) requestAnimationFrame(()=>requestAnimationFrame(portalOpen));
+    else requestAnimationFrame(portalClose);
+  }
+  new MutationObserver(sync).observe(jump,{attributes:true,attributeFilter:['class']});
+  addEventListener('resize',()=>{
+    if(jump.classList.contains('open')){
+      if(isMobile()) portalOpen();
+      else if(menu.parentElement===document.body){
+        menu.classList.remove('licmax-menu-portal');
+        jump.appendChild(menu);
+        /* Fuerza un nuevo cálculo del posicionamiento de escritorio. */
+        jump.classList.remove('open');
+        requestAnimationFrame(()=>jump.classList.add('open'));
+      }
+    }
+  },{passive:true});
+
+  /* En móvil, tocar fuera cierra el menú sin afectar al asistente. */
+  document.addEventListener('pointerdown',e=>{
+    if(!isMobile()||!jump.classList.contains('open'))return;
+    if(menu.contains(e.target)||jump.contains(e.target))return;
+    jump.classList.remove('open');
+  },true);
+  sync();
+});
+</script>
+
+\n<!-- ===== V126 · IR A REDISEÑO FINAL ===== -->
+<style id="lic-max-v126-menu-final">
+#licMaxMenu,
+#licMaxMenu.licmax-menu-floating,
+#licMaxMenu.licmax-menu-portal{
+  box-sizing:border-box!important;width:228px!important;max-width:calc(100vw - 24px)!important;
+  padding:8px!important;border:1px solid rgba(12,91,128,.13)!important;border-radius:15px!important;
+  background:rgba(255,255,255,.985)!important;box-shadow:0 12px 34px rgba(0,45,70,.18)!important;
+  overflow:auto!important;gap:3px!important;backdrop-filter:blur(14px)!important;
+}
+#licMaxMenu .licmax-menu-head{display:flex!important;align-items:center!important;justify-content:space-between!important;height:31px!important;padding:0 2px 5px 7px!important;margin:0 0 4px!important;border-bottom:1px solid #e7f0f4!important}
+#licMaxMenu .licmax-menu-title{font:900 10px/1 Arial,sans-serif!important;letter-spacing:1.5px!important;color:#07577c!important}
+#licMaxMenu .licmax-menu-close{position:static!important;float:none!important;display:grid!important;place-items:center!important;width:25px!important;height:25px!important;min-height:25px!important;margin:0!important;padding:0!important;border:0!important;border-radius:8px!important;background:#edf6f9!important;color:#07577c!important;font:900 16px/1 Arial,sans-serif!important;cursor:pointer!important}
+#licMaxMenu button[data-go]{box-sizing:border-box!important;width:100%!important;min-height:34px!important;margin:1px 0!important;padding:5px 7px!important;display:flex!important;align-items:center!important;gap:7px!important;border:0!important;border-radius:9px!important;background:transparent!important;color:#184e68!important;font:800 10px/1.15 Arial,sans-serif!important;text-align:left!important;box-shadow:none!important;cursor:pointer!important}
+#licMaxMenu button[data-go]:hover,#licMaxMenu button[data-go]:focus-visible{background:#edf7fa!important;color:#003f63!important;outline:none!important}
+#licMaxMenu button[data-go] span{box-sizing:border-box!important;flex:0 0 25px!important;width:25px!important;height:25px!important;display:grid!important;place-items:center!important;border-radius:8px!important;background:#eaf6fa!important;color:#056086!important;font-size:13px!important;line-height:1!important;box-shadow:inset 0 0 0 1px rgba(6,95,133,.07)!important}
+@media(max-width:620px){
+ #licMaxMenu,#licMaxMenu.licmax-menu-floating,#licMaxMenu.licmax-menu-portal{left:10px!important;right:10px!important;top:auto!important;bottom:68px!important;width:auto!important;max-width:none!important;max-height:300px!important;padding:7px!important;border-radius:14px!important;display:grid!important;grid-template-columns:1fr 1fr!important;column-gap:5px!important;row-gap:2px!important}
+ #licMaxMenu .licmax-menu-head{grid-column:1/-1!important;height:30px!important;margin-bottom:2px!important}
+ #licMaxMenu button[data-go]{min-height:38px!important;margin:0!important;padding:5px 6px!important;font-size:9.5px!important}
+ #licMaxMenu button[data-go] span{flex-basis:24px!important;width:24px!important;height:24px!important;font-size:12px!important}
+}
+@media(max-width:350px){#licMaxMenu,#licMaxMenu.licmax-menu-floating,#licMaxMenu.licmax-menu-portal{grid-template-columns:1fr!important;max-height:54dvh!important}#licMaxMenu .licmax-menu-head{grid-column:1!important}}
+</style>
+<script id="lic-max-v126-menu-final-script">
+document.addEventListener('DOMContentLoaded',()=>{
+ const menu=document.getElementById('licMaxMenu'), jump=document.getElementById('licMaxJump'); if(!menu||!jump)return;
+ let head=menu.querySelector('.licmax-menu-head');
+ if(!head){head=document.createElement('div');head.className='licmax-menu-head';head.innerHTML='<span class="licmax-menu-title">IR A</span><button type="button" class="licmax-menu-close" aria-label="Cerrar menú">×</button>';menu.prepend(head)}
+ const iconMap={inicio:'⌂',soluciones:'◆',sectores:'🚘',simulador:'▣',portal:'▤','como-funciona':'⚙',informacion:'ⓘ',ubicacion:'⌖',contacto:'✉'};
+ menu.querySelectorAll('button[data-go]').forEach(b=>{const i=b.querySelector('span');if(i&&iconMap[b.dataset.go])i.textContent=iconMap[b.dataset.go]});
+ head.querySelector('.licmax-menu-close').onclick=(e)=>{e.preventDefault();e.stopPropagation();jump.classList.remove('open');};
+});
+</script>
+
+
+<!-- ===== V128 · AUDITORÍA FINAL DE IMÁGENES ===== -->
+<style id="max-innova-v128-image-audit-final">
+/* Regla final: ninguna fotografía de ficha se recorta, incluso frente a estilos de versiones anteriores. */
+#infoModal .modal-hero,
+.modal.open .modal-hero{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  height:auto!important;min-height:0!important;max-height:none!important;
+  background:linear-gradient(180deg,#edf6fa,#f8fbfc)!important;overflow:hidden!important;
+}
+#infoModal .modal-hero img,
+.modal.open .modal-hero img{
+  display:block!important;width:100%!important;height:auto!important;
+  max-width:100%!important;max-height:min(52vh,460px)!important;
+  object-fit:contain!important;object-position:center center!important;
+  padding:0!important;margin:0 auto!important;transform:none!important;background:transparent!important;
+}
+/* Los respaldos gráficos también se muestran completos, pero con respiración visual. */
+#infoModal .modal-hero.photo-error img,
+.modal.open .modal-hero.photo-error img{object-fit:contain!important;padding:18px!important;max-height:360px!important}
+/* Logos de las cintas: nunca se estiran ni se cortan. */
+#sectorMount .brand-logo img{width:auto!important;height:auto!important;max-width:120px!important;max-height:58px!important;object-fit:contain!important;object-position:center!important}
+/* Imágenes del cotizador / vehículo: siempre completas. */
+.vehicle-brand-box img,.vehicle-photo-box img{object-fit:contain!important;object-position:center!important}
+@media(max-width:900px){
+ #infoModal .modal-hero img,.modal.open .modal-hero img{max-height:min(45vh,380px)!important}
+}
+@media(max-width:600px){
+ #infoModal .modal-hero,.modal.open .modal-hero{min-height:0!important;height:auto!important}
+ #infoModal .modal-hero img,.modal.open .modal-hero img{width:100%!important;height:auto!important;max-height:42vh!important;object-fit:contain!important;object-position:center!important}
+ #infoModal .modal-hero.photo-error img,.modal.open .modal-hero.photo-error img{padding:10px!important;max-height:300px!important}
+}
+</style>
+<script id="max-innova-v128-image-audit-script">
+/* Limpia estados visuales heredados cada vez que cambia la foto. */
+document.addEventListener('DOMContentLoaded',()=>{
+ const img=document.getElementById('modalImage'),hero=document.getElementById('modalHero');
+ if(!img||!hero)return;
+ img.addEventListener('load',()=>{
+   img.style.removeProperty('width');img.style.removeProperty('height');
+   img.style.removeProperty('object-fit');img.style.removeProperty('object-position');
+   if(!img.src.startsWith('data:image/svg+xml')) hero.classList.remove('photo-error','showing-logo','v99-fallback');
+ });
 });
 </script>
 </body>
