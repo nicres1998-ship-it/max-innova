@@ -689,6 +689,150 @@ input,select,textarea,button{max-width:100%}
 .modal-hero.photo-error:after{display:none!important}
 @media(max-width:600px){.modal-hero{height:220px!important;min-height:220px!important}}
 </style>
+
+<style id="max-innova-v87-mobile-fix">
+/* V87 — corrección real para celular */
+@media (max-width: 700px){
+
+  /* Navegación: todos los botones visibles mediante desplazamiento horizontal */
+  .nav .container,
+  .nav-inner,
+  .nav-wrap,
+  header .container{
+    max-width:100%!important;
+  }
+  .nav,
+  header{
+    overflow:visible!important;
+  }
+  .menu,
+  .nav-links,
+  .nav-menu{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    gap:8px!important;
+    width:100%!important;
+    max-width:100%!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+    padding:8px 12px 10px!important;
+    scroll-snap-type:x proximity;
+  }
+  .menu a,
+  .nav-links a,
+  .nav-menu a,
+  .menu button,
+  .nav-links button,
+  .nav-menu button{
+    display:inline-flex!important;
+    flex:0 0 auto!important;
+    white-space:nowrap!important;
+    min-height:42px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    padding:9px 13px!important;
+    font-size:12px!important;
+    scroll-snap-align:start;
+  }
+
+  /* Hero: texto arriba, imagen visible debajo */
+  .hero{
+    overflow:hidden!important;
+  }
+  .hero .container,
+  .hero-grid,
+  .hero-inner,
+  .hero-content{
+    min-width:0!important;
+  }
+  .hero-grid{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:18px!important;
+  }
+  .hero-copy,
+  .hero-text{
+    width:100%!important;
+    max-width:100%!important;
+  }
+  .hero-visual,
+  .hero-media,
+  .hero-image,
+  .hero-art{
+    display:flex!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-height:260px!important;
+    position:relative!important;
+    inset:auto!important;
+    transform:none!important;
+    justify-content:center!important;
+    align-items:center!important;
+    overflow:visible!important;
+  }
+  .hero-visual img,
+  .hero-media img,
+  .hero-image img,
+  .hero-art img{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:auto!important;
+    max-width:100%!important;
+    height:auto!important;
+    max-height:340px!important;
+    object-fit:contain!important;
+    object-position:center!important;
+    position:relative!important;
+    inset:auto!important;
+    transform:none!important;
+    margin:0 auto!important;
+  }
+
+  /* Imágenes decorativas concretas del hero, si usan estas clases */
+  .hero .phone,
+  .hero .laptop,
+  .hero .people,
+  .hero .couple,
+  .hero .persona,
+  .hero .pareja{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    max-width:100%!important;
+  }
+
+  /* Botones principales del hero */
+  .hero-actions,
+  .actions{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:9px!important;
+    width:100%!important;
+  }
+  .hero-actions a,.hero-actions button,
+  .actions a,.actions button{
+    width:100%!important;
+    max-width:none!important;
+    min-height:46px!important;
+  }
+}
+
+@media (max-width: 420px){
+  .menu a,.nav-links a,.nav-menu a,
+  .menu button,.nav-links button,.nav-menu button{
+    font-size:11px!important;
+    padding:8px 11px!important;
+  }
+  .hero-visual,.hero-media,.hero-image,.hero-art{min-height:220px!important}
+  .hero-visual img,.hero-media img,.hero-image img,.hero-art img{max-height:290px!important}
+}
+</style>
+
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -901,7 +1045,7 @@ No sustituir el diseño base al hacer cambios posteriores.
 <div class="couple-copy"><h2>Da el siguiente paso.</h2><p>Cuéntanos qué proyecto quieres realizar. Registra tu solicitud para obtener un folio y comenzar el proceso de evaluación.</p><div><button class="btn btn-white" onclick="goPortal('nuevo')">SOLICITAR EVALUACIÓN →</button></div></div>
 </section>
 <section class="section"><div class="container laptop-grid">
-<div class="laptop-image"><img alt="Atención y seguimiento MAX INNOVA" src="laptop.png"/></div>
+<div class="laptop-image"><img alt="Atención y seguimiento MAX INNOVA" src="laptop.png"/ loading="eager" decoding="async"></div>
 <div><div class="kicker">SEGUIMIENTO DIGITAL</div><h2>Consulta el avance de tu solicitud.</h2><p>Conserva tu folio. Con él podrás identificar tu solicitud y consultar el estado registrado durante el proceso.</p><button class="btn btn-blue" onclick="goPortal('consulta')">CONSULTAR MI SOLICITUD</button></div>
 </div></section>
 <section class="visual-finance section" id="simulador">
@@ -1211,7 +1355,7 @@ function miIncomeGuide(){
 }
 </script>
 <section class="section" id="contacto"><div class="container contact-grid">
-<div class="phone-image"><img alt="Contacto MAX INNOVA" src="telefono.png"/></div>
+<div class="phone-image"><img alt="Contacto MAX INNOVA" src="telefono.png"/ loading="eager" decoding="async"></div>
 <div><div class="kicker">CONTACTO</div><h2>¿Quieres comenzar?</h2><p>Registra tu solicitud para obtener tu folio. Si ya tienes uno, consulta el seguimiento desde MI CUENTA.</p><p><strong>Correo oficial:</strong> <a href="mailto:contacto@maxinnova.mx">contacto@maxinnova.mx</a></p><button class="btn btn-blue" onclick="goPortal('nuevo')">NUEVA SOLICITUD</button> <button class="btn btn-cyan" onclick="goPortal('consulta')">CONSULTAR FOLIO</button></div>
 </div></section>
 </main>
@@ -1763,7 +1907,6 @@ const sectors=[
    {n:"inDrive",l:"https://www.google.com/s2/favicons?domain=indrive.com&sz=128",t:"Movilidad / Plataformas"},
    {n:"Rappi",l:"https://www.google.com/s2/favicons?domain=rappi.com&sz=128",t:"Movilidad / Plataformas"},
    {n:"Uber Eats",l:"https://cdn.simpleicons.org/ubereats",t:"Movilidad / Plataformas"},
-   {n:"Cabify",l:"https://www.google.com/s2/favicons?domain=cabify.com&sz=128",t:"Movilidad / Plataformas"},
    {n:"Taxi de sitio",taxi:true,t:"Movilidad / Plataformas"},
   ]
  }
@@ -1872,22 +2015,22 @@ const platformProfiles={
 
 
 const brandDeliveryPhotos={
- "Nissan":"https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=90",
- "Toyota":"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=90",
- "Chevrolet":"https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1600&q=90",
- "Volkswagen":"https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1600&q=90",
- "Kia":"https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1600&q=90",
- "Mazda":"https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1600&q=90",
- "Honda":"https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1600&q=90",
- "Hyundai":"https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1600&q=90"
+ "Nissan":"https://storage.googleapis.com/tribunamexico/2026/04/Venta-de-autos-nuevos-en-Mexico-crece-24-en-marzo-1024x576.jpg.webp",
+ "Toyota":"https://servicio.toyotaguerrero.com.mx/wp-content/uploads/2022/06/entrega-de-tu-vehiculo.jpg",
+ "Chevrolet":"https://www.chevroletculiacanmotors.com.mx/content/dam/chevrolet/na/mx/es/index/index-sub-content/01-images/prueba-de-manejo-dealers-banner2-2019.jpg?imwidth=960",
+ "Volkswagen":"https://www.vw.com.mx/content/dam/onehub_pkw/importers/mx/ofertas/garantias-seguros/cpa-plus/cpa-plus-vw.jpg",
+ "Kia":"https://i.axod.net/pcYc7f2CzIczHb626Tb7B5SGco9jsgB17EGD48ht6Gpsurw8qsHWlPKnz3nBKmkU_dT6HLsYd1JNulCm0zBUKmgDrNbf7YArNIL_Cmn7RSHd-5jg_9wJ79ABhKQvCWyGtQ_OPneacd253cTZGedHniSf169QjFEsB1h4.jpeg",
+ "Mazda":"https://www.mazda.mx/siteassets/mazda-mx/mi-mazda/garantia/mazda-mx-garantia-extendida.jpg",
+ "Honda":"https://seminuevostoluca.mx/view/images/ClientesFelices/6.jpeg",
+ "Hyundai":"https://www.hyundai.com.mx/content/dam/hyundai/mx/es/images/promotions/hyundai-go.jpg"
 };
 const platformContextPhotos={
- "Uber":"https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1600&q=90",
- "DiDi":"https://images.unsplash.com/photo-1515569067071-ec3b51335dd0?auto=format&fit=crop&w=1600&q=90",
- "inDrive":"https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1600&q=90",
- "Rappi":"https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=1600&q=90",
- "Uber Eats":"https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=1600&q=90",
- "Taxi de sitio":"https://images.unsplash.com/photo-1515569067071-ec3b51335dd0?auto=format&fit=crop&w=1600&q=90"
+ "Uber":"https://cdn2.mediotiempo.com/uploads/media/2026/05/11/mundial-uber-airbnb-camara-restaurantes.jpg",
+ "DiDi":"https://cdn.forbes.com.mx/2018/11/didi-chuxing-2.jpg",
+ "inDrive":"https://cdn.assets.prezly.com/95f35277-021f-4308-8f8b-d1dc8dc24eea/INDRIVE%20-%20Stock%20Latam%20-%20Mayo%202023%20-%20Day%204%20-%20intercity-0164%201.jpg",
+ "Rappi":"https://ruizhealytimes.com/wp-content/uploads/2024/04/repartidor-de-rappi.jpg",
+ "Uber Eats":"https://cdn-3.expansion.mx/dims4/default/4c24c11/2147483647/strip/true/crop/6548x4364%2B0%2B0/resize/800x533%21/format/webp/quality/80/?url=https%3A%2F%2Fcherry-brightspot.s3.amazonaws.com%2Fa7%2F1c%2F0223143440599ccdf5a1036465b5%2Fsf-2017-delivery-17-1.jpg",
+ "Taxi de sitio":"https://www.ejecentral.com.mx/__export/1767399255794/sites/ejecentral/img/2026/01/02/taxis-cdmx-2026.jpg_1777593972.jpg"
 };
 const vehicleDeliveryPhotos=[
  "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=1600&q=88",
@@ -1996,7 +2139,7 @@ function brandInfo(name,sector,type){
    setModalDetails(type);
    const list=models.length?models.join(" · "):"Consulta disponibilidad de modelos y versiones al realizar tu cotización.";
    setMarketInfo("MARCA, MODELOS 2026 Y FINANCIAMIENTO",`${marketNotes[name]||"Consulta los modelos 2026 disponibles en nuestro catálogo."}<br><br><b>Modelos 2026 disponibles en el catálogo MAX INNOVA:</b> ${safe(list)}<div class="modal-rich-grid"><div class="modal-rich-item"><b>¿QUÉ PUEDES COTIZAR?</b><span>Unidad nueva o proyecto vehicular conforme al modelo, versión, precio y aportación del cliente.</span></div><div class="modal-rich-item"><b>¿QUÉ SE EVALÚA?</b><span>Perfil del solicitante, monto solicitado, aportación, documentación y condiciones de la operación.</span></div></div>`,["MODELOS 2026","FINANCIAMIENTO VEHICULAR","SUJETO A EVALUACIÓN"]);
-   customPhoto=brandDeliveryPhotos[name]||vehicleDeliveryPhotos[stableIndex(name,vehicleDeliveryPhotos.length)];
+   customPhoto=brandDeliveryPhotos[name]||null;
    const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent=`MÉXICO · ${name.toUpperCase()} · ENTREGA / AGENCIA`;
 
  }else if(type==="Patrimonial / Vivienda"){
@@ -2017,8 +2160,8 @@ function brandInfo(name,sector,type){
    modalText.textContent=name==="Taxi de sitio" ? p.text : `${name} se muestra como referencia para proyectos de movilidad y generación de ingresos. La aparición de la plataforma no implica convenio, afiliación ni representación.`;
    setModalDetails(type);
    setMarketInfo("PLAN PREFERENCIAL PARA PLATAFORMAS",`${p.text}<div class="modal-rich-grid"><div class="modal-rich-item"><b>VEHÍCULOS / UNIDADES DE REFERENCIA</b><span>${p.vehicles}</span></div><div class="modal-rich-item"><b>OBJETIVO DEL PLAN</b><span>Facilitar la adquisición de una unidad que pueda utilizarse como herramienta de trabajo y generación de ingresos.</span></div></div><div class="modal-plan-highlight"><b>PLAN PREFERENCIAL MAX INNOVA</b><span>Plan enfocado en personas que buscan una unidad como herramienta de trabajo. Se pueden evaluar solicitudes aun con historial en Buró de Crédito; no implica aprobación automática. La autorización, aportación, plazo y demás condiciones se determinan en la evaluación. Cuando el perfil de riesgo lo requiera, el financiamiento puede quedar condicionado a la instalación y permanencia de un dispositivo de rastreo en la unidad durante la vigencia del crédito.</span></div>`,p.tags);
-   customPhoto=platformContextPhotos[name]||platformPhotos[stableIndex(name,platformPhotos.length)];
-   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent=`ACTIVIDAD EN MÉXICO · ${name.toUpperCase()}`;
+   customPhoto=platformContextPhotos[name]||null;
+   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent=`MÉXICO · ${name.toUpperCase()} · ACTIVIDAD DE REFERENCIA`;
  }else{
    modalText.textContent=`${name} se muestra como referencia dentro del sector ${sector}. MAX INNOVA puede evaluar solicitudes relacionadas con este tipo de proyecto.`;
    setModalDetails(type);
