@@ -660,6 +660,21 @@ input,select,textarea,button{max-width:100%}
 }
 </style>
 
+
+<style id="max-innova-v83-rich-cards">
+.modal-market-box{padding:18px!important}
+.modal-market-box p{font-size:12.5px!important}
+.modal-rich-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.modal-rich-item{padding:12px;border:1px solid #dbeaf1;border-radius:11px;background:#fff}
+.modal-rich-item b{display:block;color:#075b88;font-size:9px;letter-spacing:.08em;margin-bottom:5px}
+.modal-rich-item span{color:#5b7183;font-size:11px;line-height:1.45}
+.modal-plan-highlight{margin-top:12px;padding:14px;border-radius:12px;background:linear-gradient(135deg,#073d68,#075f8f);color:#fff}
+.modal-plan-highlight b{display:block;font-size:11px;letter-spacing:.08em;margin-bottom:6px;color:#8de2f5}
+.modal-plan-highlight span{font-size:11.5px;line-height:1.55}
+.modal-photo-caption{position:absolute;left:18px;right:18px;bottom:14px;z-index:3;color:#fff;font-size:9px;font-weight:900;letter-spacing:.08em;text-shadow:0 2px 8px rgba(0,0,0,.65)}
+@media(max-width:600px){.modal-rich-grid{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -1200,7 +1215,7 @@ function miIncomeGuide(){
 <div class="modal-hero" id="modalHero">
 <img alt="" id="modalImage" loading="lazy"/>
 <div class="modal-hero-shade"></div>
-<div class="modal-hero-label" id="modalHeroLabel">MAX INNOVA</div>
+<div class="modal-hero-label" id="modalHeroLabel">MAX INNOVA</div><div class="modal-photo-caption" id="modalPhotoCaption"></div>
 </div>
 <div class="modal-content-inner">
 <div class="kicker" id="modalKicker">INFORMACIÓN GENERAL</div>
@@ -1833,15 +1848,35 @@ const sectorProfiles={
 };
 
 const platformProfiles={
- "Uber":{text:"Puede evaluarse financiamiento de una unidad para trabajar en plataforma. Uber solicita, entre otros puntos, vehículo de 4 puertas, cinturones, ABS, bolsas de aire y aire acondicionado; los requisitos específicos dependen de ciudad y categoría.",tags:["4 PUERTAS","SEGURIDAD","GENERACIÓN DE INGRESOS"]},
- "DiDi":{text:"Puede evaluarse financiamiento para una unidad destinada a DiDi. Los requisitos cambian por ciudad; DiDi publica criterios de modelo, documentación y tarjeta de circulación para el registro.",tags:["PLATAFORMA","DOCUMENTACIÓN","UNIDAD"]},
- "inDrive":{text:"Alternativa para evaluar una unidad destinada a movilidad por aplicación. La elegibilidad final depende de los requisitos vigentes de la plataforma y de la evaluación de crédito.",tags:["MOVILIDAD","UNIDAD","EVALUACIÓN"]},
- "Rappi":{text:"Puede evaluarse equipamiento o unidad relacionada con actividades de reparto y generación de ingresos, de acuerdo con el proyecto y perfil del solicitante.",tags:["REPARTO","GENERACIÓN DE INGRESOS","EVALUACIÓN"]},
- "Uber Eats":{text:"Puede evaluarse una unidad o proyecto destinado a reparto. La modalidad y requisitos aplicables dependen de la actividad, ciudad y documentación disponible.",tags:["REPARTO","MOVILIDAD","PROYECTO"]},
- "Cabify":{text:"Puede evaluarse financiamiento para una unidad destinada a servicios de movilidad, sujeto a requisitos vigentes de la plataforma y evaluación individual.",tags:["MOVILIDAD","UNIDAD","EVALUACIÓN"]},
- "Taxi de sitio":{text:"Alternativa para adquirir o renovar una unidad destinada al servicio de taxi de sitio, sujeta a documentación, permisos aplicables y evaluación individual.",tags:["UNIDAD","SERVICIO","EVALUACIÓN"]}
+ "Uber":{text:"Financiamiento orientado a una unidad para generar ingresos mediante viajes. Uber indica que la mayoría de los autos nuevos pueden cumplir para UberX; exige, entre otros puntos, 4 puertas, cinturones, ABS, bolsas de aire y aire acondicionado. Los requisitos cambian por ciudad y categoría.",vehicles:"Sedanes y compactos de 4 puertas suelen ser opciones prácticas por consumo, mantenimiento y espacio. La elegibilidad debe confirmarse directamente con Uber.",tags:["VIAJES","4 PUERTAS","GENERACIÓN DE INGRESOS"]},
+ "DiDi":{text:"Financiamiento para una unidad destinada a viajes mediante DiDi. En Puebla, DiDi publica como referencia vehículos particulares de 4 puertas modelo 2007 en adelante, además de documentación y seguro aplicables.",vehicles:"Sedanes y compactos de 4 puertas son referencias comunes para este tipo de operación. Debe confirmarse que año, documentos y seguro cumplan con los requisitos vigentes de la ciudad.",tags:["DIDI EXPRESS","4 PUERTAS","PUEBLA"]},
+ "inDrive":{text:"Puede evaluarse una unidad para movilidad mediante inDrive, sujeto a los requisitos vigentes de la plataforma, ciudad y evaluación del financiamiento.",vehicles:"Conviene priorizar unidades de consumo eficiente, mantenimiento accesible, 4 puertas y buen espacio interior.",tags:["MOVILIDAD","INGRESOS","UNIDAD"]},
+ "Rappi":{text:"Puede evaluarse una motocicleta, vehículo o equipamiento relacionado con actividades de reparto y generación de ingresos, según el proyecto del solicitante.",vehicles:"Para reparto suele priorizarse bajo consumo, facilidad de mantenimiento, capacidad de carga y costo operativo.",tags:["REPARTO","ÚLTIMA MILLA","GENERACIÓN DE INGRESOS"]},
+ "Uber Eats":{text:"Puede evaluarse una unidad destinada a reparto. Uber señala que ciertos vehículos, motocicletas o bicicletas pueden registrarse para servicios de entrega conforme a requisitos locales.",vehicles:"Motocicletas y vehículos compactos son referencias frecuentes por maniobrabilidad y consumo; la aceptación depende de las reglas locales de la plataforma.",tags:["ENTREGAS","UBER EATS","MOVILIDAD"]},
+ "Cabify":{text:"Puede evaluarse financiamiento para una unidad destinada a servicios de movilidad, sujeto a los requisitos vigentes de la plataforma y evaluación individual.",vehicles:"Se priorizan unidades cómodas, seguras, eficientes y adecuadas para recorridos urbanos.",tags:["MOVILIDAD","SERVICIO","UNIDAD"]},
+ "Taxi de sitio":{text:"Alternativa para adquirir o renovar una unidad destinada al servicio de taxi de sitio, sujeta a documentación, permisos y regulación aplicables.",vehicles:"Sedanes de 4 puertas con mantenimiento accesible, disponibilidad de refacciones y buen rendimiento suelen ser opciones prácticas para operación intensiva.",tags:["TAXI","RENOVACIÓN","SERVICIO"]}
 };
 
+
+const brandDeliveryPhotos={
+ "Nissan":"https://www.revistaeconomia.com/wp-content/uploads/2022/05/Revista-Economia-92.gif",
+ "Toyota":"https://serviciosocial.buap.mx/emprendimiento/sites/default/files/WhatsApp%20Image%202021-12-29%20at%2011.36.25%20AM%20%283%29.jpeg",
+ "Chevrolet":"https://static.wixstatic.com/media/4c44fa_da0276ae4f094ee58aac7d8f292d3005~mv2.png/v1/fill/w_881%2Ch_778%2Cal_c%2Cq_90%2Cenc_avif%2Cquality_auto/4c44fa_da0276ae4f094ee58aac7d8f292d3005~mv2.png",
+ "Volkswagen":"https://eldoce.tv/resizer/v2/mundo-maipu-suma-nuevos-talentos-a-su-staff-conoce-las-oportunidades-de-empleo-disponibles-UTTHPWHEYFCZZHOPRVEQ7L64NE.jpg?auth=13210b98e10bd74a31645ce21adb97eba17c3fe77d1f0f6baeb0de03530f9f47&width=1440",
+ "Kia":"https://www.kingautokia.com/static/dealer-12272/DSC4567_1920x1200.jpg",
+ "Mazda":"https://cdn.cms-uploads.i-motor.me/dealership_4128_Ct2epPDBCHK5WZzDJ6zSKgkV",
+ "Honda":"https://www.honda.com.my/asset/pixelvault/2022-12/f174435d082a9cf73088a2c96d66726b42318bda14392.jpg",
+ "Hyundai":"https://s3.amazonaws.com/advaithmedia/backend/storage/uploads/2022/09/24065112/Hyundai-i20-Car-Delivery-Photos-16.webp"
+};
+const platformContextPhotos={
+ "Uber":"https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1600&q=90",
+ "DiDi":"https://images.unsplash.com/photo-1515569067071-ec3b51335dd0?auto=format&fit=crop&w=1600&q=90",
+ "inDrive":"https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1600&q=90",
+ "Rappi":"https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=1600&q=90",
+ "Uber Eats":"https://cdn.amxinfra.com/unotv/images/2025/11/cuartoscuro-uber-repartidor-172233-1024x576.jpg",
+ "Cabify":"https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=1600&q=90",
+ "Taxi de sitio":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Nissan_Tsuru_taxi_Mexico_Ciudad.jpg/1280px-Nissan_Tsuru_taxi_Mexico_Ciudad.jpg"
+};
 const vehicleDeliveryPhotos=[
  "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=1600&q=88",
  "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1600&q=88",
@@ -1933,26 +1968,30 @@ function brandInfo(name,sector,type){
  if(type==="Vehicular"){
    const models=models2026ForBrand(name);
    const marketNotes={
-    "Nissan":"Como referencia de mercado, Nissan encabezó las ventas de marcas en México de enero a agosto de 2026; Versa fue el modelo más vendido del país en enero de 2026.",
-    "Chevrolet":"Chevrolet forma parte de General Motors, segundo grupo por participación en el mercado mexicano en agosto de 2026; Aveo estuvo entre los modelos de mayor volumen al inicio del año.",
-    "Toyota":"Toyota se ubicó entre las marcas de mayor volumen del mercado mexicano durante 2026.",
-    "Volkswagen":"Grupo Volkswagen se mantuvo entre los grupos con mayor participación del mercado mexicano durante 2026.",
-    "Kia":"Kia se mantuvo dentro de las marcas de mayor volumen en México durante 2026.",
-    "Mazda":"Mazda se mantuvo dentro de las marcas de mayor volumen en México durante 2026.",
-    "Honda":"La disponibilidad de modelos y versiones se consulta conforme al catálogo 2026 cargado en MAX INNOVA.",
-    "Hyundai":"Hyundai se mantuvo dentro de las marcas de mayor volumen en México durante 2026."
-   };
+ "Nissan":"<b>Referencia 2026:</b> Nissan mantiene una presencia destacada en el mercado mexicano y Versa es uno de sus modelos de mayor volumen. En MAX INNOVA puedes revisar Versa, Sentra, March, Kicks, X-Trail, Frontier y otros modelos 2026 que estén cargados en catálogo.",
+ "Chevrolet":"<b>Referencia 2026:</b> Chevrolet conserva una participación relevante en México. Entre sus opciones de volumen destacan Aveo, Onix, Tracker, Groove y pickups, dependiendo de disponibilidad y año-modelo.",
+ "Toyota":"<b>Referencia 2026:</b> Toyota mantiene alta demanda en sedanes, SUVs, pickups e híbridos. Corolla, Yaris, RAV4, Hilux y otras opciones pueden revisarse conforme al catálogo disponible.",
+ "Volkswagen":"<b>Referencia 2026:</b> Volkswagen participa fuertemente en sedanes y SUVs. Virtus, Jetta, Taos, Tiguan y otras alternativas pueden consultarse según disponibilidad.",
+ "Kia":"<b>Referencia 2026:</b> Kia cuenta con una red amplia de distribuidores en México y una gama que cubre sedanes, SUVs, híbridos y eléctricos. K3, Seltos, Sportage y otras opciones pueden revisarse conforme al catálogo.",
+ "Mazda":"<b>Referencia 2026:</b> Mazda tiene presencia relevante en sedanes y SUVs. Mazda2, Mazda3, CX-30, CX-5 y otras opciones se muestran según la información disponible en catálogo.",
+ "Honda":"<b>Referencia 2026:</b> Honda participa principalmente con sedanes y SUVs. City, Civic, HR-V y CR-V son referencias habituales de la gama; la disponibilidad final depende de catálogo y agencia.",
+ "Hyundai":"<b>Referencia 2026:</b> Hyundai ofrece alternativas en sedanes, SUVs y movilidad eficiente. Grand i10, HB20, Creta y Tucson son referencias de la gama, sujetas a disponibilidad."
+};
    modalText.textContent=`${name} se muestra como referencia para solicitudes de financiamiento vehicular. La aparición de la marca no implica convenio, afiliación ni representación.`;
    setModalDetails(type);
    const list=models.length?models.join(" · "):"Consulta disponibilidad de modelos y versiones al realizar tu cotización.";
-   setMarketInfo("MODELOS 2026 Y REFERENCIA DE MERCADO",`${marketNotes[name]||"Consulta los modelos 2026 disponibles en nuestro catálogo."}<br><br><b>Modelos 2026 en catálogo:</b> ${safe(list)}`,["FINANCIAMIENTO VEHICULAR","MODELOS 2026","SUJETO A EVALUACIÓN"]);
-   customPhoto=vehicleDeliveryPhotos[stableIndex(name,vehicleDeliveryPhotos.length)];
+   setMarketInfo("MARCA, MODELOS 2026 Y FINANCIAMIENTO",`${marketNotes[name]||"Consulta los modelos 2026 disponibles en nuestro catálogo."}<br><br><b>Modelos 2026 disponibles en el catálogo MAX INNOVA:</b> ${safe(list)}<div class="modal-rich-grid"><div class="modal-rich-item"><b>¿QUÉ PUEDES COTIZAR?</b><span>Unidad nueva o proyecto vehicular conforme al modelo, versión, precio y aportación del cliente.</span></div><div class="modal-rich-item"><b>¿QUÉ SE EVALÚA?</b><span>Perfil del solicitante, monto solicitado, aportación, documentación y condiciones de la operación.</span></div></div>`,["MODELOS 2026","FINANCIAMIENTO VEHICULAR","SUJETO A EVALUACIÓN"]);
+   customPhoto=brandDeliveryPhotos[name]||vehicleDeliveryPhotos[stableIndex(name,vehicleDeliveryPhotos.length)];
+   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent=`REFERENCIA VISUAL · ${name.toUpperCase()} · ENTREGA / AGENCIA`;
+
  }else if(type==="Patrimonial / Vivienda"){
+   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent="REFERENCIA VISUAL · VIVIENDA Y PATRIMONIO";
    modalText.textContent=`${name} se muestra como referencia dentro del sector vivienda y patrimonio. MAX INNOVA puede evaluar proyectos de adquisición, construcción, remodelación o inversión inmobiliaria. La aparición de la marca no implica convenio, afiliación ni representación.`;
    setModalDetails(type);
    setMarketInfo("PROYECTOS DE VIVIENDA","El financiamiento puede evaluarse para vivienda nueva o usada, proyectos patrimoniales, construcción, remodelación o necesidades relacionadas con el inmueble, de acuerdo con el perfil y documentación del solicitante.",["VIVIENDA","PATRIMONIO","PROYECTO INMOBILIARIO"]);
    customPhoto=homeDeliveryPhotos[stableIndex(name,homeDeliveryPhotos.length)];
  }else if(type==="Negocio / PyME"){
+   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent=`REFERENCIA VISUAL · ${name.toUpperCase()} · PROYECTO DE NEGOCIO`;
    const p=sectorProfiles[name]||sectorProfiles["Comercio"];
    modalText.textContent=`MAX INNOVA puede evaluar solicitudes para un negocio de ${name.toLowerCase()}, considerando el destino del crédito, la actividad, documentación y viabilidad del proyecto.`;
    setModalDetails(type);
@@ -1962,8 +2001,9 @@ function brandInfo(name,sector,type){
    const p=platformProfiles[name]||platformProfiles["Uber"];
    modalText.textContent=name==="Taxi de sitio" ? p.text : `${name} se muestra como referencia para proyectos de movilidad y generación de ingresos. La aparición de la plataforma no implica convenio, afiliación ni representación.`;
    setModalDetails(type);
-   setMarketInfo("PLAN PARA MOVILIDAD",`${p.text}<br><br><b>MAX INNOVA:</b> pueden evaluarse solicitudes aun cuando exista historial en Buró de Crédito. La autorización y condiciones dependen de la evaluación; en determinados casos el financiamiento de la unidad puede condicionarse a la instalación y permanencia de un dispositivo de rastreo durante la vigencia del crédito.`,p.tags);
-   customPhoto=platformPhotos[stableIndex(name,platformPhotos.length)];
+   setMarketInfo("PLAN PREFERENCIAL PARA PLATAFORMAS",`${p.text}<div class="modal-rich-grid"><div class="modal-rich-item"><b>VEHÍCULOS / UNIDADES DE REFERENCIA</b><span>${p.vehicles}</span></div><div class="modal-rich-item"><b>OBJETIVO DEL PLAN</b><span>Facilitar la adquisición de una unidad que pueda utilizarse como herramienta de trabajo y generación de ingresos.</span></div></div><div class="modal-plan-highlight"><b>PLAN PREFERENCIAL MAX INNOVA</b><span>Se pueden evaluar solicitudes de personas con historial en Buró de Crédito. No implica aprobación automática. La autorización, aportación, plazo y demás condiciones se determinan en la evaluación. Cuando el perfil de riesgo lo requiera, el financiamiento puede quedar condicionado a la instalación y permanencia de un dispositivo de rastreo en la unidad durante la vigencia del crédito.</span></div>`,p.tags);
+   customPhoto=platformContextPhotos[name]||platformPhotos[stableIndex(name,platformPhotos.length)];
+   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent=`REFERENCIA VISUAL · ${name.toUpperCase()} · ACTIVIDAD EN PLATAFORMA`;
  }else{
    modalText.textContent=`${name} se muestra como referencia dentro del sector ${sector}. MAX INNOVA puede evaluar solicitudes relacionadas con este tipo de proyecto.`;
    setModalDetails(type);
