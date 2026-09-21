@@ -1139,86 +1139,80 @@ input,select,textarea,button{max-width:100%}
 </style>
 
 
-<style id="max-innova-v92-contextual-style">
-.modal-hero.context-fallback{
-  display:block!important;
-  background:#f4fafc!important;
-}
-.modal-hero.context-fallback img{
-  display:block!important;
-  width:100%!important;
-  height:100%!important;
-  object-fit:contain!important;
-  object-position:center!important;
-  padding:0!important;
-  background:#f4fafc!important;
-}
-</style>
 
 
-<style id="max-innova-v93-ribbon-controls">
-.ribbon-control-wrap{position:relative!important}
-.ribbon-nav-btn{
- position:absolute!important;top:50%!important;transform:translateY(-50%)!important;
- z-index:30!important;width:42px!important;height:42px!important;border-radius:50%!important;
- border:1px solid rgba(255,255,255,.75)!important;background:rgba(255,255,255,.94)!important;
- color:#064e73!important;font-size:25px!important;font-weight:900!important;line-height:1!important;
- display:flex!important;align-items:center!important;justify-content:center!important;
- box-shadow:0 5px 18px rgba(0,35,60,.22)!important;cursor:pointer!important;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style id="max-innova-v98-audit-fixes">
+/* Modal: foto completa; fallbacks centrados, sin el falso bloque "Referencia de marca". */
+.modal-hero{display:block!important;height:330px!important;min-height:330px!important;background:#eaf4f8!important;overflow:hidden!important}
+.modal-hero img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;transform:none!important;background:#eef6f9!important}
+.modal-hero.v98-brand-logo img,.modal-hero.v98-max-logo img{object-fit:contain!important;padding:54px!important;background:#fff!important}
+
+/* Flechas discretas SOLO en las cuatro cintas */
+#sectorMount .sector-box{position:relative!important}
+#sectorMount .v98-arrow{
+ position:absolute!important;top:calc(50% + 26px)!important;transform:translateY(-50%)!important;
+ z-index:20!important;width:24px!important;height:42px!important;padding:0!important;
+ border:1px solid rgba(5,83,116,.18)!important;border-radius:7px!important;
+ background:rgba(245,252,255,.88)!important;color:#075a7c!important;
+ box-shadow:0 2px 7px rgba(0,34,55,.10)!important;font:800 18px/1 Arial,sans-serif!important;
+ cursor:pointer!important;opacity:.72!important
 }
-.ribbon-nav-btn.prev{left:8px!important}.ribbon-nav-btn.next{right:8px!important}
-.ribbon-nav-btn:hover,.ribbon-nav-btn:focus{background:#fff!important;transform:translateY(-50%) scale(1.06)!important}
+#sectorMount .v98-arrow:hover{opacity:1!important;background:#fff!important}
+#sectorMount .v98-arrow.prev{left:4px!important}
+#sectorMount .v98-arrow.next{right:4px!important}
+#sectorMount .ticker{scrollbar-width:none!important;-webkit-overflow-scrolling:touch!important}
+#sectorMount .ticker::-webkit-scrollbar{display:none!important}
+
+/* Menú móvil: sticky, sin flechas, desplazable con dedo */
+@media(max-width:900px){
+ header{position:sticky!important;top:0!important;z-index:9999!important;background:#fff!important;box-shadow:0 4px 14px rgba(0,40,65,.12)!important}
+ .nav{background:#fff!important}
+ .menu{overflow-x:auto!important;scroll-behavior:smooth!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:none!important}
+ .menu::-webkit-scrollbar{display:none!important}
+}
+
+/* Formulario móvil: nada de texto lateral/salido */
 @media(max-width:700px){
- .ribbon-nav-btn{width:36px!important;height:36px!important;font-size:21px!important}
- .ribbon-nav-btn.prev{left:4px!important}.ribbon-nav-btn.next{right:4px!important}
+ .portal-card{padding:18px 14px!important;overflow:hidden!important}
+ .doc-options{display:flex!important;flex-direction:column!important;gap:10px!important;width:100%!important;min-width:0!important}
+ .doc-option{
+  display:grid!important;grid-template-columns:22px minmax(0,1fr)!important;
+  grid-template-areas:"radio title" "radio text"!important;
+  column-gap:10px!important;row-gap:4px!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  padding:13px!important;box-sizing:border-box!important;overflow:hidden!important
+ }
+ .doc-option input{grid-area:radio!important;width:18px!important;height:18px!important;margin:1px 0 0!important}
+ .doc-option strong{grid-area:title!important;display:block!important;margin:0!important;font-size:11px!important;line-height:1.35!important;white-space:normal!important;overflow-wrap:break-word!important}
+ .doc-option span{grid-area:text!important;display:block!important;min-width:0!important;font-size:10px!important;line-height:1.45!important;white-space:normal!important;overflow-wrap:break-word!important}
+ .privacy-consent{
+  display:grid!important;grid-template-columns:22px minmax(0,1fr)!important;
+  gap:9px!important;align-items:start!important;width:100%!important;max-width:100%!important;
+  min-width:0!important;padding:12px!important;box-sizing:border-box!important;overflow:hidden!important;
+  font-size:10px!important;line-height:1.5!important
+ }
+ .privacy-consent input{width:18px!important;height:18px!important;margin:1px 0 0!important}
+ .privacy-consent span{display:block!important;min-width:0!important;width:auto!important;white-space:normal!important;overflow-wrap:break-word!important;word-break:normal!important}
+ .privacy-consent a{white-space:normal!important}
+ .modal-hero{height:220px!important;min-height:220px!important}
+ .modal-hero.v98-brand-logo img,.modal-hero.v98-max-logo img{padding:32px!important}
+ #sectorMount .v98-arrow{width:18px!important;height:34px!important;font-size:15px!important;opacity:.62!important}
+ #sectorMount .v98-arrow.prev{left:2px!important} #sectorMount .v98-arrow.next{right:2px!important}
 }
-</style>
-
-
-<style id="max-innova-v94-four-ribbon-arrows">
-.v94-ribbon-host{position:relative!important}
-.v94-arrow{
- position:absolute!important;top:50%!important;transform:translateY(-50%)!important;
- z-index:999!important;width:46px!important;height:46px!important;border:0!important;
- border-radius:50%!important;background:#fff!important;color:#00567d!important;
- box-shadow:0 4px 16px rgba(0,32,55,.30)!important;cursor:pointer!important;
- display:flex!important;align-items:center!important;justify-content:center!important;
- font:900 30px/1 Arial,sans-serif!important;opacity:.98!important;
-}
-.v94-arrow.prev{left:8px!important}.v94-arrow.next{right:8px!important}
-.v94-arrow:hover,.v94-arrow:focus{background:#e9f8fd!important}
-@media(max-width:700px){
- .v94-arrow{width:38px!important;height:38px!important;font-size:25px!important}
- .v94-arrow.prev{left:4px!important}.v94-arrow.next{right:4px!important}
-}
-</style>
-
-
-<style id="max-innova-v95-brand-fallback-style">
-.modal-hero.v95-brand-logo{
- display:block!important;
- height:280px!important;
- min-height:280px!important;
- background:#f7fbfd!important;
-}
-.modal-hero.v95-brand-logo img{
- display:block!important;
- width:100%!important;
- height:100%!important;
- object-fit:contain!important;
- object-position:center!important;
- padding:0!important;
- background:#f7fbfd!important;
- image-rendering:auto!important;
-}
-@media(max-width:700px){
- .modal-hero.v95-brand-logo{height:210px!important;min-height:210px!important}
-}
-</style>
-
-<style id="max-innova-v96-style">
-.modal-hero.v96-fallback{display:block!important;background:#f8fcfd!important}
-.modal-hero.v96-fallback img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;background:#f8fcfd!important;padding:0!important}
 </style>
 </head>
 <body>
@@ -3112,7 +3106,7 @@ window.addEventListener("hashchange",checkAdminHash);checkAdminHash();
 <div aria-labelledby="privacyTitle" aria-modal="true" class="privacy-overlay" id="privacyOverlay" role="dialog">
 <div class="privacy-box">
 <div class="privacy-head">
-<div><h2 id="privacyTitle">Aviso de Privacidad Integral</h2><p>MAX INNOVA Servicios Financieros · Versión preliminar, septiembre de 2026</p></div>
+<div><h2 id="privacyTitle">Aviso de Privacidad Integral</h2><p>MAX INNOVA Servicios Financieros · Última actualización: septiembre de 2026</p></div>
 <button aria-label="Cerrar" class="privacy-close" onclick="closePrivacy()" type="button">×</button>
 </div>
 <div class="privacy-body">
@@ -3188,276 +3182,66 @@ document.getElementById("privacyOverlay")?.addEventListener("click",e=>{if(e.tar
 
 
 
-<script id="max-innova-v92-contextual-fallback">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="max-innova-v98-auto-fallback">
 document.addEventListener("DOMContentLoaded",function(){
-  function svgData(kind,label){
-    const icons={
-      auto:'<path d="M16 55h68l-7-20c-2-6-7-10-13-10H36c-6 0-11 4-13 10l-7 20Zm5 0v15m58-15v15M27 70h8m30 0h8M22 55h56" fill="none" stroke="#0b5f86" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>',
-      home:'<path d="M15 47 50 18l35 29v36H60V60H40v23H15V47Z" fill="none" stroke="#0b5f86" stroke-width="6" stroke-linejoin="round"/>',
-      business:'<path d="M18 40h64l-5-18H23l-5 18Zm5 0v42h54V40M35 82V58h30v24" fill="none" stroke="#0b5f86" stroke-width="6" stroke-linejoin="round"/>',
-      platform:'<path d="M19 57h62l-7-20c-2-6-7-9-13-9H39c-6 0-11 3-13 9l-7 20Zm6 0v14m50-14v14M31 71h8m22 0h8" fill="none" stroke="#0b5f86" stroke-width="6" stroke-linecap="round"/>'
-    };
-    const icon=icons[kind]||icons.business;
-    const safe=(label||"Referencia").replace(/[&<>"]/g,"");
-    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
-      <rect width="900" height="420" rx="28" fill="#f4fafc"/>
-      <circle cx="450" cy="155" r="78" fill="#e0f1f7"/>
-      <g transform="translate(400 105)">${icon}</g>
-      <text x="450" y="275" text-anchor="middle" font-family="Arial,sans-serif" font-size="32" font-weight="700" fill="#073e5a">${safe}</text>
-      <text x="450" y="316" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="600" fill="#52798b">Referencia de ${kind==="auto"?"marca":kind==="home"?"vivienda":kind==="platform"?"plataforma":"negocio"}</text>
-    </svg>`;
-    return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
-  }
-
-  function contextFor(img){
-    const modal=img.closest(".modal");
-    const text=((modal?modal.innerText:"")+" "+(img.alt||"")).toLowerCase();
-    let kind="business";
-    if(/nissan|toyota|chevrolet|volkswagen|kia|mazda|honda|hyundai|automotriz|vehículo|vehiculo/.test(text)) kind="auto";
-    else if(/uber|didi|indrive|rappi|taxi|plataforma/.test(text)) kind="platform";
-    else if(/vivienda|casa|departamento|inmueble|hogar/.test(text)) kind="home";
-    let label=(img.alt||"").trim();
-    const title=modal && modal.querySelector(".modal-title,h2,h3,[data-modal-title]");
-    if(title && title.textContent.trim()) label=title.textContent.trim();
-    return {kind,label:label||"Referencia"};
-  }
-
-  function install(img){
-    if(!img || img.dataset.v92==="1")return;
-    img.dataset.v92="1";
-    const hero=img.closest(".modal-hero");
-    img.addEventListener("error",function(){
-      if(img.dataset.contextFallback!=="1"){
-        const c=contextFor(img);
-        img.dataset.contextFallback="1";
-        img.src=svgData(c.kind,c.label);
-        if(hero){
-          hero.style.display="block";
-          hero.classList.remove("photo-error");
-          hero.classList.add("context-fallback");
-        }
-      }else if(hero){
-        hero.style.display="none";
-      }
-    });
-    img.addEventListener("load",function(){
-      if(hero) hero.style.display="block";
-    });
-  }
-
-  document.querySelectorAll(".modal-hero img").forEach(install);
-  new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
-    if(n.nodeType!==1)return;
-    if(n.matches&&n.matches(".modal-hero img"))install(n);
-    if(n.querySelectorAll)n.querySelectorAll(".modal-hero img").forEach(install);
-  }))).observe(document.body,{childList:true,subtree:true});
-});
-</script>
-
-
-<script id="max-innova-v93-ribbon-controls">
-document.addEventListener("DOMContentLoaded",function(){
-  /* Detecta las cintas horizontales por su comportamiento, sin alterar sus tarjetas. */
-  const candidates=[...document.querySelectorAll("body *")].filter(el=>{
-    if(el.children.length<3)return false;
-    const cs=getComputedStyle(el);
-    return (cs.overflowX==="auto"||cs.overflowX==="scroll"||el.scrollWidth>el.clientWidth+80)
-      && el.scrollWidth>el.clientWidth+80;
-  });
-
-  const ribbons=[];
-  candidates.forEach(el=>{
-    if(ribbons.some(r=>r.contains(el)||el.contains(r)))return;
-    ribbons.push(el);
-  });
-
-  ribbons.forEach(track=>{
-    if(track.dataset.v93Controls==="1")return;
-    track.dataset.v93Controls="1";
-    track.style.scrollBehavior="smooth";
-
-    let wrap=track.parentElement;
-    if(!wrap)return;
-    wrap.classList.add("ribbon-control-wrap");
-
-    const prev=document.createElement("button");
-    const next=document.createElement("button");
-    prev.type=next.type="button";
-    prev.className="ribbon-nav-btn prev";
-    next.className="ribbon-nav-btn next";
-    prev.innerHTML="&#8249;";
-    next.innerHTML="&#8250;";
-    prev.setAttribute("aria-label","Ver anteriores");
-    next.setAttribute("aria-label","Ver siguientes");
-    wrap.append(prev,next);
-
-    const amount=()=>Math.max(260,Math.round(track.clientWidth*.72));
-    prev.onclick=()=>track.scrollBy({left:-amount(),behavior:"smooth"});
-    next.onclick=()=>track.scrollBy({left: amount(),behavior:"smooth"});
-
-    /* Si la cinta original se anima automáticamente, al poner cursor/tocar se pausa. */
-    const moving=track.querySelector(":scope > *")||track;
-    const pause=()=>{
-      track.dataset.userPaused="1";
-      moving.style.animationPlayState="paused";
-      track.querySelectorAll("*").forEach(x=>{
-        if(getComputedStyle(x).animationName!=="none")x.style.animationPlayState="paused";
-      });
-    };
-    const resume=()=>{
-      if(track.dataset.userPaused==="1"){
-        moving.style.animationPlayState="running";
-        track.querySelectorAll("*").forEach(x=>{
-          if(getComputedStyle(x).animationName!=="none")x.style.animationPlayState="running";
-        });
-        track.dataset.userPaused="0";
-      }
-    };
-    track.addEventListener("mouseenter",pause);
-    track.addEventListener("mouseleave",resume);
-    track.addEventListener("touchstart",pause,{passive:true});
-    track.addEventListener("pointerdown",pause);
-    prev.addEventListener("mouseenter",pause); next.addEventListener("mouseenter",pause);
-
-    /* Rueda horizontal y arrastre manual. */
-    track.addEventListener("wheel",e=>{
-      if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){
-        e.preventDefault(); pause(); track.scrollLeft+=e.deltaY;
-      }
-    },{passive:false});
-
-    let down=false,startX=0,startScroll=0;
-    track.addEventListener("pointerdown",e=>{
-      down=true;startX=e.clientX;startScroll=track.scrollLeft;
-      try{track.setPointerCapture(e.pointerId)}catch(_){}
-    });
-    track.addEventListener("pointermove",e=>{
-      if(down)track.scrollLeft=startScroll-(e.clientX-startX);
-    });
-    track.addEventListener("pointerup",()=>down=false);
-    track.addEventListener("pointercancel",()=>down=false);
-  });
-});
-</script>
-
-
-<script id="max-innova-v94-four-ribbon-arrows">
-document.addEventListener("DOMContentLoaded",function(){
- const titles=["Automotriz","Vivienda y patrimonio","Comercio, negocio y PyME","Movilidad y plataformas"];
-
- function findSection(title){
-   const nodes=[...document.querySelectorAll("h1,h2,h3,h4,strong,div")];
-   const heading=nodes.find(n=>n.children.length===0 && n.textContent.trim()===title);
-   if(!heading)return null;
-   let box=heading;
-   for(let i=0;i<5 && box;i++,box=box.parentElement){
-     if(box.querySelectorAll && box.querySelectorAll("a,button,[onclick]").length>=3) return box;
-   }
-   return heading.parentElement;
- }
- function findTrack(section){
-   const all=[section,...section.querySelectorAll("*")];
-   const scored=all.map(el=>{
-     const children=el.children?el.children.length:0;
-     const cards=el.querySelectorAll?el.querySelectorAll("a,button,[onclick]").length:0;
-     const overflow=Math.max(0,(el.scrollWidth||0)-(el.clientWidth||0));
-     return {el,score:overflow*10+cards*100+children};
-   }).filter(x=>x.el && x.el.children && x.el.children.length>=3);
-   scored.sort((a,b)=>b.score-a.score);
-   return scored[0]?.el||null;
- }
- function setup(title){
-   const section=findSection(title);
-   if(!section)return;
-   const track=findTrack(section);
-   if(!track || track.dataset.v94==="1")return;
-   track.dataset.v94="1";
-   track.style.scrollBehavior="smooth";
-   track.style.overflowX="auto";
-   track.style.scrollbarWidth="none";
-
-   let host=track.parentElement||section;
-   host.classList.add("v94-ribbon-host");
-
-   const prev=document.createElement("button"),next=document.createElement("button");
-   prev.type=next.type="button";
-   prev.className="v94-arrow prev"; next.className="v94-arrow next";
-   prev.innerHTML="‹"; next.innerHTML="›";
-   prev.title="Anterior";next.title="Siguiente";
-   prev.setAttribute("aria-label",title+": anteriores");
-   next.setAttribute("aria-label",title+": siguientes");
-   host.append(prev,next);
-
-   const step=()=>Math.max(220,Math.min(520,track.clientWidth*.55));
-   prev.addEventListener("click",e=>{e.stopPropagation();track.scrollBy({left:-step(),behavior:"smooth"})});
-   next.addEventListener("click",e=>{e.stopPropagation();track.scrollBy({left: step(),behavior:"smooth"})});
-
-   // Pausar cualquier animación al interactuar.
-   const pause=()=>track.querySelectorAll("*").forEach(x=>x.style.animationPlayState="paused");
-   const run=()=>track.querySelectorAll("*").forEach(x=>x.style.animationPlayState="running");
-   host.addEventListener("mouseenter",pause);
-   host.addEventListener("mouseleave",run);
-   host.addEventListener("touchstart",pause,{passive:true});
- }
- titles.forEach(setup);
-});
-</script>
-
-
-
-
-
-<script id="max-innova-v95-brand-card-fallback">
-document.addEventListener("DOMContentLoaded",function(){
- const brands=["Chevrolet","Mazda","Honda","Hyundai","Toyota","Nissan","Volkswagen","Kia"];
- const make=(name)=>"data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(
- `<svg xmlns="http://www.w3.org/2000/svg" width="500" height="260" viewBox="0 0 500 260">
- <rect width="500" height="260" rx="24" fill="#eef8fb"/>
- <text x="250" y="135" text-anchor="middle" font-family="Arial,sans-serif" font-size="44" font-weight="800" fill="#073e5a">${name}</text>
- </svg>`);
- document.querySelectorAll("img").forEach(img=>{
-   const card=img.closest("a,button,[onclick],div");
-   const txt=((card?card.innerText:"")+" "+(img.alt||"")).trim();
-   const b=brands.find(x=>txt.toLowerCase().includes(x.toLowerCase()));
-   if(!b || img.closest(".modal-hero"))return;
-   img.addEventListener("error",function(e){
-     if(img.dataset.v95Card!=="1"){
-       e.stopImmediatePropagation();img.dataset.v95Card="1";img.src=make(b);img.alt=b;
-     }else if(card){card.style.display="none";}
-   },true);
- });
-});
-</script>
-
-
-<script id="max-innova-v96-auto-four-level-fallback">
-document.addEventListener("DOMContentLoaded",function(){
- const brands=["Chevrolet","Mazda","Honda","Hyundai","Toyota","Nissan","Volkswagen","Kia"];
- const uri=s=>"data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(s);
- function brandCard(name){
-  return uri(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
-  <rect width="1200" height="520" rx="30" fill="#f8fcfd"/><circle cx="600" cy="185" r="105" fill="#e7f4f8"/>
-  <path d="M520 210h160l-18-48c-5-14-18-23-33-23h-58c-15 0-28 9-33 23l-18 48Zm14 0v31m132-31v31m-105 0h17m44 0h17" fill="none" stroke="#075777" stroke-width="10" stroke-linecap="round"/>
-  <text x="600" y="370" text-anchor="middle" font-family="Arial,sans-serif" font-size="70" font-weight="900" fill="#073e5a">${name}</text></svg>`);
- }
- function maxCard(){return uri(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520"><rect width="1200" height="520" rx="30" fill="#f8fcfd"/><circle cx="600" cy="190" r="110" fill="#e7f4f8"/><text x="600" y="215" text-anchor="middle" font-family="Arial,sans-serif" font-size="88" font-weight="900" fill="#075777">MAX</text><text x="600" y="355" text-anchor="middle" font-family="Arial,sans-serif" font-size="74" font-weight="900" letter-spacing="8" fill="#073e5a">INNOVA</text></svg>`)}
- function getBrand(img){
+ const logos={
+  "Toyota":"https://cdn.simpleicons.org/toyota",
+  "Nissan":"https://cdn.simpleicons.org/nissan",
+  "Volkswagen":"https://cdn.simpleicons.org/volkswagen",
+  "Kia":"https://cdn.simpleicons.org/kia",
+  "Chevrolet":"https://cdn.simpleicons.org/chevrolet",
+  "Mazda":"https://cdn.simpleicons.org/mazda",
+  "Honda":"https://cdn.simpleicons.org/honda",
+  "Hyundai":"https://cdn.simpleicons.org/hyundai"
+ };
+ function brandOf(img){
   const m=img.closest(".modal"),t=((m?m.innerText:"")+" "+(img.alt||"")).toLowerCase();
-  return brands.find(b=>t.includes(b.toLowerCase()))||"";
+  return Object.keys(logos).find(b=>t.includes(b.toLowerCase()))||"";
  }
  function install(img){
-  if(!img||img.dataset.v96==="1")return;
-  const brand=getBrand(img); if(!brand)return;
-  img.dataset.v96="1";img.dataset.v96level="1";
+  if(!img||img.dataset.v98==="1")return;
+  const brand=brandOf(img); if(!brand)return;
+  img.dataset.v98="1"; img.dataset.v98level="1";
   const hero=img.closest(".modal-hero");
-  img.addEventListener("error",e=>{
+  img.addEventListener("error",function(e){
    e.stopImmediatePropagation();
-   const l=+img.dataset.v96level;
-   if(l===1){img.dataset.v96level="2";img.src=brandCard(brand);img.alt=brand;if(hero){hero.style.display="block";hero.classList.add("v96-fallback")}}
-   else if(l===2){img.dataset.v96level="3";img.src=maxCard();img.alt="MAX INNOVA";if(hero)hero.style.display="block"}
-   else if(hero)hero.style.display="none";
+   const level=Number(img.dataset.v98level||1);
+   if(level===1){
+    img.dataset.v98level="2";
+    img.src=logos[brand]; img.alt="Logo "+brand;
+    if(hero){hero.style.display="block";hero.classList.add("v98-brand-logo")}
+   }else if(level===2){
+    img.dataset.v98level="3";
+    img.src="logo maxinnova.png"; img.alt="MAX INNOVA";
+    if(hero){hero.style.display="block";hero.classList.remove("v98-brand-logo");hero.classList.add("v98-max-logo")}
+   }else{
+    if(hero)hero.style.display="none";
+   }
   },true);
-  img.addEventListener("load",()=>{if(hero)hero.style.display="block"},true);
+  img.addEventListener("load",function(){
+   if(hero){hero.style.display="block";hero.classList.remove("photo-error")}
+  },true);
  }
  document.querySelectorAll(".modal-hero img").forEach(install);
  new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
@@ -3465,6 +3249,55 @@ document.addEventListener("DOMContentLoaded",function(){
   if(n.matches?.(".modal-hero img"))install(n);
   n.querySelectorAll?.(".modal-hero img").forEach(install);
  }))).observe(document.body,{childList:true,subtree:true});
+});
+</script>
+
+<script id="max-innova-v98-ribbons">
+document.addEventListener("DOMContentLoaded",function(){
+ document.querySelectorAll("#sectorMount .sector-box").forEach(box=>{
+  const ticker=box.querySelector(".ticker"), track=ticker?.querySelector(".track");
+  if(!ticker||!track||box.dataset.v98)return;
+  box.dataset.v98="1";
+
+  const prev=document.createElement("button"),next=document.createElement("button");
+  prev.type=next.type="button"; prev.className="v98-arrow prev"; next.className="v98-arrow next";
+  prev.textContent="‹";next.textContent="›";
+  prev.setAttribute("aria-label","Ver anteriores");next.setAttribute("aria-label","Ver siguientes");
+  box.append(prev,next);
+
+  const pause=()=>track.style.animationPlayState="paused";
+  const resume=()=>{if(!ticker.dataset.manual)track.style.animationPlayState="running"};
+  ticker.addEventListener("mouseenter",pause);ticker.addEventListener("mouseleave",resume);
+  ticker.addEventListener("touchstart",pause,{passive:true});
+
+  function manual(){
+   if(!ticker.dataset.manual){
+    ticker.dataset.manual="1";
+    const matrix=getComputedStyle(track).transform;
+    let tx=0;
+    if(matrix && matrix!=="none"){
+      try{tx=new DOMMatrixReadOnly(matrix).m41}catch(_){}
+    }
+    track.style.animation="none";
+    track.style.transform="none";
+    ticker.scrollLeft=Math.max(0,-tx);
+    ticker.style.overflowX="auto";
+    ticker.style.scrollBehavior="smooth";
+   }
+  }
+  function step(){
+   const card=track.querySelector(".brand");
+   return card ? card.getBoundingClientRect().width+12 : Math.max(180,ticker.clientWidth*.55);
+  }
+  prev.onclick=e=>{e.preventDefault();e.stopPropagation();manual();ticker.scrollBy({left:-step(),behavior:"smooth"})};
+  next.onclick=e=>{e.preventDefault();e.stopPropagation();manual();ticker.scrollBy({left: step(),behavior:"smooth"})};
+
+  let down=false,x=0,left=0;
+  ticker.addEventListener("pointerdown",e=>{manual();down=true;x=e.clientX;left=ticker.scrollLeft});
+  ticker.addEventListener("pointermove",e=>{if(down)ticker.scrollLeft=left-(e.clientX-x)});
+  ticker.addEventListener("pointerup",()=>down=false);
+  ticker.addEventListener("pointercancel",()=>down=false);
+ });
 });
 </script>
 </body>
