@@ -675,6 +675,18 @@ input,select,textarea,button{max-width:100%}
 @media(max-width:600px){.modal-rich-grid{grid-template-columns:1fr}}
 </style>
 
+
+<style id="v84-photo-fallback">
+.modal-hero{background-color:#dfeef5!important}
+.modal-hero img{min-height:260px}
+.modal-hero.photo-error img{display:none!important}
+.modal-hero.photo-error:after{
+ content:"Imagen de referencia no disponible";
+ position:absolute;z-index:2;inset:0;display:flex;align-items:center;justify-content:center;
+ color:#31566d;font-size:12px;font-weight:800;letter-spacing:.06em;
+}
+</style>
+
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -1853,29 +1865,27 @@ const platformProfiles={
  "inDrive":{text:"Puede evaluarse una unidad para movilidad mediante inDrive, sujeto a los requisitos vigentes de la plataforma, ciudad y evaluación del financiamiento.",vehicles:"Conviene priorizar unidades de consumo eficiente, mantenimiento accesible, 4 puertas y buen espacio interior.",tags:["MOVILIDAD","INGRESOS","UNIDAD"]},
  "Rappi":{text:"Puede evaluarse una motocicleta, vehículo o equipamiento relacionado con actividades de reparto y generación de ingresos, según el proyecto del solicitante.",vehicles:"Para reparto suele priorizarse bajo consumo, facilidad de mantenimiento, capacidad de carga y costo operativo.",tags:["REPARTO","ÚLTIMA MILLA","GENERACIÓN DE INGRESOS"]},
  "Uber Eats":{text:"Puede evaluarse una unidad destinada a reparto. Uber señala que ciertos vehículos, motocicletas o bicicletas pueden registrarse para servicios de entrega conforme a requisitos locales.",vehicles:"Motocicletas y vehículos compactos son referencias frecuentes por maniobrabilidad y consumo; la aceptación depende de las reglas locales de la plataforma.",tags:["ENTREGAS","UBER EATS","MOVILIDAD"]},
- "Cabify":{text:"Puede evaluarse financiamiento para una unidad destinada a servicios de movilidad, sujeto a los requisitos vigentes de la plataforma y evaluación individual.",vehicles:"Se priorizan unidades cómodas, seguras, eficientes y adecuadas para recorridos urbanos.",tags:["MOVILIDAD","SERVICIO","UNIDAD"]},
  "Taxi de sitio":{text:"Alternativa para adquirir o renovar una unidad destinada al servicio de taxi de sitio, sujeta a documentación, permisos y regulación aplicables.",vehicles:"Sedanes de 4 puertas con mantenimiento accesible, disponibilidad de refacciones y buen rendimiento suelen ser opciones prácticas para operación intensiva.",tags:["TAXI","RENOVACIÓN","SERVICIO"]}
 };
 
 
 const brandDeliveryPhotos={
- "Nissan":"https://www.revistaeconomia.com/wp-content/uploads/2022/05/Revista-Economia-92.gif",
+ "Nissan":"https://storage.googleapis.com/tribunamexico/2026/04/Venta-de-autos-nuevos-en-Mexico-crece-24-en-marzo-1024x576.jpg.webp",
  "Toyota":"https://serviciosocial.buap.mx/emprendimiento/sites/default/files/WhatsApp%20Image%202021-12-29%20at%2011.36.25%20AM%20%283%29.jpeg",
  "Chevrolet":"https://static.wixstatic.com/media/4c44fa_da0276ae4f094ee58aac7d8f292d3005~mv2.png/v1/fill/w_881%2Ch_778%2Cal_c%2Cq_90%2Cenc_avif%2Cquality_auto/4c44fa_da0276ae4f094ee58aac7d8f292d3005~mv2.png",
- "Volkswagen":"https://eldoce.tv/resizer/v2/mundo-maipu-suma-nuevos-talentos-a-su-staff-conoce-las-oportunidades-de-empleo-disponibles-UTTHPWHEYFCZZHOPRVEQ7L64NE.jpg?auth=13210b98e10bd74a31645ce21adb97eba17c3fe77d1f0f6baeb0de03530f9f47&width=1440",
- "Kia":"https://www.kingautokia.com/static/dealer-12272/DSC4567_1920x1200.jpg",
- "Mazda":"https://cdn.cms-uploads.i-motor.me/dealership_4128_Ct2epPDBCHK5WZzDJ6zSKgkV",
- "Honda":"https://www.honda.com.my/asset/pixelvault/2022-12/f174435d082a9cf73088a2c96d66726b42318bda14392.jpg",
- "Hyundai":"https://s3.amazonaws.com/advaithmedia/backend/storage/uploads/2022/09/24065112/Hyundai-i20-Car-Delivery-Photos-16.webp"
+ "Volkswagen":"https://upload.wikimedia.org/wikipedia/commons/9/95/Mexican_taxi.JPG",
+ "Kia":"https://i.axod.net/pcYc7f2CzIczHb626Tb7B5SGco9jsgB17EGD48ht6Gpsurw8qsHWlPKnz3nBKmkU_dT6HLsYd1JNulCm0zBUKmgDrNbf7YArNIL_Cmn7RSHd-5jg_9wJ79ABhKQvCWyGtQ_OPneacd253cTZGedHniSf169QjFEsB1h4.jpeg",
+ "Mazda":"https://d2vykwbochoala.cloudfront.net/t_preview/dpr_2.0/https%3A/d1sdeqoxcfgxl0.cloudfront.net/images/original/1d7e41a03e7029e2db2191903e9b748b4ab2883efbd49abcdbdf8672.png",
+ "Honda":"https://storage.googleapis.com/tribunamexico/2026/04/Venta-de-autos-nuevos-en-Mexico-crece-24-en-marzo-1024x576.jpg.webp",
+ "Hyundai":"https://cdn.prod.website-files.com/66de2022d72eb33f2727d561/69bc650ecf99d5b902922dd3_unnamed.jpg"
 };
 const platformContextPhotos={
  "Uber":"https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1600&q=90",
- "DiDi":"https://images.unsplash.com/photo-1515569067071-ec3b51335dd0?auto=format&fit=crop&w=1600&q=90",
- "inDrive":"https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1600&q=90",
- "Rappi":"https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=1600&q=90",
- "Uber Eats":"https://cdn.amxinfra.com/unotv/images/2025/11/cuartoscuro-uber-repartidor-172233-1024x576.jpg",
- "Cabify":"https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=1600&q=90",
- "Taxi de sitio":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Nissan_Tsuru_taxi_Mexico_Ciudad.jpg/1280px-Nissan_Tsuru_taxi_Mexico_Ciudad.jpg"
+ "DiDi":"https://images.ctfassets.net/n7hs0hadu6ro/3ttC7qR9F4m7rpWfsydwgN/cfab1b77a585de90fd2892acfb334f3c/Conductor_brindando_buen_servicio_DiDi.jpg",
+ "Rappi":"https://fortunaypoder.com/wp-content/uploads/2024/02/rappi-cumple-6-anos-mexico.jpg",
+ "Uber Eats":"https://cdn-3.expansion.mx/dims4/default/4c24c11/2147483647/strip/true/crop/6548x4364%2B0%2B0/resize/800x533%21/format/webp/quality/80/?url=https%3A%2F%2Fcherry-brightspot.s3.amazonaws.com%2Fa7%2F1c%2F0223143440599ccdf5a1036465b5%2Fsf-2017-delivery-17-1.jpg",
+ "Taxi de sitio":"https://upload.wikimedia.org/wikipedia/commons/9/95/Mexican_taxi.JPG",
+ "inDrive":"https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1600&q=90"
 };
 const vehicleDeliveryPhotos=[
  "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=1600&q=88",
@@ -1915,6 +1925,9 @@ function setModalVisual(type,label,customSrc){
  const img=document.getElementById("modalImage"), hero=document.getElementById("modalHero"), tag=document.getElementById("modalHeroLabel");
  if(!img||!hero)return;
  const src=customSrc||modalPhotos[type]||modalPhotos["Personal"];
+ hero.classList.remove("photo-error");
+ img.onerror=()=>{hero.classList.add("photo-error"); hero.style.backgroundImage="linear-gradient(135deg,#eef7fb,#cfe3ed)";};
+ img.onload=()=>hero.classList.remove("photo-error");
  img.src=src; img.alt=label||"Proyecto de financiamiento";
  hero.style.backgroundImage=`linear-gradient(rgba(225,241,248,.28),rgba(225,241,248,.28)),url("${src}")`;
  tag.textContent=label||"MAX INNOVA";
@@ -1982,7 +1995,7 @@ function brandInfo(name,sector,type){
    const list=models.length?models.join(" · "):"Consulta disponibilidad de modelos y versiones al realizar tu cotización.";
    setMarketInfo("MARCA, MODELOS 2026 Y FINANCIAMIENTO",`${marketNotes[name]||"Consulta los modelos 2026 disponibles en nuestro catálogo."}<br><br><b>Modelos 2026 disponibles en el catálogo MAX INNOVA:</b> ${safe(list)}<div class="modal-rich-grid"><div class="modal-rich-item"><b>¿QUÉ PUEDES COTIZAR?</b><span>Unidad nueva o proyecto vehicular conforme al modelo, versión, precio y aportación del cliente.</span></div><div class="modal-rich-item"><b>¿QUÉ SE EVALÚA?</b><span>Perfil del solicitante, monto solicitado, aportación, documentación y condiciones de la operación.</span></div></div>`,["MODELOS 2026","FINANCIAMIENTO VEHICULAR","SUJETO A EVALUACIÓN"]);
    customPhoto=brandDeliveryPhotos[name]||vehicleDeliveryPhotos[stableIndex(name,vehicleDeliveryPhotos.length)];
-   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent=`REFERENCIA VISUAL · ${name.toUpperCase()} · ENTREGA / AGENCIA`;
+   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent=`MÉXICO · ${name.toUpperCase()} · ENTREGA / AGENCIA`;
 
  }else if(type==="Patrimonial / Vivienda"){
    const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent="REFERENCIA VISUAL · VIVIENDA Y PATRIMONIO";
@@ -2001,9 +2014,9 @@ function brandInfo(name,sector,type){
    const p=platformProfiles[name]||platformProfiles["Uber"];
    modalText.textContent=name==="Taxi de sitio" ? p.text : `${name} se muestra como referencia para proyectos de movilidad y generación de ingresos. La aparición de la plataforma no implica convenio, afiliación ni representación.`;
    setModalDetails(type);
-   setMarketInfo("PLAN PREFERENCIAL PARA PLATAFORMAS",`${p.text}<div class="modal-rich-grid"><div class="modal-rich-item"><b>VEHÍCULOS / UNIDADES DE REFERENCIA</b><span>${p.vehicles}</span></div><div class="modal-rich-item"><b>OBJETIVO DEL PLAN</b><span>Facilitar la adquisición de una unidad que pueda utilizarse como herramienta de trabajo y generación de ingresos.</span></div></div><div class="modal-plan-highlight"><b>PLAN PREFERENCIAL MAX INNOVA</b><span>Se pueden evaluar solicitudes de personas con historial en Buró de Crédito. No implica aprobación automática. La autorización, aportación, plazo y demás condiciones se determinan en la evaluación. Cuando el perfil de riesgo lo requiera, el financiamiento puede quedar condicionado a la instalación y permanencia de un dispositivo de rastreo en la unidad durante la vigencia del crédito.</span></div>`,p.tags);
+   setMarketInfo("PLAN PREFERENCIAL PARA PLATAFORMAS",`${p.text}<div class="modal-rich-grid"><div class="modal-rich-item"><b>VEHÍCULOS / UNIDADES DE REFERENCIA</b><span>${p.vehicles}</span></div><div class="modal-rich-item"><b>OBJETIVO DEL PLAN</b><span>Facilitar la adquisición de una unidad que pueda utilizarse como herramienta de trabajo y generación de ingresos.</span></div></div><div class="modal-plan-highlight"><b>PLAN PREFERENCIAL MAX INNOVA</b><span>Plan enfocado en personas que buscan una unidad como herramienta de trabajo. Se pueden evaluar solicitudes aun con historial en Buró de Crédito; no implica aprobación automática. La autorización, aportación, plazo y demás condiciones se determinan en la evaluación. Cuando el perfil de riesgo lo requiera, el financiamiento puede quedar condicionado a la instalación y permanencia de un dispositivo de rastreo en la unidad durante la vigencia del crédito.</span></div>`,p.tags);
    customPhoto=platformContextPhotos[name]||platformPhotos[stableIndex(name,platformPhotos.length)];
-   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent=`REFERENCIA VISUAL · ${name.toUpperCase()} · ACTIVIDAD EN PLATAFORMA`;
+   const cap=document.getElementById("modalPhotoCaption"); if(cap)cap.textContent=`ACTIVIDAD EN MÉXICO · ${name.toUpperCase()}`;
  }else{
    modalText.textContent=`${name} se muestra como referencia dentro del sector ${sector}. MAX INNOVA puede evaluar solicitudes relacionadas con este tipo de proyecto.`;
    setModalDetails(type);
