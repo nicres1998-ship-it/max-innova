@@ -679,14 +679,14 @@ input,select,textarea,button{max-width:100%}
 <style id="v84-photo-fallback">
 .modal-hero{background-color:#dfeef5!important}
 .modal-hero img{min-height:260px}
-.modal-hero.photo-error img{display:none!important}
+
 
 </style>
 
 <style id="v85-photo-fix">
 .modal-hero{height:320px!important;min-height:320px!important;overflow:hidden!important}
-.modal-hero img{width:100%!important;height:100%!important;min-height:0!important;object-fit:cover!important;object-position:center!important}
-.modal-hero.photo-error:after{display:none!important}
+.modal-hero img{width:100%!important;height:100%!important;min-height:0!important;object-fit:contain!important;object-position:center!important}
+
 @media(max-width:600px){.modal-hero{height:220px!important;min-height:220px!important}}
 </style>
 
@@ -961,11 +961,7 @@ input,select,textarea,button{max-width:100%}
 
 
 <style id="max-innova-v88-modal-photo-fail">
-.modal-hero.photo-error{
-  display:none!important;
-  height:0!important;
-  min-height:0!important;
-}
+
 </style>
 
 
@@ -982,6 +978,199 @@ input,select,textarea,button{max-width:100%}
 }
 @media(max-width:520px){
  .couple-photo{aspect-ratio:3/4!important;min-height:0!important}
+}
+</style>
+
+
+<style id="max-innova-v90-modal-photo">
+.modal-hero{
+  display:block!important;
+  position:relative!important;
+  width:100%!important;
+  height:330px!important;
+  min-height:330px!important;
+  overflow:hidden!important;
+  background:#eaf4f8!important;
+}
+.modal-hero.photo-error{
+  display:block!important;
+  height:330px!important;
+  min-height:330px!important;
+  background:linear-gradient(135deg,#eef7fb,#d5e8f1)!important;
+}
+
+.modal-hero img{
+  display:block!important;
+  position:relative!important;
+  z-index:2!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  background:#eef6f9!important;
+}
+
+@media(max-width:700px){
+  .modal-hero,
+  .modal-hero.photo-error{
+    height:240px!important;
+    min-height:240px!important;
+  }
+  .modal-hero img{
+    object-fit:contain!important;
+    object-position:center center!important;
+  }
+}
+</style>
+
+
+<style id="max-innova-v91-mobile-sticky">
+/* Fallback de fotografía */
+.modal-hero.showing-logo{
+  background:#fff!important;
+  height:260px!important;
+  min-height:260px!important;
+}
+.modal-hero.showing-logo img{
+  display:block!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  padding:28px!important;
+  background:#fff!important;
+}
+
+/* Móvil: cabecera fija, navegación sencilla y foto sin hueco */
+@media(max-width:900px){
+  header{
+    position:sticky!important;
+    top:0!important;
+    z-index:9999!important;
+    background:#fff!important;
+    box-shadow:0 5px 18px rgba(0,40,70,.14)!important;
+  }
+  .nav{
+    background:#fff!important;
+    padding:6px 10px 7px!important;
+    gap:5px 8px!important;
+  }
+  .logo{
+    height:42px!important;
+    object-fit:contain!important;
+  }
+  .menu{
+    scroll-snap-type:x mandatory!important;
+    scroll-behavior:smooth!important;
+    overscroll-behavior-x:contain!important;
+    padding:5px 4px!important;
+  }
+  .menu a{
+    scroll-snap-align:start!important;
+    min-height:34px!important;
+    padding:7px 11px!important;
+  }
+  .advisor-access,.account{
+    min-height:34px!important;
+  }
+
+  /* Elimina el espacio blanco bajo la pareja */
+  .couple{
+    display:block!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  .couple-photo{
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    aspect-ratio:auto!important;
+    background-image:url("pareja.png")!important;
+    background-size:cover!important;
+    background-position:center top!important;
+    background-repeat:no-repeat!important;
+    padding:0!important;
+    margin:0!important;
+  }
+  /* usa una altura proporcional real, sin bloque sobrante */
+  .couple-photo:before{
+    content:""!important;
+    display:block!important;
+    padding-top:66.6667%!important;
+  }
+  .couple-copy{
+    margin:0!important;
+  }
+}
+@media(max-width:520px){
+  .nav{
+    display:grid!important;
+    grid-template-columns:105px 1fr!important;
+    align-items:center!important;
+  }
+  .logo{
+    width:105px!important;
+    height:38px!important;
+    margin:0!important;
+  }
+  .nav>div:last-child{
+    width:100%!important;
+    justify-content:flex-end!important;
+    gap:4px!important;
+  }
+  .advisor-access,.account{
+    flex:0 1 auto!important;
+    max-width:none!important;
+    padding:6px 7px!important;
+    font-size:7.5px!important;
+  }
+  .menu{
+    grid-column:1/-1!important;
+    width:100%!important;
+    position:relative!important;
+  }
+  .menu a{
+    font-size:8.5px!important;
+  }
+  .couple-photo:before{
+    padding-top:72%!important;
+  }
+}
+</style>
+
+
+<style id="max-innova-v92-contextual-style">
+.modal-hero.context-fallback{
+  display:block!important;
+  background:#f4fafc!important;
+}
+.modal-hero.context-fallback img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  padding:0!important;
+  background:#f4fafc!important;
+}
+</style>
+
+
+<style id="max-innova-v93-ribbon-controls">
+.ribbon-control-wrap{position:relative!important}
+.ribbon-nav-btn{
+ position:absolute!important;top:50%!important;transform:translateY(-50%)!important;
+ z-index:30!important;width:42px!important;height:42px!important;border-radius:50%!important;
+ border:1px solid rgba(255,255,255,.75)!important;background:rgba(255,255,255,.94)!important;
+ color:#064e73!important;font-size:25px!important;font-weight:900!important;line-height:1!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ box-shadow:0 5px 18px rgba(0,35,60,.22)!important;cursor:pointer!important;
+}
+.ribbon-nav-btn.prev{left:8px!important}.ribbon-nav-btn.next{right:8px!important}
+.ribbon-nav-btn:hover,.ribbon-nav-btn:focus{background:#fff!important;transform:translateY(-50%) scale(1.06)!important}
+@media(max-width:700px){
+ .ribbon-nav-btn{width:36px!important;height:36px!important;font-size:21px!important}
+ .ribbon-nav-btn.prev{left:4px!important}.ribbon-nav-btn.next{right:4px!important}
 }
 </style>
 
@@ -2224,8 +2413,8 @@ function setModalVisual(type,label,customSrc){
  const src=customSrc||modalPhotos[type]||modalPhotos["Personal"];
  hero.style.backgroundImage="linear-gradient(135deg,#edf7fb,#d7e8f1)";
  img.alt=label||"Proyecto de financiamiento";
- img.onload=()=>{hero.classList.remove("photo-error");hero.style.display="block";hero.style.backgroundImage=`linear-gradient(rgba(225,241,248,.18),rgba(225,241,248,.18)),url("${src}")`;};
- img.onerror=()=>{hero.classList.add("photo-error");hero.style.backgroundImage="none";};
+ img.onload=()=>{hero.classList.remove("photo-error");hero.style.display="block";hero.style.backgroundImage="none";};
+ img.onerror=()=>{hero.style.display="block";};
  img.src=src;
  tag.textContent=label||"MAX INNOVA";
  hero.classList.remove("visual-in"); void hero.offsetWidth; hero.classList.add("visual-in");
@@ -2949,5 +3138,161 @@ document.getElementById("privacyOverlay")?.addEventListener("click",e=>{if(e.tar
  $('publicQuoteMode')?.addEventListener('click',()=>setMode(false));
  setMode(false);
 })();
-</script></body>
+</script>
+
+
+
+<script id="max-innova-v92-contextual-fallback">
+document.addEventListener("DOMContentLoaded",function(){
+  function svgData(kind,label){
+    const icons={
+      auto:'<path d="M16 55h68l-7-20c-2-6-7-10-13-10H36c-6 0-11 4-13 10l-7 20Zm5 0v15m58-15v15M27 70h8m30 0h8M22 55h56" fill="none" stroke="#0b5f86" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>',
+      home:'<path d="M15 47 50 18l35 29v36H60V60H40v23H15V47Z" fill="none" stroke="#0b5f86" stroke-width="6" stroke-linejoin="round"/>',
+      business:'<path d="M18 40h64l-5-18H23l-5 18Zm5 0v42h54V40M35 82V58h30v24" fill="none" stroke="#0b5f86" stroke-width="6" stroke-linejoin="round"/>',
+      platform:'<path d="M19 57h62l-7-20c-2-6-7-9-13-9H39c-6 0-11 3-13 9l-7 20Zm6 0v14m50-14v14M31 71h8m22 0h8" fill="none" stroke="#0b5f86" stroke-width="6" stroke-linecap="round"/>'
+    };
+    const icon=icons[kind]||icons.business;
+    const safe=(label||"Referencia").replace(/[&<>"]/g,"");
+    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+      <rect width="900" height="420" rx="28" fill="#f4fafc"/>
+      <circle cx="450" cy="155" r="78" fill="#e0f1f7"/>
+      <g transform="translate(400 105)">${icon}</g>
+      <text x="450" y="275" text-anchor="middle" font-family="Arial,sans-serif" font-size="32" font-weight="700" fill="#073e5a">${safe}</text>
+      <text x="450" y="316" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="600" fill="#52798b">Referencia de ${kind==="auto"?"marca":kind==="home"?"vivienda":kind==="platform"?"plataforma":"negocio"}</text>
+    </svg>`;
+    return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
+  }
+
+  function contextFor(img){
+    const modal=img.closest(".modal");
+    const text=((modal?modal.innerText:"")+" "+(img.alt||"")).toLowerCase();
+    let kind="business";
+    if(/nissan|toyota|chevrolet|volkswagen|kia|mazda|honda|hyundai|automotriz|vehículo|vehiculo/.test(text)) kind="auto";
+    else if(/uber|didi|indrive|rappi|taxi|plataforma/.test(text)) kind="platform";
+    else if(/vivienda|casa|departamento|inmueble|hogar/.test(text)) kind="home";
+    let label=(img.alt||"").trim();
+    const title=modal && modal.querySelector(".modal-title,h2,h3,[data-modal-title]");
+    if(title && title.textContent.trim()) label=title.textContent.trim();
+    return {kind,label:label||"Referencia"};
+  }
+
+  function install(img){
+    if(!img || img.dataset.v92==="1")return;
+    img.dataset.v92="1";
+    const hero=img.closest(".modal-hero");
+    img.addEventListener("error",function(){
+      if(img.dataset.contextFallback!=="1"){
+        const c=contextFor(img);
+        img.dataset.contextFallback="1";
+        img.src=svgData(c.kind,c.label);
+        if(hero){
+          hero.style.display="block";
+          hero.classList.remove("photo-error");
+          hero.classList.add("context-fallback");
+        }
+      }else if(hero){
+        hero.style.display="none";
+      }
+    });
+    img.addEventListener("load",function(){
+      if(hero) hero.style.display="block";
+    });
+  }
+
+  document.querySelectorAll(".modal-hero img").forEach(install);
+  new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
+    if(n.nodeType!==1)return;
+    if(n.matches&&n.matches(".modal-hero img"))install(n);
+    if(n.querySelectorAll)n.querySelectorAll(".modal-hero img").forEach(install);
+  }))).observe(document.body,{childList:true,subtree:true});
+});
+</script>
+
+
+<script id="max-innova-v93-ribbon-controls">
+document.addEventListener("DOMContentLoaded",function(){
+  /* Detecta las cintas horizontales por su comportamiento, sin alterar sus tarjetas. */
+  const candidates=[...document.querySelectorAll("body *")].filter(el=>{
+    if(el.children.length<3)return false;
+    const cs=getComputedStyle(el);
+    return (cs.overflowX==="auto"||cs.overflowX==="scroll"||el.scrollWidth>el.clientWidth+80)
+      && el.scrollWidth>el.clientWidth+80;
+  });
+
+  const ribbons=[];
+  candidates.forEach(el=>{
+    if(ribbons.some(r=>r.contains(el)||el.contains(r)))return;
+    ribbons.push(el);
+  });
+
+  ribbons.forEach(track=>{
+    if(track.dataset.v93Controls==="1")return;
+    track.dataset.v93Controls="1";
+    track.style.scrollBehavior="smooth";
+
+    let wrap=track.parentElement;
+    if(!wrap)return;
+    wrap.classList.add("ribbon-control-wrap");
+
+    const prev=document.createElement("button");
+    const next=document.createElement("button");
+    prev.type=next.type="button";
+    prev.className="ribbon-nav-btn prev";
+    next.className="ribbon-nav-btn next";
+    prev.innerHTML="&#8249;";
+    next.innerHTML="&#8250;";
+    prev.setAttribute("aria-label","Ver anteriores");
+    next.setAttribute("aria-label","Ver siguientes");
+    wrap.append(prev,next);
+
+    const amount=()=>Math.max(260,Math.round(track.clientWidth*.72));
+    prev.onclick=()=>track.scrollBy({left:-amount(),behavior:"smooth"});
+    next.onclick=()=>track.scrollBy({left: amount(),behavior:"smooth"});
+
+    /* Si la cinta original se anima automáticamente, al poner cursor/tocar se pausa. */
+    const moving=track.querySelector(":scope > *")||track;
+    const pause=()=>{
+      track.dataset.userPaused="1";
+      moving.style.animationPlayState="paused";
+      track.querySelectorAll("*").forEach(x=>{
+        if(getComputedStyle(x).animationName!=="none")x.style.animationPlayState="paused";
+      });
+    };
+    const resume=()=>{
+      if(track.dataset.userPaused==="1"){
+        moving.style.animationPlayState="running";
+        track.querySelectorAll("*").forEach(x=>{
+          if(getComputedStyle(x).animationName!=="none")x.style.animationPlayState="running";
+        });
+        track.dataset.userPaused="0";
+      }
+    };
+    track.addEventListener("mouseenter",pause);
+    track.addEventListener("mouseleave",resume);
+    track.addEventListener("touchstart",pause,{passive:true});
+    track.addEventListener("pointerdown",pause);
+    prev.addEventListener("mouseenter",pause); next.addEventListener("mouseenter",pause);
+
+    /* Rueda horizontal y arrastre manual. */
+    track.addEventListener("wheel",e=>{
+      if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){
+        e.preventDefault(); pause(); track.scrollLeft+=e.deltaY;
+      }
+    },{passive:false});
+
+    let down=false,startX=0,startScroll=0;
+    track.addEventListener("pointerdown",e=>{
+      down=true;startX=e.clientX;startScroll=track.scrollLeft;
+      try{track.setPointerCapture(e.pointerId)}catch(_){}
+    });
+    track.addEventListener("pointermove",e=>{
+      if(down)track.scrollLeft=startScroll-(e.clientX-startX);
+    });
+    track.addEventListener("pointerup",()=>down=false);
+    track.addEventListener("pointercancel",()=>down=false);
+  });
+});
+</script>
+
+</body>
 </html>
