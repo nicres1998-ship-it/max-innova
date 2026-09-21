@@ -561,6 +561,61 @@ body{position:relative;overflow-x:hidden}
 /* V66 · Cotizador cliente + selección elegante */
 #scenarioGrid{gap:12px!important}.scenario-card{position:relative!important;border:1px solid #d6e6ee!important;border-radius:16px!important;background:linear-gradient(145deg,#fff,#f5fafc)!important;padding:17px!important;box-shadow:0 8px 22px rgba(0,52,95,.07)!important;transition:.2s ease!important;color:#173b52!important}.scenario-card:hover{transform:translateY(-2px);border-color:#7fcce2!important}.scenario-card.quote-main{border:2px solid #0a7da8!important;background:linear-gradient(145deg,#eefaff,#fff)!important;box-shadow:0 12px 28px rgba(0,105,150,.15)!important}.scenario-card.quote-main:after{content:'SELECCIONADO';position:absolute;right:12px;top:10px;font-size:8px;font-weight:900;letter-spacing:1px;color:#08749b;background:#dff6fc;padding:5px 8px;border-radius:999px}.scenario-card small{color:#537486!important}.scenario-card strong{color:#00345f!important}.public-auto-box{display:none;margin-top:14px;padding:18px;border:1px solid #d7e9f1;border-radius:16px;background:#f8fcfe}.public-auto-box.show{display:block}.public-auto-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.public-auto-grid .field:last-child{grid-column:1/-1}@media(max-width:600px){.public-auto-grid{grid-template-columns:1fr}}
 </style>
+
+<style id="max-innova-mobile-v80">
+html,body{max-width:100%;overflow-x:hidden}
+*,*::before,*::after{box-sizing:border-box}
+img,video,canvas,svg,iframe{max-width:100%}
+img,video,canvas,svg{height:auto}
+input,select,textarea,button{max-width:100%}
+.container{width:min(100% - 32px,1180px);margin-left:auto!important;margin-right:auto!important}
+.info-card,.mi-branch,.modal-card,.info-card *,.mi-branch *,.modal-card *{overflow-wrap:anywhere}
+
+@media(max-width:900px){
+ .hero-grid,.split,.two-col,.about-grid,.contact-grid{grid-template-columns:1fr!important}
+ .info-grid,.mi-branches,.plans,.plan-grid,.quote-plans{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:640px){
+ body{font-size:15px;line-height:1.55}
+ .container{width:calc(100% - 28px)!important}
+ section,.section{padding-top:46px!important;padding-bottom:46px!important}
+ .nav{min-height:66px!important;padding:9px 14px!important;gap:8px!important;flex-wrap:wrap!important}
+ .logo img{max-width:142px!important;height:auto!important}
+ .menu{order:3;width:100%;display:flex!important;overflow-x:auto!important;white-space:nowrap!important;gap:6px!important;padding:6px 0 2px!important;scrollbar-width:none}
+ .menu::-webkit-scrollbar{display:none}
+ .menu a{flex:0 0 auto!important;font-size:10px!important;padding:8px 9px!important}
+ .account{font-size:10px!important;padding:9px 10px!important;white-space:nowrap}
+ h1,.hero h1{font-size:clamp(34px,10vw,50px)!important;line-height:1.02!important}
+ h2,.title{font-size:clamp(27px,8vw,38px)!important;line-height:1.08!important}
+ .hero-grid,.split,.two-col,.about-grid,.contact-grid{display:grid!important;grid-template-columns:1fr!important;gap:24px!important}
+ .hero img{max-height:360px!important;object-fit:contain!important}
+ .hero-actions,.actions,.button-row{display:flex!important;flex-direction:column!important;gap:10px!important}
+ .hero-actions .btn,.actions .btn,.button-row .btn{width:100%!important}
+ .info-grid,.mi-branches,.plans,.plan-grid,.quote-plans,.cards,.services-grid,.steps-grid{grid-template-columns:1fr!important}
+ .info-card,.mi-branch{width:100%!important;min-height:0!important;padding:18px!important;transform:none!important}
+ .mi-fiscal-verified{grid-template-columns:42px 1fr!important;gap:12px!important}
+ form,.form-grid,.quote-grid,.vehicle-grid,.fields-grid,.manual-row,.manual-fields{grid-template-columns:1fr!important}
+ input,select,textarea{width:100%!important;min-height:44px!important;font-size:16px!important}
+ textarea{min-height:100px!important}
+ .table-wrap,.table-responsive,.amortization-wrap{width:100%!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+ table{min-width:620px}
+ .modal,.overlay,.dialog-overlay{padding:12px!important}
+ .modal-card,.dialog,.modal-content{width:100%!important;max-width:100%!important;max-height:88dvh!important;overflow-y:auto!important;margin:auto!important;border-radius:18px!important}
+ #mi-map,.map,.map-container,.leaflet-container{width:100%!important;min-height:340px!important;height:52vh!important;max-height:480px!important}
+ .leaflet-popup-content{max-width:220px!important;margin:12px!important}
+ .qr img,.qr-code img{max-width:160px!important}
+ footer .container,.footer-grid{grid-template-columns:1fr!important}
+}
+@media(max-width:390px){
+ .container{width:calc(100% - 22px)!important}
+ .nav{padding-left:10px!important;padding-right:10px!important}
+ .logo img{max-width:125px!important}
+ .account{padding:8px!important;font-size:9px!important}
+ h1,.hero h1{font-size:32px!important}
+ h2,.title{font-size:27px!important}
+}
+</style>
+
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -696,7 +751,7 @@ No sustituir el diseño base al hacer cambios posteriores.
 <div class="form-grid">
 <div class="field"><label>MARCA</label><select id="vehMarca"><option value="">Selecciona una marca</option></select></div>
 <div class="field"><label>MODELO / SUBMARCA</label><select disabled="" id="vehModelo"><option value="">Primero selecciona la marca</option></select></div>
-<div class="field"><label>AÑO</label><select id="vehAnio"><option value="">Selecciona</option><option>2023</option><option>2024</option><option>2025</option><option>2026</option><option value="2027">2027 · PROVISIONAL</option><option value="__manual__">OTRO / CAPTURAR MANUAL</option></select><input id="vehAnioManual" class="hidden" type="number" min="1900" max="2100" placeholder="Escribe el año" style="margin-top:8px"/></div>
+<div class="field"><label>AÑO</label><select id="vehAnio"><option value="">Selecciona</option><option>2023</option><option>2024</option><option>2025</option><option>2026</option><option value="2027">2027</option><option value="__manual__">OTRO / CAPTURAR MANUAL</option></select><input id="vehAnioManual" class="hidden" type="number" min="1900" max="2100" placeholder="Escribe el año" style="margin-top:8px"/></div>
 <div class="field"><label>VERSIÓN</label><input id="vehVersion" list="vehVersionList" placeholder="Ej. XLE CVT"/><datalist id="vehVersionList"></datalist></div>
 <div class="field"><label>TRANSMISIÓN</label><select id="vehTransmision"><option value="">Selecciona</option><option>Manual</option><option>Automática</option><option>CVT</option><option>DCT</option><option>Eléctrica de una velocidad</option><option value="__manual__">OTRA / CAPTURAR MANUAL</option></select><input id="vehTransmisionManual" class="hidden" placeholder="Escribe la transmisión" style="margin-top:8px"/></div>
 <div class="field"><label>COLOR</label><input id="vehColor" list="vehColorList" placeholder="Escribe o selecciona el color"/><datalist id="vehColorList"><option>Blanco</option><option>Blanco Perlado</option><option>Negro</option><option>Gris</option><option>Plata</option><option>Azul</option><option>Rojo</option><option>Verde</option><option>Café</option><option>Beige</option></datalist><small class="help">También puedes escribir cualquier color manualmente.</small></div>
@@ -711,9 +766,9 @@ No sustituir el diseño base al hacer cambios posteriores.
 </div>
 <button class="catalog-manual-btn" id="vehicleManualBtn" type="button">¿NO APARECE? CAPTURAR MARCA Y MODELO MANUALMENTE</button>
 <div class="manual-vehicle-fields" id="manualVehicleFields"><div class="form-grid"><div class="field"><label>MARCA MANUAL</label><input id="vehMarcaManual" placeholder="Escribe la marca"/></div><div class="field"><label>MODELO MANUAL</label><input id="vehModeloManual" placeholder="Escribe el modelo o submarca"/></div></div></div>
-<div class="catalog-status" id="vehicleCatalogStatus">Cargando catálogo automotriz…</div><div class="catalog-status" id="vehicleCatalogProvenance" style="margin-top:7px">CONTROL V10: año, versión, transmisión y precio sólo se muestran cuando existe un registro específico. Sin datos confirmados, se habilita captura manual.</div>
+<div class="catalog-status" id="vehicleCatalogStatus">Cargando catálogo automotriz…</div><div class="catalog-status" id="vehicleCatalogProvenance" style="margin-top:7px">Si no encuentras tu vehículo, puedes capturar sus datos manualmente.</div>
 <div class="vehicle-actions"><button class="btn btn-soft" id="vehicleSheetBtn" type="button">DESCARGAR FICHA DEL VEHÍCULO</button></div>
-<p class="vehicle-mini">Años 2023–2026 corresponden a la base operativa. Las opciones 2027 sólo deben mostrarse cuando exista disponibilidad o información confirmada para el modelo correspondiente.</p>
+<p class="vehicle-mini">Selecciona los datos de tu vehículo. Si alguna opción no aparece, utiliza la captura manual.</p>
 </div>
 </div>
 <p class="help"><strong>¿Cómo deseas presentar tu documentación?</strong></p>
@@ -780,7 +835,7 @@ No sustituir el diseño base al hacer cambios posteriores.
 <div class="container finance-grid">
 <div class="finance-copy"><div class="kicker">COTIZADOR MAX INNOVA</div><h2>Compara cuatro escenarios antes de solicitar.</h2><div class="editorial-line"></div><p>Selecciona tu unidad, captura el precio real de tu distribuidor si ya lo conoces e indica el monto de la operación. La aportación inicia en 12% y se descuenta para obtener el monto real a financiar y puedes aumentarla para comparar.</p></div>
 <div class="finance-card">
-<div class="quote-actions" style="margin-bottom:16px;justify-content:space-between"><div><button class="btn btn-blue" id="publicQuoteMode" type="button">COTIZADOR PARA CLIENTES</button></div><span id="quoteModeBadge" style="font-size:10px;font-weight:900;letter-spacing:1px;color:#607b8e">MODO PÚBLICO</span></div><div class="quote-form-section" id="publicCreditSection"><h3>1. ¿Para qué necesitas tu crédito?</h3><p>Realiza una simulación general. No necesitas elegir un vehículo para conocer tus opciones.</p><div class="quote-form-grid"><div class="field full"><label>DESTINO DEL CRÉDITO *</label><select id="quotePurpose"><option value="">Selecciona</option><option>Automóvil</option><option>Negocio / capital de trabajo</option><option>Equipo o maquinaria</option><option>Vivienda / mejoras</option><option>Gastos personales</option><option>Servicios profesionales</option><option>Otro</option></select></div></div><div class="public-auto-box" id="publicAutoVehicle"><h3 style="margin-top:0">Datos del vehículo que buscas</h3><p>Estos datos son informativos. Un asesor podrá preparar después la cotización oficial con la unidad y fotografía exactas.</p><div class="public-auto-grid"><div class="field"><label>AÑO *</label><input id="publicVehYear" inputmode="numeric" placeholder="Ej. 2026"/></div><div class="field"><label>MARCA *</label><input id="publicVehBrand" placeholder="Ej. Nissan"/></div><div class="field"><label>MODELO / SUBMARCA *</label><input id="publicVehModel" placeholder="Ej. Kicks"/></div><div class="field"><label>VERSIÓN *</label><input id="publicVehVersion" placeholder="Ej. Advance"/></div><div class="field"><label>TRANSMISIÓN *</label><input id="publicVehTransmission" placeholder="Automática, manual, CVT..."/></div><div class="field"><label>COLOR *</label><input id="publicVehColor" placeholder="Color que desea"/></div></div></div></div><div class="quote-form-section" id="advisorVehicleSection" style="display:none"><h3>1. Vehículo y valor de referencia</h3><p>El precio de catálogo es únicamente una referencia. El precio del distribuidor tiene prioridad cuando lo captures.</p><div class="quote-form-grid">
+<div class="quote-actions" style="margin-bottom:16px;justify-content:space-between"><div><button class="btn btn-blue" id="publicQuoteMode" type="button">COTIZADOR PARA CLIENTES</button></div><span id="quoteModeBadge" style="font-size:10px;font-weight:900;letter-spacing:1px;color:#607b8e">COTIZACIÓN EN LÍNEA</span></div><div class="quote-form-section" id="publicCreditSection"><h3>1. ¿Para qué necesitas tu crédito?</h3><p>Realiza una simulación general. No necesitas elegir un vehículo para conocer tus opciones.</p><div class="quote-form-grid"><div class="field full"><label>DESTINO DEL CRÉDITO *</label><select id="quotePurpose"><option value="">Selecciona</option><option>Automóvil</option><option>Negocio / capital de trabajo</option><option>Equipo o maquinaria</option><option>Vivienda / mejoras</option><option>Gastos personales</option><option>Servicios profesionales</option><option>Otro</option></select></div></div><div class="public-auto-box" id="publicAutoVehicle"><h3 style="margin-top:0">Datos del vehículo que buscas</h3><p>Estos datos son informativos. Un asesor podrá preparar después la cotización oficial con la unidad y fotografía exactas.</p><div class="public-auto-grid"><div class="field"><label>AÑO *</label><input id="publicVehYear" inputmode="numeric" placeholder="Ej. 2026"/></div><div class="field"><label>MARCA *</label><input id="publicVehBrand" placeholder="Ej. Nissan"/></div><div class="field"><label>MODELO / SUBMARCA *</label><input id="publicVehModel" placeholder="Ej. Kicks"/></div><div class="field"><label>VERSIÓN *</label><input id="publicVehVersion" placeholder="Ej. Advance"/></div><div class="field"><label>TRANSMISIÓN *</label><input id="publicVehTransmission" placeholder="Automática, manual, CVT..."/></div><div class="field"><label>COLOR *</label><input id="publicVehColor" placeholder="Color que desea"/></div></div></div></div><div class="quote-form-section" id="advisorVehicleSection" style="display:none"><h3>1. Vehículo y valor de referencia</h3><p>El precio de catálogo es únicamente una referencia. El precio del distribuidor tiene prioridad cuando lo captures.</p><div class="quote-form-grid">
 <div class="field"><label>AÑO *</label><select id="quoteVehicleYear"><option value="">Selecciona</option><option>2023</option><option>2024</option><option>2025</option><option>2026</option><option value="2027">2027 · SEGÚN DISPONIBILIDAD</option></select></div>
 <div class="field"><label>MARCA *</label><select id="quoteVehicleBrand"><option value="">Selecciona una marca</option></select></div>
 <div class="field"><label>MODELO / SUBMARCA *</label><select disabled="" id="quoteVehicleModel"><option value="">Selecciona marca</option></select></div>
@@ -790,7 +845,7 @@ No sustituir el diseño base al hacer cambios posteriores.
 <div class="field" id="quoteManualTransmissionField" style="display:none"><label>TRANSMISIÓN MANUAL</label><input id="quoteVehicleTransmissionManual" placeholder="Escribe la transmisión"/></div>
 <div class="field" id="quoteManualColorField" style="display:none"><label>COLOR MANUAL</label><input id="quoteVehicleColorManual" placeholder="Escribe el color"/></div>
 <div class="field"><label>CONDICIÓN</label><select id="quoteVehicleCondition"><option>Nuevo</option><option>Seminuevo</option></select></div>
-<div class="field"><label>PRECIO DE REFERENCIA</label><input id="quoteReferencePrice" min="0" placeholder="Se completa cuando exista en catálogo" type="number"/><small id="quotePriceSource" style="display:block;margin-top:5px;color:#68879a;font-size:9px">Sin precio verificado cargado.</small></div>
+<div class="field"><label>PRECIO DE REFERENCIA</label><input id="quoteReferencePrice" min="0" placeholder="Precio de referencia" type="number"/><small id="quotePriceSource" style="display:block;margin-top:5px;color:#68879a;font-size:9px">Puedes capturar el precio de referencia si lo conoces.</small></div>
 <div class="field"><label>PRECIO DEL DISTRIBUIDOR</label><input id="quoteDealerPrice" min="0" placeholder="Precio real de agencia / vendedor" type="number"/></div>
 <div class="field full"><label>AGENCIA / PROVEEDOR</label><input id="quoteVehicleProvider" placeholder="Agencia o proveedor, si ya lo conoce"/></div>
 <div class="quote-vehicle-preview" id="quoteVehiclePreview"><div><img alt="Logotipo de la marca" id="quoteBrandLogo"/></div><div><strong id="quoteVehicleTitle"></strong><img alt="Imagen de referencia del vehículo" id="quoteVehicleImage"/><small>Imagen ilustrativa.</small></div></div>
@@ -827,26 +882,51 @@ No sustituir el diseño base al hacer cambios posteriores.
 </div></section>
 <section class="section" id="informacion"><div class="container center">
 <div class="kicker">INFORMACIÓN</div><h2 class="title">Información y <span>transparencia.</span></h2>
-<p class="subtitle">Los datos corporativos y documentos oficiales se incorporarán una vez validados.</p>
+<p class="subtitle">Consulta información corporativa, fiscal, privacidad y nuestros canales oficiales.</p>
 <div class="info-grid">
-<div class="info-card click-info" onclick="showInfo('INFORMACIÓN FISCAL','Información fiscal','Esta sección está preparada para publicar la razón social, RFC y datos fiscales oficiales de MAX INNOVA. Los datos se integrarán cuando sean confirmados.','Personal')" onkeydown="if(event.key==='Enter')this.click()" role="button" tabindex="0"><h3>Información fiscal</h3><p>Razón social, RFC y datos fiscales de la empresa.</p><span class="pending">PENDIENTE DE INTEGRAR</span></div>
 <div class="info-card click-info" onclick="openPrivacy(event)" onkeydown="if(event.key==='Enter')openPrivacy(event)" role="button" tabindex="0"><h3>Aviso de privacidad</h3><p>Consulta el tratamiento, finalidades y mecanismos para ejercer tus derechos sobre datos personales.</p><span class="pending" style="background:#e8f6ef;color:#17643a">CONSULTAR AVISO</span></div>
-<div class="info-card click-info" onclick="showInfo('INFORMACIÓN REGULATORIA','Información regulatoria','Esta sección se encuentra reservada para información regulatoria que haya sido previamente validada. No se publicarán afirmaciones regulatorias sin confirmación.','Personal')" onkeydown="if(event.key==='Enter')this.click()" role="button" tabindex="0"><h3>Información regulatoria</h3><p>Se publicará únicamente la información que corresponda legalmente a la operación de la empresa.</p><span class="pending">PENDIENTE DE VALIDAR</span></div>
-<div class="info-card click-info" onclick="showInfo('UBICACIÓN Y HORARIOS','Atención en Aguascalientes, Ags.','Atención presencial con cita previa. Lunes a viernes de 10:00 a.m. a 5:30 p.m. Sábados únicamente con cita previa. Domingos sin servicio. Para agendar una visita es necesario contar previamente con seguimiento o información sobre el servicio de interés. Para solicitar una cita directa, comuníquese por nuestros canales oficiales. La ubicación exacta se proporciona al confirmar la cita.','Personal')" onkeydown="if(event.key==='Enter')this.click()" role="button" tabindex="0"><h3>Ubicación y horarios</h3><p><strong>Presencia nacional:</strong> Aguascalientes, Puebla, Ciudad de México, Quintana Roo y Monterrey.<br/><br/>CDMX concentra Administración, Crédito y Logística; los demás puntos brindan Atención, Ventas y Seguimiento.</p><span class="pending">ATENCIÓN CON CITA PREVIA</span></div>
-<div class="info-card click-info" onclick="showInfo('CONTACTO','Canales de contacto','Correo oficial de atención: contacto@maxinnova.mx. Los demás canales oficiales se integrarán cuando sean confirmados.','Personal')" onkeydown="if(event.key==='Enter')this.click()" role="button" tabindex="0"><h3>Contacto</h3><p>Correo oficial: <a href="mailto:contacto@maxinnova.mx"><strong>contacto@maxinnova.mx</strong></a></p><span class="pending">CORREO ACTIVO</span></div>
+<div class="info-card mi-sat-card mi-fiscal-verified">
+  <div class="mi-fiscal-badge" aria-hidden="true">✓</div>
+  <div>
+    <span class="mi-fiscal-eyebrow">DATOS CORPORATIVOS</span>
+    <h3>Información fiscal verificada</h3>
+    <p><strong>ESTRATEGIAS MAX INNOVA, S.A. DE C.V.</strong><br><span class="mi-rfc">RFC: EMI250217IP7</span></p>
+    <p class="mi-fiscal-copy">Consulta y valida nuestros datos fiscales directamente en el portal oficial del SAT.</p>
+    <a class="pending mi-sat-link" href="https://siat.sat.gob.mx/app/qr/faces/pages/mobile/validadorqr.jsf?D1=10&D2=1&D3=25080290459_EMI250217IP7" target="_blank" rel="noopener noreferrer">VALIDAR EN SAT ↗</a>
+  </div>
+</div>
+<div class="info-card click-info" onclick="showInfo('UBICACIÓN Y HORARIOS','Atención en Aguascalientes, Ags.','Atención presencial con cita previa. Lunes a viernes de 10:00 a.m. a 5:30 p.m. Sábados únicamente con cita previa. Domingos sin servicio. Para agendar una visita es necesario contar previamente con seguimiento o información sobre el servicio de interés. Para solicitar una cita directa, comuníquese por nuestros canales oficiales. La ubicación exacta se proporciona al confirmar la cita.','Personal')" onkeydown="if(event.key==='Enter')this.click()" role="button" tabindex="0"><h3>Ubicación y horarios</h3><p><strong>Presencia nacional:</strong> Aguascalientes, Puebla, Ciudad de México, Quintana Roo y Monterrey.<br/><br/>Ciudad de México concentra Administración, Crédito y Logística. <strong>Ubicación fiscal:</strong> Poza Rica de Hidalgo, Veracruz, sin atención al público y con acceso restringido.</p><span class="pending">ATENCIÓN CON CITA PREVIA</span></div>
+<div class="info-card click-info" onclick="showInfo('CONTACTO','Canales de contacto','Correo oficial de atención: contacto@maxinnova.mx. Utiliza nuestros canales oficiales para recibir atención y seguimiento.','Personal')" onkeydown="if(event.key==='Enter')this.click()" role="button" tabindex="0"><h3>Contacto</h3><p>Correo oficial: <a href="mailto:contacto@maxinnova.mx"><strong>contacto@maxinnova.mx</strong></a></p><span class="pending">CORREO ACTIVO</span></div>
 <div class="info-card click-info" onclick="showInfo('EVALUACIÓN','Proceso de evaluación','Cada solicitud se revisa conforme a la información, documentación y características del proyecto. El registro no implica aprobación.','Personal')" onkeydown="if(event.key==='Enter')this.click()" role="button" tabindex="0"><h3>Proceso de evaluación</h3><p>Conoce cómo se revisa y da seguimiento a una solicitud.</p><span class="pending">INFORMACIÓN GENERAL</span></div>
 </div>
 </div></section>
 <style>
 .mi-network-map{height:430px;border-radius:24px;overflow:hidden;border:1px solid #d7e7f0;box-shadow:0 18px 46px rgba(0,45,80,.13);background:#eef6fa}
-.mi-branches{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:22px}
-.mi-branch{position:relative;border:1px solid #d9e8f0;border-radius:19px;background:#fff;padding:18px;box-shadow:0 10px 28px rgba(0,48,82,.07);cursor:pointer;transition:.25s ease;min-height:155px}
+.mi-branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px;align-items:stretch}
+.mi-branch{position:relative;border:1px solid #d7e6ef;border-radius:22px;background:linear-gradient(180deg,#fff,#fbfdff);padding:20px;box-shadow:0 12px 32px rgba(0,48,82,.08);cursor:pointer;transition:.25s ease;min-height:185px;overflow:hidden}
 .mi-branch:hover{transform:translateY(-4px);box-shadow:0 17px 36px rgba(0,48,82,.13)}
 .mi-branch h3{margin:0 0 6px;font-size:18px}.mi-role{font-weight:800;color:#075985;font-size:12px;letter-spacing:.02em}
 .mi-branch-summary{margin-top:12px;font-size:12px;color:#64748b;line-height:1.55}
 .mi-branch-detail{display:none;margin-top:15px;padding-top:14px;border-top:1px solid #e3edf3;font-size:13px;line-height:1.65;color:#475569}
 .mi-branch.open .mi-branch-detail{display:block}.mi-more{display:inline-block;margin-top:10px;font-size:11px;font-weight:800;color:#075985}
 .mi-here{display:inline-block;margin-top:10px;padding:5px 9px;border-radius:999px;background:#e9f7ff;color:#075985;font-size:10px;font-weight:900;letter-spacing:.05em}
+.mi-sat-link{display:inline-flex!important;align-items:center;justify-content:center;text-decoration:none!important;cursor:pointer}
+.mi-fiscal-verified{position:relative;display:grid!important;grid-template-columns:48px 1fr;gap:14px;align-items:start;text-align:left!important;background:linear-gradient(145deg,#ffffff,#f3f9fc)!important;border:1px solid #cfe3ee!important;box-shadow:0 12px 34px rgba(0,48,82,.08)!important}
+.mi-fiscal-badge{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:#073b63;color:#fff;font-size:20px;font-weight:900;box-shadow:0 8px 20px rgba(7,59,99,.18)}
+.mi-fiscal-eyebrow{display:block;margin:1px 0 6px;color:#0b6f9c;font-size:9px;font-weight:900;letter-spacing:.14em}
+.mi-fiscal-verified h3{margin:0 0 10px!important;color:#0b2540}
+.mi-fiscal-verified p{margin:0 0 9px!important}
+.mi-rfc{display:inline-block;margin-top:5px;color:#0b5e85;font-weight:900;letter-spacing:.03em}
+.mi-fiscal-copy{font-size:12px!important;line-height:1.55!important;color:#64748b!important}
+.mi-fiscal-verified .mi-sat-link{margin-top:4px;background:#073b63!important;color:#fff!important;border-radius:10px!important;padding:9px 12px!important;font-size:10px!important;font-weight:900!important;letter-spacing:.04em}
+
+.mi-fiscal-card{border-color:#a9d4e8;background:linear-gradient(155deg,#ffffff,#eef8fd)}
+.mi-fiscal-card:before{content:"FISCAL";position:absolute;right:-28px;top:17px;transform:rotate(38deg);background:#073b63;color:#fff;font-size:9px;font-weight:900;letter-spacing:.12em;padding:5px 34px}
+.mi-fiscal-note{margin-top:12px;padding:11px 12px;border-radius:13px;background:#eaf6fc;color:#234c63;font-size:11px;line-height:1.55}
+.mi-fiscal-address{margin-top:12px;font-size:12px;line-height:1.6;color:#475569}
+.mi-fiscal-action{display:inline-flex;margin-top:13px;padding:9px 12px;border-radius:11px;background:#073b63;color:#fff!important;text-decoration:none;font-size:11px;font-weight:900}
+
+
 .mi-local-data{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .mi-local-data div{background:#f5f9fc;border-radius:10px;padding:9px}.mi-local-data strong{display:block;color:#063c63;font-size:14px}.mi-local-data span{font-size:10px;color:#718096}
 .mi-salary-box{margin-top:28px;border-radius:22px;padding:26px;background:linear-gradient(135deg,#062f54,#0a6496);color:#fff;box-shadow:0 16px 42px rgba(0,45,80,.16)}
@@ -931,6 +1011,16 @@ No sustituir el diseño base al hacer cambios posteriores.
 <p>Concentra los procesos internos de análisis y administración de crédito, bancarización, asignación de capital, compras, facturación, seguros, logística y programación de entregas hacia los distintos puntos de atención.</p>
 </div>
 </div>
+<div class="mi-branch mi-branch-premium mi-fiscal-card" onclick="this.classList.toggle('open')">
+<div class="mi-card-top"><span class="mi-city-dot"></span><span>POZA RICA, VER.</span></div>
+<h3>Ubicación Fiscal</h3>
+<div class="mi-auto-highlight"><small>SOLO FINES FISCALES</small><strong>Sin atención al público</strong><span>Dirección registrada para efectos fiscales y administrativos.</span></div>
+<div class="mi-fiscal-address"><strong>Av. Uno No. 413, Depto. 7, Col. Benito Juárez, C.P. 93310, Poza Rica de Hidalgo, Veracruz.</strong></div>
+<div class="mi-fiscal-note">Por seguridad, en esta ubicación se maneja información sensible. El acceso está restringido exclusivamente a socios y personal de administración autorizado. <strong>Asesores y personal de sucursales no tienen acceso.</strong></div>
+<a class="mi-fiscal-action" href="https://siat.sat.gob.mx/app/qr/faces/pages/mobile/validadorqr.jsf?D1=10&D2=1&D3=25080290459_EMI250217IP7" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">VALIDAR EN SAT ↗</a>
+<span class="mi-more">INFORMACIÓN DE SEGURIDAD +</span>
+<div class="mi-branch-detail"><p>Esta dirección corresponde únicamente a la ubicación fiscal de la empresa. No es un punto de atención, ventas, recepción de clientes ni entrega de documentación.</p></div>
+</div>
 <div class="mi-branch mi-branch-premium" onclick="this.classList.toggle('open')">
 <div class="mi-card-top"><span class="mi-city-dot"></span><span>QUINTANA ROO</span></div>
 <h3>Atención · Ventas · Seguimiento</h3>
@@ -1006,10 +1096,21 @@ No sustituir el diseño base al hacer cambios posteriores.
   [
    [21.8853,-102.2916,'Aguascalientes, Ags.','SU SUCURSAL ES AQUÍ'],
    [19.0414,-98.2063,'Puebla, Pue.','Atención, Ventas y Seguimiento'],
-   [19.4326,-99.1332,'Ciudad de México','Administración, Crédito y Logística'],
+   
    [21.1619,-86.8515,'Quintana Roo','Atención, Ventas y Seguimiento'],
+   [19.4326,-99.1332,'Ciudad de México','Administración, Crédito y Logística'],
    [25.6866,-100.3161,'Monterrey, N.L.','Atención, Ventas y Seguimiento']
   ].forEach(function(p){L.marker([p[0],p[1]]).addTo(map).bindPopup('<strong>'+p[2]+'</strong><br>'+p[3]);});
+  var fiscalAddress='Av. Uno No. 413, Depto. 7, Col. Benito Juárez, C.P. 93310, Poza Rica de Hidalgo, Veracruz.';
+  var fiscalPopup='<strong>Ubicación Fiscal</strong><br>'+fiscalAddress+'<br><b>Sin atención al público</b><br>Acceso restringido a socios y administración autorizada.';
+  fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=mx&q='+encodeURIComponent(fiscalAddress),{headers:{'Accept':'application/json'}})
+   .then(function(r){return r.json();})
+   .then(function(rows){
+     var lat=20.53315, lon=-97.45946;
+     if(rows&&rows[0]){lat=Number(rows[0].lat);lon=Number(rows[0].lon);}
+     L.marker([lat,lon]).addTo(map).bindPopup(fiscalPopup);
+   })
+   .catch(function(){L.marker([20.53315,-97.45946]).addTo(map).bindPopup(fiscalPopup);});
  }
  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initNetworkMap); else initNetworkMap();
 })();
@@ -1339,7 +1440,7 @@ async function applyQuoteVersion(){
  if(selected?.id==='manual-standard'){const src=document.getElementById('quotePriceSource');if(src)src.textContent='Versión sin registro específico: captura la versión exacta y confirma transmisión/precio con distribuidor.';}
  if(trans){const transmissions=[...new Set(String(selected?.transmision||"").split(/\s*[,/|]\s*/).filter(Boolean))];trans.disabled=!transmissions.length;trans.innerHTML=transmissions.length?'<option value="">Selecciona una transmisión</option>'+transmissions.map(t=>`<option>${safe(t)}</option>`).join(""):'<option value="">Sin transmisiones registradas para esta versión</option>';if(transmissions.length===1)trans.value=transmissions[0]}
  const ref=document.getElementById('quoteReferencePrice');if(ref&&selected){const price=Number(selected.precio_promocional||selected.precio_referencia||selected.valor_comercial_actual||selected.precio_lista_original||0);ref.value=price>0?price:'';ref.readOnly=price>0;ref.title=price>0?'Precio cargado desde el catálogo MAX INNOVA':'Captura un precio de referencia si lo conoces';}
- const src=document.getElementById('quotePriceSource');if(src){if(selected&&Number(ref?.value||0)>0){const tipo=selected.precio_promocional?'Precio promocional':selected.valor_comercial_actual?'Valor comercial actual':selected.precio_lista_original?'Precio de lista':'Precio de referencia';const estado=selected.precio_verificado?'verificado':'referencial';const fecha=selected.fecha_precio?` · ${selected.fecha_precio}`:'';src.textContent=`${tipo} · ${estado}${fecha}${selected.fuente?` · Fuente: ${selected.fuente}`:''}`;}else src.textContent='Sin precio verificado cargado. Puedes usar el precio real del distribuidor.';}
+ const src=document.getElementById('quotePriceSource');if(src){if(selected&&Number(ref?.value||0)>0){const tipo=selected.precio_promocional?'Precio promocional':selected.valor_comercial_actual?'Valor comercial actual':selected.precio_lista_original?'Precio de lista':'Precio de referencia';const estado=selected.precio_verificado?'verificado':'referencial';const fecha=selected.fecha_precio?` · ${selected.fecha_precio}`:'';src.textContent=`${tipo} · ${estado}${fecha}${selected.fuente?` · Fuente: ${selected.fuente}`:''}`;}else src.textContent='Puedes capturar el precio de referencia si lo conoces. Puedes usar el precio real del distribuidor.';}
  if(!color)return;color.disabled=true;color.innerHTML='<option value="">Cargando colores disponibles…</option>';let colors=[];if(selected?.id){const result=await db.from("max_innova_colores_catalogo").select("nombre").eq("version_id",selected.id).eq("activo",true).order("nombre");if(!result.error)colors=result.data||[]}
  color.disabled=!colors.length;color.innerHTML=colors.length?'<option value="">Selecciona un color</option>'+colors.map(c=>`<option>${safe(c.nombre)}</option>`).join(""):'<option value="">Sin colores registrados para esta versión</option>';
 }
@@ -1529,7 +1630,7 @@ async function downloadAccountStatement(){
  y+=8;doc.setFillColor(0,52,95);doc.setTextColor(255,255,255);doc.rect(18,y-5,174,8,"F");doc.text("FECHA",20,y);doc.text("REFERENCIA",52,y);doc.text("ESTATUS",110,y);doc.text("IMPORTE",160,y);y+=9;
  (s.payments||[]).forEach((p,i)=>{if(y>274){doc.addPage();y=20}if(i%2===0){doc.setFillColor(247,251,253);doc.rect(18,y-5,174,7,"F")}doc.setTextColor(45,70,85);doc.text(String(p.fecha_pago||""),20,y);doc.text(String(p.referencia||"-").slice(0,25),52,y);doc.text(String(p.estatus||""),110,y);doc.text(moneyMX(p.importe),160,y);y+=7});
  if(!(s.payments||[]).length){doc.setTextColor(80,95,105);doc.text("Sin movimientos registrados.",20,y);y+=10}
- doc.setFontSize(7.5);doc.setTextColor(80,95,105);doc.text(doc.splitTextToSize("Documento informativo generado con los movimientos registrados en MAX INNOVA. Los pagos pendientes de validación no se aplican al saldo hasta concluir su revisión administrativa.",170),20,Math.min(282,y+12));
+ doc.setFontSize(7.5);doc.setTextColor(80,95,105);doc.text(doc.splitTextToSize("Documento informativo generado con los movimientos registrados en MAX INNOVA. Los pagos se reflejan en el saldo una vez concluida su revisión administrativa.",170),20,Math.min(282,y+12));
  doc.save(`MAX-INNOVA-ESTADO-DE-CUENTA-${s.client.folio}.pdf`);
 }
 
@@ -1797,7 +1898,7 @@ solicitudForm.addEventListener("submit",async e=>{
  const docInputs=[...document.querySelectorAll(".doc-file")];
  let projectText=proyecto.value.trim();
  if(tipo.value==="Vehicular"){
-  const vehicle=[`Marca: ${vehicleFieldValue("vehMarca")||"Pendiente"}`,`Modelo: ${vehicleFieldValue("vehModelo")||"Pendiente"}`,`Año: ${vehicleFieldValue("vehAnio")||"Pendiente"}`,`Versión: ${vehicleFieldValue("vehVersion")||"Pendiente"}`,`Transmisión: ${vehicleFieldValue("vehTransmision")||"Pendiente"}`,`Color: ${vehicleFieldValue("vehColor")||"Pendiente"}`,`Condición: ${vehicleFieldValue("vehCondicion")||"Pendiente"}`,`Kilometraje: ${vehicleFieldValue("vehKilometraje")||"0"}`,`Precio: ${vehicleFieldValue("vehPrecio")||"Pendiente"}`,`Proveedor: ${vehicleFieldValue("vehProveedor")||"Pendiente"}`].join(" | ");
+  const vehicle=[`Marca: ${vehicleFieldValue("vehMarca")||"No especificado"}`,`Modelo: ${vehicleFieldValue("vehModelo")||"No especificado"}`,`Año: ${vehicleFieldValue("vehAnio")||"No especificado"}`,`Versión: ${vehicleFieldValue("vehVersion")||"No especificado"}`,`Transmisión: ${vehicleFieldValue("vehTransmision")||"No especificado"}`,`Color: ${vehicleFieldValue("vehColor")||"No especificado"}`,`Condición: ${vehicleFieldValue("vehCondicion")||"No especificado"}`,`Kilometraje: ${vehicleFieldValue("vehKilometraje")||"0"}`,`Precio: ${vehicleFieldValue("vehPrecio")||"No especificado"}`,`Proveedor: ${vehicleFieldValue("vehProveedor")||"No especificado"}`].join(" | ");
   projectText+=(projectText?"\n":"")+"VEHÍCULO: "+vehicle;
  }
  const data={folio:makeFolio(),nombre:nombre.value.trim(),telefono:telefono.value.trim(),correo:correo.value.trim(),rfc:rfc.value.trim().toUpperCase(),tipo_financiamiento:tipo.value,ciudad:ciudad.value.trim(),proyecto:projectText,modalidad_documentos:modalidad,estatus:"SOLICITUD RECIBIDA",indicaciones_cliente:"Su solicitud fue registrada correctamente. Si tiene documentación pendiente podrá complementarla durante el seguimiento."};
@@ -2234,7 +2335,7 @@ document.getElementById("invoiceForm")?.addEventListener("submit",async function
  const $=id=>document.getElementById(id);
  const money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(Number(n)||0);
  $("vehicleSheetBtn")?.addEventListener("click",async()=>{
-   const marca=vehicleFieldValue("vehMarca")||"Vehículo seleccionado", modelo=vehicleFieldValue("vehModelo")||"Modelo por definir", anio=vehicleFieldValue("vehAnio")||"Año por definir", version=vehicleFieldValue("vehVersion")||"Versión por definir";
+   const marca=vehicleFieldValue("vehMarca")||"Vehículo seleccionado", modelo=vehicleFieldValue("vehModelo")||"Modelo no especificado", anio=vehicleFieldValue("vehAnio")||"Año no especificado", version=vehicleFieldValue("vehVersion")||"Versión no especificada";
    if(!window.jspdf){alert("No fue posible preparar el PDF en este momento.");return}
    const {jsPDF}=window.jspdf,doc=new jsPDF();try{const img=new Image();img.src="https://maxinnova.mx/logo%20maxinnova.png";await new Promise((ok,no)=>{img.onload=ok;img.onerror=no});doc.addImage(img,"PNG",18,10,48,18)}catch(e){}
    doc.setFillColor(0,52,95);doc.rect(0,0,210,8,"F");doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.setFontSize(17);doc.text("FICHA TÉCNICA DEL VEHÍCULO",20,40);
@@ -2242,7 +2343,7 @@ document.getElementById("invoiceForm")?.addEventListener("submit",async function
    const logoData=await imageUrlToDataUrl(document.getElementById("vehicleBrandLogo")?.src||"");const vehicleData=await imageUrlToDataUrl(document.getElementById("vehicleModelImage")?.src||"");
    try{if(logoData)doc.addImage(logoData,logoData.includes("image/png")?"PNG":"JPEG",164,13,27,18,undefined,"FAST")}catch(e){}
    try{if(vehicleData)doc.addImage(vehicleData,vehicleData.includes("image/png")?"PNG":"JPEG",119,46,72,48,undefined,"FAST")}catch(e){}
-   const rows=[["Transmisión",vehicleFieldValue("vehTransmision")||"Por definir"],["Color",vehicleFieldValue("vehColor")||"Por definir"],["Condición",vehicleFieldValue("vehCondicion")||"Por definir"],["Kilometraje",vehicleFieldValue("vehKilometraje")||"0"],["Precio de referencia",vehicleFieldValue("vehPrecio")?money(vehicleFieldValue("vehPrecio")):"Por definir"],["Agencia / proveedor",vehicleFieldValue("vehProveedor")||"Por definir"]];let y=72;rows.forEach(([a,b],i)=>{if(i%2===0){doc.setFillColor(244,250,253);doc.rect(18,y-6,94,9,"F")}doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.text(a,21,y);doc.setFont("helvetica","normal");doc.setTextColor(35,65,82);doc.text(String(b).slice(0,24),70,y);y+=10});
+   const rows=[["Transmisión",vehicleFieldValue("vehTransmision")||"No especificado"],["Color",vehicleFieldValue("vehColor")||"No especificado"],["Condición",vehicleFieldValue("vehCondicion")||"No especificado"],["Kilometraje",vehicleFieldValue("vehKilometraje")||"0"],["Precio de referencia",vehicleFieldValue("vehPrecio")?money(vehicleFieldValue("vehPrecio")):"No especificado"],["Agencia / proveedor",vehicleFieldValue("vehProveedor")||"No especificado"]];let y=72;rows.forEach(([a,b],i)=>{if(i%2===0){doc.setFillColor(244,250,253);doc.rect(18,y-6,94,9,"F")}doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.text(a,21,y);doc.setFont("helvetica","normal");doc.setTextColor(35,65,82);doc.text(String(b).slice(0,24),70,y);y+=10});
    const sections=[["MOTOR Y DESEMPEÑO","La motorización, potencia, torque, rendimiento y tipo de combustible se mostrarán conforme a la versión exacta seleccionada."],["TRANSMISIÓN Y MANEJO","Tipo de transmisión, tracción, modos de manejo y características de conducción correspondientes a la versión."],["SEGURIDAD","Bolsas de aire, frenos, asistencias, control de estabilidad, cámara, sensores y sistemas de seguridad incluidos en la versión."],["TECNOLOGÍA Y CONECTIVIDAD","Pantalla, conectividad, audio, puertos, integración con smartphone y demás tecnología incluida."],["CONFORT Y EQUIPAMIENTO","Aire acondicionado, vestiduras, asientos, cristales, iluminación, rines y equipamiento interior/exterior de la versión."],["DIMENSIONES Y CAPACIDADES","Medidas, capacidad de pasajeros, cajuela, tanque y demás capacidades aplicables."]];
    y=112;sections.forEach(([t,d])=>{doc.setFillColor(238,248,252);doc.roundedRect(18,y-6,174,8,2,2,"F");doc.setFont("helvetica","bold");doc.setTextColor(0,52,95);doc.setFontSize(9);doc.text(t,21,y);doc.setFont("helvetica","normal");doc.setTextColor(55,75,88);doc.setFontSize(8);doc.text(doc.splitTextToSize(d,166),21,y+8);y+=28});
    doc.setFontSize(7.5);doc.setTextColor(85,100,110);doc.text(doc.splitTextToSize("La ficha definitiva se integra con las especificaciones correspondientes a la marca, modelo, año y versión exactos disponibles para el mercado aplicable. Los datos técnicos deben coincidir con la información oficial del fabricante o agencia.",170),20,278);
@@ -2266,7 +2367,7 @@ window.addEventListener("hashchange",checkAdminHash);checkAdminHash();
   {k:"VEHÍCULOS NUEVOS Y SEMINUEVOS",t:"¿YA TE IMAGINASTE ESTRENÁNDOLO?",r:"Conoce una simulación según el valor de la unidad, tu aportación y el plazo que prefieras.",p:"COTIZAR VEHÍCULO",ph:"#simulador",s:"INICIAR SOLICITUD",sh:"#portal"},
   {k:"TÚ ELIGES LA UNIDAD",t:"¿NUEVO O SEMINUEVO? TÚ ELIGES.",r:"Indica marca, modelo, año y valor estimado. Después revisa una simulación antes de registrar tu solicitud.",p:"IR AL COTIZADOR",ph:"#simulador",s:"SOLICITAR INFORMACIÓN",sh:"#contacto"},
   {k:"COMPRA CON AGENCIA O PROVEEDOR",t:"ESE AUTO QUE VISTE EN LA AGENCIA...",r:"Puedes registrar los datos de la unidad y del proveedor para que formen parte de tu solicitud.",p:"REGISTRAR MI SOLICITUD",ph:"#portal",s:"CÓMO FUNCIONA",sh:"#como-funciona"},
-  {k:"APORTACIÓN DESDE 12% EN LA SIMULACIÓN",t:"ELIGE LA APORTACIÓN QUE MEJOR SE ADAPTE A TI",r:"Ajusta monto y aportación para comparar los cuatro plazos configurados antes de continuar.",p:"AJUSTAR COTIZACIÓN",ph:"#simulador",s:"VER SOLUCIONES",sh:"#soluciones"}
+  {k:"APORTACIÓN DESDE 12% EN LA SIMULACIÓN",t:"ELIGE LA APORTACIÓN QUE MEJOR SE ADAPTE A TI",r:"Ajusta el monto y tu aportación para comparar las opciones de plazo antes de continuar.",p:"AJUSTAR COTIZACIÓN",ph:"#simulador",s:"VER SOLUCIONES",sh:"#soluciones"}
  ];
  const title=document.getElementById("miMessageTitle"),route=document.getElementById("miMessageRoute"),
  kicker=document.getElementById("miMessageKicker"),primary=document.getElementById("miMessagePrimary"),
@@ -2295,10 +2396,9 @@ window.addEventListener("hashchange",checkAdminHash);checkAdminHash();
 <button aria-label="Cerrar" class="privacy-close" onclick="closePrivacy()" type="button">×</button>
 </div>
 <div class="privacy-body">
-<div class="privacy-pending"><strong>Información corporativa pendiente de completar:</strong> razón social, domicilio del responsable y teléfono oficial. El correo oficial de contacto y privacidad ya se encuentra integrado.</div>
 <h3>I. IDENTIDAD Y DOMICILIO DEL RESPONSABLE</h3>
-<p><strong>[RAZÓN SOCIAL COMPLETA PENDIENTE]</strong>, que opera comercialmente bajo el nombre de <strong>MAX INNOVA Servicios Financieros</strong>, con domicilio en <strong>[DOMICILIO COMPLETO PENDIENTE]</strong>, será responsable del tratamiento, uso, almacenamiento y protección de los datos personales recabados de clientes, solicitantes, prospectos y usuarios.</p>
-<p>Contacto para asuntos de privacidad: <strong>contacto@maxinnova.mx</strong> · <strong>[TELÉFONO PENDIENTE]</strong>.</p>
+<p><strong>ESTRATEGIAS MAX INNOVA, S.A. DE C.V.</strong>, que opera comercialmente bajo el nombre de <strong>MAX INNOVA Servicios Financieros</strong>, con domicilio fiscal en <strong>Av. Uno No. 413, Depto. 7, Col. Benito Juárez, C.P. 93310, Poza Rica de Hidalgo, Veracruz</strong>, será responsable del tratamiento, uso, almacenamiento y protección de los datos personales recabados de clientes, solicitantes, prospectos y usuarios.</p>
+<p>Contacto para asuntos de privacidad: <strong>contacto@maxinnova.mx</strong>.</p>
 <h3>II. DATOS PERSONALES QUE PODRÁN SER RECABADOS</h3>
 <p>Según resulte necesario para cada solicitud u operación, podrán tratarse datos de identificación y contacto; datos fiscales; datos laborales y de actividad económica; datos patrimoniales y financieros; información relacionada con el financiamiento solicitado; y documentación proporcionada por el titular.</p>
 <p>Esto puede incluir nombre, firma, fecha de nacimiento, CURP, RFC, identificación oficial, domicilio, teléfono, correo electrónico, constancia de situación fiscal, ocupación, actividad económica, fuente de ingresos, comprobantes de ingresos, información patrimonial o bancaria proporcionada para la operación, monto solicitado, aportación, plazo, destino de recursos y características del bien, negocio o proyecto.</p>
@@ -2360,7 +2460,7 @@ document.getElementById("privacyOverlay")?.addEventListener("click",e=>{if(e.tar
 <script>
 (function(){
  const $=id=>document.getElementById(id); let advisor=false;
- function setMode(on){advisor=on;document.body.classList.toggle('mode-advisor',on);$('quoteModeBadge').textContent=on?'MODO ASESOR':'MODO PÚBLICO';$('advisorVehicleSection').style.display=on?'block':'none';$('publicCreditSection').style.display=on?'none':'block';document.querySelectorAll('.advisor-only').forEach(e=>e.style.display=on?'block':'none');}
+ function setMode(on){advisor=on;document.body.classList.toggle('mode-advisor',on);$('quoteModeBadge').textContent=on?'MODO ASESOR':'COTIZACIÓN EN LÍNEA';$('advisorVehicleSection').style.display=on?'block':'none';$('publicCreditSection').style.display=on?'none':'block';document.querySelectorAll('.advisor-only').forEach(e=>e.style.display=on?'block':'none');}
  $('publicQuoteMode')?.addEventListener('click',()=>setMode(false));
  setMode(false);
 })();
