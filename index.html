@@ -1232,6 +1232,7 @@ a[href*="asesores.html"],button[onclick*="asesores.html"]{display:none!important
 
 <style id="max-innova-v101-jump-style">
 #v101-jump{
+ display:none!important;
  position:fixed;right:14px;bottom:16px;z-index:9990;
  display:flex;align-items:center;gap:7px;padding:6px 7px 6px 10px;
  border-radius:22px;background:rgba(3,61,89,.93);
@@ -3340,28 +3341,21 @@ document.addEventListener("DOMContentLoaded",function(){
     next.setAttribute("aria-label","Ver siguientes");
     box.append(prev,next);
 
-    let resumeTimer=null;
-    function pauseBriefly(){
-      clearTimeout(resumeTimer);
-      track.style.animationPlayState="paused";
-      resumeTimer=setTimeout(()=>track.style.animationPlayState="running",700);
-    }
     function cardWidth(){
       const c=track.querySelector(".brand");
       return c ? c.getBoundingClientRect().width+12 : 200;
     }
     function nudge(direction){
-      pauseBriefly();
-      const current=getComputedStyle(track).transform;
-      let tx=0;
-      if(current && current!=="none"){
-        try{tx=new DOMMatrixReadOnly(current).m41}catch(e){}
-      }
-      const delta=direction*cardWidth();
-      track.animate(
-        [{transform:`translateX(${tx}px)`},{transform:`translateX(${tx+delta}px)`}],
-        {duration:300,easing:"ease-out"}
-      );
+      /* Advance the SAME running CSS animation: never pause or replace it. */
+      const anim=track.getAnimations().find(a=>a.animationName==="move") || track.getAnimations()[0];
+      if(!anim)return;
+      const timing=anim.effect?.getComputedTiming?.()||{};
+      const duration=Number(timing.duration)||42000;
+      const travel=Math.max(track.scrollWidth/2,1);
+      const jumpMs=duration*(cardWidth()/travel);
+      const now=Number(anim.currentTime)||0;
+      anim.currentTime=Math.max(0,now+(direction<0?jumpMs:-jumpMs));
+      track.style.animationPlayState="running";
     }
     prev.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();nudge(1)});
     next.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();nudge(-1)});
@@ -3369,8 +3363,8 @@ document.addEventListener("DOMContentLoaded",function(){
     /* Hover/touch only pause while interacting; movement always resumes. */
     ticker.addEventListener("mouseenter",()=>track.style.animationPlayState="paused");
     ticker.addEventListener("mouseleave",()=>track.style.animationPlayState="running");
-    ticker.addEventListener("touchstart",pauseBriefly,{passive:true});
-    ticker.addEventListener("touchend",()=>{clearTimeout(resumeTimer);resumeTimer=setTimeout(()=>track.style.animationPlayState="running",350)},{passive:true});
+    ticker.addEventListener("touchstart",()=>{track.style.animationPlayState="running"},{passive:true});
+    ticker.addEventListener("touchend",()=>{track.style.animationPlayState="running"},{passive:true});
   });
 });
 </script>
@@ -3417,7 +3411,7 @@ document.addEventListener("DOMContentLoaded",function(){
     cotizador:()=>byId("cotizador","cotiza","simulador")||textTarget(["cotizador","cotiza tu"]),
     proceso:()=>byId("como-funciona","proceso")||textTarget(["cómo funciona","como funciona","proceso"]),
     informacion:()=>byId("informacion","info")||textTarget(["información","informacion"]),
-    ubicaciones:()=>byId("ubicaciones")||textTarget(["ubicaciones"]),
+    ubicaciones:()=>byId("ubicaciones","ubicacion")||textTarget(["ubicaciones"]),
     contacto:()=>byId("contacto")||textTarget(["contacto"])
    };
    return map[key]?.()||null;
@@ -3436,5 +3430,60 @@ document.addEventListener("DOMContentLoaded",function(){
 });
 </script>
 
+
+<!-- ===== LIC. MAX · ASISTENTE INTERACTIVO V109 ===== -->
+<style id="lic-max-v108-style">
+#licMaxRoot{position:fixed;right:14px;bottom:14px;z-index:8800;font-family:Arial,Helvetica,sans-serif;color:#07385f;pointer-events:none;transition:opacity .25s,visibility .25s}
+#licMaxRoot *{box-sizing:border-box}.licmax-stage{position:relative;width:292px;height:205px;pointer-events:none}.licmax-bubble{position:absolute;right:96px;bottom:96px;width:188px;padding:12px 13px;border:1px solid #d5eaf3;border-radius:20px 20px 6px 20px;background:rgba(255,255,255,.98);box-shadow:0 16px 42px rgba(0,50,82,.18);pointer-events:auto;z-index:4;transform-origin:bottom right;animation:licBubbleIn .35s ease both;transition:.25s}.licmax-bubble strong{display:block;font-size:13px;line-height:1.18;color:#003f68;margin-bottom:5px}.licmax-bubble p{font-size:10px;line-height:1.45;color:#537487;margin:0}.licmax-bubble button{margin-top:9px;border:0;background:#e8f7fc;color:#00628f;border-radius:999px;padding:7px 10px;font-size:9px;font-weight:900;cursor:pointer}
+.licmax-character{width:102px;height:135px;position:absolute;right:5px;bottom:34px;pointer-events:auto;cursor:pointer;z-index:3;filter:drop-shadow(0 15px 18px rgba(0,50,80,.22));animation:licFloat 3.4s ease-in-out infinite;transition:right .38s cubic-bezier(.2,.8,.2,1),transform .38s,opacity .25s,filter .25s}.licmax-character svg{width:100%;height:100%;overflow:visible}.licmax-eye{transform-origin:center;animation:licBlink 5.2s infinite}.licmax-mouth{transition:.25s}.licmax-character[data-mood="guide"] .licmax-hand{animation:licPoint .75s ease-in-out infinite alternate;transform-origin:103px 104px}.licmax-character[data-mood="idea"] .licmax-bulb{opacity:1;transform:translateY(0) scale(1);animation:licBulb 1.1s ease-in-out infinite alternate}.licmax-character[data-mood="talk"] .licmax-mouth{animation:licTalk .45s ease-in-out infinite alternate}.licmax-name{position:absolute;right:2px;bottom:-2px;padding:4px 8px;border-radius:999px;background:#003f68;color:#fff;font-size:8px;font-weight:900;letter-spacing:.5px;box-shadow:0 5px 14px rgba(0,50,80,.16)}
+.licmax-jump{position:absolute;right:5px;bottom:0;pointer-events:auto;z-index:8}.licmax-jump-btn{height:42px;border:0;border-radius:999px;background:linear-gradient(135deg,#0a79a9,#003f68);color:#fff;padding:0 16px;box-shadow:0 10px 25px rgba(0,49,80,.25);font-size:11px;font-weight:900;letter-spacing:.5px;cursor:pointer;display:flex;align-items:center;gap:8px}.licmax-jump-btn b{font-size:16px;transition:.25s}.licmax-jump.open .licmax-jump-btn b{transform:rotate(180deg)}.licmax-menu{position:absolute;right:0;bottom:48px;width:220px;padding:8px;border:1px solid #d7e8ef;border-radius:18px;background:#fff;box-shadow:0 20px 52px rgba(0,44,73,.26);opacity:0;visibility:hidden;transform:translateY(10px) scale(.97);transition:.24s;pointer-events:none;z-index:20}.licmax-jump.open .licmax-menu{opacity:1;visibility:visible;transform:none;pointer-events:auto}.licmax-menu button{width:100%;border:0;background:transparent;border-radius:10px;padding:9px 10px;text-align:left;color:#0a456a;font-size:10px;font-weight:800;cursor:pointer}.licmax-menu button:hover{background:#edf8fc}.licmax-menu button span{display:inline-grid;width:22px}
+/* El panel IR A queda REALMENTE por delante y LIC. MAX se esconde parcialmente detrás. */
+.licmax-stage.menu-open .licmax-character{right:168px;transform:scale(.84) rotate(-7deg);opacity:.94;filter:drop-shadow(0 8px 10px rgba(0,50,80,.12));z-index:1}.licmax-stage.menu-open .licmax-bubble{opacity:0;visibility:hidden;transform:translateX(-12px) scale(.96)}.licmax-stage.menu-open .licmax-character:after{content:"";position:absolute;inset:0;pointer-events:none}.licmax-stage.menu-open .licmax-jump{z-index:30}
+body.licmax-modal-open #licMaxRoot{opacity:0;visibility:hidden;pointer-events:none}
+@keyframes licFloat{0%,100%{transform:translateY(0) rotate(-.6deg)}50%{transform:translateY(-8px) rotate(.6deg)}}@keyframes licBlink{0%,45%,48%,100%{transform:scaleY(1)}46%,47%{transform:scaleY(.08)}}@keyframes licPoint{to{transform:rotate(-11deg) translate(3px,-3px)}}@keyframes licBubbleIn{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}@keyframes licBulb{to{filter:drop-shadow(0 0 8px #ffd95c);transform:translateY(-2px) scale(1.08)}}@keyframes licTalk{to{transform:scaleY(.72)}}
+@media(max-width:900px){#licMaxRoot{right:8px;bottom:10px}.licmax-stage{width:248px;height:178px}.licmax-character{width:82px;height:109px;bottom:33px}.licmax-bubble{right:75px;bottom:84px;width:166px;padding:10px 11px}.licmax-bubble strong{font-size:13px}.licmax-bubble p{font-size:10px}.licmax-menu{width:200px} .licmax-stage.menu-open .licmax-character{right:148px}}
+@media(max-width:520px){#licMaxRoot{right:5px;bottom:6px}.licmax-stage{width:210px;height:154px}.licmax-character{width:68px;height:90px;bottom:31px}.licmax-name{font-size:7px}.licmax-bubble{right:60px;bottom:73px;width:143px;padding:9px 10px;border-radius:15px}.licmax-bubble strong{font-size:12px}.licmax-bubble p{font-size:9px}.licmax-bubble button{font-size:8px;padding:6px 8px}.licmax-jump-btn{height:36px;padding:0 13px;font-size:10px}.licmax-menu{bottom:41px;width:185px;max-height:65vh;overflow:auto}.licmax-menu button{padding:8px;font-size:9px}.licmax-stage.menu-open .licmax-character{right:132px;opacity:.94}}
+#licMaxRoot.safe-left{right:auto;left:14px}.safe-left .licmax-bubble{right:auto;left:96px;border-radius:20px 20px 20px 6px}.safe-left .licmax-character{right:auto;left:5px}.safe-left .licmax-jump{right:auto;left:5px}.safe-left .licmax-menu{right:auto;left:0}.safe-left .licmax-stage.menu-open .licmax-character{right:auto;left:168px;transform:scale(.84) rotate(7deg)}
+#licMaxRoot.compact .licmax-bubble{opacity:0;visibility:hidden;transform:scale(.94);pointer-events:none}#licMaxRoot.compact .licmax-stage{width:118px}.licmax-thought{position:absolute;right:92px;bottom:86px;width:76px;height:54px;border-radius:50%;background:#fff;border:1px solid #d7e9f1;box-shadow:0 10px 25px rgba(0,50,80,.14);display:none;place-items:center;font-size:30px;z-index:5;animation:licBubbleIn .3s ease both}.licmax-thought.show{display:grid}.safe-left .licmax-thought{right:auto;left:78px}
+@media(max-width:900px){#licMaxRoot.safe-left{left:8px}.safe-left .licmax-bubble{left:75px}.safe-left .licmax-stage.menu-open .licmax-character{left:148px}.licmax-thought{right:70px;bottom:72px;width:62px;height:45px;font-size:24px}.safe-left .licmax-thought{left:64px}}
+@media(max-width:520px){#licMaxRoot.safe-left{left:5px}.safe-left .licmax-bubble{left:60px}.safe-left .licmax-stage.menu-open .licmax-character{left:132px}.licmax-thought{right:56px;bottom:61px;width:52px;height:39px;font-size:20px}.safe-left .licmax-thought{left:52px}}
+@media(prefers-reduced-motion:reduce){.licmax-character,.licmax-eye,.licmax-hand,.licmax-bulb,.licmax-mouth{animation:none!important}}
+</style>
+<div id="licMaxRoot" aria-live="polite"><div class="licmax-stage" id="licMaxStage">
+ <div class="licmax-thought" id="licMaxThought" aria-hidden="true">🚘</div>
+ <div class="licmax-bubble" id="licMaxBubble"><strong id="licMaxTitle">¡Hola! Soy LIC. MAX</strong><p id="licMaxText">Soy tu asistente MAX INNOVA. ¿Qué necesitas?</p><button id="licMaxAction" type="button">VER OPCIONES</button></div>
+ <div class="licmax-character" id="licMaxCharacter" data-mood="happy" role="button" tabindex="0" aria-label="LIC. MAX, asistente de MAX INNOVA">
+ <svg viewBox="0 0 140 180" aria-hidden="true"><defs><linearGradient id="lmBody" x1="0" x2="1"><stop stop-color="#ffffff"/><stop offset=".48" stop-color="#dcebf2"/><stop offset="1" stop-color="#f9fdff"/></linearGradient><linearGradient id="lmNavy" x1="0" x2="1"><stop stop-color="#001b34"/><stop offset="1" stop-color="#07557e"/></linearGradient><radialGradient id="lmChest"><stop stop-color="#21c8ec"/><stop offset="1" stop-color="#00608d"/></radialGradient><filter id="lmGlow"><feGaussianBlur stdDeviation="1.3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+ <g class="licmax-bulb" style="opacity:0;transform:translateY(8px) scale(.7);transform-origin:108px 22px;transition:.25s"><path d="M107 16c-7 0-12 5-12 12 0 5 3 8 6 11v5h12v-5c4-3 6-7 6-11 0-7-5-12-12-12Z" fill="#ffe36b" stroke="#d39b13" stroke-width="2"/><path d="M102 49h11M103 53h9" stroke="#07577d" stroke-width="2" stroke-linecap="round"/><path d="M107 9V3M91 15l-5-5M123 15l5-5" stroke="#ffd13d" stroke-width="3" stroke-linecap="round"/></g>
+ <path d="M61 15 70 5 79 15" fill="none" stroke="#087aa8" stroke-width="5" stroke-linecap="round"/><circle cx="70" cy="5" r="3" fill="#32d4f3"/>
+ <rect x="18" y="18" width="104" height="76" rx="36" fill="url(#lmBody)" stroke="#a9c6d3" stroke-width="2"/><path d="M30 32Q70 17 110 32v44Q70 91 30 76Z" fill="url(#lmNavy)"/>
+ <path class="licmax-eye" d="M43 51q8-9 16 0" fill="none" stroke="#59e7ff" stroke-width="6" stroke-linecap="round" filter="url(#lmGlow)"/><path class="licmax-eye" d="M81 51q8-9 16 0" fill="none" stroke="#59e7ff" stroke-width="6" stroke-linecap="round" filter="url(#lmGlow)"/><path class="licmax-mouth" d="M49 66q21 19 42 0" fill="none" stroke="#59e7ff" stroke-width="4" stroke-linecap="round" filter="url(#lmGlow)"/>
+ <circle cx="17" cy="56" r="13" fill="#eef7fa" stroke="#a9c8d6" stroke-width="2"/><circle cx="123" cy="56" r="13" fill="#eef7fa" stroke="#a9c8d6" stroke-width="2"/><circle cx="17" cy="56" r="7" fill="#07577d"/><circle cx="123" cy="56" r="7" fill="#07577d"/>
+ <path d="M43 94q27-10 54 0l8 55q-35 18-70 0Z" fill="url(#lmBody)" stroke="#afc9d5" stroke-width="2"/><path d="M52 101h36l-4 31H56Z" fill="#fff" opacity=".8"/><path d="m66 99 4 6 4-6 8 17-12 13-12-13Z" fill="#063f67"/><circle cx="70" cy="139" r="14" fill="url(#lmChest)"/><text x="70" y="143" text-anchor="middle" font-family="Arial" font-size="10" font-weight="900" fill="#fff">MAX</text>
+ <path d="M43 105Q26 107 20 124" fill="none" stroke="#e6f1f5" stroke-width="13" stroke-linecap="round"/><circle cx="18" cy="129" r="8" fill="#f5fbfd" stroke="#aec9d5"/>
+ <g class="licmax-hand"><path d="M98 105q17-7 25-23" fill="none" stroke="#e6f1f5" stroke-width="13" stroke-linecap="round"/><circle cx="125" cy="78" r="8" fill="#f5fbfd" stroke="#aec9d5"/><path d="m128 75 9-10" stroke="#07577d" stroke-width="3" stroke-linecap="round"/></g><ellipse cx="53" cy="162" rx="19" ry="7" fill="#e6f1f5" stroke="#afc9d5"/><ellipse cx="89" cy="162" rx="19" ry="7" fill="#e6f1f5" stroke="#afc9d5"/>
+ </svg><span class="licmax-name">LIC. MAX</span></div>
+ <div class="licmax-jump" id="licMaxJump"><button class="licmax-jump-btn" id="licMaxJumpBtn" type="button">⌖ IR A <b>⌃</b></button><div class="licmax-menu" id="licMaxMenu"><button data-go="inicio"><span>⌂</span>Inicio</button><button data-go="soluciones"><span>▦</span>Soluciones</button><button data-go="sectores"><span>🚘</span>Marcas y sectores</button><button data-go="simulador"><span>▣</span>Cotizador</button><button data-go="portal"><span>▤</span>Solicitud</button><button data-go="como-funciona"><span>⚙</span>Cómo funciona</button><button data-go="informacion"><span>ⓘ</span>Información</button><button data-go="ubicacion"><span>⌖</span>Ubicaciones</button><button data-go="contacto"><span>✉</span>Contacto</button></div></div>
+</div></div>
+<script id="lic-max-v109-script">
+document.addEventListener('DOMContentLoaded',()=>{
+ const root=document.getElementById('licMaxRoot'),stage=document.getElementById('licMaxStage'),ch=document.getElementById('licMaxCharacter'),bubble=document.getElementById('licMaxBubble'),thought=document.getElementById('licMaxThought'),title=document.getElementById('licMaxTitle'),txt=document.getElementById('licMaxText'),act=document.getElementById('licMaxAction'),jump=document.getElementById('licMaxJump'),jumpBtn=document.getElementById('licMaxJumpBtn');if(!root)return;
+ const aliases={ubicaciones:'ubicacion',solicitud:'portal',cotizador:'simulador',proceso:'como-funciona'};const target=id=>document.getElementById(id)||document.getElementById(aliases[id]||'');
+ const go=id=>{const el=target(id);if(!el)return;const off=(document.querySelector('header')?.offsetHeight||0)+12;window.scrollTo({top:Math.max(0,el.getBoundingClientRect().top+scrollY-off),behavior:'smooth'})};
+ const messages={inicio:['¡Hola! Soy LIC. MAX','Soy tu asistente MAX INNOVA. Puedo orientarte por toda la página.','VER OPCIONES','menu','happy'],soluciones:['¿Qué solución necesitas?','Revisa las opciones y yo te llevo al siguiente paso.','VER SOLUCIONES','soluciones','guide'],sectores:['Estoy pensando en tu próximo auto…','Explora marcas y sectores. Si alguno te gusta, te acompaño al cotizador.','IR AL COTIZADOR','simulador','idea'],simulador:['¡Esto se pone interesante!','Completa los datos y revisemos juntos un escenario de financiamiento.','IR AL COTIZADOR','simulador','idea'],portal:['¿Listo para iniciar?','Registra tu solicitud y conserva tu folio para seguimiento.','IR A SOLICITUD','portal','guide'],ubicacion:['¿Buscas una oficina?','Te llevo directamente a nuestras ubicaciones.','VER UBICACIONES','ubicacion','guide'],contacto:['¿Tienes dudas?','Aquí encuentras los canales oficiales de MAX INNOVA.','IR A CONTACTO','contacto','talk'],informacion:['Se me prendió el foco','Aquí puedes consultar información corporativa, privacidad y canales oficiales.','VER INFORMACIÓN','informacion','idea']};
+ const fun={sectores:[['🚘','Creo que ya escuché un motor…','Prometo no elegir el color del auto por ti 😄','IR AL COTIZADOR','simulador','happy'],['💡','Idea financiera','Primero elegimos el proyecto; después hacemos que los números tengan sentido.','COTIZAR','simulador','idea']],simulador:[['✨','¡Me emocioné!','Cuando los números cuadran, hasta mis circuitos sonríen.','SEGUIR COTIZANDO','simulador','happy'],['💡','Chiste financiero','¿Mi interés favorito? El que tienes en cumplir tus proyectos 😄','CONTINUAR','simulador','idea']],soluciones:[['💭','Estoy calculando…','No todo proyecto usa la misma ruta. Por eso tenemos varias soluciones.','VER SOLUCIONES','soluciones','idea']],ubicacion:[['📍','No me perdí','Solo estaba calculando la ruta más corta hacia nuestras ubicaciones.','VER UBICACIONES','ubicacion','happy']],contacto:[['💡','Dato MAX','Una buena pregunta también puede ser el primer paso de un proyecto.','CONTACTAR','contacto','talk']]};
+ let current='',last=0,funTimer=null,compactTimer=null;
+ function render(m,emoji){title.textContent=m[0];txt.textContent=m[1];act.textContent=m[2];act.dataset.dest=m[3];ch.dataset.mood=m[4];thought.classList.toggle('show',!!emoji);if(emoji)thought.textContent=emoji;bubble.style.animation='none';void bubble.offsetWidth;bubble.style.animation='licBubbleIn .35s ease both';root.classList.remove('compact');clearTimeout(compactTimer);compactTimer=setTimeout(()=>{if(!jump.classList.contains('open'))root.classList.add('compact')},9000)}
+ function show(key,force=false){const m=messages[key]||messages.inicio;if(!force&&key===current&&Date.now()-last<800)return;current=key;last=Date.now();render(m,key==='sectores'?'🚘':key==='informacion'?'💡':'');scheduleFun(key)}
+ function scheduleFun(key){clearTimeout(funTimer);const arr=fun[key];if(!arr)return;funTimer=setTimeout(()=>{if(current!==key||jump.classList.contains('open')||document.querySelector('.modal.open'))return;const f=arr[Math.floor(Math.random()*arr.length)];render([f[1],f[2],f[3],f[4],f[5]],f[0])},6500)}
+ function menu(open){jump.classList.toggle('open',open);stage.classList.toggle('menu-open',open);root.classList.remove('compact');thought.classList.remove('show');if(!open)scheduleFun(current)}
+ function occupiedOnRight(){const vw=innerWidth,vh=innerHeight;const probe={left:vw-Math.min(305,vw*.42),right:vw,top:vh-Math.min(220,vh*.38),bottom:vh};const selectors=['input:focus','select:focus','textarea:focus','.modal.open','.service-panel.show','.vehicle-panel.show'];if(document.querySelector(selectors.join(',')))return true;const els=[...document.querySelectorAll('.product,.brand,.info-card,.profile-card,.quote-form-section,.portal-card,.trust-card')];return els.some(el=>{const r=el.getBoundingClientRect();return r.right>probe.left&&r.bottom>probe.top&&r.left<probe.right&&r.top<probe.bottom})}
+ function placeSafely(){if(innerWidth<620){root.classList.remove('safe-left');return}root.classList.toggle('safe-left',occupiedOnRight())}
+ act.addEventListener('click',()=>{const d=act.dataset.dest;d==='menu'?menu(true):go(d)});jumpBtn.addEventListener('click',()=>menu(!jump.classList.contains('open')));ch.addEventListener('click',()=>{root.classList.remove('compact');menu(!jump.classList.contains('open'))});ch.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();ch.click()}});document.querySelectorAll('#licMaxMenu [data-go]').forEach(b=>b.addEventListener('click',()=>{go(b.dataset.go);menu(false)}));document.addEventListener('click',e=>{if(!root.contains(e.target))menu(false)});
+ const ids=['inicio','soluciones','sectores','simulador','portal','informacion','ubicacion','contacto'];const watch=ids.map(target).filter(Boolean);const io=new IntersectionObserver(es=>{const hit=es.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(hit){show(hit.target.id);setTimeout(placeSafely,80)}},{threshold:[.18,.35,.55],rootMargin:'-12% 0px -25% 0px'});watch.forEach(x=>io.observe(x));
+ new MutationObserver(()=>{const open=!!document.querySelector('.modal.open');document.body.classList.toggle('licmax-modal-open',open);if(!open)setTimeout(placeSafely,80)}).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+ ['scroll','resize'].forEach(ev=>addEventListener(ev,()=>requestAnimationFrame(placeSafely),{passive:true}));document.addEventListener('focusin',()=>setTimeout(placeSafely,20));document.addEventListener('focusout',()=>setTimeout(placeSafely,80));setTimeout(()=>{show('inicio',true);placeSafely()},250)
+});
+</script>
 </body>
 </html>
