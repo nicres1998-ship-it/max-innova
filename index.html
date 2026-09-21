@@ -2485,12 +2485,42 @@ function setMarketInfo(title,text,tags=[]){
 function setModalVisual(type,label,customSrc){
  const img=document.getElementById("modalImage"), hero=document.getElementById("modalHero"), tag=document.getElementById("modalHeroLabel");
  if(!img||!hero)return;
- const src=customSrc||modalPhotos[type]||modalPhotos["Personal"];
+ const automotiveFallbacks=(typeof vehicleDeliveryPhotos!=="undefined"?vehicleDeliveryPhotos:[]);
+ const homeFallbacks=(typeof homeDeliveryPhotos!=="undefined"?homeDeliveryPhotos:[]);
+ const mobilityFallbacks=(typeof platformPhotos!=="undefined"?platformPhotos:[]);
+ const businessFallbacks=[
+  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=88",
+  "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=88"
+ ];
+ let fallbacks=[];
+ if(type==="Vehicular") fallbacks=automotiveFallbacks;
+ else if(type==="Patrimonial / Vivienda") fallbacks=homeFallbacks;
+ else if(type==="Movilidad / Plataformas") fallbacks=mobilityFallbacks;
+ else if(type==="Negocio / PyME"||type==="Empresarial") fallbacks=businessFallbacks;
+ else fallbacks=[modalPhotos[type]||modalPhotos["Personal"]];
+ const candidates=[customSrc,modalPhotos[type],...fallbacks].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i);
+ let index=0;
+ hero.classList.remove("v99-fallback","showing-logo","photo-error");
+ hero.style.display="block";
  hero.style.backgroundImage="linear-gradient(135deg,#edf7fb,#d7e8f1)";
  img.alt=label||"Proyecto de financiamiento";
- img.onload=()=>{hero.classList.remove("photo-error");hero.style.display="block";hero.style.backgroundImage="none";};
- img.onerror=()=>{hero.style.display="block";};
- img.src=src;
+ img.referrerPolicy="no-referrer";
+ img.onerror=function(){
+   index++;
+   if(index<candidates.length){ img.src=candidates[index]; return; }
+   /* Último respaldo: referencia visual local coherente, nunca foto aleatoria. */
+   const n=String(label||type||"MAX INNOVA").replace(/[&<>\"]/g,"");
+   const icon=type==="Vehicular"?"🚘":type==="Patrimonial / Vivienda"?"⌂":type==="Movilidad / Plataformas"?"🚕":"▣";
+   const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="620" viewBox="0 0 1400 620"><rect width="1400" height="620" fill="#eef7fb"/><circle cx="700" cy="225" r="120" fill="#dceef5"/><text x="700" y="270" text-anchor="middle" font-family="Arial" font-size="110">${icon}</text><text x="700" y="430" text-anchor="middle" font-family="Arial" font-size="56" font-weight="700" fill="#063e67">${n}</text><text x="700" y="485" text-anchor="middle" font-family="Arial" font-size="25" fill="#557789">Referencia visual MAX INNOVA</text></svg>`;
+   img.onerror=null; img.src="data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
+   hero.classList.add("photo-error");
+ };
+ img.onload=function(){
+   hero.style.display="block";
+   hero.style.backgroundImage="none";
+   hero.classList.remove("photo-error");
+ };
+ img.src=candidates[0]||modalPhotos["Personal"];
  tag.textContent=label||"MAX INNOVA";
  hero.classList.remove("visual-in"); void hero.offsetWidth; hero.classList.add("visual-in");
 }
@@ -3242,75 +3272,6 @@ document.getElementById("privacyOverlay")?.addEventListener("click",e=>{if(e.tar
 
 
 
-<script id="max-innova-v99-modal-fallback">
-document.addEventListener("DOMContentLoaded",function(){
- function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim()}
- function modalName(img){
-   const m=img.closest(".modal");
-   const title=m?.querySelector("#modalTitle,.modal-title,h2,h3");
-   return (title?.textContent||img.alt||"").replace(/^Financiamiento\s+/i,"").trim();
- }
- function cardLogo(name){
-   const n=norm(name);
-   for(const card of document.querySelectorAll("#sectorMount .brand")){
-     const label=card.querySelector(".brand-name")?.textContent||card.textContent||"";
-     if(n && (norm(label)===n || n.includes(norm(label)) || norm(label).includes(n))){
-       const im=card.querySelector("img");
-       if(im?.src)return im.src;
-     }
-   }
-   return "";
- }
- function localReference(name){
-   const safe=(name||"Opción de financiamiento").replace(/[&<>"]/g,"");
-   let icon="◇";
-   const n=norm(name);
-   if(/taxi|uber|didi|rappi|indrive|movilidad/.test(n))icon="🚕";
-   else if(/vivienda|casa|hogar|ara|ruba|cadu|union|century|re\/max/.test(n))icon="⌂";
-   else if(/nissan|toyota|chevrolet|volkswagen|kia|mazda|honda|hyundai/.test(n))icon="🚘";
-   else icon="▣";
-   const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
-    <rect width="1200" height="520" rx="28" fill="#f5fbfd"/>
-    <circle cx="600" cy="185" r="105" fill="#e3f2f7"/>
-    <text x="600" y="220" text-anchor="middle" font-family="Arial,sans-serif" font-size="95" fill="#075777">${icon}</text>
-    <text x="600" y="365" text-anchor="middle" font-family="Arial,sans-serif" font-size="62" font-weight="900" fill="#073e5a">${safe}</text>
-   </svg>`;
-   return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
- }
- function install(img){
-   if(!img||img.dataset.v99==="1")return;
-   img.dataset.v99="1"; img.dataset.v99level="1";
-   const hero=img.closest(".modal-hero"); if(!hero)return;
-   img.addEventListener("error",function(e){
-     e.stopImmediatePropagation();
-     const level=Number(img.dataset.v99level||1), name=modalName(img);
-     if(level===1){
-       img.dataset.v99level="2";
-       const logo=cardLogo(name);
-       img.src=logo||localReference(name);
-       img.alt=name;
-       hero.classList.add("v99-fallback");
-       hero.style.display="block";
-     }else if(level===2){
-       img.dataset.v99level="3";
-       img.src="logo maxinnova.png";
-       img.alt="MAX INNOVA";
-       hero.classList.add("v99-fallback");
-       hero.style.display="block";
-     }else{
-       hero.style.display="none";
-     }
-   },true);
-   img.addEventListener("load",()=>{hero.style.display="block";hero.classList.remove("photo-error")},true);
- }
- document.querySelectorAll(".modal-hero img").forEach(install);
- new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
-   if(n.nodeType!==1)return;
-   if(n.matches?.(".modal-hero img"))install(n);
-   n.querySelectorAll?.(".modal-hero img").forEach(install);
- }))).observe(document.body,{childList:true,subtree:true});
-});
-</script>
 
 
 
@@ -3546,14 +3507,14 @@ document.addEventListener('DOMContentLoaded',()=>{
 
  let dragging=false,dragMoved=false,dx=0,dy=0,startX=0,startY=0;
  function startDrag(e){if(e.target.closest('button'))return;dragging=true;dragMoved=false;const pt=e.touches?e.touches[0]:e;startX=pt.clientX;startY=pt.clientY;const r=root.getBoundingClientRect();dx=pt.clientX-r.left;dy=pt.clientY-r.top;root.style.right='auto';root.style.bottom='auto';root.classList.remove('safe-left');document.body.style.userSelect='none';e.preventDefault()}
- function moveDrag(e){if(!dragging)return;const pt=e.touches?e.touches[0]:e;if(Math.abs(pt.clientX-startX)>4||Math.abs(pt.clientY-startY)>4)dragMoved=true;const w=root.offsetWidth,h=root.offsetHeight;root.style.left=Math.max(0,Math.min(innerWidth-w,pt.clientX-dx))+'px';root.style.top=Math.max(0,Math.min(innerHeight-h,pt.clientY-dy))+'px';e.preventDefault()}
+ function moveDrag(e){if(!dragging)return;const pt=e.touches?e.touches[0]:e;if(Math.abs(pt.clientX-startX)>4||Math.abs(pt.clientY-startY)>4){dragMoved=true;root.classList.add('licmax-user-positioned')}const w=root.offsetWidth,h=root.offsetHeight;root.style.left=Math.max(0,Math.min(innerWidth-w,pt.clientX-dx))+'px';root.style.top=Math.max(0,Math.min(innerHeight-h,pt.clientY-dy))+'px';e.preventDefault()}
  function endDrag(){if(!dragging)return;dragging=false;document.body.style.userSelect='';try{localStorage.setItem('licMaxPos',JSON.stringify({left:root.style.left,top:root.style.top}))}catch(e){}setTimeout(()=>dragMoved=false,80)}
  ch.addEventListener('mousedown',startDrag);ch.addEventListener('touchstart',startDrag,{passive:false});document.addEventListener('mousemove',moveDrag);document.addEventListener('touchmove',moveDrag,{passive:false});document.addEventListener('mouseup',endDrag);document.addEventListener('touchend',endDrag);
- hide?.addEventListener('click',()=>{root.classList.add('hidden-helper')});
+ /* V122: cierre permanente legado desactivado; V122 minimiza a cabeza. */
  try{const pos=JSON.parse(localStorage.getItem('licMaxPos')||'null');if(pos?.left&&pos?.top){root.style.right='auto';root.style.bottom='auto';root.style.left=pos.left;root.style.top=pos.top}}catch(e){}
 
  const ids=['inicio','soluciones','sectores','simulador','portal','informacion','ubicacion','contacto'];const watch=ids.map(target).filter(Boolean);const io=new IntersectionObserver(es=>{const hit=es.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(hit){show(hit.target.id);setTimeout(placeSafely,80)}},{threshold:[.18,.35,.55],rootMargin:'-12% 0px -25% 0px'});watch.forEach(x=>io.observe(x));
- const syncModal=()=>{const candidates=[...document.querySelectorAll('.modal.open,.modal[style*=\"display: flex\"],dialog[open],[role=dialog],.service-modal-card')];const open=candidates.some(el=>{const cs=getComputedStyle(el),r=el.getBoundingClientRect();return cs.display!=='none'&&cs.visibility!=='hidden'&&r.width>0&&r.height>0});document.body.classList.toggle('licmax-modal-open',open);if(!open)setTimeout(placeSafely,80)};new MutationObserver(syncModal).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','style','open']});document.addEventListener('click',()=>setTimeout(syncModal,0),true);syncModal();
+ /* V122: detector global legado retirado; el control aislado V119/V122 gestiona los modales. */
  ['scroll','resize'].forEach(ev=>addEventListener(ev,()=>requestAnimationFrame(placeSafely),{passive:true}));document.addEventListener('focusin',()=>setTimeout(placeSafely,20));document.addEventListener('focusout',()=>setTimeout(placeSafely,80));setTimeout(()=>{show('inicio',true);placeSafely()},250)
 });
 </script>
@@ -3763,13 +3724,13 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 <!-- ===== V119 · RESTAURACION TARJETAS + LIC. MAX AISLADO ===== -->
 <style id="lic-max-v119-style">
-#licMaxRoot:not(.licmax-user-positioned){left:18px!important;right:auto!important;bottom:18px!important;top:auto!important;z-index:2500!important}
+#licMaxRoot:not(.licmax-user-positioned){right:18px!important;left:auto!important;bottom:18px!important;top:auto!important;z-index:2500!important}
 #licMaxRoot.licmax-minimized{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
 #licMaxRoot.licmax-modal-suppressed{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
-#licMaxMiniHead{position:fixed;left:18px;bottom:18px;width:58px;height:58px;border:2px solid #fff;border-radius:50%;background:linear-gradient(145deg,#eafcff,#68cee5);box-shadow:0 10px 28px rgba(0,45,75,.28);z-index:2501;display:none;place-items:center;cursor:pointer;padding:4px}
+#licMaxMiniHead{position:fixed;right:18px;left:auto;bottom:18px;width:58px;height:58px;border:2px solid #fff;border-radius:50%;background:linear-gradient(145deg,#eafcff,#68cee5);box-shadow:0 10px 28px rgba(0,45,75,.28);z-index:2501;display:none;place-items:center;cursor:pointer;padding:4px}
 #licMaxMiniHead.show{display:grid} #licMaxMiniHead.modal-suppressed{display:none!important} #licMaxMiniHead svg{width:48px;height:48px;display:block}
-@media(max-width:900px){#licMaxRoot:not(.licmax-user-positioned){left:10px!important;bottom:10px!important}#licMaxMiniHead{left:10px;bottom:10px;width:54px;height:54px}}
-@media(max-width:600px){#licMaxRoot:not(.licmax-user-positioned){left:7px!important;bottom:8px!important;transform:scale(.9);transform-origin:left bottom}#licMaxMiniHead{left:8px;bottom:8px;width:50px;height:50px}}
+@media(max-width:900px){#licMaxRoot:not(.licmax-user-positioned){right:10px!important;left:auto!important;bottom:10px!important}#licMaxMiniHead{right:10px;left:auto;bottom:10px;width:54px;height:54px}}
+@media(max-width:600px){#licMaxRoot:not(.licmax-user-positioned){right:7px!important;left:auto!important;bottom:8px!important;transform:scale(.9);transform-origin:right bottom}#licMaxMiniHead{right:8px;left:auto;bottom:8px;width:50px;height:50px}}
 </style>
 <script id="lic-max-v119-script">
 document.addEventListener('DOMContentLoaded',()=>{
@@ -3780,10 +3741,10 @@ document.addEventListener('DOMContentLoaded',()=>{
  let mini=document.getElementById('licMaxMiniHead');
  if(!mini){mini=document.createElement('button');mini.id='licMaxMiniHead';mini.type='button';mini.setAttribute('aria-label','Mostrar LIC. MAX');mini.title='Mostrar LIC. MAX';mini.innerHTML='<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 16V8" stroke="#25bddd" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="6" r="4" fill="#35d5f4"/><rect x="14" y="18" width="72" height="62" rx="27" fill="#bfeef7" stroke="#075f86" stroke-width="3"/><rect x="22" y="28" width="56" height="40" rx="18" fill="#073652"/><ellipse cx="39" cy="46" rx="6" ry="7" fill="#82f3ff"/><ellipse cx="61" cy="46" rx="6" ry="7" fill="#82f3ff"/><path d="M38 58q12 9 24 0" fill="none" stroke="#82f3ff" stroke-width="3" stroke-linecap="round"/><path d="M25 82h50" stroke="#003f68" stroke-width="8" stroke-linecap="round"/></svg>';document.body.appendChild(mini)}
  let minimized=false;
- function setMin(v){minimized=!!v;root.classList.toggle('licmax-minimized',minimized);mini.classList.toggle('show',minimized);if(minimized){jump?.classList.remove('open');root.classList.remove('menu-active');menu?.classList.remove('licmax-menu-floating')}}
+ function setMin(v){minimized=!!v;root.classList.remove('hidden-helper');root.classList.toggle('licmax-minimized',minimized);mini.classList.toggle('show',minimized);if(minimized){jump?.classList.remove('open');root.classList.remove('menu-active','menu-panel-left','menu-panel-right');menu?.classList.remove('licmax-menu-floating');menu?.removeAttribute('style')}else{root.classList.remove('compact');if(!root.classList.contains('licmax-user-positioned')){root.style.left='';root.style.top='';root.style.right='';root.style.bottom=''}}}
  hide?.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();setMin(true)});
  mini.addEventListener('click',()=>setMin(false));
- root.addEventListener('pointerdown',e=>{if(e.target.closest('.licmax-character'))root.classList.add('licmax-user-positioned')});
+ /* V122: un clic normal no cambia la posición inicial; solo un arrastre real debe hacerlo. */
  function modalOpen(){return [...document.querySelectorAll('.modal.open,dialog[open],[role="dialog"][aria-modal="true"]')].some(el=>{if(el.closest('#licMaxRoot'))return false;const c=getComputedStyle(el),r=el.getBoundingClientRect();return c.display!=='none'&&c.visibility!=='hidden'&&r.width>80&&r.height>80})}
  let lastModal=null;
  function syncModal(){const yes=modalOpen();if(yes===lastModal)return;lastModal=yes;root.classList.toggle('licmax-modal-suppressed',yes);mini.classList.toggle('modal-suppressed',yes);if(yes){jump?.classList.remove('open');root.classList.remove('menu-active');menu?.classList.remove('licmax-menu-floating')}}
@@ -3897,5 +3858,113 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 </script>
 
+
+<style id="max-innova-v121-ribbon-photo-fix">
+/* V121: fotografías de cintas amplias, proporcionales y con fallback coherente */
+#infoModal .modal-hero{height:clamp(280px,38vh,390px)!important;min-height:280px!important;background:#eef6f9!important;overflow:hidden!important}
+#infoModal .modal-hero img{display:block!important;width:100%!important;height:100%!important;min-height:0!important;object-fit:cover!important;object-position:center!important;padding:0!important;background:#eef6f9!important;transform:none!important}
+#infoModal .modal-hero.photo-error img{object-fit:contain!important;padding:24px!important;background:#eef6f9!important}
+#infoModal .modal-photo-caption{z-index:4!important}
+@media(max-width:900px){#infoModal .modal-hero{height:clamp(240px,34vh,330px)!important;min-height:240px!important}}
+@media(max-width:600px){#infoModal .modal-hero{height:230px!important;min-height:230px!important}#infoModal .modal-hero img{object-fit:cover!important}#infoModal .modal-hero.photo-error img{object-fit:contain!important;padding:16px!important}}
+</style>
+
+<!-- ===== V122 · POSICION DERECHA + MINIMIZACION ROBUSTA ===== -->
+<style id="lic-max-v122-final">
+/* Estado inicial: esquina inferior derecha, opuesta al CTA principal. */
+#licMaxRoot:not(.licmax-user-positioned){right:18px!important;left:auto!important;bottom:18px!important;top:auto!important}
+#licMaxMiniHead{right:18px!important;left:auto!important;bottom:18px!important}
+/* Al volver de IR A, jamás conservar giros/desplazamientos de la escena. */
+#licMaxRoot:not(.menu-active) .licmax-character{transform:none!important}
+#licMaxRoot:not(.menu-active) .licmax-jump{transform:none!important}
+@media(max-width:900px){#licMaxRoot:not(.licmax-user-positioned){right:10px!important;left:auto!important;bottom:10px!important}#licMaxMiniHead{right:10px!important;left:auto!important;bottom:10px!important}}
+@media(max-width:600px){#licMaxRoot:not(.licmax-user-positioned){right:7px!important;left:auto!important;bottom:8px!important;transform:scale(.9)!important;transform-origin:right bottom!important}#licMaxMiniHead{right:8px!important;left:auto!important;bottom:8px!important}}
+</style>
+<script id="lic-max-v122-final-script">
+document.addEventListener('DOMContentLoaded',()=>{
+ const root=document.getElementById('licMaxRoot'), mini=document.getElementById('licMaxMiniHead'), jump=document.getElementById('licMaxJump'), menu=document.getElementById('licMaxMenu');
+ if(!root)return;
+ // Una posición guardada de versiones anteriores no debe forzar el lado izquierdo al iniciar.
+ try{localStorage.removeItem('licMaxPos')}catch(e){}
+ if(!root.classList.contains('licmax-user-positioned')){root.style.left='';root.style.top='';root.style.right='';root.style.bottom=''}
+ // Cuando IR A cierre, limpiar por completo la escena y regresar a la esquina normal.
+ const cleanMenu=()=>{if(!jump?.classList.contains('open')){root.classList.remove('menu-active','menu-panel-left','menu-panel-right');menu?.classList.remove('licmax-menu-floating');if(menu){menu.style.left='';menu.style.right='';menu.style.top='';menu.style.bottom=''}if(!root.classList.contains('licmax-user-positioned')){root.style.left='';root.style.top='';root.style.right='';root.style.bottom=''}}};
+ if(jump)new MutationObserver(cleanMenu).observe(jump,{attributes:true,attributeFilter:['class']});
+ // La cabeza minimizada siempre restaura el asistente completo.
+ mini?.addEventListener('click',()=>{root.classList.remove('hidden-helper','licmax-minimized','compact');mini.classList.remove('show');cleanMenu()});
+});
+</script>
+
+
+
+<!-- ===== V123 · CIERRE IR A SIN GIRO NI DESPLAZAMIENTO RESIDUAL ===== -->
+<style id="lic-max-v123-menu-reset-style">
+/* Fuera de IR A, LIC. MAX siempre recupera su postura natural. */
+#licMaxRoot:not(.menu-active) #licMaxStage{transform:none!important}
+#licMaxRoot:not(.menu-active) #licMaxStage .licmax-character{transform:none!important}
+#licMaxRoot:not(.menu-active) #licMaxStage .licmax-jump{transform:none!important}
+</style>
+<script id="lic-max-v123-menu-reset-script">
+document.addEventListener('DOMContentLoaded',()=>{
+  const root=document.getElementById('licMaxRoot');
+  const stage=document.getElementById('licMaxStage');
+  const jump=document.getElementById('licMaxJump');
+  const menu=document.getElementById('licMaxMenu');
+  if(!root||!stage||!jump)return;
+
+  let beforeMenu=null;
+  let wasOpen=jump.classList.contains('open');
+
+  function remember(){
+    if(beforeMenu)return;
+    const r=root.getBoundingClientRect();
+    beforeMenu={
+      user:root.classList.contains('licmax-user-positioned'),
+      left:r.left, top:r.top
+    };
+  }
+
+  function hardReset(){
+    stage.classList.remove('menu-open');
+    root.classList.remove('menu-active','menu-panel-left','menu-panel-right','safe-left');
+    if(menu){
+      menu.classList.remove('licmax-menu-floating');
+      menu.style.left=''; menu.style.right=''; menu.style.top=''; menu.style.bottom='';
+    }
+    const ch=document.getElementById('licMaxCharacter');
+    const bubble=document.getElementById('licMaxBubble');
+    const thought=document.getElementById('licMaxThought');
+    const j=document.getElementById('licMaxJump');
+    [ch,bubble,thought,j].forEach(el=>{ if(el) el.style.removeProperty('transform'); });
+
+    if(beforeMenu?.user){
+      root.style.left=Math.max(6,Math.min(innerWidth-root.offsetWidth-6,beforeMenu.left))+'px';
+      root.style.top=Math.max(6,Math.min(innerHeight-root.offsetHeight-6,beforeMenu.top))+'px';
+      root.style.right='auto'; root.style.bottom='auto';
+    }else{
+      root.classList.remove('licmax-user-positioned');
+      root.style.left=''; root.style.top=''; root.style.right=''; root.style.bottom='';
+    }
+    beforeMenu=null;
+  }
+
+  function sync(){
+    const open=jump.classList.contains('open');
+    if(open && !wasOpen) remember();
+    if(!open && wasOpen) requestAnimationFrame(()=>requestAnimationFrame(hardReset));
+    wasOpen=open;
+  }
+
+  new MutationObserver(sync).observe(jump,{attributes:true,attributeFilter:['class']});
+
+  /* Cualquier forma de cerrar IR A termina en el mismo reset. */
+  document.addEventListener('click',e=>{
+    if(e.target.closest('.licmax-menu-close') || e.target.closest('#licMaxMenu [data-go]')){
+      setTimeout(()=>{ jump.classList.remove('open'); hardReset(); },0);
+    }
+  });
+  window.addEventListener('resize',()=>{ if(!jump.classList.contains('open')) hardReset(); });
+});
+</script>
 </body>
 </html>
