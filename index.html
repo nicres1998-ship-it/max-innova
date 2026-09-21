@@ -3486,7 +3486,7 @@ body.licmax-modal-open #licMaxRoot{opacity:0;visibility:hidden;pointer-events:no
 #licMaxRoot.safe-left .licmax-controls{left:72px!important;right:auto!important}
 #licMaxRoot.safe-left .licmax-jump{left:4px!important;right:auto!important}
 #licMaxRoot .licmax-stage.menu-open .licmax-character{opacity:.88!important;transform:scale(.78) rotate(-5deg)!important}
-body.licmax-modal-open #licMaxRoot{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+#licMaxRoot.licmax-modal-suppressed{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
 @media(max-width:520px){#licMaxRoot .licmax-stage{width:218px!important;height:174px!important}#licMaxRoot .licmax-character{width:61px!important;height:86px!important;bottom:53px!important}#licMaxRoot .licmax-name{bottom:-14px!important;font-size:6.5px!important}#licMaxRoot .licmax-bubble{right:70px!important;bottom:92px!important;width:141px!important}#licMaxRoot.safe-left .licmax-bubble{left:70px!important}#licMaxRoot .licmax-thought{right:12px!important;bottom:142px!important;width:42px!important;height:32px!important;font-size:17px!important}#licMaxRoot.safe-left .licmax-thought{left:12px!important}#licMaxRoot .licmax-controls{right:61px!important;top:86px!important}#licMaxRoot.safe-left .licmax-controls{left:61px!important}}
 </style>
 <div id="licMaxRoot" aria-live="polite"><div class="licmax-stage" id="licMaxStage">
@@ -3562,7 +3562,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 <!-- ===== V115 · IR A ACOMPAÑADO / MODALES LIBRES ===== -->
 <style id="lic-max-v115-style">
 /* El asistente completo se retira frente a modales reales. */
-body.licmax-modal-open #licMaxRoot{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+#licMaxRoot.licmax-modal-suppressed{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
 
 /* IR A: panel y LIC. MAX trabajan como una sola escena, sin superponerse. */
 #licMaxRoot.menu-active{width:390px!important;height:400px!important;overflow:visible!important}
@@ -3648,19 +3648,8 @@ document.addEventListener('DOMContentLoaded',()=>{
  observer.observe(jump,{attributes:true,attributeFilter:['class']});
  addEventListener('resize',()=>{if(isMenuOpen())fitMenuScene()},{passive:true});
 
- /* Modal real = LIC. MAX se retira. IR A NO cuenta como modal. */
- function modalRealAbierto(){
-   const els=[...document.querySelectorAll('.modal.open,dialog[open],[role="dialog"].open,[role="dialog"][aria-modal="true"]')];
-   return els.some(el=>{
-     if(el.closest('#licMaxRoot'))return false;
-     const cs=getComputedStyle(el),r=el.getBoundingClientRect();
-     return cs.display!=='none'&&cs.visibility!=='hidden'&&r.width>40&&r.height>40;
-   });
- }
- function sync(){document.body.classList.toggle('licmax-modal-open',modalRealAbierto())}
- new MutationObserver(sync).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','style','open','aria-modal']});
- document.addEventListener('click',()=>setTimeout(sync,0),true);
- sync();
+ /* V119: vigilancia global retirada; se controla de forma aislada al final. */
+
 });
 </script>
 
@@ -3704,7 +3693,7 @@ document.addEventListener('DOMContentLoaded',()=>{
  background:#fff!important;color:#003f68!important;border:1px solid #d5e8f0!important;
  box-shadow:0 6px 18px rgba(0,35,60,.18)!important
 }
-body.licmax-modal-open #licMaxRoot{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+#licMaxRoot.licmax-modal-suppressed{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
 
 @media(max-width:620px){
  #licMaxRoot.menu-active .licmax-stage{width:218px!important;height:174px!important}
@@ -3766,47 +3755,41 @@ document.addEventListener('DOMContentLoaded',()=>{
  // Elegir una opción también cierra IR A.
  menu.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>setTimeout(()=>{jump.classList.remove('open');reset()},0)));
 
- // Reafirma modales reales: LIC. MAX fuera y cierre visible.
- function modalReal(){return [...document.querySelectorAll('.modal.open,dialog[open],[role="dialog"][aria-modal="true"]')].some(el=>{
-   if(el.closest('#licMaxRoot'))return false; const cs=getComputedStyle(el),r=el.getBoundingClientRect();
-   return cs.display!=='none'&&cs.visibility!=='hidden'&&r.width>40&&r.height>40;
- })}
- function syncModal(){const yes=modalReal();document.body.classList.toggle('licmax-modal-open',yes);if(yes&&opened()){jump.classList.remove('open');reset()}}
- new MutationObserver(syncModal).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','style','open','aria-modal']});
- document.addEventListener('click',()=>setTimeout(syncModal,0),true);syncModal();
+ // V119: vigilancia global retirada; se controla de forma aislada al final.
+
 });
 </script>
 
 
-
-<!-- ===== V118 · RECUPERACION FUNCIONAL + LIC. MAX AISLADO ===== -->
-<style id="lic-max-v118-style">
-/* Esta capa SOLO controla LIC. MAX. No modifica tarjetas, cintas ni lógica comercial. */
+<!-- ===== V119 · RESTAURACION TARJETAS + LIC. MAX AISLADO ===== -->
+<style id="lic-max-v119-style">
 #licMaxRoot:not(.licmax-user-positioned){left:18px!important;right:auto!important;bottom:18px!important;top:auto!important;z-index:2500!important}
 #licMaxRoot.licmax-minimized{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+#licMaxRoot.licmax-modal-suppressed{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
 #licMaxMiniHead{position:fixed;left:18px;bottom:18px;width:58px;height:58px;border:2px solid #fff;border-radius:50%;background:linear-gradient(145deg,#eafcff,#68cee5);box-shadow:0 10px 28px rgba(0,45,75,.28);z-index:2501;display:none;place-items:center;cursor:pointer;padding:4px}
-#licMaxMiniHead.show{display:grid} #licMaxMiniHead svg{width:48px;height:48px;display:block}
-body.licmax-modal-open #licMaxRoot,body.licmax-modal-open #licMaxMiniHead,#licMaxRoot.modal-suppressed{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
-/* IR A sigue siendo acompañamiento, no modal. */
-#licMaxRoot.menu-active{opacity:1!important;visibility:visible!important}
+#licMaxMiniHead.show{display:grid} #licMaxMiniHead.modal-suppressed{display:none!important} #licMaxMiniHead svg{width:48px;height:48px;display:block}
 @media(max-width:900px){#licMaxRoot:not(.licmax-user-positioned){left:10px!important;bottom:10px!important}#licMaxMiniHead{left:10px;bottom:10px;width:54px;height:54px}}
 @media(max-width:600px){#licMaxRoot:not(.licmax-user-positioned){left:7px!important;bottom:8px!important;transform:scale(.9);transform-origin:left bottom}#licMaxMiniHead{left:8px;bottom:8px;width:50px;height:50px}}
 </style>
-<script id="lic-max-v118-script">
+<script id="lic-max-v119-script">
 document.addEventListener('DOMContentLoaded',()=>{
  const root=document.getElementById('licMaxRoot'), hide=document.getElementById('licMaxHide'), jump=document.getElementById('licMaxJump'), menu=document.getElementById('licMaxMenu');
  if(!root)return;
- try{localStorage.removeItem('licMaxPos')}catch(e){}
- root.style.left='';root.style.top='';root.style.right='';root.style.bottom='';root.classList.remove('hidden-helper','licmax-minimized','licmax-user-positioned');
+ root.classList.remove('hidden-helper','licmax-minimized','licmax-modal-suppressed','licmax-user-positioned');
+ root.style.left='';root.style.top='';root.style.right='';root.style.bottom='';
  let mini=document.getElementById('licMaxMiniHead');
  if(!mini){mini=document.createElement('button');mini.id='licMaxMiniHead';mini.type='button';mini.setAttribute('aria-label','Mostrar LIC. MAX');mini.title='Mostrar LIC. MAX';mini.innerHTML='<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 16V8" stroke="#25bddd" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="6" r="4" fill="#35d5f4"/><rect x="14" y="18" width="72" height="62" rx="27" fill="#bfeef7" stroke="#075f86" stroke-width="3"/><rect x="22" y="28" width="56" height="40" rx="18" fill="#073652"/><ellipse cx="39" cy="46" rx="6" ry="7" fill="#82f3ff"/><ellipse cx="61" cy="46" rx="6" ry="7" fill="#82f3ff"/><path d="M38 58q12 9 24 0" fill="none" stroke="#82f3ff" stroke-width="3" stroke-linecap="round"/><path d="M25 82h50" stroke="#003f68" stroke-width="8" stroke-linecap="round"/></svg>';document.body.appendChild(mini)}
  let minimized=false;
  function setMin(v){minimized=!!v;root.classList.toggle('licmax-minimized',minimized);mini.classList.toggle('show',minimized);if(minimized){jump?.classList.remove('open');root.classList.remove('menu-active');menu?.classList.remove('licmax-menu-floating')}}
- hide?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();setMin(true)},true); mini.addEventListener('click',()=>setMin(false));
- root.addEventListener('pointerdown',e=>{if(e.target.closest('.licmax-character'))root.classList.add('licmax-user-positioned')},true);
+ hide?.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();setMin(true)});
+ mini.addEventListener('click',()=>setMin(false));
+ root.addEventListener('pointerdown',e=>{if(e.target.closest('.licmax-character'))root.classList.add('licmax-user-positioned')});
  function modalOpen(){return [...document.querySelectorAll('.modal.open,dialog[open],[role="dialog"][aria-modal="true"]')].some(el=>{if(el.closest('#licMaxRoot'))return false;const c=getComputedStyle(el),r=el.getBoundingClientRect();return c.display!=='none'&&c.visibility!=='hidden'&&r.width>80&&r.height>80})}
- function sync(){const yes=modalOpen();document.body.classList.toggle('licmax-modal-open',yes);if(yes){jump?.classList.remove('open');root.classList.remove('menu-active');menu?.classList.remove('licmax-menu-floating')}}
- new MutationObserver(sync).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','style','open','aria-modal']});document.addEventListener('click',()=>setTimeout(sync,0),true);sync();
+ let lastModal=null;
+ function syncModal(){const yes=modalOpen();if(yes===lastModal)return;lastModal=yes;root.classList.toggle('licmax-modal-suppressed',yes);mini.classList.toggle('modal-suppressed',yes);if(yes){jump?.classList.remove('open');root.classList.remove('menu-active');menu?.classList.remove('licmax-menu-floating')}}
+ // Sondeo liviano: SOLO lee los modales y SOLO cambia LIC. MAX. No observa ni intercepta clics de tarjetas.
+ const modalTimer=setInterval(syncModal,250); syncModal();
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncModal()});
  function fit(){if(!root.classList.contains('licmax-user-positioned'))return;const r=root.getBoundingClientRect(),x=Math.min(Math.max(6,r.left),Math.max(6,innerWidth-r.width-6)),y=Math.min(Math.max(6,r.top),Math.max(6,innerHeight-r.height-6));root.style.left=x+'px';root.style.top=y+'px';root.style.right='auto';root.style.bottom='auto'}
  addEventListener('resize',fit,{passive:true});addEventListener('orientationchange',()=>setTimeout(fit,120),{passive:true});
 });
