@@ -3795,5 +3795,107 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 </script>
 
+
+
+<!-- ===== V120 · SISTEMA GLOBAL DE VENTANAS CLARAS / RESPONSIVE ===== -->
+<style id="max-innova-v120-modal-system">
+/* Una ventana abierta siempre manda sobre header, barras y elementos fijados. */
+.modal{z-index:50000!important;align-items:center!important;justify-content:center!important;padding:clamp(10px,2.2vw,28px)!important;overscroll-behavior:contain!important}
+.modal.open{display:flex!important}
+body:has(.modal.open){overflow:hidden!important}
+body:has(.modal.open) header,
+body:has(.modal.open) .scroll-accent{z-index:1!important}
+
+/* La tarjeta nunca queda chueca, cortada ni pegada a los bordes. */
+.modal.open .modal-card{
+  position:relative!important;
+  width:min(960px,calc(100vw - 32px))!important;
+  max-width:960px!important;
+  max-height:calc(100dvh - 32px)!important;
+  margin:auto!important;
+  border-radius:22px!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  transform:none!important;
+  inset:auto!important;
+  box-shadow:0 28px 90px rgba(0,25,45,.34)!important;
+  scrollbar-gutter:stable;
+}
+
+/* X siempre visible dentro de la ventana, sin depender del scroll. */
+.modal.open .modal-card>.close,
+.modal.open .modal-card .close{
+  position:sticky!important;
+  top:12px!important;
+  right:12px!important;
+  float:right!important;
+  margin:12px 12px -50px 0!important;
+  width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;
+  display:grid!important;place-items:center!important;
+  padding:0!important;border:1px solid #cfe2ec!important;border-radius:50%!important;
+  background:#fff!important;color:#003f68!important;
+  font-size:24px!important;font-weight:900!important;line-height:1!important;
+  box-shadow:0 7px 22px rgba(0,35,60,.20)!important;
+  z-index:51000!important;opacity:1!important;visibility:visible!important;
+}
+.modal.open .modal-card>.close:hover,.modal.open .modal-card .close:hover{background:#eaf8fd!important}
+
+/* El encabezado visual del modal queda completo y legible. */
+.modal.open .modal-hero{width:100%!important;min-height:220px!important;height:clamp(220px,34vh,330px)!important;margin:0!important}
+.modal.open .modal-hero img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important}
+.modal.open .modal-content-inner{clear:both!important;padding:30px 34px 34px!important}
+
+/* Botón inferior universal: siempre existe una segunda salida clara. */
+.modal-back-row{display:flex;justify-content:flex-end;clear:both;padding:18px 30px 26px;background:#fff}
+.modal-back-btn{min-height:46px;padding:0 22px;border:1px solid #bddce8;border-radius:10px;background:#edf8fc;color:#003f68;font-weight:900;font-size:11px;cursor:pointer}
+.modal-back-btn:hover{background:#dff3fa}
+
+/* Nada de LIC. MAX / IR A puede quedar encima de una ventana real. */
+body:has(.modal.open) #licMaxRoot,
+body:has(.modal.open) #licMaxMiniHead,
+body:has(.modal.open) #licMaxMenu,
+body:has(.modal.open) .licmax-menu-floating{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+
+@media(max-width:700px){
+ .modal{padding:8px!important;align-items:center!important}
+ .modal.open .modal-card{width:calc(100vw - 16px)!important;max-width:none!important;max-height:calc(100dvh - 16px)!important;border-radius:16px!important}
+ .modal.open .modal-card>.close,.modal.open .modal-card .close{top:8px!important;right:8px!important;margin:8px 8px -46px 0!important;width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important}
+ .modal.open .modal-hero{min-height:170px!important;height:clamp(170px,27vh,230px)!important}
+ .modal.open .modal-content-inner{padding:24px 18px 26px!important}
+ .modal-detail-grid,.service-options,.account-metrics{grid-template-columns:1fr!important}
+ .modal-back-row{padding:14px 18px 20px}.modal-back-btn{width:100%}
+}
+@media(max-width:420px){
+ .modal.open .modal-card{width:calc(100vw - 10px)!important;max-height:calc(100dvh - 10px)!important;border-radius:13px!important}
+ .modal{padding:5px!important}
+ .modal.open .modal-content-inner{padding:21px 14px 22px!important}
+}
+</style>
+<script id="max-innova-v120-modal-system-script">
+document.addEventListener('DOMContentLoaded',()=>{
+  const modals=[...document.querySelectorAll('.modal')];
+  modals.forEach(modal=>{
+    const card=modal.querySelector('.modal-card');
+    if(!card)return;
+    // Segunda salida visible al final de cada ventana.
+    if(!card.querySelector('.modal-back-row')){
+      const row=document.createElement('div'); row.className='modal-back-row';
+      const btn=document.createElement('button'); btn.type='button'; btn.className='modal-back-btn'; btn.textContent='← REGRESAR / CERRAR';
+      btn.addEventListener('click',()=>{const x=card.querySelector('.close'); if(x)x.click(); else {modal.classList.remove('open');modal.setAttribute('aria-hidden','true')}});
+      row.appendChild(btn); card.appendChild(row);
+    }
+    // Clic en el fondo oscuro = cerrar. Nunca roba clics del contenido.
+    modal.addEventListener('click',e=>{if(e.target===modal){const x=card.querySelector('.close');if(x)x.click();}});
+  });
+  // Escape cierra solo la ventana superior abierta.
+  document.addEventListener('keydown',e=>{
+    if(e.key!=='Escape')return;
+    const open=[...document.querySelectorAll('.modal.open')].pop();
+    if(!open)return;
+    const x=open.querySelector('.modal-card .close'); if(x)x.click();
+  });
+});
+</script>
+
 </body>
 </html>
