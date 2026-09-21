@@ -1155,63 +1155,58 @@ input,select,textarea,button{max-width:100%}
 
 
 
-<style id="max-innova-v98-audit-fixes">
-/* Modal: foto completa; fallbacks centrados, sin el falso bloque "Referencia de marca". */
-.modal-hero{display:block!important;height:330px!important;min-height:330px!important;background:#eaf4f8!important;overflow:hidden!important}
-.modal-hero img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;transform:none!important;background:#eef6f9!important}
-.modal-hero.v98-brand-logo img,.modal-hero.v98-max-logo img{object-fit:contain!important;padding:54px!important;background:#fff!important}
 
-/* Flechas discretas SOLO en las cuatro cintas */
+
+<style id="max-innova-v99-audit">
+/* Sticky navigation on browser, tablet and phone. */
+header{position:sticky!important;top:0!important;z-index:9999!important;background:#fff!important;box-shadow:0 4px 14px rgba(0,40,65,.12)!important}
+.menu{overflow-x:auto!important;scroll-behavior:smooth!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch!important}
+.menu::-webkit-scrollbar{display:none!important}
+
+/* Modal: never show a broken-image icon or empty gradient while fallback is available. */
+.modal-hero{height:330px!important;min-height:330px!important;background:#eef6f9!important;overflow:hidden!important}
+.modal-hero img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;background:#eef6f9!important}
+.modal-hero.v99-fallback{background:#fff!important}
+.modal-hero.v99-fallback img{object-fit:contain!important;padding:42px!important;background:#fff!important}
+
+/* Discreet ribbon arrows */
 #sectorMount .sector-box{position:relative!important}
-#sectorMount .v98-arrow{
- position:absolute!important;top:calc(50% + 26px)!important;transform:translateY(-50%)!important;
- z-index:20!important;width:24px!important;height:42px!important;padding:0!important;
- border:1px solid rgba(5,83,116,.18)!important;border-radius:7px!important;
- background:rgba(245,252,255,.88)!important;color:#075a7c!important;
- box-shadow:0 2px 7px rgba(0,34,55,.10)!important;font:800 18px/1 Arial,sans-serif!important;
- cursor:pointer!important;opacity:.72!important
+#sectorMount .v99-arrow{
+ position:absolute!important;top:calc(50% + 24px)!important;transform:translateY(-50%)!important;
+ z-index:25!important;width:20px!important;height:36px!important;padding:0!important;
+ border:1px solid rgba(4,82,113,.15)!important;border-radius:6px!important;
+ background:rgba(255,255,255,.78)!important;color:#075a7c!important;
+ box-shadow:0 1px 5px rgba(0,35,55,.08)!important;font:800 15px/1 Arial,sans-serif!important;
+ opacity:.58!important;cursor:pointer!important
 }
-#sectorMount .v98-arrow:hover{opacity:1!important;background:#fff!important}
-#sectorMount .v98-arrow.prev{left:4px!important}
-#sectorMount .v98-arrow.next{right:4px!important}
+#sectorMount .v99-arrow:hover{opacity:.95!important;background:#fff!important}
+#sectorMount .v99-arrow.prev{left:3px!important} #sectorMount .v99-arrow.next{right:3px!important}
 #sectorMount .ticker{scrollbar-width:none!important;-webkit-overflow-scrolling:touch!important}
 #sectorMount .ticker::-webkit-scrollbar{display:none!important}
 
-/* Menú móvil: sticky, sin flechas, desplazable con dedo */
-@media(max-width:900px){
- header{position:sticky!important;top:0!important;z-index:9999!important;background:#fff!important;box-shadow:0 4px 14px rgba(0,40,65,.12)!important}
- .nav{background:#fff!important}
- .menu{overflow-x:auto!important;scroll-behavior:smooth!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:none!important}
- .menu::-webkit-scrollbar{display:none!important}
+/* Floating section navigator on desktop/tablet/mobile */
+#v99-jump{
+ position:fixed;right:14px;bottom:16px;z-index:9990;
+ display:flex;align-items:center;gap:7px;padding:6px 7px 6px 10px;
+ border-radius:22px;background:rgba(3,61,89,.93);box-shadow:0 5px 18px rgba(0,35,55,.18)
 }
+#v99-jump span{color:#fff;font-size:9px;font-weight:900;letter-spacing:.8px}
+#v99-jump select{max-width:180px;border:0;border-radius:16px;background:#fff;color:#075777;padding:7px 25px 7px 9px;font-size:10px;font-weight:800;outline:none}
 
-/* Formulario móvil: nada de texto lateral/salido */
+/* Mobile form fixes */
 @media(max-width:700px){
- .portal-card{padding:18px 14px!important;overflow:hidden!important}
  .doc-options{display:flex!important;flex-direction:column!important;gap:10px!important;width:100%!important;min-width:0!important}
- .doc-option{
-  display:grid!important;grid-template-columns:22px minmax(0,1fr)!important;
-  grid-template-areas:"radio title" "radio text"!important;
-  column-gap:10px!important;row-gap:4px!important;
-  width:100%!important;min-width:0!important;max-width:100%!important;
-  padding:13px!important;box-sizing:border-box!important;overflow:hidden!important
- }
+ .doc-option{display:grid!important;grid-template-columns:22px minmax(0,1fr)!important;grid-template-areas:"radio title" "radio copy"!important;gap:4px 10px!important;width:100%!important;min-width:0!important;max-width:100%!important;padding:13px!important;box-sizing:border-box!important;overflow:hidden!important}
  .doc-option input{grid-area:radio!important;width:18px!important;height:18px!important;margin:1px 0 0!important}
- .doc-option strong{grid-area:title!important;display:block!important;margin:0!important;font-size:11px!important;line-height:1.35!important;white-space:normal!important;overflow-wrap:break-word!important}
- .doc-option span{grid-area:text!important;display:block!important;min-width:0!important;font-size:10px!important;line-height:1.45!important;white-space:normal!important;overflow-wrap:break-word!important}
- .privacy-consent{
-  display:grid!important;grid-template-columns:22px minmax(0,1fr)!important;
-  gap:9px!important;align-items:start!important;width:100%!important;max-width:100%!important;
-  min-width:0!important;padding:12px!important;box-sizing:border-box!important;overflow:hidden!important;
-  font-size:10px!important;line-height:1.5!important
- }
+ .doc-option strong{grid-area:title!important;white-space:normal!important;overflow-wrap:anywhere!important;font-size:11px!important;line-height:1.35!important}
+ .doc-option span{grid-area:copy!important;white-space:normal!important;overflow-wrap:anywhere!important;font-size:10px!important;line-height:1.45!important;min-width:0!important}
+ .privacy-consent{display:grid!important;grid-template-columns:22px minmax(0,1fr)!important;gap:9px!important;align-items:start!important;width:100%!important;max-width:100%!important;min-width:0!important;padding:12px!important;box-sizing:border-box!important;overflow:hidden!important;font-size:10px!important;line-height:1.5!important}
  .privacy-consent input{width:18px!important;height:18px!important;margin:1px 0 0!important}
- .privacy-consent span{display:block!important;min-width:0!important;width:auto!important;white-space:normal!important;overflow-wrap:break-word!important;word-break:normal!important}
- .privacy-consent a{white-space:normal!important}
+ .privacy-consent span,.privacy-consent a{min-width:0!important;white-space:normal!important;overflow-wrap:anywhere!important}
  .modal-hero{height:220px!important;min-height:220px!important}
- .modal-hero.v98-brand-logo img,.modal-hero.v98-max-logo img{padding:32px!important}
- #sectorMount .v98-arrow{width:18px!important;height:34px!important;font-size:15px!important;opacity:.62!important}
- #sectorMount .v98-arrow.prev{left:2px!important} #sectorMount .v98-arrow.next{right:2px!important}
+ .modal-hero.v99-fallback img{padding:28px!important}
+ #v99-jump{right:8px;bottom:10px}
+ #v99-jump select{max-width:145px}
 }
 </style>
 </head>
@@ -3203,100 +3198,154 @@ document.getElementById("privacyOverlay")?.addEventListener("click",e=>{if(e.tar
 
 
 
-<script id="max-innova-v98-auto-fallback">
+
+
+
+
+<script id="max-innova-v99-modal-fallback">
 document.addEventListener("DOMContentLoaded",function(){
- const logos={
-  "Toyota":"https://cdn.simpleicons.org/toyota",
-  "Nissan":"https://cdn.simpleicons.org/nissan",
-  "Volkswagen":"https://cdn.simpleicons.org/volkswagen",
-  "Kia":"https://cdn.simpleicons.org/kia",
-  "Chevrolet":"https://cdn.simpleicons.org/chevrolet",
-  "Mazda":"https://cdn.simpleicons.org/mazda",
-  "Honda":"https://cdn.simpleicons.org/honda",
-  "Hyundai":"https://cdn.simpleicons.org/hyundai"
- };
- function brandOf(img){
-  const m=img.closest(".modal"),t=((m?m.innerText:"")+" "+(img.alt||"")).toLowerCase();
-  return Object.keys(logos).find(b=>t.includes(b.toLowerCase()))||"";
+ function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim()}
+ function modalName(img){
+   const m=img.closest(".modal");
+   const title=m?.querySelector("#modalTitle,.modal-title,h2,h3");
+   return (title?.textContent||img.alt||"").replace(/^Financiamiento\s+/i,"").trim();
+ }
+ function cardLogo(name){
+   const n=norm(name);
+   for(const card of document.querySelectorAll("#sectorMount .brand")){
+     const label=card.querySelector(".brand-name")?.textContent||card.textContent||"";
+     if(n && (norm(label)===n || n.includes(norm(label)) || norm(label).includes(n))){
+       const im=card.querySelector("img");
+       if(im?.src)return im.src;
+     }
+   }
+   return "";
+ }
+ function localReference(name){
+   const safe=(name||"Opción de financiamiento").replace(/[&<>"]/g,"");
+   let icon="◇";
+   const n=norm(name);
+   if(/taxi|uber|didi|rappi|indrive|movilidad/.test(n))icon="🚕";
+   else if(/vivienda|casa|hogar|ara|ruba|cadu|union|century|re\/max/.test(n))icon="⌂";
+   else if(/nissan|toyota|chevrolet|volkswagen|kia|mazda|honda|hyundai/.test(n))icon="🚘";
+   else icon="▣";
+   const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+    <rect width="1200" height="520" rx="28" fill="#f5fbfd"/>
+    <circle cx="600" cy="185" r="105" fill="#e3f2f7"/>
+    <text x="600" y="220" text-anchor="middle" font-family="Arial,sans-serif" font-size="95" fill="#075777">${icon}</text>
+    <text x="600" y="365" text-anchor="middle" font-family="Arial,sans-serif" font-size="62" font-weight="900" fill="#073e5a">${safe}</text>
+   </svg>`;
+   return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
  }
  function install(img){
-  if(!img||img.dataset.v98==="1")return;
-  const brand=brandOf(img); if(!brand)return;
-  img.dataset.v98="1"; img.dataset.v98level="1";
-  const hero=img.closest(".modal-hero");
-  img.addEventListener("error",function(e){
-   e.stopImmediatePropagation();
-   const level=Number(img.dataset.v98level||1);
-   if(level===1){
-    img.dataset.v98level="2";
-    img.src=logos[brand]; img.alt="Logo "+brand;
-    if(hero){hero.style.display="block";hero.classList.add("v98-brand-logo")}
-   }else if(level===2){
-    img.dataset.v98level="3";
-    img.src="logo maxinnova.png"; img.alt="MAX INNOVA";
-    if(hero){hero.style.display="block";hero.classList.remove("v98-brand-logo");hero.classList.add("v98-max-logo")}
-   }else{
-    if(hero)hero.style.display="none";
-   }
-  },true);
-  img.addEventListener("load",function(){
-   if(hero){hero.style.display="block";hero.classList.remove("photo-error")}
-  },true);
+   if(!img||img.dataset.v99==="1")return;
+   img.dataset.v99="1"; img.dataset.v99level="1";
+   const hero=img.closest(".modal-hero"); if(!hero)return;
+   img.addEventListener("error",function(e){
+     e.stopImmediatePropagation();
+     const level=Number(img.dataset.v99level||1), name=modalName(img);
+     if(level===1){
+       img.dataset.v99level="2";
+       const logo=cardLogo(name);
+       img.src=logo||localReference(name);
+       img.alt=name;
+       hero.classList.add("v99-fallback");
+       hero.style.display="block";
+     }else if(level===2){
+       img.dataset.v99level="3";
+       img.src="logo maxinnova.png";
+       img.alt="MAX INNOVA";
+       hero.classList.add("v99-fallback");
+       hero.style.display="block";
+     }else{
+       hero.style.display="none";
+     }
+   },true);
+   img.addEventListener("load",()=>{hero.style.display="block";hero.classList.remove("photo-error")},true);
  }
  document.querySelectorAll(".modal-hero img").forEach(install);
  new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
-  if(n.nodeType!==1)return;
-  if(n.matches?.(".modal-hero img"))install(n);
-  n.querySelectorAll?.(".modal-hero img").forEach(install);
+   if(n.nodeType!==1)return;
+   if(n.matches?.(".modal-hero img"))install(n);
+   n.querySelectorAll?.(".modal-hero img").forEach(install);
  }))).observe(document.body,{childList:true,subtree:true});
 });
 </script>
 
-<script id="max-innova-v98-ribbons">
+<script id="max-innova-v99-ribbons">
 document.addEventListener("DOMContentLoaded",function(){
- document.querySelectorAll("#sectorMount .sector-box").forEach(box=>{
-  const ticker=box.querySelector(".ticker"), track=ticker?.querySelector(".track");
-  if(!ticker||!track||box.dataset.v98)return;
-  box.dataset.v98="1";
+ document.querySelectorAll("#sectorMount .sector-box").forEach((box,index)=>{
+   const ticker=box.querySelector(".ticker"),track=ticker?.querySelector(".track");
+   if(!ticker||!track)return;
 
-  const prev=document.createElement("button"),next=document.createElement("button");
-  prev.type=next.type="button"; prev.className="v98-arrow prev"; next.className="v98-arrow next";
-  prev.textContent="‹";next.textContent="›";
-  prev.setAttribute("aria-label","Ver anteriores");next.setAttribute("aria-label","Ver siguientes");
-  box.append(prev,next);
+   /* Replace CSS animation with controllable continuous scrolling. */
+   track.style.animation="none"; track.style.transform="none";
+   ticker.style.overflowX="auto"; ticker.style.scrollBehavior="smooth";
+   ticker.style.scrollbarWidth="none";
 
-  const pause=()=>track.style.animationPlayState="paused";
-  const resume=()=>{if(!ticker.dataset.manual)track.style.animationPlayState="running"};
-  ticker.addEventListener("mouseenter",pause);ticker.addEventListener("mouseleave",resume);
-  ticker.addEventListener("touchstart",pause,{passive:true});
+   const prev=document.createElement("button"),next=document.createElement("button");
+   prev.type=next.type="button";prev.className="v99-arrow prev";next.className="v99-arrow next";
+   prev.textContent="‹";next.textContent="›";
+   prev.setAttribute("aria-label","Retroceder");next.setAttribute("aria-label","Avanzar");
+   box.append(prev,next);
 
-  function manual(){
-   if(!ticker.dataset.manual){
-    ticker.dataset.manual="1";
-    const matrix=getComputedStyle(track).transform;
-    let tx=0;
-    if(matrix && matrix!=="none"){
-      try{tx=new DOMMatrixReadOnly(matrix).m41}catch(_){}
-    }
-    track.style.animation="none";
-    track.style.transform="none";
-    ticker.scrollLeft=Math.max(0,-tx);
-    ticker.style.overflowX="auto";
-    ticker.style.scrollBehavior="smooth";
+   let paused=false,last=performance.now(),resumeTimer=null;
+   const direction=box.querySelector(".ticker.reverse")?-1:1;
+   const speed=index%2?30:24; // px/sec
+   function half(){return track.scrollWidth/2}
+   function loop(now){
+     const dt=Math.min(40,now-last)/1000; last=now;
+     if(!paused && !document.hidden){
+       ticker.scrollLeft += direction*speed*dt;
+       const h=half();
+       if(direction>0 && ticker.scrollLeft>=h)ticker.scrollLeft-=h;
+       if(direction<0 && ticker.scrollLeft<=1)ticker.scrollLeft+=h;
+     }
+     requestAnimationFrame(loop);
    }
-  }
-  function step(){
-   const card=track.querySelector(".brand");
-   return card ? card.getBoundingClientRect().width+12 : Math.max(180,ticker.clientWidth*.55);
-  }
-  prev.onclick=e=>{e.preventDefault();e.stopPropagation();manual();ticker.scrollBy({left:-step(),behavior:"smooth"})};
-  next.onclick=e=>{e.preventDefault();e.stopPropagation();manual();ticker.scrollBy({left: step(),behavior:"smooth"})};
+   requestAnimationFrame(loop);
 
-  let down=false,x=0,left=0;
-  ticker.addEventListener("pointerdown",e=>{manual();down=true;x=e.clientX;left=ticker.scrollLeft});
-  ticker.addEventListener("pointermove",e=>{if(down)ticker.scrollLeft=left-(e.clientX-x)});
-  ticker.addEventListener("pointerup",()=>down=false);
-  ticker.addEventListener("pointercancel",()=>down=false);
+   function temporaryPause(ms=1800){
+     paused=true; clearTimeout(resumeTimer);
+     resumeTimer=setTimeout(()=>{paused=false;last=performance.now()},ms);
+   }
+   function step(){
+     const c=track.querySelector(".brand");
+     return c?c.getBoundingClientRect().width+12:220;
+   }
+   prev.onclick=e=>{e.preventDefault();e.stopPropagation();temporaryPause();ticker.scrollBy({left:-step(),behavior:"smooth"})};
+   next.onclick=e=>{e.preventDefault();e.stopPropagation();temporaryPause();ticker.scrollBy({left: step(),behavior:"smooth"})};
+
+   ticker.addEventListener("mouseenter",()=>paused=true);
+   ticker.addEventListener("mouseleave",()=>{paused=false;last=performance.now()});
+   ticker.addEventListener("touchstart",()=>temporaryPause(2500),{passive:true});
+   ticker.addEventListener("pointerdown",()=>temporaryPause(2500));
+ });
+});
+</script>
+
+<div id="v99-jump">
+ <span>IR A</span>
+ <select id="v99JumpSelect" aria-label="Ir a una sección">
+  <option value="">Seleccionar sección</option>
+  <option value="#inicio">Inicio</option>
+  <option value="#soluciones">Soluciones</option>
+  <option value="#sectores">Marcas y sectores</option>
+  <option value="#portal">Solicitud / documentos</option>
+  <option value="#cotizador">Cotizador</option>
+  <option value="#como-funciona">Cómo funciona</option>
+  <option value="#informacion">Información</option>
+  <option value="#ubicaciones">Ubicaciones</option>
+  <option value="#contacto">Contacto</option>
+ </select>
+</div>
+<script id="max-innova-v99-jump">
+document.addEventListener("DOMContentLoaded",()=>{
+ const s=document.getElementById("v99JumpSelect");
+ s.addEventListener("change",()=>{
+   const target=document.querySelector(s.value);
+   if(target)target.scrollIntoView({behavior:"smooth",block:"start"});
+   s.selectedIndex=0;
  });
 });
 </script>
