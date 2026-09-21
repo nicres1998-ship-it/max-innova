@@ -3557,5 +3557,260 @@ document.addEventListener('DOMContentLoaded',()=>{
  ['scroll','resize'].forEach(ev=>addEventListener(ev,()=>requestAnimationFrame(placeSafely),{passive:true}));document.addEventListener('focusin',()=>setTimeout(placeSafely,20));document.addEventListener('focusout',()=>setTimeout(placeSafely,80));setTimeout(()=>{show('inicio',true);placeSafely()},250)
 });
 </script>
+
+
+<!-- ===== V115 · IR A ACOMPAÑADO / MODALES LIBRES ===== -->
+<style id="lic-max-v115-style">
+/* El asistente completo se retira frente a modales reales. */
+body.licmax-modal-open #licMaxRoot{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+
+/* IR A: panel y LIC. MAX trabajan como una sola escena, sin superponerse. */
+#licMaxRoot.menu-active{width:390px!important;height:400px!important;overflow:visible!important}
+#licMaxRoot.menu-active .licmax-stage{width:390px!important;height:400px!important;overflow:visible!important}
+#licMaxRoot.menu-active .licmax-bubble{opacity:1!important;visibility:visible!important;transform:none!important;pointer-events:none!important;width:150px!important;bottom:112px!important}
+#licMaxRoot.menu-active .licmax-thought{display:none!important}
+#licMaxRoot.menu-active .licmax-character{opacity:1!important;transform:scale(.90)!important;z-index:34!important;bottom:47px!important;animation:licFloat 3.4s ease-in-out infinite!important}
+#licMaxRoot.menu-active .licmax-jump{z-index:35!important;bottom:0!important}
+#licMaxRoot.menu-active .licmax-menu{width:270px!important;max-height:min(390px,72vh)!important;overflow:auto!important;bottom:0!important;z-index:32!important}
+#licMaxRoot.menu-active .licmax-menu button{padding:11px 12px!important;font-size:11px!important}
+
+/* Menú a la izquierda; LIC. MAX a la derecha mirando las opciones. */
+#licMaxRoot.menu-active.menu-panel-left .licmax-menu{right:112px!important;left:auto!important}
+#licMaxRoot.menu-active.menu-panel-left .licmax-character{right:8px!important;left:auto!important;transform:scale(.90) rotate(-3deg)!important}
+#licMaxRoot.menu-active.menu-panel-left .licmax-bubble{right:2px!important;left:auto!important}
+#licMaxRoot.menu-active.menu-panel-left .licmax-jump{right:3px!important;left:auto!important}
+#licMaxRoot.menu-active.menu-panel-left .licmax-controls{right:2px!important;left:auto!important}
+
+/* Menú a la derecha; LIC. MAX a la izquierda mirando las opciones. */
+#licMaxRoot.menu-active.menu-panel-right .licmax-menu{left:112px!important;right:auto!important}
+#licMaxRoot.menu-active.menu-panel-right .licmax-character{left:8px!important;right:auto!important;transform:scale(.90) rotate(3deg)!important}
+#licMaxRoot.menu-active.menu-panel-right .licmax-bubble{left:2px!important;right:auto!important}
+#licMaxRoot.menu-active.menu-panel-right .licmax-jump{left:3px!important;right:auto!important}
+#licMaxRoot.menu-active.menu-panel-right .licmax-controls{left:2px!important;right:auto!important}
+
+/* El nombre queda reservado debajo del robot y por encima del botón IR A. */
+#licMaxRoot.menu-active .licmax-name{bottom:-13px!important;z-index:50!important}
+#licMaxRoot.menu-active .licmax-jump{transform:translateY(5px)}
+
+@media(max-width:620px){
+ #licMaxRoot.menu-active{width:330px!important;height:365px!important}
+ #licMaxRoot.menu-active .licmax-stage{width:330px!important;height:365px!important}
+ #licMaxRoot.menu-active .licmax-menu{width:230px!important;max-height:68vh!important}
+ #licMaxRoot.menu-active.menu-panel-left .licmax-menu{right:92px!important}
+ #licMaxRoot.menu-active.menu-panel-right .licmax-menu{left:92px!important}
+ #licMaxRoot.menu-active .licmax-bubble{width:125px!important;bottom:105px!important}
+}
+</style>
+<script id="lic-max-v115-script">
+document.addEventListener('DOMContentLoaded',()=>{
+ const root=document.getElementById('licMaxRoot');
+ const stage=document.getElementById('licMaxStage');
+ const jump=document.getElementById('licMaxJump');
+ const title=document.getElementById('licMaxTitle');
+ const text=document.getElementById('licMaxText');
+ const action=document.getElementById('licMaxAction');
+ const thought=document.getElementById('licMaxThought');
+ if(!root||!stage||!jump)return;
+
+ function isMenuOpen(){return jump.classList.contains('open')}
+ function fitMenuScene(){
+   if(!isMenuOpen())return;
+   root.classList.add('menu-active');
+   root.classList.remove('compact','safe-left','menu-panel-left','menu-panel-right');
+   thought?.classList.remove('show');
+   const r=root.getBoundingClientRect();
+   const center=(r.left+r.right)/2;
+   const panelOnLeft=center>innerWidth/2;
+   root.classList.add(panelOnLeft?'menu-panel-left':'menu-panel-right');
+   requestAnimationFrame(()=>{
+     const rr=root.getBoundingClientRect();
+     let left=rr.left, top=rr.top;
+     if(rr.left<8) left+=8-rr.left;
+     if(rr.right>innerWidth-8) left-=rr.right-(innerWidth-8);
+     if(rr.top<8) top+=8-rr.top;
+     if(rr.bottom>innerHeight-8) top-=rr.bottom-(innerHeight-8);
+     root.style.right='auto';root.style.bottom='auto';
+     root.style.left=Math.max(8,left)+'px';root.style.top=Math.max(8,top)+'px';
+   });
+ }
+ function closeMenuScene(){
+   root.classList.remove('menu-active','menu-panel-left','menu-panel-right');
+ }
+ function menuCopy(){
+   if(title) title.textContent='¿A dónde vamos? 👀';
+   if(text) text.textContent='Elige una opción y te acompaño. Tú decides la ruta.';
+   if(action){action.textContent='ELIGE UNA OPCIÓN';action.dataset.dest='';}
+ }
+
+ const observer=new MutationObserver(()=>{
+   if(isMenuOpen()){menuCopy();fitMenuScene()}else closeMenuScene();
+ });
+ observer.observe(jump,{attributes:true,attributeFilter:['class']});
+ addEventListener('resize',()=>{if(isMenuOpen())fitMenuScene()},{passive:true});
+
+ /* Modal real = LIC. MAX se retira. IR A NO cuenta como modal. */
+ function modalRealAbierto(){
+   const els=[...document.querySelectorAll('.modal.open,dialog[open],[role="dialog"].open,[role="dialog"][aria-modal="true"]')];
+   return els.some(el=>{
+     if(el.closest('#licMaxRoot'))return false;
+     const cs=getComputedStyle(el),r=el.getBoundingClientRect();
+     return cs.display!=='none'&&cs.visibility!=='hidden'&&r.width>40&&r.height>40;
+   });
+ }
+ function sync(){document.body.classList.toggle('licmax-modal-open',modalRealAbierto())}
+ new MutationObserver(sync).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','style','open','aria-modal']});
+ document.addEventListener('click',()=>setTimeout(sync,0),true);
+ sync();
+});
+</script>
+
+
+
+<!-- ===== V116 · IR A SEPARADO + CIERRE SIEMPRE VISIBLE ===== -->
+<style id="lic-max-v116-style">
+/* V116 anula la escena expandida de V115: LIC. MAX conserva su tamaño normal. */
+#licMaxRoot.menu-active{width:auto!important;height:auto!important;overflow:visible!important}
+#licMaxRoot.menu-active .licmax-stage{width:260px!important;height:202px!important;overflow:visible!important}
+#licMaxRoot.menu-active .licmax-character{right:6px!important;left:auto!important;bottom:58px!important;opacity:1!important;transform:scale(.92) rotate(-2deg)!important;z-index:45!important}
+#licMaxRoot.menu-active .licmax-bubble{right:84px!important;left:auto!important;bottom:105px!important;width:168px!important;opacity:1!important;visibility:visible!important;transform:none!important;z-index:44!important;pointer-events:none!important}
+#licMaxRoot.menu-active .licmax-jump{right:4px!important;left:auto!important;bottom:0!important;transform:none!important;z-index:46!important}
+#licMaxRoot.menu-active .licmax-controls{right:72px!important;left:auto!important;top:99px!important;z-index:47!important}
+#licMaxRoot.menu-active .licmax-thought{display:none!important}
+#licMaxRoot.menu-active .licmax-name{z-index:50!important}
+
+/* El menú IR A sale del contenedor de la mascota y nunca la cubre. */
+#licMaxRoot .licmax-menu.licmax-menu-floating{
+ position:fixed!important;left:auto;right:auto;top:auto;bottom:auto;
+ width:300px!important;max-height:min(520px,76vh)!important;overflow:auto!important;
+ padding:12px!important;border-radius:20px!important;z-index:9998!important;
+ box-shadow:0 24px 70px rgba(0,35,60,.30)!important;
+ transform:none!important;
+}
+#licMaxRoot .licmax-menu.licmax-menu-floating button{padding:12px 13px!important;font-size:12px!important}
+#licMaxRoot .licmax-menu-close{
+ position:sticky;top:0;margin:0 0 6px auto!important;width:32px!important;height:32px!important;
+ min-height:32px!important;padding:0!important;display:grid!important;place-items:center!important;
+ border-radius:50%!important;background:#edf7fb!important;color:#003f68!important;
+ font-size:18px!important;font-weight:900!important;z-index:4;box-shadow:0 3px 10px rgba(0,40,70,.12)
+}
+#licMaxRoot .licmax-menu-close:hover{background:#dff3fb!important}
+
+/* Toda ventana grande conserva una X visible aunque su contenido tenga scroll. */
+.modal.open .modal-card{position:relative!important}
+.modal.open .modal-card>.close,
+.modal.open .modal-card .close{
+ position:sticky!important;top:10px!important;right:10px!important;float:right!important;
+ z-index:10020!important;width:38px!important;height:38px!important;display:grid!important;place-items:center!important;
+ background:#fff!important;color:#003f68!important;border:1px solid #d5e8f0!important;
+ box-shadow:0 6px 18px rgba(0,35,60,.18)!important
+}
+body.licmax-modal-open #licMaxRoot{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+
+@media(max-width:620px){
+ #licMaxRoot.menu-active .licmax-stage{width:218px!important;height:174px!important}
+ #licMaxRoot .licmax-menu.licmax-menu-floating{width:min(280px,calc(100vw - 20px))!important;max-height:70vh!important}
+}
+</style>
+<script id="lic-max-v116-script">
+document.addEventListener('DOMContentLoaded',()=>{
+ const root=document.getElementById('licMaxRoot');
+ const jump=document.getElementById('licMaxJump');
+ const jumpBtn=document.getElementById('licMaxJumpBtn');
+ const menu=document.getElementById('licMaxMenu');
+ const title=document.getElementById('licMaxTitle');
+ const text=document.getElementById('licMaxText');
+ const thought=document.getElementById('licMaxThought');
+ if(!root||!jump||!menu)return;
+
+ // X propia del menú IR A.
+ let close=menu.querySelector('.licmax-menu-close');
+ if(!close){
+   close=document.createElement('button');
+   close.type='button'; close.className='licmax-menu-close'; close.setAttribute('aria-label','Cerrar menú IR A'); close.textContent='×';
+   menu.prepend(close);
+ }
+ close.addEventListener('click',e=>{e.stopPropagation();jump.classList.remove('open');root.classList.remove('menu-active');menu.classList.remove('licmax-menu-floating');});
+
+ function opened(){return jump.classList.contains('open')}
+ function place(){
+   if(!opened())return;
+   root.classList.add('menu-active');
+   root.classList.remove('menu-panel-left','menu-panel-right');
+   thought?.classList.remove('show');
+   if(title)title.textContent='¿A dónde vamos? 👀';
+   if(text)text.textContent='Elige una opción y te acompaño. Tú decides la ruta.';
+   menu.classList.add('licmax-menu-floating');
+
+   // Medimos mascota y menú. El menú queda FUERA de la zona de LIC. MAX.
+   const rr=root.getBoundingClientRect();
+   const mw=Math.min(300,innerWidth-20);
+   const gap=16;
+   let left=rr.right+gap;
+   let side='right';
+   if(left+mw>innerWidth-10){left=rr.left-mw-gap;side='left'}
+   if(left<10){left=Math.max(10,Math.min(innerWidth-mw-10,(innerWidth-mw)/2));side='center'}
+   menu.style.left=Math.round(left)+'px';
+   menu.style.right='auto';
+   const mh=Math.min(menu.scrollHeight,innerHeight*.76);
+   let top=rr.top + Math.max(0,(rr.height-mh)/2);
+   top=Math.max(10,Math.min(innerHeight-mh-10,top));
+   menu.style.top=Math.round(top)+'px'; menu.style.bottom='auto';
+   root.dataset.menuSide=side;
+ }
+ function reset(){root.classList.remove('menu-active','menu-panel-left','menu-panel-right');menu.classList.remove('licmax-menu-floating');menu.style.left=menu.style.right=menu.style.top=menu.style.bottom=''}
+
+ new MutationObserver(()=>opened()?requestAnimationFrame(place):reset()).observe(jump,{attributes:true,attributeFilter:['class']});
+ addEventListener('resize',()=>{if(opened())requestAnimationFrame(place)},{passive:true});
+ addEventListener('scroll',()=>{if(opened())requestAnimationFrame(place)},{passive:true});
+
+ // Elegir una opción también cierra IR A.
+ menu.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>setTimeout(()=>{jump.classList.remove('open');reset()},0)));
+
+ // Reafirma modales reales: LIC. MAX fuera y cierre visible.
+ function modalReal(){return [...document.querySelectorAll('.modal.open,dialog[open],[role="dialog"][aria-modal="true"]')].some(el=>{
+   if(el.closest('#licMaxRoot'))return false; const cs=getComputedStyle(el),r=el.getBoundingClientRect();
+   return cs.display!=='none'&&cs.visibility!=='hidden'&&r.width>40&&r.height>40;
+ })}
+ function syncModal(){const yes=modalReal();document.body.classList.toggle('licmax-modal-open',yes);if(yes&&opened()){jump.classList.remove('open');reset()}}
+ new MutationObserver(syncModal).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','style','open','aria-modal']});
+ document.addEventListener('click',()=>setTimeout(syncModal,0),true);syncModal();
+});
+</script>
+
+
+
+<!-- ===== V118 · RECUPERACION FUNCIONAL + LIC. MAX AISLADO ===== -->
+<style id="lic-max-v118-style">
+/* Esta capa SOLO controla LIC. MAX. No modifica tarjetas, cintas ni lógica comercial. */
+#licMaxRoot:not(.licmax-user-positioned){left:18px!important;right:auto!important;bottom:18px!important;top:auto!important;z-index:2500!important}
+#licMaxRoot.licmax-minimized{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+#licMaxMiniHead{position:fixed;left:18px;bottom:18px;width:58px;height:58px;border:2px solid #fff;border-radius:50%;background:linear-gradient(145deg,#eafcff,#68cee5);box-shadow:0 10px 28px rgba(0,45,75,.28);z-index:2501;display:none;place-items:center;cursor:pointer;padding:4px}
+#licMaxMiniHead.show{display:grid} #licMaxMiniHead svg{width:48px;height:48px;display:block}
+body.licmax-modal-open #licMaxRoot,body.licmax-modal-open #licMaxMiniHead,#licMaxRoot.modal-suppressed{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+/* IR A sigue siendo acompañamiento, no modal. */
+#licMaxRoot.menu-active{opacity:1!important;visibility:visible!important}
+@media(max-width:900px){#licMaxRoot:not(.licmax-user-positioned){left:10px!important;bottom:10px!important}#licMaxMiniHead{left:10px;bottom:10px;width:54px;height:54px}}
+@media(max-width:600px){#licMaxRoot:not(.licmax-user-positioned){left:7px!important;bottom:8px!important;transform:scale(.9);transform-origin:left bottom}#licMaxMiniHead{left:8px;bottom:8px;width:50px;height:50px}}
+</style>
+<script id="lic-max-v118-script">
+document.addEventListener('DOMContentLoaded',()=>{
+ const root=document.getElementById('licMaxRoot'), hide=document.getElementById('licMaxHide'), jump=document.getElementById('licMaxJump'), menu=document.getElementById('licMaxMenu');
+ if(!root)return;
+ try{localStorage.removeItem('licMaxPos')}catch(e){}
+ root.style.left='';root.style.top='';root.style.right='';root.style.bottom='';root.classList.remove('hidden-helper','licmax-minimized','licmax-user-positioned');
+ let mini=document.getElementById('licMaxMiniHead');
+ if(!mini){mini=document.createElement('button');mini.id='licMaxMiniHead';mini.type='button';mini.setAttribute('aria-label','Mostrar LIC. MAX');mini.title='Mostrar LIC. MAX';mini.innerHTML='<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 16V8" stroke="#25bddd" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="6" r="4" fill="#35d5f4"/><rect x="14" y="18" width="72" height="62" rx="27" fill="#bfeef7" stroke="#075f86" stroke-width="3"/><rect x="22" y="28" width="56" height="40" rx="18" fill="#073652"/><ellipse cx="39" cy="46" rx="6" ry="7" fill="#82f3ff"/><ellipse cx="61" cy="46" rx="6" ry="7" fill="#82f3ff"/><path d="M38 58q12 9 24 0" fill="none" stroke="#82f3ff" stroke-width="3" stroke-linecap="round"/><path d="M25 82h50" stroke="#003f68" stroke-width="8" stroke-linecap="round"/></svg>';document.body.appendChild(mini)}
+ let minimized=false;
+ function setMin(v){minimized=!!v;root.classList.toggle('licmax-minimized',minimized);mini.classList.toggle('show',minimized);if(minimized){jump?.classList.remove('open');root.classList.remove('menu-active');menu?.classList.remove('licmax-menu-floating')}}
+ hide?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();setMin(true)},true); mini.addEventListener('click',()=>setMin(false));
+ root.addEventListener('pointerdown',e=>{if(e.target.closest('.licmax-character'))root.classList.add('licmax-user-positioned')},true);
+ function modalOpen(){return [...document.querySelectorAll('.modal.open,dialog[open],[role="dialog"][aria-modal="true"]')].some(el=>{if(el.closest('#licMaxRoot'))return false;const c=getComputedStyle(el),r=el.getBoundingClientRect();return c.display!=='none'&&c.visibility!=='hidden'&&r.width>80&&r.height>80})}
+ function sync(){const yes=modalOpen();document.body.classList.toggle('licmax-modal-open',yes);if(yes){jump?.classList.remove('open');root.classList.remove('menu-active');menu?.classList.remove('licmax-menu-floating')}}
+ new MutationObserver(sync).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','style','open','aria-modal']});document.addEventListener('click',()=>setTimeout(sync,0),true);sync();
+ function fit(){if(!root.classList.contains('licmax-user-positioned'))return;const r=root.getBoundingClientRect(),x=Math.min(Math.max(6,r.left),Math.max(6,innerWidth-r.width-6)),y=Math.min(Math.max(6,r.top),Math.max(6,innerHeight-r.height-6));root.style.left=x+'px';root.style.top=y+'px';root.style.right='auto';root.style.bottom='auto'}
+ addEventListener('resize',fit,{passive:true});addEventListener('orientationchange',()=>setTimeout(fit,120),{passive:true});
+});
+</script>
+
 </body>
 </html>
