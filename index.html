@@ -1369,6 +1369,19 @@ a[href*="asesores.html"],button[onclick*="asesores.html"]{display:none!important
 #infoModal .modal-hero.photo-error img{width:100%!important;height:auto!important;max-height:360px!important;object-fit:contain!important;padding:0!important}
 @media(max-width:600px){#infoModal .modal-hero img{height:auto!important;max-height:36vh!important;object-fit:contain!important}#infoModal .modal-hero.photo-error img{max-height:250px!important}}
 </style>
+
+<style id="max-innova-v133-info-first">
+/* V133: al abrir una ficha, la información aparece antes que la fotografía. */
+#infoModal .modal-content-inner{padding-top:30px!important}
+#infoModal .modal-hero{margin:22px 0 8px!important;border-radius:16px!important;overflow:visible!important}
+#infoModal .modal-hero img{border-radius:16px!important}
+#infoModal .modal-hero-shade{border-radius:16px!important}
+@media(max-width:600px){
+ #infoModal .modal-content-inner{padding-top:24px!important}
+ #infoModal .modal-hero{margin:18px 0 6px!important;border-radius:12px!important}
+ #infoModal .modal-hero img,#infoModal .modal-hero-shade{border-radius:12px!important}
+}
+</style>
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -1906,11 +1919,6 @@ function miIncomeGuide(){
 <!-- MODAL INFORMACIÓN -->
 <div class="modal" id="infoModal"><div class="modal-card">
 <button class="close" onclick="closeInfo()">×</button>
-<div class="modal-hero" id="modalHero">
-<img alt="" id="modalImage" decoding="async" fetchpriority="high"/>
-<div class="modal-hero-shade"></div>
-<div class="modal-hero-label" id="modalHeroLabel">MAX INNOVA</div><div class="modal-photo-caption" id="modalPhotoCaption"></div>
-</div>
 <div class="modal-content-inner">
 <div class="kicker" id="modalKicker">INFORMACIÓN GENERAL</div>
 <h2 id="modalTitle">Financiamiento</h2>
@@ -1929,6 +1937,11 @@ function miIncomeGuide(){
 <strong id="modalMarketTitle">INFORMACIÓN ÚTIL</strong>
 <p id="modalMarketText">Información relacionada con esta opción.</p>
 <div class="modal-tags" id="modalTags"></div>
+</div>
+<div class="modal-hero" id="modalHero">
+<img alt="" id="modalImage" decoding="async" fetchpriority="high"/>
+<div class="modal-hero-shade"></div>
+<div class="modal-hero-label" id="modalHeroLabel">MAX INNOVA</div><div class="modal-photo-caption" id="modalPhotoCaption"></div>
 </div>
 <div style="background:#eff9fd;border-radius:12px;padding:18px;margin:20px 0;font-size:12px;line-height:1.7;color:#496c7f">La disponibilidad, características, requisitos, condiciones y aprobación dependen de la evaluación correspondiente. La información mostrada es general y no representa una aprobación.</div>
 <button class="btn btn-blue" onclick="modalApply()">INICIAR SOLICITUD</button>
