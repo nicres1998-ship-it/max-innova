@@ -833,6 +833,158 @@ input,select,textarea,button{max-width:100%}
 }
 </style>
 
+
+<style id="max-innova-v88-mobile-real">
+@media(max-width:900px){
+  header{
+    height:auto!important;
+    min-height:0!important;
+    position:sticky!important;
+    top:0!important;
+    overflow:visible!important;
+  }
+  .nav{
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    padding:8px 10px 9px!important;
+    display:grid!important;
+    grid-template-columns:1fr auto!important;
+    align-items:center!important;
+    gap:6px 8px!important;
+    background:#fff!important;
+  }
+  .logo{
+    width:145px!important;height:48px!important;
+  }
+  .nav>div:last-child{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    gap:5px!important;
+    min-width:0!important;
+  }
+  .advisor-access,.account{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-height:36px!important;
+    padding:7px 8px!important;
+    margin:0!important;
+    font-size:8px!important;
+    line-height:1.05!important;
+    white-space:nowrap!important;
+  }
+  .menu{
+    grid-column:1/-1!important;
+    order:initial!important;
+    display:flex!important;
+    width:100%!important;
+    max-width:100vw!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    gap:5px!important;
+    padding:4px 2px 2px!important;
+    margin:0!important;
+    white-space:nowrap!important;
+    background:#fff!important;
+    scrollbar-width:none!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+  .menu::-webkit-scrollbar{display:none!important}
+  .menu a{
+    display:inline-flex!important;
+    flex:0 0 auto!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-height:35px!important;
+    padding:7px 10px!important;
+    margin:0!important;
+    border:1px solid #d7eaf3!important;
+    border-radius:9px!important;
+    background:#f7fcfe!important;
+    color:#003e68!important;
+    font-size:9px!important;
+    font-weight:900!important;
+    line-height:1!important;
+  }
+  .menu a:after{display:none!important}
+
+  /* La sección REAL de la pareja */
+  .couple{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    min-height:0!important;
+  }
+  .couple-photo{
+    display:block!important;
+    width:100%!important;
+    min-height:430px!important;
+    background-image:url("pareja.png")!important;
+    background-repeat:no-repeat!important;
+    background-position:center top!important;
+    background-size:contain!important;
+    background-color:#eef7fb!important;
+    position:relative!important;
+    visibility:visible!important;
+    opacity:1!important;
+  }
+  .couple-overlay{
+    left:14px!important;right:14px!important;bottom:14px!important;
+    width:auto!important;padding:13px 15px!important;
+    font-size:17px!important;text-align:center!important;
+  }
+  .couple-copy{
+    padding:35px 7%!important;
+  }
+}
+@media(max-width:520px){
+  .nav{grid-template-columns:1fr!important}
+  .logo{margin:auto!important;width:155px!important;height:48px!important}
+  .nav>div:last-child{
+    justify-content:center!important;
+    width:100%!important;
+  }
+  .advisor-access,.account{
+    flex:1 1 0!important;
+    max-width:170px!important;
+    font-size:8px!important;
+  }
+  .menu{grid-column:1!important}
+  .couple-photo{
+    min-height:390px!important;
+    background-size:contain!important;
+    background-position:center top!important;
+  }
+}
+</style>
+
+
+<style id="max-innova-v88-modal-photo-fail">
+.modal-hero.photo-error{
+  display:none!important;
+  height:0!important;
+  min-height:0!important;
+}
+</style>
+
+
+<style id="max-innova-v89-audit-fixes">
+@media(max-width:900px){
+ .menu{
+   border-top:1px solid #e0edf3!important;
+   border-bottom:1px solid #e0edf3!important;
+   box-shadow:0 4px 12px rgba(0,46,77,.08)!important;
+ }
+ .menu a{color:#003e68!important;background:#fff!important;border-color:#cfe4ee!important}
+ .menu a:hover,.menu a:focus{background:#eaf7fb!important;color:#003e68!important}
+ .couple-photo{aspect-ratio:4/3!important;min-height:0!important}
+}
+@media(max-width:520px){
+ .couple-photo{aspect-ratio:3/4!important;min-height:0!important}
+}
+</style>
+
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -2015,7 +2167,7 @@ const platformProfiles={
 
 
 const brandDeliveryPhotos={
- "Nissan":"https://storage.googleapis.com/tribunamexico/2026/04/Venta-de-autos-nuevos-en-Mexico-crece-24-en-marzo-1024x576.jpg.webp",
+ "Nissan":"https://media.licdn.com/dms/image/v2/D4E22AQHhqpG_VVYQyA/feedshare-shrink_800/B4EZtHgw8RHcAg-/0/1766431332735?e=2147483647&t=gf5Z3gi-esrRjIdYdHYfZCGPF6QcScdQBf60w1JjNYs&v=beta",
  "Toyota":"https://servicio.toyotaguerrero.com.mx/wp-content/uploads/2022/06/entrega-de-tu-vehiculo.jpg",
  "Chevrolet":"https://www.chevroletculiacanmotors.com.mx/content/dam/chevrolet/na/mx/es/index/index-sub-content/01-images/prueba-de-manejo-dealers-banner2-2019.jpg?imwidth=960",
  "Volkswagen":"https://www.vw.com.mx/content/dam/onehub_pkw/importers/mx/ofertas/garantias-seguros/cpa-plus/cpa-plus-vw.jpg",
@@ -2026,10 +2178,10 @@ const brandDeliveryPhotos={
 };
 const platformContextPhotos={
  "Uber":"https://cdn2.mediotiempo.com/uploads/media/2026/05/11/mundial-uber-airbnb-camara-restaurantes.jpg",
- "DiDi":"https://cdn.forbes.com.mx/2018/11/didi-chuxing-2.jpg",
+ "DiDi":"https://images.ctfassets.net/n7hs0hadu6ro/1H7ftynGu1vm6DaftVGFr3/f7a14845e17b103aa339ea1e1ffe3151/iStock-1502994722.jpg?fl=progressive&fm=jpg&h=667&q=50&w=1000",
  "inDrive":"https://cdn.assets.prezly.com/95f35277-021f-4308-8f8b-d1dc8dc24eea/INDRIVE%20-%20Stock%20Latam%20-%20Mayo%202023%20-%20Day%204%20-%20intercity-0164%201.jpg",
- "Rappi":"https://ruizhealytimes.com/wp-content/uploads/2024/04/repartidor-de-rappi.jpg",
- "Uber Eats":"https://cdn-3.expansion.mx/dims4/default/4c24c11/2147483647/strip/true/crop/6548x4364%2B0%2B0/resize/800x533%21/format/webp/quality/80/?url=https%3A%2F%2Fcherry-brightspot.s3.amazonaws.com%2Fa7%2F1c%2F0223143440599ccdf5a1036465b5%2Fsf-2017-delivery-17-1.jpg",
+ "Rappi":"https://cdn.milenio.com/uploads/media/2020/07/14/rappi-app-originaria-colombia-ingreso_0_227_1200_746.jpg",
+ "Uber Eats":"https://imagenes.elpais.com/resizer/v2/BZI4FEMTBVF45B5N5NJ6YYRQWI.jpg?auth=594179ac05f5be65901213156385cbf80ca256de5b795ef3e07ad126eb16fa33&width=1200",
  "Taxi de sitio":"https://www.ejecentral.com.mx/__export/1767399255794/sites/ejecentral/img/2026/01/02/taxis-cdmx-2026.jpg_1777593972.jpg"
 };
 const vehicleDeliveryPhotos=[
@@ -2070,11 +2222,11 @@ function setModalVisual(type,label,customSrc){
  const img=document.getElementById("modalImage"), hero=document.getElementById("modalHero"), tag=document.getElementById("modalHeroLabel");
  if(!img||!hero)return;
  const src=customSrc||modalPhotos[type]||modalPhotos["Personal"];
- hero.classList.remove("photo-error");
- img.onerror=()=>{hero.classList.add("photo-error"); hero.style.backgroundImage="linear-gradient(135deg,#eef7fb,#cfe3ed)";};
- img.onload=()=>hero.classList.remove("photo-error");
- img.src=src; img.alt=label||"Proyecto de financiamiento";
- hero.style.backgroundImage=`linear-gradient(rgba(225,241,248,.28),rgba(225,241,248,.28)),url("${src}")`;
+ hero.style.backgroundImage="linear-gradient(135deg,#edf7fb,#d7e8f1)";
+ img.alt=label||"Proyecto de financiamiento";
+ img.onload=()=>{hero.classList.remove("photo-error");hero.style.display="block";hero.style.backgroundImage=`linear-gradient(rgba(225,241,248,.18),rgba(225,241,248,.18)),url("${src}")`;};
+ img.onerror=()=>{hero.classList.add("photo-error");hero.style.backgroundImage="none";};
+ img.src=src;
  tag.textContent=label||"MAX INNOVA";
  hero.classList.remove("visual-in"); void hero.offsetWidth; hero.classList.add("visual-in");
 }
