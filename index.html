@@ -1309,6 +1309,66 @@ a[href*="asesores.html"],button[onclick*="asesores.html"]{display:none!important
   #infoModal .modal-hero.photo-error img{padding:12px!important}
 }
 </style>
+
+<!-- ===== V129 · SIEMPRE INICIAR ARRIBA / INICIO ===== -->
+<script id="max-innova-v129-start-home">
+(function(){
+  /* Evita que Chrome/Safari restauren una posición intermedia al recargar. */
+  try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch(e) {}
+
+  const adminHash = '#max-admin';
+  const isAdminEntry = () => location.hash === adminHash;
+
+  /* En una entrada normal no permitimos que un hash viejo abra Cotizador,
+     Solicitudes u otra sección a media página. Conservamos sólo el acceso admin. */
+  if (!isAdminEntry() && location.hash) {
+    try { history.replaceState(history.state, document.title, location.pathname + location.search); } catch(e) {}
+  }
+
+  function forceHomeTop(){
+    if (isAdminEntry()) return;
+    const html = document.documentElement;
+    const body = document.body;
+    const oldHtml = html.style.scrollBehavior;
+    const oldBody = body ? body.style.scrollBehavior : '';
+    html.style.scrollBehavior = 'auto';
+    if (body) body.style.scrollBehavior = 'auto';
+    window.scrollTo(0,0);
+    html.scrollTop = 0;
+    if (body) body.scrollTop = 0;
+    requestAnimationFrame(()=>{
+      window.scrollTo(0,0);
+      requestAnimationFrame(()=>{
+        window.scrollTo(0,0);
+        html.style.scrollBehavior = oldHtml;
+        if (body) body.style.scrollBehavior = oldBody;
+      });
+    });
+  }
+
+  /* DOM listo + carga completa cubren imágenes/fuentes que cambian la altura. */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', forceHomeTop, {once:true});
+  } else {
+    forceHomeTop();
+  }
+  window.addEventListener('load', forceHomeTop, {once:true});
+
+  /* También corrige refresh y restauración desde BFCache en móvil. */
+  window.addEventListener('pageshow', function(){
+    if (!isAdminEntry()) setTimeout(forceHomeTop, 0);
+  });
+})();
+</script>
+
+
+<style id="max-innova-v131-photo-integrity">
+/* V131: integridad visual. Nunca recortar una fotografía para llenar el hero. */
+#infoModal .modal-hero{height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;background:#eef6f9!important;display:flex!important;align-items:center!important;justify-content:center!important}
+#infoModal .modal-hero img{display:block!important;width:100%!important;height:auto!important;max-width:100%!important;max-height:min(52vh,480px)!important;object-fit:contain!important;object-position:center center!important;margin:auto!important;padding:0!important;background:#eef6f9!important}
+#infoModal .modal-hero.photo-error img{width:100%!important;height:auto!important;max-height:360px!important;object-fit:contain!important;padding:0!important}
+@media(max-width:600px){#infoModal .modal-hero img{height:auto!important;max-height:36vh!important;object-fit:contain!important}#infoModal .modal-hero.photo-error img{max-height:250px!important}}
+</style>
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -1847,7 +1907,7 @@ function miIncomeGuide(){
 <div class="modal" id="infoModal"><div class="modal-card">
 <button class="close" onclick="closeInfo()">×</button>
 <div class="modal-hero" id="modalHero">
-<img alt="" id="modalImage" loading="lazy"/>
+<img alt="" id="modalImage" decoding="async" fetchpriority="high"/>
 <div class="modal-hero-shade"></div>
 <div class="modal-hero-label" id="modalHeroLabel">MAX INNOVA</div><div class="modal-photo-caption" id="modalPhotoCaption"></div>
 </div>
@@ -2491,14 +2551,14 @@ const platformProfiles={
 
 
 const brandDeliveryPhotos={
- "Nissan":"https://media.licdn.com/dms/image/v2/D4E22AQHhqpG_VVYQyA/feedshare-shrink_800/B4EZtHgw8RHcAg-/0/1766431332735?e=2147483647&t=gf5Z3gi-esrRjIdYdHYfZCGPF6QcScdQBf60w1JjNYs&v=beta",
- "Toyota":"https://servicio.toyotaguerrero.com.mx/wp-content/uploads/2022/06/entrega-de-tu-vehiculo.jpg",
- "Chevrolet":"https://www.chevroletculiacanmotors.com.mx/content/dam/chevrolet/na/mx/es/index/index-sub-content/01-images/prueba-de-manejo-dealers-banner2-2019.jpg?imwidth=960",
- "Volkswagen":"https://www.vw.com.mx/content/dam/onehub_pkw/importers/mx/ofertas/garantias-seguros/cpa-plus/cpa-plus-vw.jpg",
- "Kia":"https://i.axod.net/pcYc7f2CzIczHb626Tb7B5SGco9jsgB17EGD48ht6Gpsurw8qsHWlPKnz3nBKmkU_dT6HLsYd1JNulCm0zBUKmgDrNbf7YArNIL_Cmn7RSHd-5jg_9wJ79ABhKQvCWyGtQ_OPneacd253cTZGedHniSf169QjFEsB1h4.jpeg",
- "Mazda":"https://www.mazda.mx/siteassets/mazda-mx/mi-mazda/garantia/mazda-mx-garantia-extendida.jpg",
- "Honda":"https://seminuevostoluca.mx/view/images/ClientesFelices/6.jpeg",
- "Hyundai":"https://www.hyundai.com.mx/content/dam/hyundai/mx/es/images/promotions/hyundai-go.jpg"
+ "Toyota":"https://pressroom-manager.toyota.mx/storage/noticias/180/labici.jpg",
+ "Nissan":"https://acroadtrip.blob.core.windows.net/publicaciones-imagenes/Large/nissan/kicks/mx/RT_PU_5225e8c3fc204f80abd5c126fe14fcc6.webp",
+ "Volkswagen":"https://www.altezamotors.com/entregas/entrega-11.jpg",
+ "Kia":"https://cdn.productreview.com.au/resize/review-attachment/903b81a8-d4f3-4aa2-bf33-447b9e48f5ac?cover=true&v=4&width=720&withoutEnlargement=true",
+ "Chevrolet":"https://www.chevrolet.com.mx/content/dam/chevrolet/na/mx/es/index/promotions/chevrolet-your-car/01-images/06-carrusel-comentarios-v3.jpg?imwidth=1200",
+ "Mazda":"https://http2.mlstatic.com/D_Q_NP_2X_996412-MLM113040343518_072026-E.webp",
+ "Honda":"https://media.licdn.com/dms/image/v2/D4E22AQHhqpG_VVYQyA/feedshare-shrink_800/B4EZtHgw8RHcAg-/0/1766431332735?e=2147483647&v=beta",
+ "Hyundai":"https://cloudfront-us-east-1.images.arcpublishing.com/newr7/RMQNAR4FPJILBPVEEEKUKO6HIA.jpg"
 };
 const platformContextPhotos={
  "Uber":"https://cdn2.mediotiempo.com/uploads/media/2026/05/11/mundial-uber-airbnb-camara-restaurantes.jpg",
@@ -2547,46 +2607,82 @@ function setModalVisual(type,label,customSrc,captionText){
  if(!img||!hero)return;
  const caption=document.getElementById("modalPhotoCaption");
  if(caption) caption.textContent=captionText||"";
- const automotiveFallbacks=(typeof vehicleDeliveryPhotos!=="undefined"?vehicleDeliveryPhotos:[]);
- const homeFallbacks=(typeof homeDeliveryPhotos!=="undefined"?homeDeliveryPhotos:[]);
- const mobilityFallbacks=(typeof platformPhotos!=="undefined"?platformPhotos:[]);
- const businessFallbacks=[
-  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=88",
-  "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=88"
- ];
- let fallbacks=[];
- if(type==="Vehicular") fallbacks=automotiveFallbacks;
- else if(type==="Patrimonial / Vivienda") fallbacks=homeFallbacks;
- else if(type==="Movilidad / Plataformas") fallbacks=mobilityFallbacks;
- else if(type==="Negocio / PyME"||type==="Empresarial") fallbacks=businessFallbacks;
- else fallbacks=[modalPhotos[type]||modalPhotos["Personal"]];
- const candidates=[customSrc,...fallbacks,modalPhotos[type]].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i);
- let index=0;
+
+ /* V130: cada familia tiene respaldos propios; Negocio y Empresarial ya no comparten la misma foto. */
+ const fallbackByType={
+  "Vehicular":[
+   "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=1600&q=88",
+   "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1600&q=88",
+   "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=88"
+  ],
+  "Patrimonial / Vivienda":[
+   "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1600&q=88",
+   "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=88",
+   "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=88"
+  ],
+  "Negocio / PyME":[
+   "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=88",
+   "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=88",
+   "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1600&q=88"
+  ],
+  "Empresarial":[
+   "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=88",
+   "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=88",
+   "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1600&q=88"
+  ],
+  "Personal":[
+   "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=88",
+   "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1600&q=88"
+  ],
+  "Movilidad / Plataformas":[
+   "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1600&q=88",
+   "https://images.unsplash.com/photo-1515569067071-ec3b51335dd0?auto=format&fit=crop&w=1600&q=88",
+   "https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1600&q=88"
+  ]
+ };
+ const strictContext = Boolean(customSrc);
+ const candidates=(strictContext ? [customSrc] : [modalPhotos[type],...(fallbackByType[type]||fallbackByType["Personal"])]).filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i);
+ let index=0, token=(img.dataset.loadToken=String(Date.now()+Math.random())), timer=null;
  hero.classList.remove("v99-fallback","showing-logo","photo-error");
- hero.style.display="block";
+ hero.style.display="flex";
  hero.style.backgroundImage="linear-gradient(135deg,#edf7fb,#d7e8f1)";
  img.alt=label||"Proyecto de financiamiento";
  img.referrerPolicy="no-referrer";
- img.onerror=function(){
-   index++;
-   if(index<candidates.length){ img.src=candidates[index]; return; }
-   /* Último respaldo: referencia visual local coherente, nunca foto aleatoria. */
-   const n=String(label||type||"MAX INNOVA").replace(/[&<>\"]/g,"");
-   const icon=type==="Vehicular"?"🚘":type==="Patrimonial / Vivienda"?"⌂":type==="Movilidad / Plataformas"?"🚕":"▣";
-   const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="620" viewBox="0 0 1400 620"><rect width="1400" height="620" fill="#eef7fb"/><circle cx="700" cy="225" r="120" fill="#dceef5"/><text x="700" y="270" text-anchor="middle" font-family="Arial" font-size="110">${icon}</text><text x="700" y="430" text-anchor="middle" font-family="Arial" font-size="56" font-weight="700" fill="#063e67">${n}</text><text x="700" y="485" text-anchor="middle" font-family="Arial" font-size="25" fill="#557789">Referencia visual MAX INNOVA</text></svg>`;
-   img.onerror=null; img.src="data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
-   hero.classList.add("photo-error");
- };
- img.onload=function(){
-   hero.style.display="block";
-   hero.style.backgroundImage="none";
-   hero.classList.remove("photo-error");
- };
- img.src=candidates[0]||modalPhotos["Personal"];
  tag.textContent=label||"MAX INNOVA";
+
+ function finalFallback(){
+   if(img.dataset.loadToken!==token)return;
+   clearTimeout(timer);
+   const n=String(label||type||"MAX INNOVA").replace(/[&<>\"]/g,"");
+   const icon=type==="Vehicular"?"🚘":type==="Patrimonial / Vivienda"?"⌂":type==="Movilidad / Plataformas"?"🚕":type==="Empresarial"?"🏢":type==="Negocio / PyME"?"🏪":"◆";
+   const sub=type==="Vehicular"?"ENTREGA / AGENCIA · REFERENCIA DE LA MARCA":type==="Movilidad / Plataformas"?"ACTIVIDAD DE MOVILIDAD · REFERENCIA":type==="Negocio / PyME"?"PROYECTO DE NEGOCIO · REFERENCIA":type==="Patrimonial / Vivienda"?"VIVIENDA Y PATRIMONIO · REFERENCIA":"REFERENCIA VISUAL MAX INNOVA";
+   const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="620" viewBox="0 0 1400 620"><rect width="1400" height="620" fill="#eef7fb"/><circle cx="700" cy="215" r="112" fill="#dceef5"/><text x="700" y="255" text-anchor="middle" font-family="Arial" font-size="104">${icon}</text><text x="700" y="410" text-anchor="middle" font-family="Arial" font-size="52" font-weight="700" fill="#063e67">${n}</text><text x="700" y="468" text-anchor="middle" font-family="Arial" font-size="23" font-weight="700" fill="#557789">${sub}</text></svg>`;
+   img.onerror=null; img.onload=null; img.src="data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
+   hero.classList.add("photo-error");
+ }
+ function tryCandidate(){
+   if(img.dataset.loadToken!==token)return;
+   clearTimeout(timer);
+   if(index>=candidates.length){finalFallback();return;}
+   const src=candidates[index++];
+   const probe=new Image();
+   probe.referrerPolicy="no-referrer";
+   let done=false;
+   const next=()=>{if(done)return;done=true;clearTimeout(timer);tryCandidate();};
+   probe.onload=()=>{
+     if(done||img.dataset.loadToken!==token)return;
+     done=true;clearTimeout(timer);
+     img.onload=()=>{hero.style.backgroundImage="none";hero.classList.remove("photo-error","showing-logo","v99-fallback")};
+     img.onerror=()=>{tryCandidate()};
+     img.src=src;
+   };
+   probe.onerror=next;
+   timer=setTimeout(next,3200);
+   probe.src=src;
+ }
+ tryCandidate();
  hero.classList.remove("visual-in"); void hero.offsetWidth; hero.classList.add("visual-in");
 }
-
 function setModalDetails(type){
  const d=detailInfo[type]||detailInfo["Personal"];
  const docs=document.getElementById("modalDocs");
@@ -4238,5 +4334,70 @@ document.addEventListener('DOMContentLoaded',()=>{
  });
 });
 </script>
+
+<style id="max-innova-v130-photo-stability">
+#infoModal .modal-hero{min-height:240px!important;background:linear-gradient(180deg,#edf6fa,#f8fbfc)!important}
+#infoModal .modal-hero img{min-height:180px!important;max-height:440px!important;object-fit:contain!important}
+@media(max-width:600px){#infoModal .modal-hero{min-height:190px!important}#infoModal .modal-hero img{min-height:140px!important;max-height:320px!important}}
+</style>
+
+
+<!-- ===== V132 · IMÁGENES COMPLETAS SIN RECORTE ===== -->
+<style id="max-innova-v132-no-crop-final">
+/* Esta regla es deliberadamente la última del archivo: anula cualquier cover/altura fija heredada. */
+#infoModal .modal-hero,
+.modal.open .modal-hero{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow:visible!important;
+  background:linear-gradient(180deg,#edf6fa,#f8fbfc)!important;
+}
+#infoModal .modal-hero img,
+.modal.open .modal-hero img,
+#modalImage{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-width:100%!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:none!important;
+  margin:0 auto!important;
+  padding:0!important;
+  background:transparent!important;
+}
+/* Los respaldos y logos tampoco se recortan. */
+#infoModal .modal-hero.photo-error,
+.modal.open .modal-hero.photo-error{overflow:visible!important}
+#infoModal .modal-hero.photo-error img,
+.modal.open .modal-hero.photo-error img{
+  width:auto!important;
+  height:auto!important;
+  max-width:92%!important;
+  max-height:360px!important;
+  min-height:0!important;
+  object-fit:contain!important;
+  padding:18px!important;
+}
+#sectorMount .brand-logo{overflow:visible!important}
+#sectorMount .brand-logo img,
+.vehicle-brand-box img,
+.vehicle-photo-box img{
+  object-fit:contain!important;
+  object-position:center center!important;
+}
+@media(max-width:600px){
+ #infoModal .modal-hero,.modal.open .modal-hero{height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important}
+ #infoModal .modal-hero img,.modal.open .modal-hero img,#modalImage{width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;object-fit:contain!important}
+ #infoModal .modal-hero.photo-error img,.modal.open .modal-hero.photo-error img{width:auto!important;max-width:94%!important;max-height:260px!important;padding:10px!important}
+}
+</style>
 </body>
 </html>
