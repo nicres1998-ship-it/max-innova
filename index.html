@@ -1174,6 +1174,52 @@ input,select,textarea,button{max-width:100%}
 }
 </style>
 
+
+<style id="max-innova-v94-four-ribbon-arrows">
+.v94-ribbon-host{position:relative!important}
+.v94-arrow{
+ position:absolute!important;top:50%!important;transform:translateY(-50%)!important;
+ z-index:999!important;width:46px!important;height:46px!important;border:0!important;
+ border-radius:50%!important;background:#fff!important;color:#00567d!important;
+ box-shadow:0 4px 16px rgba(0,32,55,.30)!important;cursor:pointer!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ font:900 30px/1 Arial,sans-serif!important;opacity:.98!important;
+}
+.v94-arrow.prev{left:8px!important}.v94-arrow.next{right:8px!important}
+.v94-arrow:hover,.v94-arrow:focus{background:#e9f8fd!important}
+@media(max-width:700px){
+ .v94-arrow{width:38px!important;height:38px!important;font-size:25px!important}
+ .v94-arrow.prev{left:4px!important}.v94-arrow.next{right:4px!important}
+}
+</style>
+
+
+<style id="max-innova-v95-brand-fallback-style">
+.modal-hero.v95-brand-logo{
+ display:block!important;
+ height:280px!important;
+ min-height:280px!important;
+ background:#f7fbfd!important;
+}
+.modal-hero.v95-brand-logo img{
+ display:block!important;
+ width:100%!important;
+ height:100%!important;
+ object-fit:contain!important;
+ object-position:center!important;
+ padding:0!important;
+ background:#f7fbfd!important;
+ image-rendering:auto!important;
+}
+@media(max-width:700px){
+ .modal-hero.v95-brand-logo{height:210px!important;min-height:210px!important}
+}
+</style>
+
+<style id="max-innova-v96-style">
+.modal-hero.v96-fallback{display:block!important;background:#f8fcfd!important}
+.modal-hero.v96-fallback img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important;background:#f8fcfd!important;padding:0!important}
+</style>
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -3294,5 +3340,132 @@ document.addEventListener("DOMContentLoaded",function(){
 });
 </script>
 
+
+<script id="max-innova-v94-four-ribbon-arrows">
+document.addEventListener("DOMContentLoaded",function(){
+ const titles=["Automotriz","Vivienda y patrimonio","Comercio, negocio y PyME","Movilidad y plataformas"];
+
+ function findSection(title){
+   const nodes=[...document.querySelectorAll("h1,h2,h3,h4,strong,div")];
+   const heading=nodes.find(n=>n.children.length===0 && n.textContent.trim()===title);
+   if(!heading)return null;
+   let box=heading;
+   for(let i=0;i<5 && box;i++,box=box.parentElement){
+     if(box.querySelectorAll && box.querySelectorAll("a,button,[onclick]").length>=3) return box;
+   }
+   return heading.parentElement;
+ }
+ function findTrack(section){
+   const all=[section,...section.querySelectorAll("*")];
+   const scored=all.map(el=>{
+     const children=el.children?el.children.length:0;
+     const cards=el.querySelectorAll?el.querySelectorAll("a,button,[onclick]").length:0;
+     const overflow=Math.max(0,(el.scrollWidth||0)-(el.clientWidth||0));
+     return {el,score:overflow*10+cards*100+children};
+   }).filter(x=>x.el && x.el.children && x.el.children.length>=3);
+   scored.sort((a,b)=>b.score-a.score);
+   return scored[0]?.el||null;
+ }
+ function setup(title){
+   const section=findSection(title);
+   if(!section)return;
+   const track=findTrack(section);
+   if(!track || track.dataset.v94==="1")return;
+   track.dataset.v94="1";
+   track.style.scrollBehavior="smooth";
+   track.style.overflowX="auto";
+   track.style.scrollbarWidth="none";
+
+   let host=track.parentElement||section;
+   host.classList.add("v94-ribbon-host");
+
+   const prev=document.createElement("button"),next=document.createElement("button");
+   prev.type=next.type="button";
+   prev.className="v94-arrow prev"; next.className="v94-arrow next";
+   prev.innerHTML="‹"; next.innerHTML="›";
+   prev.title="Anterior";next.title="Siguiente";
+   prev.setAttribute("aria-label",title+": anteriores");
+   next.setAttribute("aria-label",title+": siguientes");
+   host.append(prev,next);
+
+   const step=()=>Math.max(220,Math.min(520,track.clientWidth*.55));
+   prev.addEventListener("click",e=>{e.stopPropagation();track.scrollBy({left:-step(),behavior:"smooth"})});
+   next.addEventListener("click",e=>{e.stopPropagation();track.scrollBy({left: step(),behavior:"smooth"})});
+
+   // Pausar cualquier animación al interactuar.
+   const pause=()=>track.querySelectorAll("*").forEach(x=>x.style.animationPlayState="paused");
+   const run=()=>track.querySelectorAll("*").forEach(x=>x.style.animationPlayState="running");
+   host.addEventListener("mouseenter",pause);
+   host.addEventListener("mouseleave",run);
+   host.addEventListener("touchstart",pause,{passive:true});
+ }
+ titles.forEach(setup);
+});
+</script>
+
+
+
+
+
+<script id="max-innova-v95-brand-card-fallback">
+document.addEventListener("DOMContentLoaded",function(){
+ const brands=["Chevrolet","Mazda","Honda","Hyundai","Toyota","Nissan","Volkswagen","Kia"];
+ const make=(name)=>"data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(
+ `<svg xmlns="http://www.w3.org/2000/svg" width="500" height="260" viewBox="0 0 500 260">
+ <rect width="500" height="260" rx="24" fill="#eef8fb"/>
+ <text x="250" y="135" text-anchor="middle" font-family="Arial,sans-serif" font-size="44" font-weight="800" fill="#073e5a">${name}</text>
+ </svg>`);
+ document.querySelectorAll("img").forEach(img=>{
+   const card=img.closest("a,button,[onclick],div");
+   const txt=((card?card.innerText:"")+" "+(img.alt||"")).trim();
+   const b=brands.find(x=>txt.toLowerCase().includes(x.toLowerCase()));
+   if(!b || img.closest(".modal-hero"))return;
+   img.addEventListener("error",function(e){
+     if(img.dataset.v95Card!=="1"){
+       e.stopImmediatePropagation();img.dataset.v95Card="1";img.src=make(b);img.alt=b;
+     }else if(card){card.style.display="none";}
+   },true);
+ });
+});
+</script>
+
+
+<script id="max-innova-v96-auto-four-level-fallback">
+document.addEventListener("DOMContentLoaded",function(){
+ const brands=["Chevrolet","Mazda","Honda","Hyundai","Toyota","Nissan","Volkswagen","Kia"];
+ const uri=s=>"data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(s);
+ function brandCard(name){
+  return uri(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <rect width="1200" height="520" rx="30" fill="#f8fcfd"/><circle cx="600" cy="185" r="105" fill="#e7f4f8"/>
+  <path d="M520 210h160l-18-48c-5-14-18-23-33-23h-58c-15 0-28 9-33 23l-18 48Zm14 0v31m132-31v31m-105 0h17m44 0h17" fill="none" stroke="#075777" stroke-width="10" stroke-linecap="round"/>
+  <text x="600" y="370" text-anchor="middle" font-family="Arial,sans-serif" font-size="70" font-weight="900" fill="#073e5a">${name}</text></svg>`);
+ }
+ function maxCard(){return uri(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520"><rect width="1200" height="520" rx="30" fill="#f8fcfd"/><circle cx="600" cy="190" r="110" fill="#e7f4f8"/><text x="600" y="215" text-anchor="middle" font-family="Arial,sans-serif" font-size="88" font-weight="900" fill="#075777">MAX</text><text x="600" y="355" text-anchor="middle" font-family="Arial,sans-serif" font-size="74" font-weight="900" letter-spacing="8" fill="#073e5a">INNOVA</text></svg>`)}
+ function getBrand(img){
+  const m=img.closest(".modal"),t=((m?m.innerText:"")+" "+(img.alt||"")).toLowerCase();
+  return brands.find(b=>t.includes(b.toLowerCase()))||"";
+ }
+ function install(img){
+  if(!img||img.dataset.v96==="1")return;
+  const brand=getBrand(img); if(!brand)return;
+  img.dataset.v96="1";img.dataset.v96level="1";
+  const hero=img.closest(".modal-hero");
+  img.addEventListener("error",e=>{
+   e.stopImmediatePropagation();
+   const l=+img.dataset.v96level;
+   if(l===1){img.dataset.v96level="2";img.src=brandCard(brand);img.alt=brand;if(hero){hero.style.display="block";hero.classList.add("v96-fallback")}}
+   else if(l===2){img.dataset.v96level="3";img.src=maxCard();img.alt="MAX INNOVA";if(hero)hero.style.display="block"}
+   else if(hero)hero.style.display="none";
+  },true);
+  img.addEventListener("load",()=>{if(hero)hero.style.display="block"},true);
+ }
+ document.querySelectorAll(".modal-hero img").forEach(install);
+ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
+  if(n.nodeType!==1)return;
+  if(n.matches?.(".modal-hero img"))install(n);
+  n.querySelectorAll?.(".modal-hero img").forEach(install);
+ }))).observe(document.body,{childList:true,subtree:true});
+});
+</script>
 </body>
 </html>
