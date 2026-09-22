@@ -4606,5 +4606,98 @@ window.addEventListener('load',()=>{
 #licMaxRoot.menu-active .licmax-menu{width:292px!important;padding-top:58px!important}
 @media(max-width:520px){#licMaxRoot .licmax-menu,#licMaxRoot.menu-active .licmax-menu{width:min(270px,calc(100vw - 24px))!important;max-height:68vh!important;padding:54px 9px 10px!important}#licMaxRoot .licmax-menu:after{left:13px;right:13px;top:13px;font-size:7px}#licMaxRoot .licmax-menu button{font-size:9px!important;padding:9px!important}}
 </style>
+
+<style id="mi-v144-licmax-menu-elegante">
+/* V144 · LIC. MAX / IR A: compacto, elegante y con el logo como marca de agua real */
+#licMaxRoot .licmax-menu,
+#licMaxRoot.menu-active .licmax-menu{
+  width:264px!important;
+  max-width:calc(100vw - 28px)!important;
+  max-height:min(590px,72vh)!important;
+  padding:54px 10px 12px!important;
+  border:1px solid rgba(190,218,229,.88)!important;
+  border-radius:22px!important;
+  background:linear-gradient(155deg,rgba(255,255,255,.965),rgba(239,248,252,.94))!important;
+  box-shadow:0 22px 58px rgba(0,38,63,.24),0 2px 8px rgba(0,63,94,.08)!important;
+  overflow:auto!important;
+  scrollbar-width:thin;
+  isolation:isolate!important;
+}
+/* Marca de agua: grande, centrada, discreta; ya no aparece como logotipo pequeño de encabezado. */
+#licMaxRoot .licmax-menu:before{
+  content:""!important;
+  position:absolute!important;
+  inset:54px 12px 12px!important;
+  z-index:-1!important;
+  background:url('https://maxinnova.mx/logo%20maxinnova.png') center 48%/82% auto no-repeat!important;
+  opacity:.075!important;
+  filter:grayscale(1) saturate(.4)!important;
+  pointer-events:none!important;
+}
+#licMaxRoot .licmax-menu:after{
+  content:"LIC. MAX  ·  NAVEGACIÓN"!important;
+  position:absolute!important;
+  left:17px!important;right:48px!important;top:13px!important;height:30px!important;
+  display:flex!important;align-items:center!important;
+  padding:0!important;
+  border-bottom:1px solid rgba(177,211,225,.72)!important;
+  background:none!important;
+  color:#07577d!important;font-size:8px!important;font-weight:900!important;letter-spacing:.16em!important;
+  pointer-events:none!important;
+}
+#licMaxRoot .licmax-menu-head{
+  position:absolute!important;inset:0 0 auto 0!important;height:48px!important;
+  margin:0!important;padding:0!important;border:0!important;background:transparent!important;
+  pointer-events:none!important;
+}
+#licMaxRoot .licmax-menu-head .licmax-menu-title{display:none!important}
+#licMaxRoot .licmax-menu-head .licmax-menu-close{
+  display:grid!important;place-items:center!important;position:absolute!important;right:12px!important;top:10px!important;
+  width:30px!important;height:30px!important;margin:0!important;padding:0!important;border:0!important;border-radius:50%!important;
+  background:rgba(237,248,252,.96)!important;color:#07577d!important;font-size:17px!important;font-weight:900!important;
+  box-shadow:none!important;transform:none!important;pointer-events:auto!important;z-index:5!important;
+}
+#licMaxRoot .licmax-menu-head .licmax-menu-close:hover{background:#dff3f9!important;transform:none!important}
+/* Oculta cualquier cierre viejo/duplicado que versiones anteriores hubieran dejado fuera del encabezado. */
+#licMaxRoot .licmax-menu > .licmax-menu-close{display:none!important}
+#licMaxRoot .licmax-menu > button[data-go]{
+  display:flex!important;align-items:center!important;gap:9px!important;
+  width:100%!important;min-height:40px!important;margin:2px 0!important;padding:8px 10px!important;
+  border:1px solid rgba(202,226,235,.56)!important;border-radius:12px!important;
+  background:rgba(255,255,255,.54)!important;color:#084b70!important;
+  font-size:10px!important;font-weight:850!important;text-align:left!important;
+  box-shadow:none!important;backdrop-filter:blur(5px)!important;
+}
+#licMaxRoot .licmax-menu > button[data-go]:hover,
+#licMaxRoot .licmax-menu > button[data-go]:focus{
+  transform:translateX(2px)!important;background:rgba(255,255,255,.94)!important;
+  border-color:#b9dce9!important;box-shadow:0 6px 15px rgba(0,67,98,.07)!important;outline:none!important;
+}
+#licMaxRoot .licmax-menu > button[data-go] span{
+  flex:0 0 27px!important;width:27px!important;height:27px!important;display:grid!important;place-items:center!important;
+  border-radius:9px!important;background:rgba(229,246,251,.9)!important;color:#087da4!important;font-size:12px!important;
+}
+@media (max-width:700px){
+ #licMaxRoot .licmax-menu,#licMaxRoot.menu-active .licmax-menu{width:min(252px,calc(100vw - 24px))!important;max-height:64vh!important;padding:51px 9px 10px!important;border-radius:19px!important}
+ #licMaxRoot .licmax-menu:before{inset:51px 10px 10px!important;background-size:86% auto!important;opacity:.065!important}
+ #licMaxRoot .licmax-menu:after{left:14px!important;right:45px!important;top:11px!important;font-size:7px!important}
+ #licMaxRoot .licmax-menu > button[data-go]{min-height:38px!important;padding:7px 9px!important;font-size:9px!important}
+}
+</style>
+<script id="mi-v144-licmax-menu-cleanup">
+window.addEventListener('load',()=>{
+ const menu=document.getElementById('licMaxMenu');
+ if(!menu) return;
+ const heads=[...menu.querySelectorAll('.licmax-menu-head')];
+ heads.slice(1).forEach(x=>x.remove());
+ const head=heads[0];
+ if(head){
+   const title=head.querySelector('.licmax-menu-title'); if(title) title.textContent='';
+   const close=head.querySelector('.licmax-menu-close'); if(close){close.textContent='×';close.setAttribute('aria-label','Cerrar navegación de LIC. MAX');}
+ }
+ [...menu.children].filter(el=>el.classList&&el.classList.contains('licmax-menu-close')).forEach(el=>el.remove());
+});
+</script>
+
 </body>
 </html>
