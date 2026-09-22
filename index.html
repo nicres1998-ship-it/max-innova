@@ -1495,6 +1495,26 @@ a[href*="asesores.html"],button[onclick*="asesores.html"]{display:none!important
 @media(max-width:760px){.essence-cards-v146{grid-template-columns:repeat(2,minmax(0,1fr))!important}.essence-modal-card{grid-template-columns:1fr!important;max-height:92vh!important;overflow:auto!important}.essence-modal-image{min-height:270px!important}.essence-modal-content{padding:34px 25px!important}}
 @media(max-width:480px){.essence-cards-v146{grid-template-columns:1fr!important}.essence-cards-v146 .essence-open-card{min-height:180px!important}.essence-cards-v146 .essence-card-copy p{min-height:auto!important}.essence-modal-image{min-height:225px!important}.essence-modal-content h3{font-size:31px!important}}
 </style>
+
+<style id="v147-essence-modal-fix">
+/* V147 · modal Esencia: siempre completo, desplazable y fácil de cerrar */
+#essenceModal{overflow-y:auto!important;overscroll-behavior:contain!important;align-items:flex-start!important;padding:clamp(14px,3vh,30px)!important}
+#essenceModal.open{display:flex!important}
+#essenceModal .essence-modal-card{width:min(1080px,96vw)!important;max-height:none!important;height:auto!important;min-height:min(720px,calc(100vh - 60px))!important;margin:auto!important;overflow:visible!important;grid-template-columns:minmax(320px,.86fr) minmax(0,1.14fr)!important}
+#essenceModal .essence-modal-image{min-height:100%!important}
+#essenceModal .essence-modal-content{justify-content:flex-start!important;overflow:visible!important;padding:52px 50px 42px!important}
+#essenceModal .essence-modal-close{position:sticky!important;float:right!important;top:14px!important;margin-left:auto!important;right:auto!important;z-index:10!important;box-shadow:0 8px 24px rgba(0,50,80,.16)!important;flex:0 0 auto!important}
+#essenceModal .essence-modal-back{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:46px!important;margin-top:26px!important;font-size:11px!important}
+@media(max-width:760px){#essenceModal{padding:10px!important}#essenceModal .essence-modal-card{display:block!important;width:100%!important;min-height:0!important;margin:auto!important;border-radius:22px!important}#essenceModal .essence-modal-image{min-height:240px!important;height:32vh!important}#essenceModal .essence-modal-content{padding:30px 22px 28px!important}#essenceModal .essence-modal-close{position:fixed!important;right:20px!important;top:20px!important;background:#fff!important}}
+/* Evita que COMPROMISO se recorte en pantallas intermedias */
+.essence-cards-v146{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+.essence-cards-v146 .essence-open-card{min-width:0!important}
+.essence-cards-v146 .essence-card-copy{padding:28px 24px 25px!important}
+.essence-cards-v146 .essence-card-copy h3{font-size:clamp(24px,2vw,34px)!important;overflow-wrap:anywhere!important;word-break:normal!important}
+@media(max-width:1250px){.essence-cards-v146{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:820px){.essence-cards-v146{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:520px){.essence-cards-v146{grid-template-columns:1fr!important}}
+</style>
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
