@@ -1414,6 +1414,49 @@ a[href*="asesores.html"],button[onclick*="asesores.html"]{display:none!important
 <style id="v138-institutional-styles">
 .mi-price-reference-notice{margin:16px 0;padding:15px 17px;border-radius:16px;background:#f3f9fc;border:1px solid #cfe3ec;color:#365667;line-height:1.55}.mi-price-reference-notice strong{display:block;color:#073c61;font-size:10px;letter-spacing:.08em;margin-bottom:5px}.mi-price-reference-notice span{font-size:11px}.mi-essence{background:linear-gradient(180deg,#f7fbfd 0%,#fff 100%)}.mi-essence-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}.mi-essence-card{padding:24px;border-radius:20px;background:#fff;border:1px solid #dce8ee;box-shadow:0 12px 30px rgba(0,52,95,.07)}.mi-essence-card.featured{grid-column:span 2;background:linear-gradient(135deg,#063d63,#0878a2);color:#fff}.mi-essence-card span{font-size:9px;font-weight:900;letter-spacing:.12em;color:#1682a8}.mi-essence-card.featured span{color:#8fe6ff}.mi-essence-card h3{margin:8px 0;color:#073c61;font-size:18px}.mi-essence-card.featured h3{color:#fff}.mi-essence-card p{margin:0;font-size:12px;line-height:1.65;color:#607785}.mi-essence-card.featured p{color:#e2f3f9}.mi-advisor-cta{margin-top:18px;padding:24px;border-radius:22px;background:#071f31;color:#fff;display:flex;justify-content:space-between;gap:24px;align-items:center}.mi-advisor-cta span{font-size:9px;font-weight:900;letter-spacing:.12em;color:#70d8f5}.mi-advisor-cta h3{margin:6px 0;font-size:22px}.mi-advisor-cta p{margin:0;color:#c9dce6;font-size:12px}.mi-advisor-actions{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}@media(max-width:850px){.mi-essence-grid{grid-template-columns:1fr 1fr}.mi-essence-card.featured{grid-column:span 2}.mi-advisor-cta{align-items:flex-start;flex-direction:column}.mi-advisor-actions{justify-content:flex-start}}@media(max-width:560px){.mi-essence-grid{grid-template-columns:1fr}.mi-essence-card.featured{grid-column:auto}}
 </style>
+
+<style id="max-innova-v141-responsive-client-actions">
+/* V141 · Acciones principales del cliente + compatibilidad móvil/tablet/escritorio */
+.hero-client-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(100%,760px);align-items:stretch}
+.hero-client-actions .btn{width:100%;min-width:0;min-height:48px;white-space:normal;line-height:1.2;padding:12px 14px;display:flex;align-items:center;justify-content:center;text-align:center}
+.hero-client-actions .btn-contact{background:#fff;color:#063d68;border:1px solid rgba(255,255,255,.8)}
+.hero-client-actions .btn-contact:hover{background:#eef9fd}
+.hero-client-actions .btn-appointment{background:#16bce8;color:#002f51;border:1px solid #16bce8}
+.hero-client-actions .btn-appointment:hover{filter:brightness(.96)}
+@media (min-width:1200px){.hero-client-actions{grid-template-columns:repeat(3,minmax(0,1fr))}.hero-client-actions .btn-contact,.hero-client-actions .btn-appointment{grid-column:auto}}
+@media (min-width:701px) and (max-width:1199px){.hero-client-actions{grid-template-columns:repeat(2,minmax(0,1fr));max-width:680px}.hero-client-actions .btn:last-child{grid-column:auto}}
+@media (max-width:700px){
+ .hero{min-height:auto!important}
+ .hero-client-actions{grid-template-columns:1fr!important;width:100%!important;max-width:520px!important;gap:9px!important}
+ .hero-client-actions .btn{min-height:46px!important;font-size:11px!important;padding:12px!important}
+ .hero-copy{min-width:0!important}
+ .hero-copy p{max-width:100%!important}
+}
+@media (max-width:420px){.hero-client-actions .btn{font-size:10px!important;min-height:44px!important}.hero-benefits{gap:8px!important}.hero-benefit{font-size:10px!important}}
+/* Formularios de contacto/cita: nunca exceder el viewport */
+#miContactRequestModal .modal-card,#miContactRequestModal .dialog,#miContactRequestModal .modal-content{max-width:min(620px,calc(100vw - 24px))!important}
+@media(max-width:640px){#miContactRequestModal input,#miContactRequestModal select,#miContactRequestModal textarea{font-size:16px!important;width:100%!important}}
+</style>
+
+<style id="mi-v142-premium-essence">
+/* V142 · NUESTRA ESENCIA — bloque institucional premium y plenamente responsive */
+.mi-essence-premium{position:relative;overflow:hidden;padding:92px 0 84px!important;background:radial-gradient(circle at 88% 12%,rgba(38,198,232,.14),transparent 28%),linear-gradient(145deg,#f8fcfe 0%,#fff 48%,#eef8fc 100%)!important;border-top:1px solid #e2eef4;border-bottom:1px solid #dceaf1}
+.mi-essence-premium:before{content:"";position:absolute;width:430px;height:430px;border:1px solid rgba(0,76,119,.07);border-radius:50%;right:-180px;top:-210px;box-shadow:0 0 0 65px rgba(0,91,137,.025),0 0 0 130px rgba(0,91,137,.018);pointer-events:none}
+.mi-essence-intro{display:grid;grid-template-columns:110px minmax(0,1fr);gap:28px;align-items:center;max-width:1000px;margin:0 auto 42px}
+.mi-essence-mark{width:98px;height:98px;border-radius:28px;background:linear-gradient(145deg,#003f68,#087fa8);display:grid;place-items:center;box-shadow:0 20px 45px rgba(0,63,104,.22);position:relative;overflow:hidden}
+.mi-essence-mark:after{content:"";position:absolute;width:70px;height:160px;background:rgba(255,255,255,.10);transform:rotate(28deg);left:52px;top:-34px}.mi-essence-mark span{color:#fff;font-size:28px;font-weight:900;letter-spacing:-2px;z-index:1}
+.mi-essence-intro .kicker{color:#087fa8;letter-spacing:.22em;font-weight:900}.mi-essence-intro .title{text-align:left;margin:8px 0 10px;font-size:clamp(32px,4vw,54px);line-height:1.03;letter-spacing:-1.8px;color:#073b60}.mi-essence-intro .title span{color:#0b8eb7}.mi-essence-intro .subtitle{text-align:left;max-width:850px;margin:0;color:#5d7483;font-size:14px;line-height:1.8}
+.mi-essence-premium .premium-grid{grid-template-columns:1.25fr 1fr 1fr!important;gap:16px!important;margin-top:0!important}.mi-essence-premium .mi-essence-card{position:relative;min-height:245px;padding:28px!important;border-radius:24px!important;border:1px solid rgba(190,215,227,.78)!important;background:rgba(255,255,255,.88)!important;box-shadow:0 16px 40px rgba(0,54,87,.075)!important;backdrop-filter:blur(8px);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;overflow:hidden}.mi-essence-premium .mi-essence-card:hover{transform:translateY(-5px);box-shadow:0 24px 50px rgba(0,54,87,.13)!important;border-color:#b7dce9!important}
+.mi-essence-premium .mi-essence-card.featured{grid-column:span 1!important;grid-row:span 2;min-height:506px;background:linear-gradient(155deg,#00395f 0%,#075f86 58%,#0b8eb7 100%)!important;border:0!important;color:#fff!important;padding:34px!important;display:flex;flex-direction:column;justify-content:flex-end}.mi-essence-premium .featured:before{content:"";position:absolute;width:240px;height:240px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:-92px;top:-75px;box-shadow:0 0 0 45px rgba(255,255,255,.035),0 0 0 90px rgba(255,255,255,.025)}
+.mi-essence-premium .essence-no{position:absolute;top:28px;left:32px;font-size:52px;font-weight:900;color:rgba(255,255,255,.12);letter-spacing:-3px}.mi-essence-premium .featured span{color:#8de8ff!important}.mi-essence-premium .featured h3{font-size:30px!important;line-height:1.08;margin:10px 0 15px!important;max-width:390px}.mi-essence-premium .featured p{font-size:13px!important;line-height:1.8!important;color:#e4f5fa!important}.mi-essence-premium .essence-line{width:56px;height:2px;background:#6ee2ff;margin:24px 0 13px}.mi-essence-premium .featured small{font-size:8px;letter-spacing:.13em;font-weight:900;color:#bceefa}
+.mi-essence-premium .essence-icon{width:42px;height:42px;border-radius:14px;background:#edf8fc;color:#06779f;display:grid;place-items:center;font-weight:900;font-size:17px;margin-bottom:22px}.mi-essence-premium .mi-essence-card span{font-size:9px!important;letter-spacing:.16em!important}.mi-essence-premium .mi-essence-card h3{font-size:19px!important;line-height:1.25;margin:8px 0 11px!important}.mi-essence-premium .mi-essence-card p{font-size:12px!important;line-height:1.72!important}
+.mi-essence-premium .values{background:linear-gradient(180deg,#fff,#f6fbfd)!important}.value-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:17px}.value-chips b{font-size:9px;color:#075c7f;background:#e9f6fb;border:1px solid #d1eaf3;border-radius:999px;padding:7px 10px}.mi-essence-premium .commitment{background:linear-gradient(145deg,#f5fbfd,#fff)!important}
+.mi-essence-signature{display:flex;align-items:center;justify-content:center;gap:15px;margin-top:34px;color:#607988}.mi-essence-signature span{height:1px;width:80px;background:#c9dde7}.mi-essence-signature strong{font-size:10px;letter-spacing:.16em;color:#07476d}.mi-essence-signature em{font-size:10px;font-style:normal;letter-spacing:.06em}
+/* LIC. MAX: visible al cargar, por encima del contenido normal y sin tapar modales */
+#licMaxRoot{display:block!important;z-index:8800!important}#licMaxRoot:not(.licmax-minimized):not(.licmax-modal-suppressed){opacity:1!important;visibility:visible!important}.licmax-character,.licmax-jump,.licmax-controls{pointer-events:auto!important}#licMaxMiniHead{z-index:8801!important}
+@media(max-width:980px){.mi-essence-premium{padding:72px 0!important}.mi-essence-premium .premium-grid{grid-template-columns:1fr 1fr!important}.mi-essence-premium .mi-essence-card.featured{grid-column:span 2!important;grid-row:auto;min-height:350px}.mi-essence-intro{grid-template-columns:86px 1fr}.mi-essence-mark{width:78px;height:78px;border-radius:22px}}
+@media(max-width:640px){.mi-essence-premium{padding:58px 0!important}.mi-essence-intro{grid-template-columns:1fr;gap:18px;margin-bottom:28px}.mi-essence-mark{width:68px;height:68px;border-radius:19px}.mi-essence-mark span{font-size:22px}.mi-essence-intro .title{font-size:34px;letter-spacing:-1px}.mi-essence-intro .subtitle{font-size:13px}.mi-essence-premium .premium-grid{grid-template-columns:1fr!important}.mi-essence-premium .mi-essence-card,.mi-essence-premium .mi-essence-card.featured{grid-column:auto!important;min-height:auto;padding:24px!important}.mi-essence-premium .mi-essence-card.featured{min-height:360px}.mi-essence-premium .featured h3{font-size:27px!important}.mi-essence-signature span{width:28px}.mi-essence-signature{gap:9px;flex-wrap:wrap}.mi-essence-signature em{width:100%;text-align:center}}
+</style>
 </head>
 <body>
 <div class="scroll-accent" id="scrollAccent"></div>
@@ -1434,6 +1477,7 @@ No sustituir el diseño base al hacer cambios posteriores.
 <a href="#sectores">SECTORES</a>
 <a href="#como-funciona">CÓMO FUNCIONA</a>
 <a href="#nosotros">NOSOTROS</a>
+<a href="#nuestra-esencia">NUESTRA ESENCIA</a>
 <a href="#informacion">INFORMACIÓN</a>
 <a href="#contacto">CONTACTO</a>
 </nav>
@@ -1446,10 +1490,12 @@ No sustituir el diseño base al hacer cambios posteriores.
 <div class="eyebrow">FINANCIAMIENTO PARA TU FUTURO</div>
 <h1>Más que crédito,<br/><span>posibilidades.</span></h1>
 <p>Soluciones financieras para personas, comercios y empresas. Analizamos cada solicitud para encontrar una alternativa de acuerdo con el proyecto que quieres realizar.</p>
-<div class="hero-buttons">
+<div class="hero-buttons hero-client-actions">
 <button class="btn btn-white" onclick="document.getElementById('simulador').scrollIntoView({behavior:'smooth'})">COTIZA AHORA →</button>
 <button class="btn btn-cyan" onclick="goPortal('nuevo')">INICIAR SOLICITUD</button>
 <button class="btn btn-outline" onclick="goPortal('consulta')">CONSULTAR SOLICITUD</button>
+<button class="btn btn-contact" type="button" onclick="openContactRequest('CONTACTO')">QUIERO QUE ME CONTACTE UN ASESOR</button>
+<button class="btn btn-appointment" type="button" onclick="openContactRequest('CITA')">AGENDAR UNA CITA</button>
 </div>
 <div class="hero-benefits">
 <div class="hero-benefit"><span class="check">✓</span> Evaluación personalizada</div>
@@ -1708,22 +1754,29 @@ No sustituir el diseño base al hacer cambios posteriores.
 <div class="step click-info" onclick="showInfo('SEGUIMIENTO','Seguimiento de solicitud','Consulta con tu folio el estatus, las indicaciones y, cuando aplique, los datos de una cita.','Personal')" onkeydown="if(event.key==='Enter')this.click()" role="button" tabindex="0"><div class="step-num">4</div><h3>Seguimiento</h3><p>Consulta el estatus, citas e indicaciones registradas.</p></div>
 </div>
 </div></section>
-<section class="section mi-essence" id="nuestra-esencia"><div class="container">
-<div class="center"><div class="kicker">NUESTRA ESENCIA</div><h2 class="title">Lo que impulsa a <span>MAX INNOVA</span></h2><p class="subtitle">Construimos soluciones financieras con claridad, acompañamiento y procesos responsables, procurando que cada cliente conozca las etapas y condiciones de su operación.</p></div>
-<div class="mi-essence-grid">
-<article class="mi-essence-card featured"><span>PROPÓSITO</span><h3>Convertir proyectos en posibilidades reales.</h3><p>Facilitar el acceso a alternativas de financiamiento mediante orientación profesional, procesos claros y soluciones adaptadas a las necesidades de cada cliente.</p></article>
-<article class="mi-essence-card"><span>MISIÓN</span><h3>Acompañar con claridad.</h3><p>Brindar soluciones de financiamiento y gestión con atención cercana, análisis responsable y seguimiento coordinado desde el primer contacto hasta la conclusión de cada etapa.</p></article>
-<article class="mi-essence-card"><span>VISIÓN</span><h3>Crecer con confianza.</h3><p>Consolidarnos como una empresa reconocida por la calidad de su atención, la innovación de sus procesos y la capacidad de conectar a las personas con alternativas financieras útiles y transparentes.</p></article>
-<article class="mi-essence-card"><span>VALORES</span><h3>La forma en que trabajamos.</h3><p><b>Integridad · Claridad · Responsabilidad · Servicio · Confidencialidad · Innovación · Respeto.</b> Estos principios orientan nuestra relación con clientes, colaboradores y proveedores.</p></article>
-<article class="mi-essence-card"><span>COMPROMISO</span><h3>Información clara durante el proceso.</h3><p>Explicar las condiciones aplicables, proteger la información proporcionada y mantener canales de seguimiento para que el cliente conozca el avance y los siguientes pasos de su trámite.</p></article>
+<section class="section mi-essence mi-essence-premium" id="nuestra-esencia"><div class="container">
+<div class="mi-essence-intro">
+  <div class="mi-essence-mark" aria-hidden="true"><span>MI</span></div>
+  <div><div class="kicker">NUESTRA ESENCIA</div><h2 class="title">La manera en que hacemos <span>MAX INNOVA</span></h2><p class="subtitle">Más que ofrecer alternativas de financiamiento, buscamos construir relaciones basadas en claridad, acompañamiento y confianza. Estos principios definen quiénes somos y cómo queremos crecer.</p></div>
 </div>
-<div class="mi-advisor-cta"><div><span>ATENCIÓN PERSONALIZADA</span><h3>¿Prefieres hablar con un asesor?</h3><p>Déjanos tus datos. La solicitud se enviará al área administrativa para que un asesor dé seguimiento.</p></div><div class="mi-advisor-actions"><button class="btn btn-blue" type="button" onclick="openContactRequest('CONTACTO')">QUIERO QUE ME CONTACTE UN ASESOR</button><button class="btn btn-cyan" type="button" onclick="openContactRequest('CITA')">AGENDAR UNA CITA</button></div></div>
+<div class="mi-essence-grid premium-grid">
+<article class="mi-essence-card featured purpose"><div class="essence-no">01</div><span>PROPÓSITO</span><h3>Convertir proyectos en posibilidades reales.</h3><p>Facilitar el acceso a soluciones de financiamiento mediante procesos claros, acompañamiento humano y alternativas adaptadas a las necesidades de cada cliente.</p><div class="essence-line"></div><small>POSIBILIDADES · ACOMPAÑAMIENTO · CLARIDAD</small></article>
+<article class="mi-essence-card"><div class="essence-icon">M</div><span>MISIÓN</span><h3>Acompañar con claridad.</h3><p>Brindar soluciones de financiamiento y gestión con atención cercana, análisis responsable y seguimiento coordinado desde el primer contacto hasta la conclusión de cada etapa.</p></article>
+<article class="mi-essence-card"><div class="essence-icon">V</div><span>VISIÓN</span><h3>Crecer con confianza.</h3><p>Consolidarnos como una empresa reconocida por la calidad de su atención, la innovación de sus procesos y la capacidad de conectar a las personas con alternativas financieras útiles y transparentes.</p></article>
+<article class="mi-essence-card values"><div class="essence-icon">+</div><span>VALORES</span><h3>Principios que se convierten en acciones.</h3><div class="value-chips"><b>Integridad</b><b>Claridad</b><b>Responsabilidad</b><b>Servicio</b><b>Confidencialidad</b><b>Innovación</b><b>Respeto</b></div></article>
+<article class="mi-essence-card commitment"><div class="essence-icon">✓</div><span>COMPROMISO</span><h3>Información clara durante el proceso.</h3><p>Explicar las condiciones aplicables, proteger la información proporcionada y mantener canales de seguimiento para que cada cliente conozca el avance y los siguientes pasos de su trámite.</p></article>
+</div>
+<div class="mi-essence-signature"><span></span><strong>MAX INNOVA</strong><em>Más opciones. Más oportunidades.</em><span></span></div>
 </div></section>
 <section class="section trust-section" id="informacion"><div class="container">
 <div class="trust-head"><span>CONFIANZA QUE NOS RESPALDA</span><h2>Información y <em>transparencia.</em></h2><p>Consulta información corporativa, fiscal, privacidad y nuestros canales oficiales.</p></div>
-<div class="trust-layout"><div class="trust-grid"><article class="trust-card"><div class="trust-icon">✓</div><div class="trust-body"><span class="trust-label">DATOS CORPORATIVOS</span><h3>Información fiscal</h3><p>ESTRATEGIAS MAX INNOVA, S.A. DE C.V.<br><b>RFC: EMI250217IP7</b></p><a class="trust-btn primary" href="https://siat.sat.gob.mx/app/qr/faces/pages/mobile/validadorqr.jsf?D1=10&D2=1&D3=25080290459_EMI250217IP7" target="_blank" rel="noopener">VALIDAR EN SAT ↗</a></div></article><article class="trust-card"><div class="trust-icon">◇</div><div class="trust-body"><span class="trust-label">PROTECCIÓN DE DATOS</span><h3>Aviso de privacidad</h3><p>Consulta el tratamiento, finalidades y mecanismos para ejercer tus derechos sobre datos personales.</p><button class="trust-btn" type="button" onclick="openPrivacy()">CONSULTAR AVISO</button></div></article><article class="trust-card"><div class="trust-icon">✉</div><div class="trust-body"><span class="trust-label">CANAL OFICIAL</span><h3>Contacto</h3><p>Para atención, dudas o información utiliza nuestro correo oficial.<br><b>contacto@maxinnova.mx</b></p><a class="trust-btn" href="mailto:contacto@maxinnova.mx">ENVIAR CORREO</a></div></article><article class="trust-card"><div class="trust-icon">⌖</div><div class="trust-body"><span class="trust-label">PRESENCIA NACIONAL</span><h3>Ubicaciones</h3><p>León, Puebla, Ciudad de México, Quintana Roo y Monterrey.<br><small><b>Ubicación fiscal:</b> Poza Rica de Hidalgo, Veracruz; sin atención al público.</small></p><a class="trust-btn" href="#ubicaciones">VER UBICACIONES</a></div></article><article class="trust-card"><div class="trust-icon">◎</div><div class="trust-body"><span class="trust-label">SOLICITUDES</span><h3>Proceso de evaluación</h3><p>Cada solicitud se revisa de forma individual conforme a la información y documentación proporcionada.</p><button class="trust-btn" type="button" onclick="showInfo('PROCESO DE EVALUACIÓN','Cada solicitud se revisa de forma individual conforme a la información y documentación proporcionada. La autorización, condiciones y tiempos dependen del resultado de la evaluación correspondiente.')">MÁS INFORMACIÓN</button></div></article><article class="trust-card"><div class="trust-icon">?</div><div class="trust-body"><span class="trust-label">ATENCIÓN</span><h3>Información general</h3><p>Consulta nuestros servicios, cotizador, proceso de solicitud y canales de atención desde este sitio.</p><a class="trust-btn" href="#inicio">IR AL INICIO</a></div></article></div>
+<div class="trust-layout"><div class="trust-grid"><article class="trust-card"><div class="trust-icon">✓</div><div class="trust-body"><span class="trust-label">DATOS CORPORATIVOS</span><h3>Información fiscal</h3><p>ESTRATEGIAS MAX INNOVA, S.A. DE C.V.<br><b>RFC: EMI250217IP7</b></p><a class="trust-btn primary" href="https://siat.sat.gob.mx/app/qr/faces/pages/mobile/validadorqr.jsf?D1=10&D2=1&D3=25080290459_EMI250217IP7" target="_blank" rel="noopener">VALIDAR EN SAT ↗</a></div></article><article class="trust-card"><div class="trust-icon">◇</div><div class="trust-body"><span class="trust-label">PROTECCIÓN DE DATOS</span><h3>Aviso de privacidad</h3><p>Consulta el tratamiento, finalidades y mecanismos para ejercer tus derechos sobre datos personales.</p><button class="trust-btn" type="button" onclick="openPrivacy()">CONSULTAR AVISO</button></div></article><article class="trust-card"><div class="trust-icon">✉</div><div class="trust-body"><span class="trust-label">CANAL OFICIAL</span><h3>Contacto</h3><p>Para atención, dudas o información utiliza nuestro correo oficial.<br><b>contacto@maxinnova.mx</b></p><a class="trust-btn" href="mailto:contacto@maxinnova.mx">ENVIAR CORREO</a></div></article><article class="trust-card"><div class="trust-icon">⌖</div><div class="trust-body"><span class="trust-label">PRESENCIA NACIONAL</span><h3>Ubicaciones</h3><p><strong>MAX INNOVA opera comercialmente desde León, Guanajuato.</strong><br><small>Puebla, Quintana Roo y Monterrey forman parte de la red operativa vinculada a la misma estructura empresarial y pueden utilizar una denominación comercial distinta. Ciudad de México concentra funciones administrativas y operativas. <b>Ubicación fiscal:</b> Poza Rica de Hidalgo, Veracruz; sin atención al público.</small></p><a class="trust-btn" href="#ubicaciones">VER UBICACIONES</a></div></article><article class="trust-card"><div class="trust-icon">◎</div><div class="trust-body"><span class="trust-label">SOLICITUDES</span><h3>Proceso de evaluación</h3><p>Cada solicitud se revisa de forma individual conforme a la información y documentación proporcionada.</p><button class="trust-btn" type="button" onclick="showInfo('PROCESO DE EVALUACIÓN','Cada solicitud se revisa de forma individual conforme a la información y documentación proporcionada. La autorización, condiciones y tiempos dependen del resultado de la evaluación correspondiente.')">MÁS INFORMACIÓN</button></div></article><article class="trust-card"><div class="trust-icon">?</div><div class="trust-body"><span class="trust-label">ATENCIÓN</span><h3>Información general</h3><p>Consulta nuestros servicios, cotizador, proceso de solicitud y canales de atención desde este sitio.</p><a class="trust-btn" href="#inicio">IR AL INICIO</a></div></article></div>
 <aside class="trust-security"><div class="shield">✓</div><span class="trust-label">TRANSPARENCIA</span><h3>Información clara y verificable</h3><p>Concentramos en un solo lugar los datos y canales que puedes consultar directamente.</p><hr><ul><li>✓ Datos fiscales consultables</li><li>✓ Aviso de privacidad</li><li>✓ Canales oficiales</li><li>✓ Ubicaciones identificadas</li></ul><a href="https://siat.sat.gob.mx/app/qr/faces/pages/mobile/validadorqr.jsf?D1=10&D2=1&D3=25080290459_EMI250217IP7" target="_blank" rel="noopener">CONSULTAR SAT</a></aside>
 </div></div></section>
+<style id="mi-v143-network-identity">
+.mi-network-identity{position:relative;display:grid;grid-template-columns:72px minmax(0,1fr);gap:22px;align-items:start;margin:22px 0 4px;padding:25px 28px;border:1px solid #cfe2ec;border-radius:24px;background:linear-gradient(135deg,#fff 0%,#f4fbfe 62%,#eaf7fb 100%);box-shadow:0 14px 36px rgba(0,53,86,.08);overflow:hidden}.mi-network-identity:after{content:"";position:absolute;width:210px;height:210px;border-radius:50%;right:-110px;top:-125px;border:1px solid rgba(0,83,128,.08);box-shadow:0 0 0 36px rgba(0,111,156,.025),0 0 0 72px rgba(0,111,156,.018)}.mi-network-identity-mark{width:64px;height:64px;border-radius:19px;display:grid;place-items:center;background:linear-gradient(145deg,#003f68,#0a87ad);color:#fff;font-size:20px;font-weight:900;letter-spacing:-1px;box-shadow:0 12px 28px rgba(0,63,104,.2)}.mi-network-identity span{display:block;color:#0782aa;font-size:9px;font-weight:900;letter-spacing:.18em;margin:2px 0 7px}.mi-network-identity h3{margin:0 0 9px;color:#073b60;font-size:21px;line-height:1.25}.mi-network-identity p{margin:0;color:#5c7482;font-size:12px;line-height:1.75;max-width:1050px}.mi-network-identity p strong{color:#064e76}
+@media(max-width:640px){.mi-network-identity{grid-template-columns:1fr;padding:21px}.mi-network-identity-mark{width:56px;height:56px;border-radius:17px}.mi-network-identity h3{font-size:19px}.mi-network-identity p{font-size:11px}}
+</style>
 <style>
 .mi-network-map{height:430px;border-radius:24px;overflow:hidden;border:1px solid #d7e7f0;box-shadow:0 18px 46px rgba(0,45,80,.13);background:#eef6fa}
 .mi-branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px;align-items:stretch}
@@ -1802,10 +1855,11 @@ No sustituir el diseño base al hacer cambios posteriores.
 <p class="subtitle">Ubica nuestros puntos de atención y consulta información económica general de cada entidad.</p>
 </div>
 <div class="mi-network-map" id="miNetworkMap" style="margin-top:28px"></div>
+<div class="mi-network-identity" role="note"><div class="mi-network-identity-mark">MI</div><div><span>ESTRUCTURA DE ATENCIÓN</span><h3>Una red operativa con identidad y gestión independiente por sede.</h3><p><strong>MAX INNOVA es la denominación comercial utilizada en León, Guanajuato.</strong> Los puntos de Puebla, Quintana Roo y Monterrey forman parte de la red operativa vinculada a la misma estructura empresarial y pueden operar bajo otras denominaciones comerciales. Cada sede administra sus propios clientes, expedientes y trámites; por confidencialidad y control operativo, los asesores únicamente acceden a la cartera que les corresponde y no consultan expedientes de otras sedes. Ciudad de México concentra funciones administrativas y de coordinación.</p></div></div>
 <div class="mi-branches">
 <div class="mi-branch mi-branch-premium" onclick="this.classList.toggle('open')">
-<div class="mi-card-top"><span class="mi-city-dot"></span><span>LEÓN, GTO.</span></div>
-<h3>Atención · Ventas · Seguimiento</h3>
+<div class="mi-card-top"><span class="mi-city-dot"></span><span>LEÓN, GTO. · MAX INNOVA</span></div>
+<h3>Sede comercial MAX INNOVA · Atención · Ventas · Seguimiento</h3>
 <div class="mi-here">📍 LEÓN, GUANAJUATO · UBICACIÓN EXACTA PRÓXIMAMENTE</div>
 <div class="mi-auto-highlight"><small>TENDENCIA AUTOMOTRIZ MÉXICO 2026</small><strong>Nissan Versa · #1</strong><span>Uno de los modelos de mayor demanda nacional.</span></div>
 <span class="mi-more">CONOCER MÁS +</span>
@@ -1816,13 +1870,13 @@ No sustituir el diseño base al hacer cambios posteriores.
 </div>
 </div>
 <div class="mi-branch mi-branch-premium" onclick="this.classList.toggle('open')">
-<div class="mi-card-top"><span class="mi-city-dot"></span><span>PUEBLA, PUE.</span></div>
-<h3>Atención · Ventas · Seguimiento</h3>
+<div class="mi-card-top"><span class="mi-city-dot"></span><span>PUEBLA, PUE. · RED OPERATIVA</span></div>
+<h3>Punto de atención de la red · Gestión independiente</h3>
 <div class="mi-auto-highlight"><small>PARA EXPLORAR</small><strong>Auto · SUV · Unidad de trabajo</strong><span>Compara opciones según tu ingreso y aportación.</span></div>
 <span class="mi-more">CONOCER MÁS +</span>
 <div class="mi-branch-detail">
 <div class="mi-years"><div><b>2024</b><span>Versa #1</span></div><div><b>2025</b><span>Versa #1</span></div><div><b>2026*</b><span>Versa #1</span></div></div>
-<p>Entre los modelos con mayor presencia nacional se encuentran Versa, Aveo, K3 y NP300. Aquí puedes iniciar y dar seguimiento a tu gestión.</p>
+<p>Entre los modelos con mayor presencia nacional se encuentran Versa, Aveo, K3 y NP300. La sede administra de forma independiente los expedientes y seguimientos que le sean asignados.</p>
 <small>Ranking nacional de mercado; la disponibilidad y viabilidad de cada vehículo dependen de precio, aportación, plazo y evaluación.</small>
 </div>
 </div>
@@ -1846,24 +1900,24 @@ No sustituir el diseño base al hacer cambios posteriores.
 <div class="mi-branch-detail"><p>Esta dirección corresponde únicamente a la ubicación fiscal de la empresa. No es un punto de atención, ventas, recepción de clientes ni entrega de documentación.</p></div>
 </div>
 <div class="mi-branch mi-branch-premium" onclick="this.classList.toggle('open')">
-<div class="mi-card-top"><span class="mi-city-dot"></span><span>QUINTANA ROO</span></div>
-<h3>Atención · Ventas · Seguimiento</h3>
+<div class="mi-card-top"><span class="mi-city-dot"></span><span>QUINTANA ROO · RED OPERATIVA</span></div>
+<h3>Punto de atención de la red · Gestión independiente</h3>
 <div class="mi-auto-highlight"><small>MOVILIDAD Y USO PERSONAL</small><strong>Sedán · SUV · Trabajo</strong><span>Explora una opción acorde con tu presupuesto.</span></div>
 <span class="mi-more">CONOCER MÁS +</span>
 <div class="mi-branch-detail">
 <div class="mi-years"><div><b>2024</b><span>Versa #1</span></div><div><b>2025</b><span>Versa #1</span></div><div><b>2026*</b><span>Versa #1</span></div></div>
-<p>Versa, Aveo, K3, NP300 y SUV compactas figuran entre las alternativas de mayor movimiento nacional. Puedes gestionar tu solicitud y seguimiento desde este punto.</p>
+<p>Versa, Aveo, K3, NP300 y SUV compactas figuran entre las alternativas de mayor movimiento nacional. La atención y el seguimiento se administran dentro de la propia sede, sin consulta cruzada de expedientes entre sucursales.</p>
 <small>Información nacional de mercado; no implica disponibilidad ni autorización.</small>
 </div>
 </div>
 <div class="mi-branch mi-branch-premium" onclick="this.classList.toggle('open')">
-<div class="mi-card-top"><span class="mi-city-dot"></span><span>MONTERREY, N.L.</span></div>
-<h3>Atención · Ventas · Seguimiento</h3>
+<div class="mi-card-top"><span class="mi-city-dot"></span><span>MONTERREY, N.L. · RED OPERATIVA</span></div>
+<h3>Punto de atención de la red · Gestión independiente</h3>
 <div class="mi-auto-highlight"><small>PERSONAL Y PRODUCTIVO</small><strong>Auto · Pickup · PyME</strong><span>Opciones para movilidad o actividad productiva.</span></div>
 <span class="mi-more">CONOCER MÁS +</span>
 <div class="mi-branch-detail">
 <div class="mi-years"><div><b>2024</b><span>NP300 #2</span></div><div><b>2025</b><span>NP300 #3</span></div><div><b>2026*</b><span>NP300 entre líderes</span></div></div>
-<p>Además de sedanes de alta demanda, las pickups y unidades de trabajo pueden explorarse para necesidades productivas. La opción final depende de la evaluación individual.</p>
+<p>Además de sedanes de alta demanda, las pickups y unidades de trabajo pueden explorarse para necesidades productivas. La gestión de clientes y expedientes se mantiene dentro de la sede correspondiente; la opción final depende de la evaluación individual.</p>
 <small>Posiciones mostradas corresponden al mercado mexicano, no exclusivamente a Nuevo León.</small>
 </div>
 </div>
@@ -4532,5 +4586,25 @@ window.closeContactRequest=function(){const m=document.getElementById('miContact
 document.getElementById('miContactModal')?.addEventListener('click',e=>{if(e.target.id==='miContactModal')closeContactRequest()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('miContactModal')?.classList.contains('open'))closeContactRequest()});
 document.getElementById('miContactForm')?.addEventListener('submit',async e=>{e.preventDefault();const b=document.getElementById('miContactSubmit'),msg=document.getElementById('miContactMessage'),phone=document.getElementById('miContactPhone').value.replace(/\D/g,'');if(phone.length<10){msg.textContent='Ingresa un teléfono de al menos 10 dígitos.';return}const payload={tipo:document.getElementById('miContactType').value,nombre:document.getElementById('miContactName').value.trim(),telefono:phone,correo:document.getElementById('miContactEmail').value.trim()||null,ciudad:document.getElementById('miContactCity').value.trim()||null,fecha_preferida:document.getElementById('miContactType').value==='CITA'&&document.getElementById('miContactPreferred').value?new Date(document.getElementById('miContactPreferred').value).toISOString():null,comentario:document.getElementById('miContactComment').value.trim()||null,estatus:'PENDIENTE',origen:'SITIO WEB'};b.disabled=true;b.textContent='ENVIANDO...';try{const {error}=await db.from('max_innova_solicitudes_contacto').insert(payload);if(error)throw error;msg.textContent='Solicitud recibida correctamente. Un asesor dará seguimiento a tus datos.';e.target.reset();setTimeout(closeContactRequest,1800)}catch(err){console.error(err);msg.textContent='No fue posible registrar la solicitud. Intenta nuevamente en unos momentos.'}finally{b.disabled=false;b.textContent='ENVIAR SOLICITUD'}});
 </script>
+
+<script id="mi-v142-licmax-boot">
+window.addEventListener('load',()=>{
+ const root=document.getElementById('licMaxRoot'),mini=document.getElementById('licMaxMiniHead');
+ if(root){root.classList.remove('hidden-helper','licmax-minimized','licmax-modal-suppressed');root.style.display='block';root.style.opacity='1';root.style.visibility='visible';}
+ if(mini)mini.classList.remove('show','modal-suppressed');
+});
+</script>
+
+<style id="mi-v143-licmax-menu-premium">
+/* V143 · IR A de LIC. MAX — panel institucional con marca de agua */
+#licMaxRoot .licmax-menu{width:278px!important;padding:58px 10px 11px!important;border:1px solid rgba(179,211,224,.92)!important;border-radius:24px!important;background:linear-gradient(160deg,rgba(255,255,255,.97),rgba(239,248,252,.97))!important;box-shadow:0 26px 65px rgba(0,44,73,.25)!important;overflow:hidden!important;isolation:isolate!important}
+#licMaxRoot .licmax-menu:before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(rgba(255,255,255,.88),rgba(244,251,253,.94)),url('https://maxinnova.mx/logo%20maxinnova.png') center 54%/78% auto no-repeat;opacity:1;pointer-events:none}
+#licMaxRoot .licmax-menu:after{content:"NAVEGACIÓN  ·  LIC. MAX";position:absolute;left:16px;right:16px;top:15px;height:31px;display:flex;align-items:center;padding-left:42px;border-bottom:1px solid rgba(179,211,224,.72);color:#07577d;font-size:8px;font-weight:900;letter-spacing:.16em;background:url('https://maxinnova.mx/logo%20maxinnova.png') left center/32px auto no-repeat;pointer-events:none}
+#licMaxRoot .licmax-menu button{position:relative;margin:3px 0;padding:10px 11px!important;border:1px solid transparent!important;border-radius:12px!important;background:rgba(255,255,255,.72)!important;color:#0a456a!important;font-size:10px!important;font-weight:850!important;backdrop-filter:blur(3px);transition:.18s ease!important}
+#licMaxRoot .licmax-menu button:hover,#licMaxRoot .licmax-menu button:focus{transform:translateX(3px);background:#fff!important;border-color:#cde6ef!important;box-shadow:0 7px 18px rgba(0,70,105,.08);outline:none}
+#licMaxRoot .licmax-menu button span{width:25px!important;color:#0788af}
+#licMaxRoot.menu-active .licmax-menu{width:292px!important;padding-top:58px!important}
+@media(max-width:520px){#licMaxRoot .licmax-menu,#licMaxRoot.menu-active .licmax-menu{width:min(270px,calc(100vw - 24px))!important;max-height:68vh!important;padding:54px 9px 10px!important}#licMaxRoot .licmax-menu:after{left:13px;right:13px;top:13px;font-size:7px}#licMaxRoot .licmax-menu button{font-size:9px!important;padding:9px!important}}
+</style>
 </body>
 </html>
