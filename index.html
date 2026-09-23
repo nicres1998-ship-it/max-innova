@@ -2127,8 +2127,8 @@ No sustituir el diseño base al hacer cambios posteriores.
 <div class="field full"><label>AGENCIA / PROVEEDOR</label><input id="quoteVehicleProvider" placeholder="Agencia o proveedor, si ya lo conoce"/></div>
 <div class="quote-vehicle-preview" id="quoteVehiclePreview"><div><img alt="Logotipo de la marca" id="quoteBrandLogo"/></div><div><strong id="quoteVehicleTitle"></strong><img alt="Imagen de referencia del vehículo" id="quoteVehicleImage"/><small>Imagen ilustrativa.</small></div></div>
 <div class="field full"><label>FOTOGRAFÍA DE LA UNIDAD (OPCIONAL)</label><input accept="image/*" id="quoteVehiclePhoto" type="file"/><small style="display:block;margin-top:5px;color:#68879a;font-size:9px">El asesor puede agregar una fotografía cuando la unidad no tenga imagen disponible.</small></div></div></div>
-<div class="finance-label"><span>2. ¿Cuál es el monto del proyecto que quieres financiar?</span><strong class="finance-value" id="financeAmountLabel">$250,000</strong></div>
-<div class="finance-input-row"><input class="finance-range" id="financeAmount" max="3000000" min="20000" step="1000" type="range" value="250000"/><input class="finance-manual" id="financeAmountManual" max="3000000" min="20000" step="1" type="number" inputmode="decimal" value="250000" aria-label="Captura manual del monto de la operación"/></div>
+<div class="finance-label"><span>2. ¿Cuál es el monto del proyecto que quieres financiar?</span><strong class="finance-value" id="financeAmountLabel">$0.00</strong></div>
+<div class="finance-input-row"><input class="finance-range" id="financeAmount" max="3000000" min="0" step="1000" type="range" value="0"/><input class="finance-manual" id="financeAmountManual" max="3000000" min="0" step="1" type="number" inputmode="decimal" value="0" aria-label="Captura manual del monto de la operación"/></div>
 <div class="finance-label"><span>3. Aportación inicial</span><strong class="finance-value" id="financeDownLabel">12%</strong></div>
 <div class="finance-input-row"><input class="finance-range" id="financeDown" max="60" min="12" step="0.1" type="range" value="12"/><input class="finance-manual" id="financeDownManual" max="60" min="12" step="0.1" type="number" inputmode="decimal" value="12" aria-label="Captura manual del porcentaje"/></div>
 <div class="finance-note">La aportación mínima es 12%. Puedes mover la barra o escribir directamente el monto y porcentaje exactos.</div>
@@ -2136,9 +2136,9 @@ No sustituir el diseño base al hacer cambios posteriores.
 <div class="finance-summary-v67">
  <div class="finance-summary-head"><div><h3>Resumen de tu simulación</h3><p>Compara mensualidades, tasa y total estimado antes de elegir.</p></div><div class="finance-summary-badge">SIMULACIÓN PERSONALIZADA</div></div>
  <div class="finance-metrics">
-  <div class="finance-metric"><small>Monto de la operación</small><strong id="financeSummaryOperation">$250,000</strong><span>Valor sobre el que se calcula la aportación</span></div>
-  <div class="finance-metric"><small>Aportación inicial</small><strong id="financeSummaryDown">12%</strong><span id="financeSummaryDownAmount">$30,000 de aportación</span></div>
-  <div class="finance-metric"><small>Monto a financiar</small><strong id="financeOperationValue">$220,000</strong><span id="financeContributionDetail">Operación menos aportación inicial</span></div>
+  <div class="finance-metric"><small>Monto de la operación</small><strong id="financeSummaryOperation">$0.00</strong><span>Valor sobre el que se calcula la aportación</span></div>
+  <div class="finance-metric"><small>Aportación inicial</small><strong id="financeSummaryDown">—</strong><span id="financeSummaryDownAmount">$0.00 de aportación</span></div>
+  <div class="finance-metric"><small>Monto a financiar</small><strong id="financeOperationValue">$0.00</strong><span id="financeContributionDetail">Completa el monto para generar tu simulación</span></div>
  </div>
  <div id="scenarioGrid" class="v67-plans"></div>
 </div>
@@ -3430,6 +3430,12 @@ solicitudForm.addEventListener("submit",async e=>{
  newResult.classList.add("show");
  document.getElementById("downloadReceiptBtn")?.addEventListener("click",()=>downloadApplicationReceipt(window.__lastApplication));
  document.getElementById("afterReceiptBtn")?.addEventListener("click",()=>consultNow(data.folio));
+ // Limpieza segura: solo después de que la solicitud quedó registrada correctamente.
+ solicitudForm.reset();
+ setVehicleDefinedChoice("");
+ toggleVehiclePanel();
+ toggleDocs();
+ document.querySelectorAll(".doc-file").forEach(input=>{input.value=""});
  btn.disabled=false;btn.textContent="REGISTRAR Y GENERAR FOLIO";
 });
 
@@ -3792,6 +3798,7 @@ document.getElementById("invoiceForm")?.addEventListener("submit",async function
  try{let found=false;try{const {data}=await db.rpc("max_innova_consultar_operacion",{p_folio:folio});found=Array.isArray(data)?data.length>0:!!data}catch(err){console.warn("Consulta de operación no disponible:",err)}
  const record={folio,monto:amount,concepto:concept,fecha:new Date().toISOString(),estatus:"SOLICITUD DE FACTURA RECIBIDA"};localStorage.setItem("maxInnovaInvoice_"+folio.toUpperCase(),JSON.stringify(record));
  if(msg){msg.textContent=(found?"Solicitud de factura registrada para la operación indicada.":"Solicitud de factura registrada. El folio será validado por Administración.")+" Conserva tu folio para seguimiento.";msg.className="service-message show success"}
+ this.reset();
  }catch(err){if(msg){msg.textContent="No fue posible registrar la solicitud de factura.";msg.className="service-message show error"}}finally{if(btn){btn.disabled=false;btn.textContent="REGISTRAR SOLICITUD DE FACTURA"}}
 });
 
@@ -3802,7 +3809,40 @@ document.getElementById("invoiceForm")?.addEventListener("submit",async function
  const RATES={60:8.00,48:9.50,36:9.00,24:8.20}, IVA=0.16; let selectedMonths=48,lastQuote={};
  const clamp=(n,a,b)=>Math.min(b,Math.max(a,Number(n)||a));
  function scenario(principal,months,annual){const r=annual/100/12,capital=principal/months,interest=principal*r,iva=interest*IVA,monthly=capital+interest+iva;return {months,annual,monthly,total:monthly*months,capital,interest,iva};}
- function calc(){if(!amount||!down)return;const rawAmount=Number(amountManual?.value),rawDown=Number(downManual?.value);const operationValue=clamp(Number.isFinite(rawAmount)&&rawAmount>=20000?rawAmount:amount.value,20000,3000000),dpActual=clamp(Number.isFinite(rawDown)&&rawDown>=12?rawDown:down.value,12,60);const downAmt=operationValue*(dpActual/100),principal=operationValue-downAmt;amount.value=operationValue;down.value=dpActual;if(amountManual&&document.activeElement!==amountManual)amountManual.value=operationValue;if(downManual&&document.activeElement!==downManual)downManual.value=dpActual;$('financeAmountLabel').textContent=money(operationValue);$('financeDownLabel').textContent=dpActual.toFixed(dpActual%1?1:0)+'%';const opEl=$('financeOperationValue'),detailEl=$('financeContributionDetail'),so=$('financeSummaryOperation'),sd=$('financeSummaryDown'),sda=$('financeSummaryDownAmount');if(so)so.textContent=money(operationValue);if(sd)sd.textContent=dpActual.toFixed(dpActual%1?1:0)+'%';if(sda)sda.textContent=money(downAmt)+' de aportación';if(opEl)opEl.textContent=money(principal);if(detailEl)detailEl.textContent='Operación menos aportación inicial';const scenarios=[60,48,36,24].map(m=>scenario(principal,m,RATES[m]));const grid=$('scenarioGrid');if(grid){grid.innerHTML=scenarios.map(x=>`<button type="button" class="v67-plan ${x.months===selectedMonths?'selected':''}" data-months="${x.months}">${x.months===selectedMonths?'<span class="selected-tag" title="Plan seleccionado"></span>':''}<span class="term">${x.months} MESES</span>${x.months===60?'<span class="preferred">PLAN PREFERENCIAL · 8.00%</span>':''}<strong class="monthly">${money(x.monthly)}</strong><span class="monthly-label">Mensualidad fija estimada</span><span class="plan-meta"><span>Tasa ${x.annual.toFixed(2)}%</span><span>Total ${money(x.total)}</span></span></button>`).join('');grid.querySelectorAll('[data-months]').forEach(b=>b.onclick=()=>{selectedMonths=Number(b.dataset.months);calc()})}const pick=scenarios.find(x=>x.months===selectedMonths)||scenarios[0];lastQuote={principal,operationValue,dp:dpActual,dpMin:dpActual,downAmt,unitValue:operationValue,usesVehicleValue:false,...pick};}
+ function resetQuoteView(){
+  lastQuote={};
+  if(amount) amount.value=0;
+  if(amountManual && document.activeElement!==amountManual) amountManual.value=0;
+  $('financeAmountLabel').textContent=money(0);
+  $('financeDownLabel').textContent='—';
+  const opEl=$('financeOperationValue'),detailEl=$('financeContributionDetail'),so=$('financeSummaryOperation'),sd=$('financeSummaryDown'),sda=$('financeSummaryDownAmount'),grid=$('scenarioGrid');
+  if(so)so.textContent=money(0);
+  if(sd)sd.textContent='—';
+  if(sda)sda.textContent=money(0)+' de aportación';
+  if(opEl)opEl.textContent=money(0);
+  if(detailEl)detailEl.textContent='Completa el monto para generar tu simulación';
+  if(grid)grid.innerHTML='<div class="mi-quote-empty"><span>▣</span><strong>Tu simulación aparecerá aquí</strong><p>Selecciona el destino del crédito y captura un monto desde $20,000 para comparar los plazos disponibles.</p></div>';
+ }
+ function calc(){
+  if(!amount||!down)return;
+  const rawAmount=Number(amountManual?.value);
+  const candidate=Number.isFinite(rawAmount)?rawAmount:Number(amount.value||0);
+  if(!candidate || candidate<20000){resetQuoteView();return;}
+  const rawDown=Number(downManual?.value);
+  const operationValue=clamp(candidate,20000,3000000),dpActual=clamp(Number.isFinite(rawDown)&&rawDown>=12?rawDown:down.value,12,60);
+  const downAmt=operationValue*(dpActual/100),principal=operationValue-downAmt;
+  amount.value=operationValue;down.value=dpActual;
+  if(amountManual&&document.activeElement!==amountManual)amountManual.value=operationValue;
+  if(downManual&&document.activeElement!==downManual)downManual.value=dpActual;
+  $('financeAmountLabel').textContent=money(operationValue);$('financeDownLabel').textContent=dpActual.toFixed(dpActual%1?1:0)+'%';
+  const opEl=$('financeOperationValue'),detailEl=$('financeContributionDetail'),so=$('financeSummaryOperation'),sd=$('financeSummaryDown'),sda=$('financeSummaryDownAmount');
+  if(so)so.textContent=money(operationValue);if(sd)sd.textContent=dpActual.toFixed(dpActual%1?1:0)+'%';if(sda)sda.textContent=money(downAmt)+' de aportación';
+  if(opEl)opEl.textContent=money(principal);if(detailEl)detailEl.textContent='Operación menos aportación inicial';
+  const scenarios=[60,48,36,24].map(m=>scenario(principal,m,RATES[m]));const grid=$('scenarioGrid');
+  if(grid){grid.innerHTML=scenarios.map(x=>`<button type="button" class="v67-plan ${x.months===selectedMonths?'selected':''}" data-months="${x.months}">${x.months===selectedMonths?'<span class="selected-tag" title="Plan seleccionado"></span>':''}<span class="term">${x.months} MESES</span>${x.months===60?'<span class="preferred">PLAN PREFERENCIAL · 8.00%</span>':''}<strong class="monthly">${money(x.monthly)}</strong><span class="monthly-label">Mensualidad fija estimada</span><span class="plan-meta"><span>Tasa ${x.annual.toFixed(2)}%</span><span>Total ${money(x.total)}</span></span></button>`).join('');grid.querySelectorAll('[data-months]').forEach(b=>b.onclick=()=>{selectedMonths=Number(b.dataset.months);calc()})}
+  const pick=scenarios.find(x=>x.months===selectedMonths)||scenarios[0];
+  lastQuote={principal,operationValue,dp:dpActual,dpMin:dpActual,downAmt,unitValue:operationValue,usesVehicleValue:false,...pick};
+ }
  function quoteDetails(){
   const val=id=>String($(id)?.value||'').trim();
   const selOrManual=(selectId,manualId)=>{const v=val(selectId);return (!v||v==='__manual__'||v==='manual-standard')?val(manualId):v};
@@ -3816,13 +3856,20 @@ document.getElementById("invoiceForm")?.addEventListener("submit",async function
  function makeQuoteNumber(){const d=new Date(),date=`${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;let random='';try{if(window.crypto?.getRandomValues)random=window.crypto.getRandomValues(new Uint32Array(1))[0].toString(36).toUpperCase().slice(-6).padStart(6,'0')}catch(e){}if(!random)random=(Date.now().toString(36)+Math.random().toString(36).slice(2)).toUpperCase().slice(-6).padStart(6,'0');return `COT-MI-${date}-${random}`}
  async function quoteSecurityCode(payload){try{if(window.crypto?.subtle){const bytes=new TextEncoder().encode(payload),hash=await window.crypto.subtle.digest('SHA-256',bytes);return [...new Uint8Array(hash)].map(x=>x.toString(16).padStart(2,'0')).join('').slice(0,16).toUpperCase()}}catch(e){console.warn('SHA-256 no disponible en archivo local:',e)}let h1=2166136261,h2=0x9e3779b9;for(let i=0;i<payload.length;i++){const c=payload.charCodeAt(i);h1=Math.imul(h1^c,16777619)>>>0;h2=Math.imul(h2^c,2246822519)>>>0}return (h1.toString(16).padStart(8,'0')+h2.toString(16).padStart(8,'0')).toUpperCase()}
  async function createQrDataUrl(text){if(!window.QRCode)return '';const host=document.createElement('div');host.style.cssText='position:fixed;left:-9999px;top:-9999px;background:#fff;padding:8px';document.body.appendChild(host);new QRCode(host,{text,width:180,height:180,correctLevel:QRCode.CorrectLevel.M});await new Promise(r=>setTimeout(r,150));const canvas=host.querySelector('canvas'),img=host.querySelector('img'),data=canvas?canvas.toDataURL('image/png'):(img?.src||'');host.remove();return data}
- $("quotePdf")?.addEventListener('click',async()=>{const btn=$("quotePdf");calc();const q=validateQuote();if(!q)return;if(!window.jspdf){alert('No fue posible cargar el generador de PDF. Recarga la página e inténtalo nuevamente.');return}const originalLabel=btn?.textContent||'DESCARGAR COTIZACIÓN';if(btn){btn.disabled=true;btn.textContent='PREPARANDO PDF...'}try{const {jsPDF}=window.jspdf,doc=new jsPDF(),navy=[0,52,95],ink=[31,55,69],muted=[92,113,126],pale=[241,248,251],cyan=[38,198,232];const put=(t,x,y,size=8,style='normal',color=ink,opt={})=>{doc.setFont('helvetica',style);doc.setFontSize(size);doc.setTextColor(...color);doc.text(String(t),x,y,opt)};const issued=new Date(),valid=new Date(issued);valid.setDate(valid.getDate()+15);const quoteNumber=makeQuoteNumber(),isAdvisor=document.body.classList.contains('mode-advisor'),subjectLabel=isAdvisor?`${q.brand} ${q.model} ${q.year} · ${q.version} · ${q.transmission} · ${q.color}`.trim():(q.purpose==='Automóvil'?`${q.publicBrand} ${q.publicModel} ${q.publicYear} · ${q.publicVersion} · ${q.publicTransmission} · ${q.publicColor}`:q.purpose),payload=JSON.stringify({cotizacion:quoteNumber,cliente:q.name,destino:subjectLabel,credito:lastQuote.principal,plazo:lastQuote.months,mensualidad:lastQuote.monthly,emision:issued.toISOString(),folio_solicitud:q.existingFolio||''}),code=await quoteSecurityCode(payload),vehicleLabel=subjectLabel,url=`https://maxinnova.mx/verificar.html?cotizacion=${encodeURIComponent(quoteNumber)}&codigo=${encodeURIComponent(code)}&cliente=${encodeURIComponent(q.name)}&destino=${encodeURIComponent(subjectLabel)}&credito=${encodeURIComponent(lastQuote.principal)}&plazo=${encodeURIComponent(lastQuote.months)}&mensualidad=${encodeURIComponent(lastQuote.monthly)}&emision=${encodeURIComponent(issued.toISOString())}&vigencia=${encodeURIComponent(valid.toISOString())}&folio_solicitud=${encodeURIComponent(q.existingFolio||'')}&operacion=${encodeURIComponent(lastQuote.operationValue)}&aportacion_pct=${encodeURIComponent(lastQuote.dp)}&aportacion_monto=${encodeURIComponent(lastQuote.downAmt)}&financiar=${encodeURIComponent(lastQuote.principal)}&tasa=${encodeURIComponent(lastQuote.annual)}&tipo=${encodeURIComponent(q.purpose||'')}&anio=${encodeURIComponent(isAdvisor?q.year:q.publicYear||'')}&marca=${encodeURIComponent(isAdvisor?q.brand:q.publicBrand||'')}&modelo=${encodeURIComponent(isAdvisor?q.model:q.publicModel||'')}&version=${encodeURIComponent(isAdvisor?q.version:q.publicVersion||'')}&transmision=${encodeURIComponent(isAdvisor?q.transmission:q.publicTransmission||'')}&color=${encodeURIComponent(isAdvisor?q.color:q.publicColor||'')}&vehiculo=${encodeURIComponent(subjectLabel)}`;let registered=false;try{localStorage.setItem('maxInnovaQuoteRelation_'+quoteNumber,JSON.stringify({cotizacion:quoteNumber,folio_solicitud:q.existingFolio||'',cliente:q.name,fecha:issued.toISOString()}))}catch(e){}try{const maskedName=q.name.split(/\s+/).filter(Boolean).map((part,i)=>i===0?part:(part.charAt(0)+'***')).join(' ');const rpcPromise=db.rpc('registrar_cotizacion_publica',{p_cotizacion:quoteNumber,p_codigo:code,p_cliente_mostrado:maskedName,p_vehiculo:vehicleLabel,p_credito:lastQuote.principal,p_plazo_meses:lastQuote.months,p_mensualidad:lastQuote.monthly,p_fecha_emision:issued.toISOString(),p_vigencia_hasta:valid.toISOString()});const rpcResult=await Promise.race([rpcPromise,new Promise((_,reject)=>setTimeout(()=>reject(new Error('Tiempo de validación agotado')),2500))]);const quoteInsertError=rpcResult?.error;if(!quoteInsertError)registered=true;else console.warn('Cotización no registrada para verificación:',quoteInsertError.message)}catch(e){console.warn('Verificación remota no disponible:',e)}const qr=await createQrDataUrl(url);
+ $("quotePdf")?.addEventListener('click',async()=>{const btn=$("quotePdf");calc();if(!lastQuote.principal){const box=$("quoteValidation");if(box){box.textContent="Captura un monto desde $20,000 para generar la simulación.";box.classList.add("show")}return}const q=validateQuote();if(!q)return;if(!window.jspdf){alert('No fue posible cargar el generador de PDF. Recarga la página e inténtalo nuevamente.');return}const originalLabel=btn?.textContent||'DESCARGAR COTIZACIÓN';if(btn){btn.disabled=true;btn.textContent='PREPARANDO PDF...'}try{const {jsPDF}=window.jspdf,doc=new jsPDF(),navy=[0,52,95],ink=[31,55,69],muted=[92,113,126],pale=[241,248,251],cyan=[38,198,232];const put=(t,x,y,size=8,style='normal',color=ink,opt={})=>{doc.setFont('helvetica',style);doc.setFontSize(size);doc.setTextColor(...color);doc.text(String(t),x,y,opt)};const issued=new Date(),valid=new Date(issued);valid.setDate(valid.getDate()+15);const quoteNumber=makeQuoteNumber(),isAdvisor=document.body.classList.contains('mode-advisor'),subjectLabel=isAdvisor?`${q.brand} ${q.model} ${q.year} · ${q.version} · ${q.transmission} · ${q.color}`.trim():(q.purpose==='Automóvil'?`${q.publicBrand} ${q.publicModel} ${q.publicYear} · ${q.publicVersion} · ${q.publicTransmission} · ${q.publicColor}`:q.purpose),payload=JSON.stringify({cotizacion:quoteNumber,cliente:q.name,destino:subjectLabel,credito:lastQuote.principal,plazo:lastQuote.months,mensualidad:lastQuote.monthly,emision:issued.toISOString(),folio_solicitud:q.existingFolio||''}),code=await quoteSecurityCode(payload),vehicleLabel=subjectLabel,url=`https://maxinnova.mx/verificar.html?cotizacion=${encodeURIComponent(quoteNumber)}&codigo=${encodeURIComponent(code)}&cliente=${encodeURIComponent(q.name)}&destino=${encodeURIComponent(subjectLabel)}&credito=${encodeURIComponent(lastQuote.principal)}&plazo=${encodeURIComponent(lastQuote.months)}&mensualidad=${encodeURIComponent(lastQuote.monthly)}&emision=${encodeURIComponent(issued.toISOString())}&vigencia=${encodeURIComponent(valid.toISOString())}&folio_solicitud=${encodeURIComponent(q.existingFolio||'')}&operacion=${encodeURIComponent(lastQuote.operationValue)}&aportacion_pct=${encodeURIComponent(lastQuote.dp)}&aportacion_monto=${encodeURIComponent(lastQuote.downAmt)}&financiar=${encodeURIComponent(lastQuote.principal)}&tasa=${encodeURIComponent(lastQuote.annual)}&tipo=${encodeURIComponent(q.purpose||'')}&anio=${encodeURIComponent(isAdvisor?q.year:q.publicYear||'')}&marca=${encodeURIComponent(isAdvisor?q.brand:q.publicBrand||'')}&modelo=${encodeURIComponent(isAdvisor?q.model:q.publicModel||'')}&version=${encodeURIComponent(isAdvisor?q.version:q.publicVersion||'')}&transmision=${encodeURIComponent(isAdvisor?q.transmission:q.publicTransmission||'')}&color=${encodeURIComponent(isAdvisor?q.color:q.publicColor||'')}&vehiculo=${encodeURIComponent(subjectLabel)}`;let registered=false;try{localStorage.setItem('maxInnovaQuoteRelation_'+quoteNumber,JSON.stringify({cotizacion:quoteNumber,folio_solicitud:q.existingFolio||'',cliente:q.name,fecha:issued.toISOString()}))}catch(e){}try{const maskedName=q.name.split(/\s+/).filter(Boolean).map((part,i)=>i===0?part:(part.charAt(0)+'***')).join(' ');const rpcPromise=db.rpc('registrar_cotizacion_publica',{p_cotizacion:quoteNumber,p_codigo:code,p_cliente_mostrado:maskedName,p_vehiculo:vehicleLabel,p_credito:lastQuote.principal,p_plazo_meses:lastQuote.months,p_mensualidad:lastQuote.monthly,p_fecha_emision:issued.toISOString(),p_vigencia_hasta:valid.toISOString()});const rpcResult=await Promise.race([rpcPromise,new Promise((_,reject)=>setTimeout(()=>reject(new Error('Tiempo de validación agotado')),2500))]);const quoteInsertError=rpcResult?.error;if(!quoteInsertError)registered=true;else console.warn('Cotización no registrada para verificación:',quoteInsertError.message)}catch(e){console.warn('Verificación remota no disponible:',e)}const qr=await createQrDataUrl(url);
  doc.setFillColor(...navy);doc.rect(0,0,210,9,'F');try{const lg=new Image();lg.crossOrigin='anonymous';lg.src='https://maxinnova.mx/logo%20maxinnova.png';await Promise.race([new Promise((ok,no)=>{lg.onload=ok;lg.onerror=no}),new Promise((_,no)=>setTimeout(()=>no(new Error('logo timeout')),1200))]);doc.addImage(lg,'PNG',18,13,42,24,undefined,'FAST')}catch(e){put('MAX INNOVA',18,24,16,'bold',navy)}put('ESTRATEGIAS MAX INNOVA, S.A. DE C.V. · RFC EMI250217IP7',64,24,6.5,'normal',muted);put('maxinnova.mx · contacto@maxinnova.mx',64,30,6.5,'normal',muted);put(isAdvisor?'COTIZACIÓN OFICIAL DE FINANCIAMIENTO':'PRECOTIZACIÓN PERSONALIZADA',192,20,10,'bold',navy,{align:'right'});put(quoteNumber,192,27,7,'bold',ink,{align:'right'});put(`Emisión ${issued.toLocaleDateString('es-MX')} · Vigencia ${valid.toLocaleDateString('es-MX')}`,192,33,7,'normal',muted,{align:'right'});
  doc.setFillColor(...pale);doc.roundedRect(18,42,174,42,4,4,'F');put('COTIZANTE',24,52,9,'bold',navy);put(q.name,24,61,10,'bold',ink);put(`${q.phone} · ${q.email||'Correo no proporcionado'}`,24,69,7.5,'normal',ink);put(q.existingFolio?`Folio de solicitud relacionado: ${q.existingFolio}`:'Cotización sin folio de solicitud',24,77,7.5,'normal',muted);put(isAdvisor||q.purpose==='Automóvil'?'VEHÍCULO':'DESTINO DEL CRÉDITO',110,52,9,'bold',navy);if(isAdvisor){put(`${q.brand} ${q.model} ${q.year}`,110,61,9,'bold',ink);put(`Versión: ${q.version} · ${q.transmission}`,110,69,7.2,'normal',ink);put(`Color: ${q.color}`,110,77,7.2,'normal',ink);}else if(q.purpose==='Automóvil'){put(`${q.publicBrand} ${q.publicModel} ${q.publicYear}`,110,61,9,'bold',ink);put(`Versión: ${q.publicVersion} · ${q.publicTransmission}`,110,69,7.2,'normal',ink);put(`Color: ${q.publicColor}`,110,77,7.2,'normal',ink);}else{put(q.purpose,110,63,9,'bold',ink);put('Cotización general de crédito',110,73,7.2,'normal',muted);}
  put('RESUMEN FINANCIERO',18,98,11,'bold',navy);const value=q.dealerPrice||q.referencePrice;const rows=[];if(isAdvisor){if(value)rows.push(['Precio del vehículo '+(q.dealerPrice?'(distribuidor)':'(referencia)'),money(value)]);rows.push(['Valor de la operación',money(lastQuote.operationValue)]);}rows.push([isAdvisor?'Aportación inicial':'Aportación inicial estimada',`${lastQuote.dp.toFixed(1)}% · ${money(lastQuote.downAmt)}`],[isAdvisor?'Monto a financiar':'Monto de crédito solicitado',money(lastQuote.principal)],['Plan seleccionado',`${lastQuote.months} meses · ${lastQuote.annual.toFixed(2)}% anual`],['Mensualidad fija estimada',money(lastQuote.monthly)],['Total estimado de mensualidades',money(lastQuote.total)]);let y=110;rows.forEach(([a,b],i)=>{if(i%2===0){doc.setFillColor(248,251,253);doc.rect(18,y-5,112,8,'F')}put(a,21,y,7.5,'bold',navy);put(b,126,y,8,'normal',ink,{align:'right'});y+=10});put('TODOS LOS PLAZOS DISPONIBLES',18,177,8,'bold',navy);const allPlans=[60,48,36,24].map(m=>scenario(lastQuote.principal,m,RATES[m]));allPlans.forEach((pl,i)=>{const x=18+i*29.5,sel=pl.months===lastQuote.months;doc.setDrawColor(...(sel?cyan:[218,230,236]));doc.setLineWidth(sel?0.8:0.25);doc.setFillColor(...(sel?[231,248,252]:pale));doc.roundedRect(x,181,27.5,31,2,2,'FD');put(`${pl.months} MESES`,x+13.75,187,6.3,'bold',navy,{align:'center'});if(pl.months===60)put('PREFERENCIAL',x+13.75,191,4.6,'bold',[35,117,87],{align:'center'});put(money(pl.monthly),x+13.75,197,7.2,'bold',navy,{align:'center'});put(`${pl.annual.toFixed(2)}% anual`,x+13.75,202,5.2,'normal',muted,{align:'center'});put(`Total ${money(pl.total)}`,x+13.75,207,4.8,'normal',muted,{align:'center'});if(sel)put('ELEGIDO',x+13.75,211,4.6,'bold',navy,{align:'center'})});doc.setFillColor(...cyan);doc.roundedRect(18,218,116,20,4,4,'F');put(`PLAN ELEGIDO · ${lastQuote.months} MESES · ${lastQuote.annual.toFixed(2)}% ANUAL`,24,225,6.6,'bold',navy);put(`Mensualidad ${money(lastQuote.monthly)}`,24,234,11,'bold',navy);doc.setFillColor(248,251,253);doc.roundedRect(137,110,55,100,4,4,'F');put('CONSULTAR COTIZACIÓN',164.5,120,8,'bold',navy,{align:'center'});if(qr)doc.addImage(qr,'PNG',145,127,39,39);put('Escanea para continuar en MAX INNOVA',164.5,174,6.2,'normal',muted,{align:'center'});put(code,164.5,184,6.5,'bold',navy,{align:'center'});put(quoteNumber,164.5,193,5.8,'normal',ink,{align:'center'});put('INFORMACIÓN Y PRECIOS DE REFERENCIA',18,246,6.7,'bold',navy);doc.setFont('helvetica','normal');doc.setFontSize(6.1);doc.setTextColor(...muted);doc.text(doc.splitTextToSize('Precios, promociones, disponibilidad y características están sujetos a confirmación con agencia, distribuidor o proveedor. Las condiciones definitivas requieren cotización formal de un asesor MAX INNOVA y validación de la operación.',116),18,252);put('MAX INNOVA · Servicios Financieros · maxinnova.mx · contacto@maxinnova.mx',18,269,6.3,'bold',navy);if(!registered)put('Registro remoto de la cotización pendiente al momento de emisión.',18,276,6.1,'normal',[150,70,40]);
  doc.addPage();doc.setFillColor(...navy);doc.rect(0,0,210,8,'F');put('TABLA DE AMORTIZACIÓN · MENSUALIDADES FIJAS',18,22,13,'bold',navy);put(`${quoteNumber} · ${q.name}`,18,30,7.5,'normal',muted);let yy=45,saldo=lastQuote.principal,r=lastQuote.annual/100/12;doc.setFillColor(...navy);doc.rect(12,yy-5,186,8,'F');doc.setTextColor(255,255,255);doc.setFontSize(6.5);doc.text('MES',14,yy);doc.text('MENSUALIDAD FIJA',31,yy);doc.text('INTERÉS',72,yy);doc.text('IVA INTERÉS',100,yy);doc.text('CAPITAL',130,yy);doc.text('SALDO INSOLUTO',160,yy);yy+=8;for(let m=1;m<=lastQuote.months;m++){if(yy>276){doc.addPage();yy=20;doc.setFillColor(...navy);doc.rect(12,yy-5,186,8,'F');doc.setTextColor(255,255,255);doc.text('MES',14,yy);doc.text('MENSUALIDAD FIJA',31,yy);doc.text('INTERÉS',72,yy);doc.text('IVA INTERÉS',100,yy);doc.text('CAPITAL',130,yy);doc.text('SALDO INSOLUTO',160,yy);yy+=8}const interes=lastQuote.principal*r,iva=interes*IVA,capital=(m===lastQuote.months?saldo:lastQuote.principal/lastQuote.months);saldo=Math.max(0,saldo-capital);if(m===lastQuote.months||saldo<0.01)saldo=0;if(m%2===0){doc.setFillColor(247,251,253);doc.rect(12,yy-5,186,7,'F')}doc.setTextColor(...ink);doc.setFontSize(6.4);doc.text(String(m),14,yy);doc.text(money(lastQuote.monthly),31,yy);doc.text(money(interes),72,yy);doc.text(money(iva),100,yy);doc.text(money(capital),130,yy);doc.text(money(saldo),160,yy);yy+=7}doc.setFontSize(6.5);doc.setTextColor(...muted);doc.text('Saldo insoluto = capital pendiente después de cada mensualidad. Es una referencia del capital por pagar y no necesariamente equivale al monto final de liquidación anticipada.',14,290);doc.addPage();doc.setFillColor(...navy);doc.rect(0,0,210,8,'F');put('ACOMPAÑAMIENTO DURANTE TU TRÁMITE',18,25,12,'bold',navy);doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...ink);doc.text(doc.splitTextToSize('Tu trámite es acompañado por distintas áreas de MAX INNOVA. Dependiendo de la operación, el proceso puede incluir atención en línea, asesoría comercial, integración y revisión documental, validación interna, seguimiento administrativo y, cuando corresponda, atención presencial en oficina. Cada etapa depende del producto solicitado y de las condiciones particulares de la operación.',174),18,38);put('IMPORTANTE',18,78,8,'bold',navy);doc.setFont('helvetica','normal');doc.setFontSize(7.3);doc.setTextColor(...muted);doc.text(doc.splitTextToSize('La presente información no sustituye la validación de documentos, precios, disponibilidad ni condiciones definitivas. Cualquier precio de vehículo deberá confirmarse con la agencia, distribuidor o proveedor correspondiente.',174),18,88);put('MAX INNOVA · Servicios Financieros · maxinnova.mx · contacto@maxinnova.mx',18,125,6.5,'bold',navy);doc.save(`MAX-INNOVA-COTIZACION-${q.name}.pdf`.replace(/[^a-z0-9áéíóúñ-]+/gi,'-'));}catch(error){console.error('Error al generar cotización PDF:',error);alert('No se pudo descargar la cotización: '+(error?.message||'error inesperado'));}finally{if(btn){btn.disabled=false;btn.textContent=originalLabel}}});
- const syncCalc=()=>calc();amount?.addEventListener('input',()=>{if(amountManual)amountManual.value=amount.value;syncCalc()});amountManual?.addEventListener('input',()=>{const v=Number(amountManual.value);if(Number.isFinite(v)&&v>=20000&&v<=3000000){amount.value=v;syncCalc()}});amountManual?.addEventListener('change',()=>{amountManual.value=clamp(amountManual.value,20000,3000000);amount.value=amountManual.value;syncCalc()});down?.addEventListener('input',()=>{if(downManual)downManual.value=down.value;syncCalc()});downManual?.addEventListener('input',()=>{const v=Number(downManual.value);if(Number.isFinite(v)&&v>=12&&v<=60){down.value=v;syncCalc()}});downManual?.addEventListener('change',()=>{downManual.value=clamp(downManual.value,12,60);down.value=downManual.value;syncCalc()});['quoteReferencePrice','quoteDealerPrice'].forEach(id=>$(id)?.addEventListener('input',syncCalc));const purposeEl=$("quotePurpose"),autoBox=$("publicAutoVehicle");function togglePublicAuto(){autoBox?.classList.toggle('show',purposeEl?.value==='Automóvil')}purposeEl?.addEventListener('change',togglePublicAuto);togglePublicAuto();
- $("financeApply")?.addEventListener('click',()=>{calc();const q=quoteDetails();const advisorMode=document.body.classList.contains('mode-advisor');try{sessionStorage.setItem('maxInnovaRelatedFolio',q.existingFolio||'');sessionStorage.setItem('maxInnovaRequestedCredit',String(lastQuote.principal||0))}catch(e){}const vehicle={brand:advisorMode?q.brand:q.publicBrand,model:advisorMode?q.model:q.publicModel,year:advisorMode?q.year:q.publicYear,version:advisorMode?q.version:q.publicVersion,transmission:advisorMode?q.transmission:q.publicTransmission,color:advisorMode?q.color:q.publicColor,condition:advisorMode?q.condition:'Nuevo',provider:advisorMode?q.provider:''};[["nombre",q.name],["telefono",q.phone],["correo",q.email],["ciudad",q.city],["vehMarca",vehicle.brand],["vehModelo",vehicle.model],["vehAnio",vehicle.year],["vehVersion",vehicle.version],["vehTransmision",vehicle.transmission],["vehColor",vehicle.color],["vehCondicion",vehicle.condition],["vehPrecio",lastQuote.principal||0],["vehProveedor",vehicle.provider]].forEach(([id,v])=>{const f=$(id);if(f&&v!==undefined&&v!==null&&v!==''){f.value=v;f.dispatchEvent(new Event('change',{bubbles:true}))}});goPortal('nuevo');setVehicleDefinedChoice('yes')});
+ const syncCalc=()=>calc();
+ amount?.addEventListener('input',()=>{if(amountManual)amountManual.value=amount.value;syncCalc()});
+ amountManual?.addEventListener('input',()=>{const v=Number(amountManual.value);if(Number.isFinite(v)&&v>=0&&v<=3000000){amount.value=v;syncCalc()}});
+ amountManual?.addEventListener('change',()=>{let v=Number(amountManual.value||0);if(!Number.isFinite(v)||v<0)v=0;if(v>3000000)v=3000000;amountManual.value=v;amount.value=v;syncCalc()});
+ down?.addEventListener('input',()=>{if(downManual)downManual.value=down.value;syncCalc()});
+ downManual?.addEventListener('input',()=>{const v=Number(downManual.value);if(Number.isFinite(v)&&v>=12&&v<=60){down.value=v;syncCalc()}});
+ downManual?.addEventListener('change',()=>{downManual.value=clamp(downManual.value,12,60);down.value=downManual.value;syncCalc()});
+ ['quoteReferencePrice','quoteDealerPrice'].forEach(id=>$(id)?.addEventListener('input',syncCalc));const purposeEl=$("quotePurpose"),autoBox=$("publicAutoVehicle");function togglePublicAuto(){autoBox?.classList.toggle('show',purposeEl?.value==='Automóvil')}purposeEl?.addEventListener('change',togglePublicAuto);togglePublicAuto();
+ $("financeApply")?.addEventListener('click',()=>{calc();if(!lastQuote.principal){const box=$("quoteValidation");if(box){box.textContent="Captura un monto desde $20,000 antes de pasar los datos a la solicitud.";box.classList.add("show")}return}const q=quoteDetails();const advisorMode=document.body.classList.contains('mode-advisor');try{sessionStorage.setItem('maxInnovaRelatedFolio',q.existingFolio||'');sessionStorage.setItem('maxInnovaRequestedCredit',String(lastQuote.principal||0))}catch(e){}const vehicle={brand:advisorMode?q.brand:q.publicBrand,model:advisorMode?q.model:q.publicModel,year:advisorMode?q.year:q.publicYear,version:advisorMode?q.version:q.publicVersion,transmission:advisorMode?q.transmission:q.publicTransmission,color:advisorMode?q.color:q.publicColor,condition:advisorMode?q.condition:'Nuevo',provider:advisorMode?q.provider:''};[["nombre",q.name],["telefono",q.phone],["correo",q.email],["ciudad",q.city],["vehMarca",vehicle.brand],["vehModelo",vehicle.model],["vehAnio",vehicle.year],["vehVersion",vehicle.version],["vehTransmision",vehicle.transmission],["vehColor",vehicle.color],["vehCondicion",vehicle.condition],["vehPrecio",lastQuote.principal||0],["vehProveedor",vehicle.provider]].forEach(([id,v])=>{const f=$(id);if(f&&v!==undefined&&v!==null&&v!==''){f.value=v;f.dispatchEvent(new Event('change',{bubbles:true}))}});goPortal('nuevo');setVehicleDefinedChoice('yes')});
  const pdfBtn=$('quotePdf');function v68PdfLabel(){if(pdfBtn)pdfBtn.textContent=document.body.classList.contains('mode-advisor')?'GENERAR COTIZACIÓN OFICIAL EN PDF':'DESCARGAR PRECOTIZACIÓN EN PDF'};document.getElementById('publicQuoteMode')?.addEventListener('click',()=>setTimeout(v68PdfLabel,0));v68PdfLabel();calc();
 })();
  (function(){
@@ -5112,5 +5159,142 @@ VALORES:{tag:'NUESTROS VALORES',title:'Principios que deben sentirse en cada int
 COMPROMISO:{tag:'NUESTRO COMPROMISO',title:'Mantener informado al cliente y dar continuidad a cada etapa.',text:'Nuestro compromiso es ofrecer una experiencia ordenada, con canales de atención y seguimiento que permitan conocer el avance de cada proceso. La información proporcionada por el cliente debe tratarse con responsabilidad y las condiciones de una operación deben comunicarse con claridad, distinguiendo siempre lo estimado de lo que ya ha sido confirmado.',detail:'Cada solicitud puede requerir revisión documental, validaciones, ajustes o información adicional. Nos comprometemos a comunicar esos pasos de manera responsable, evitar promesas sobre resultados que aún dependan de evaluación y mantener una atención que permita al cliente saber dónde se encuentra su trámite y cuál es el siguiente paso.',img:'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=86',pos:'center center'}};
 window.openEssence=k=>{const d=DATA[k];if(!d)return;const m=document.getElementById('essenceModal');document.getElementById('essenceModalTag').textContent=d.tag;document.getElementById('essenceModalTitle').textContent=d.title;document.getElementById('essenceModalText').textContent=d.text;document.getElementById('essenceModalDetail').textContent=d.detail;const im=document.getElementById('essenceModalImage');im.style.backgroundImage=`linear-gradient(180deg,rgba(0,35,59,.03),rgba(0,35,59,.18)),url('${d.img}')`;im.style.backgroundPosition=d.pos||'center';document.querySelector('#essenceModal .essence-modal-content').scrollTop=0;m.classList.add('open');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'};
 window.closeEssence=()=>{const m=document.getElementById('essenceModal');m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow=''};document.getElementById('essenceModal')?.addEventListener('click',e=>{if(e.target.id==='essenceModal')closeEssence()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('essenceModal')?.classList.contains('open'))closeEssence()})})();</script>
+
+<!-- ===== V162 · MEJORAS FUNCIONALES SIN REDISEÑO ===== -->
+<style id="mi-v162-functional-polish">
+.mi-quote-empty{grid-column:1/-1;min-height:150px;border:1px dashed rgba(173,224,239,.48);border-radius:16px;background:rgba(0,31,56,.13);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;color:#d9eef6}
+.mi-quote-empty span{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.10);display:grid;place-items:center;font-size:19px;margin-bottom:10px}
+.mi-quote-empty strong{color:#fff;font-size:13px}.mi-quote-empty p{max-width:520px;margin:6px 0 0;font-size:10px;line-height:1.55;color:#bcd8e4}
+@media(max-width:760px){
+ #nuestra-esencia .essence-layout-v150 .essence-commitment-v150{padding-top:0!important}
+ #nuestra-esencia .essence-layout-v150 .commitment-number-v150{top:17px!important;right:17px!important;left:auto!important;z-index:7!important}
+ #nuestra-esencia .essence-layout-v150 .commitment-watermark-v150{top:18px!important;left:20px!important;right:auto!important;transform:none!important;width:104px!important;height:50px!important;z-index:5!important}
+ #nuestra-esencia .essence-layout-v150 .commitment-word-v150{top:82px!important;left:22px!important;right:22px!important}
+}
+@media(max-width:380px){
+ #nuestra-esencia .essence-layout-v150 .commitment-watermark-v150{width:92px!important}
+ #nuestra-esencia .essence-layout-v150 .commitment-number-v150{right:14px!important}
+}
+</style>
+<script id="mi-v162-functional-behavior">
+document.addEventListener('DOMContentLoaded',()=>{
+ const root=document.getElementById('licMaxRoot');
+ const menu=document.getElementById('licMaxMenu');
+ const jump=document.getElementById('licMaxJump');
+ const action=document.getElementById('licMaxAction');
+ const headerOffset=()=>((document.querySelector('header')?.offsetHeight)||0)+12;
+ const scrollToId=(id)=>{
+   const aliases={portal:'portal',simulador:'simulador',ubicacion:'ubicacion',esencia:'nuestra-esencia','como-funciona':'como-funciona'};
+   const el=document.getElementById(aliases[id]||id);
+   if(!el)return false;
+   window.scrollTo({top:Math.max(0,el.getBoundingClientRect().top+window.scrollY-headerOffset()),behavior:'smooth'});
+   return true;
+ };
+ const closeLicMenu=()=>{jump?.classList.remove('open');document.getElementById('licMaxStage')?.classList.remove('menu-open');root?.classList.remove('menu-active','menu-panel-left','menu-panel-right')};
+ const runLicAction=(dest)=>{
+   if(!dest||dest==='menu'){jump?.classList.add('open');document.getElementById('licMaxStage')?.classList.add('menu-open');return true}
+   if(dest==='consulta'){if(typeof window.goPortal==='function')window.goPortal('consulta');return true}
+   if(dest==='solicitud'){if(typeof window.goPortal==='function')window.goPortal('nuevo');return true}
+   if(dest==='asesor'){if(typeof window.openContactRequest==='function')window.openContactRequest('CONTACTO');return true}
+   if(dest==='cita'){if(typeof window.openContactRequest==='function')window.openContactRequest('CITA');return true}
+   return scrollToId(dest);
+ };
+ // Completa IR A con accesos útiles que ya existen, sin alterar el diseño.
+ if(menu){
+   const wanted=[
+     ['esencia','✦','Nuestra esencia'],
+     ['consulta','⌕','Consultar solicitud'],
+     ['asesor','☎','Contactar asesor'],
+     ['cita','◷','Agendar cita']
+   ];
+   wanted.forEach(([go,icon,label])=>{
+     if(menu.querySelector(`[data-go="${go}"]`))return;
+     const b=document.createElement('button');b.type='button';b.dataset.go=go;b.innerHTML=`<span>${icon}</span>${label}`;menu.appendChild(b);
+   });
+   menu.addEventListener('click',e=>{
+     const b=e.target.closest('button[data-go]');if(!b)return;
+     if(['consulta','asesor','cita','esencia'].includes(b.dataset.go)){e.preventDefault();e.stopPropagation();runLicAction(b.dataset.go);closeLicMenu()}
+   });
+ }
+ // Refuerzo para los botones de los mensajes de LIC. MAX.
+ action?.addEventListener('click',e=>{
+   const dest=action.dataset.dest;
+   if(!dest)return;
+   if(['menu','consulta','solicitud','asesor','cita','esencia'].includes(dest)){e.preventDefault();e.stopPropagation();runLicAction(dest)}
+ },true);
+
+ // Si el cliente vuelve al cotizador con 0, siempre verá el estado limpio.
+ const amount=document.getElementById('financeAmountManual');
+ if(amount && Number(amount.value||0)<20000) amount.dispatchEvent(new Event('input',{bubbles:true}));
+});
+</script>
+
+
+<!-- ===== V163 · LIC. MAX · IR A COMPACTO EN UNA SOLA VISTA ===== -->
+<style id="mi-v163-licmax-compact-final">
+#licMaxMenu,
+#licMaxMenu.licmax-menu-floating,
+#licMaxMenu.licmax-menu-portal{
+  box-sizing:border-box!important;
+  width:318px!important;
+  max-width:calc(100vw - 20px)!important;
+  max-height:none!important;
+  height:auto!important;
+  overflow:visible!important;
+  padding:7px!important;
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  column-gap:5px!important;
+  row-gap:3px!important;
+  scrollbar-width:none!important;
+}
+#licMaxMenu::-webkit-scrollbar{display:none!important}
+#licMaxMenu .licmax-menu-head{
+  grid-column:1/-1!important;
+  height:28px!important;
+  min-height:28px!important;
+  padding:0 2px 4px 6px!important;
+  margin:0 0 2px!important;
+}
+#licMaxMenu button[data-go]{
+  width:100%!important;
+  min-height:34px!important;
+  height:auto!important;
+  margin:0!important;
+  padding:5px 6px!important;
+  gap:6px!important;
+  font-size:9px!important;
+  line-height:1.12!important;
+  white-space:normal!important;
+}
+#licMaxMenu button[data-go] span{
+  flex:0 0 22px!important;
+  width:22px!important;
+  height:22px!important;
+  font-size:11px!important;
+  border-radius:7px!important;
+}
+@media(max-width:620px){
+ #licMaxMenu,#licMaxMenu.licmax-menu-floating,#licMaxMenu.licmax-menu-portal{
+   left:8px!important;right:8px!important;top:auto!important;bottom:64px!important;
+   width:auto!important;max-width:none!important;max-height:none!important;
+   overflow:visible!important;padding:6px!important;
+   grid-template-columns:1fr 1fr!important;column-gap:4px!important;row-gap:2px!important;
+ }
+ #licMaxMenu .licmax-menu-head{grid-column:1/-1!important;height:27px!important;min-height:27px!important}
+ #licMaxMenu button[data-go]{min-height:32px!important;padding:4px 5px!important;font-size:8.4px!important;line-height:1.08!important}
+ #licMaxMenu button[data-go] span{flex-basis:20px!important;width:20px!important;height:20px!important;font-size:10px!important}
+}
+@media(max-width:350px){
+ #licMaxMenu,#licMaxMenu.licmax-menu-floating,#licMaxMenu.licmax-menu-portal{
+   left:5px!important;right:5px!important;bottom:60px!important;
+   grid-template-columns:1fr 1fr!important;max-height:none!important;overflow:visible!important;
+ }
+ #licMaxMenu .licmax-menu-head{grid-column:1/-1!important}
+ #licMaxMenu button[data-go]{min-height:30px!important;font-size:7.8px!important;padding:3px 4px!important}
+ #licMaxMenu button[data-go] span{flex-basis:18px!important;width:18px!important;height:18px!important;font-size:9px!important}
+}
+</style>
+
 </body>
 </html>
