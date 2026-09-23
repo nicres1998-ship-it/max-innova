@@ -160,6 +160,56 @@
   z-index:3!important;
 }
 
+
+/* ===== V18 · COTIZADOR 2 LIMPIO Y ANCHO REAL ===== */
+#page-cotizador2{padding-top:0!important}
+#page-cotizador2 .c2-layout{
+  display:grid!important;
+  grid-template-columns:430px minmax(0,1fr)!important;
+  column-gap:10px!important;
+  row-gap:0!important;
+  width:100%!important;
+  max-width:none!important;
+  align-items:start!important;
+}
+#page-cotizador2 .c2-form{
+  width:430px!important;
+  max-width:430px!important;
+  min-width:430px!important;
+  margin:0!important;
+}
+#page-cotizador2 .c2-preview-wrap{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  overflow:visible!important;
+  position:relative!important;
+  top:auto!important;
+  margin:0!important;
+  padding:0!important;
+}
+#page-cotizador2 .c2-master-sheet{
+  margin:0!important;
+  transform-origin:top left!important;
+  transform:scale(var(--c2-scale, .82))!important;
+}
+/* cubre la imagen de vehículo impresa en la plantilla base */
+#page-cotizador2 .c2-master-car{
+  background:#fff!important;
+  z-index:10!important;
+}
+@media(max-width:980px){
+  #page-cotizador2 .c2-layout{
+    grid-template-columns:1fr!important;
+  }
+  #page-cotizador2 .c2-form{
+    width:100%!important;max-width:none!important;min-width:0!important;
+  }
+  #page-cotizador2 .c2-preview-wrap{margin-top:14px!important;overflow:auto!important}
+}
+
 </style>
 
 <style>
@@ -171,15 +221,12 @@
 <body>
 <section class="login" id="loginView"><div class="login-card"><div class="brand">MAX <span>INNOVA</span></div><h1>Panel de Asesor</h1><p class="muted">Acceso privado MAX INNOVA para cotizaciones, clientes, expedientes y seguimientos.</p><form id="loginForm"><div class="field"><label>USUARIO / CORREO</label><input id="loginEmail" type="text" autocomplete="username" required placeholder="ADMONGENERAL o correo"></div><div class="field"><label>CONTRASEÑA</label><input id="loginPassword" type="password" autocomplete="current-password" required placeholder="••••••••"></div><button class="btn btn-primary btn-block">INGRESAR</button><button class="btn btn-cyan btn-block" type="button" id="demoAccessBtn" style="margin-top:10px;display:none">ENTRAR EN MODO PRUEBA</button></form><div class="message" id="loginMessage"></div></div></section>
 <div class="app hidden" id="appView"><aside class="sidebar"><div class="brand">MAX <span>INNOVA</span></div><div class="advisor-name"><b id="advisorName">Asesor</b><br><small id="advisorRole">ASESOR</small></div><nav class="nav"><button class="active" data-page="resumen">INICIO</button><button data-page="cotizador">COTIZADOR 1</button><button data-page="cotizador2">COTIZADOR 2</button><button data-page="clientes">CLIENTES Y EXPEDIENTES</button><button data-page="cotizaciones">COTIZACIONES</button><button data-page="precios">CATÁLOGO Y PRECIOS</button><button data-page="tareas">SEGUIMIENTOS</button></nav><div class="sidebar-bottom"><button class="btn btn-soft btn-block" id="logoutBtn">CERRAR SESIÓN</button></div></aside><main class="content"><header class="topbar"><div><h1 id="pageTitle">INICIO</h1><p class="muted">Tu operación comercial en un solo lugar</p></div><button class="btn btn-cyan" id="quickQuoteBtn">+ NUEVA COTIZACIÓN</button></header>
-<div class="role-scope"><div><b>PANEL DE ASESORES</b><br><span>Cotiza, administra tus clientes y da seguimiento a tu operación comercial.</span></div><span>Las citas, contactos, pagos y estados de cuenta se administran desde ADMON.</span></div>
 <section class="page active" id="page-resumen"><div class="advisor-flow"><div class="flow-step"><b>1</b><span>COTIZA</span><small>Simula sin registrar al prospecto</small></div><div class="flow-step"><b>2</b><span>REGISTRA Y GENERA PDF</span><small>Al confirmar, se crea o relaciona el expediente</small></div><div class="flow-step"><b>3</b><span>DA SEGUIMIENTO</span><small>Todo queda dentro del mismo cliente</small></div></div><div class="quick-actions"><button class="btn btn-primary" type="button" onclick="goPage('cotizador')">+ NUEVA COTIZACIÓN</button><button class="btn btn-soft" type="button" onclick="goPage('clientes')">BUSCAR CLIENTE / EXPEDIENTE</button><button class="btn btn-soft" type="button" onclick="goPage('tareas')">VER SEGUIMIENTOS</button></div><div class="stats"><div class="stat"><small>CLIENTES</small><strong id="statClients">0</strong></div><div class="stat"><small>EXPEDIENTES ACTIVOS</small><strong id="statFiles">0</strong></div><div class="stat"><small>COTIZACIONES</small><strong id="statQuotes">0</strong></div><div class="stat"><small>TAREAS PENDIENTES</small><strong id="statTasks">0</strong></div></div><div class="card"><div class="section-title"><h3>Próximos seguimientos</h3></div><div id="dashboardTasks" class="timeline"></div></div></section>
 <section class="page" id="page-clientes"><div class="section-guide"><h2>Mis clientes y expedientes</h2><p>Busca una sola vez al cliente. Dentro de su expediente encontrarás sus cotizaciones, notas y seguimientos; una nueva cotización no crea otro expediente.</p></div><div class="card"><div class="toolbar"><input id="clientSearch" placeholder="Buscar nombre, teléfono, correo o folio"><select id="clientStatus"><option value="">Todos los estatus</option><option>PROSPECTO</option><option>COTIZANDO</option><option>SOLICITUD</option><option>CONTRATADO</option><option>EN SEGUIMIENTO</option><option>NO INTERESADO</option></select><button class="btn btn-primary" id="newClientBtn">REGISTRAR CLIENTE MANUALMENTE</button></div><div class="table-wrap"><table><thead><tr><th>CLIENTE</th><th>TELÉFONO</th><th>FOLIO</th><th>ESTATUS</th><th>PRÓXIMO CONTACTO</th><th></th></tr></thead><tbody id="clientRows"></tbody></table></div></div><div id="clientDetail"></div></section>
 <section class="page" id="page-cotizador"><div class="quote-workspace"><div class="card" style="margin-top:0"><div class="section-title"><div><h3>Nueva cotización</h3><p class="muted">Cotiza primero durante la llamada. El cliente se registra únicamente al guardar o generar la cotización formal.</p></div></div><div class="quote-history-check" id="quoteHistoryCheck"><strong>ANTES DE COTIZAR · ¿EL CLIENTE YA HA COTIZADO CON MAX INNOVA?</strong><span class="muted">Pregúntelo al cliente. Esto ayuda a conservar todas sus propuestas dentro del mismo expediente.</span><div class="quote-history-actions"><button class="btn btn-primary" type="button" id="historyYesBtn">SÍ, YA COTIZÓ</button><button class="btn btn-soft" type="button" id="historyNoBtn">NO / NO RECUERDA</button></div><div class="quote-history-search" id="historySearchBox"><input id="historySearchInput" placeholder="Teléfono, correo, folio o nombre"><button class="btn btn-cyan" type="button" id="historySearchBtn">BUSCAR EXPEDIENTE</button></div><div id="historySearchResult"></div></div><div class="quote-client-banner" id="quoteClientBanner"><b>CLIENTE AÚN NO REGISTRADO</b><br><span class="muted">Puedes realizar toda la simulación. Al finalizar te pediremos los datos del cliente.</span></div><div class="grid2"><div class="field"><label>AÑO *</label><select id="qYear"></select></div><div class="field"><label>MARCA *</label><select id="qBrand"></select><input id="qBrandManual" class="hidden" placeholder="Escribe la marca" style="margin-top:8px"></div><div class="field"><label>MODELO / SUBMARCA *</label><select id="qModel"></select><input id="qModelManual" class="hidden" placeholder="Escribe el modelo / submarca" style="margin-top:8px"></div><div class="field"><label>VERSIÓN *</label><select id="qVersion"></select><input id="qVersionManual" class="hidden" placeholder="Escribe la versión" style="margin-top:8px"></div><div class="field"><label>TRANSMISIÓN</label><select id="qTransmission"><option value="">Selecciona transmisión</option></select><input id="qTransmissionManual" class="hidden" placeholder="Escribe la transmisión" style="margin-top:8px"></div><div class="field"><label>COLOR</label><select id="qColor"><option value="">Selecciona color</option></select><input id="qColorManual" class="hidden" placeholder="Escribe el color" style="margin-top:8px"></div><div class="field"><label>PRECIO DEL VEHÍCULO *</label><input id="qPrice" type="number" min="0" step="0.01"></div><div class="field"><label>APORTACIÓN % (MÍNIMO 12)</label><input id="qDown" type="number" min="12" max="60" step=".1" value="12"></div><div class="field"><label>BONO APLICABLE (MXN)</label><input id="qBonus" type="number" min="0" step="0.01" value="0" placeholder="Ej. 15000"><small class="muted">Se suma a la aportación del cliente y reduce el monto a financiar.</small></div><div class="field full"><label>PROVEEDOR / AGENCIA</label><input id="qProvider" placeholder="Agencia, distribuidor o proveedor"></div><div class="field full"><label>PROMOCIONES (OPCIONAL)</label><textarea id="qPromotions" placeholder="Ej. Placas gratis, seguro incluido, bono especial, comisión sin costo..."></textarea><small class="muted">Solo aparecerá en la cotización formal si escribes una promoción.</small></div><div class="field full"><label>NOTAS INTERNAS DE LA COTIZACIÓN</label><textarea id="qNotes" placeholder="Acuerdos, observaciones o información para seguimiento interno"></textarea><small class="muted">Estas notas se guardan dentro del expediente del cliente y no se muestran como promoción.</small></div></div><div class="quote-result"><div><small>PRECIO VEHÍCULO</small><strong id="qOperation">$0</strong></div><div><small>APORTACIÓN CLIENTE</small><strong id="qDownAmount">$0</strong></div><div><small>BONO</small><strong id="qBonusAmount">$0</strong></div><div><small>APORTACIÓN TOTAL</small><strong id="qTotalContribution">$0</strong></div><div><small>MONTO A FINANCIAR</small><strong id="qPrincipal">$0</strong></div><div><small>PLAZO ELEGIDO</small><strong id="qSelectedPlan">48 meses</strong></div></div><div id="advisorPlanGrid" class="plan-grid"></div><div class="toolbar" style="margin-top:16px"><button class="btn btn-primary" id="saveQuoteBtn">REGISTRAR CLIENTE Y GENERAR PDF</button><button class="btn btn-cyan hidden" id="downloadQuoteBtn" type="button">DESCARGAR PDF</button><button class="btn btn-soft" id="clearQuoteBtn">NUEVA SIMULACIÓN</button></div><div class="formal-note">Al registrar al cliente se guarda la cotización y se descarga automáticamente el PDF formal. Después podrás volver a descargarla desde Cotizaciones o desde el expediente del cliente.</div><div class="message" id="quoteMessage"></div></div><aside class="vehicle-panel"><div class="section-title"><div><small class="muted">VERIFICADOR INTERNO</small><h3 style="margin:3px 0">Vehículo y precio</h3></div></div><div class="vehicle-photo" id="vehiclePhotoBox" tabindex="0" title="Haz clic, arrastra o pega una fotografía"><span><b>AGREGAR FOTO DEL VEHÍCULO</b><br><span class="photo-hint">Haz clic aquí, arrastra una imagen o pégala con Ctrl+V</span></span></div><input class="file-input" id="vehiclePhotoInput" type="file" accept="image/png,image/jpeg,image/webp"><div class="vehicle-actions"><button class="btn btn-soft" id="uploadVehiclePhotoBtn" type="button">AGREGAR FOTO</button><button class="btn btn-soft" id="openTechSheetBtn" type="button">VER / DESCARGAR FICHA</button></div><div id="vehicleInfo" style="margin-top:16px"><p class="muted">Aquí aparecerán precio de referencia, fuente, fecha de actualización, transmisión y ficha técnica cuando estén disponibles.</p></div><div class="toolbar" style="margin-top:14px"><button class="btn btn-primary" id="verifyPriceBtn" type="button">VERIFICAR PRECIO</button></div></aside></div></section>
 <section class="page" id="page-precios"><div class="section-guide"><h2>Catálogo y precios</h2><p>Consulta vehículos y precios de referencia. Desde aquí puedes enviar un vehículo directamente a una nueva cotización.</p></div><div class="card"><div class="section-title"><div><h3>Buscador interno de vehículos</h3><p class="muted">La fuente del precio y la ficha técnica se muestran por separado.</p></div><span class="badge" id="priceCount">0 RESULTADOS</span></div><div class="toolbar"><input id="priceSearch" placeholder="Marca, modelo o versión"><select id="priceYear"><option value="">Todos los años</option><option>2023</option><option>2024</option><option>2025</option><option>2026</option><option>2027</option></select><button class="btn btn-primary" id="priceSearchBtn" type="button">CONSULTAR</button><button class="btn btn-soft" id="priceClearBtn" type="button">LIMPIAR</button></div><div id="priceResults" class="grid2"></div></div></section>
 
-<section class="page" id="page-cotizador2">
-  <div class="section-guide"><h2>Cotizador 2</h2><p>Formato visual basado en la plantilla MAX INNOVA de Excel. Captura los datos y la hoja se arma automáticamente; la fotografía puede venir del catálogo oficial cuando se integre o agregarse manualmente.</p></div>
-  <div class="c2-layout">
+<section class="page" id="page-cotizador2"><div class="c2-layout">
     <div class="card c2-form">
       <div class="section-title"><div><h3>Datos de la cotización</h3><p class="muted">La plantilla visual no se edita directamente: se actualiza con este formulario.</p></div></div>
       <div class="grid2">
@@ -585,22 +632,21 @@ function c2FitPreview(){
   const wrap=sheet.parentElement;
   if(!wrap)return;
   const naturalW=890,naturalH=1583;
-  const available=Math.max(320,wrap.getBoundingClientRect().width-2);
-  /* La plantilla llena de verdad la columna derecha y conserva su proporción. */
-  const scale=Math.min(available/naturalW,1);
-  sheet.dataset.previewScale=String(scale);
-  sheet.style.transform=`scale(${scale})`;
-  /* transform no ocupa espacio en el flujo: reservamos la altura visual real */
+  const available=Math.max(360,wrap.getBoundingClientRect().width);
+  let scale=Math.min(available/naturalW,1);
+  if(window.innerWidth>980) scale=Math.max(scale,.68);
+  sheet.style.setProperty('--c2-scale',String(scale));
   wrap.style.height=Math.ceil(naturalH*scale)+'px';
 }
 async function c2CaptureCanvas(){
   if(!window.html2canvas)throw new Error('No terminó de cargar el generador de imagen.');
-  const sheet=g('c2Sheet'), previous=sheet.style.transform;
-  sheet.style.transform='none';
+  const sheet=g('c2Sheet');
+  const previousScale=sheet.style.getPropertyValue('--c2-scale');
+  sheet.style.setProperty('--c2-scale','1');
   try{
     return await html2canvas(sheet,{scale:2,useCORS:true,backgroundColor:'#ffffff',width:890,height:1583,windowWidth:890,windowHeight:1583,scrollX:0,scrollY:0});
   }finally{
-    sheet.style.transform=previous;
+    sheet.style.setProperty('--c2-scale',previousScale||'1');
   }
 }
 async function c2Download(){try{const canvas=await c2CaptureCanvas(),a=document.createElement('a');a.download=`MAX-INNOVA-${g('c2FolioView').textContent||'COTIZACION'}.png`;a.href=canvas.toDataURL('image/png',1);a.click()}catch(err){msg('c2Message',err.message||'No fue posible generar la imagen.')}}
