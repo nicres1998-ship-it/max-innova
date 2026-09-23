@@ -124,6 +124,42 @@
   }
 }
 
+
+/* ===== V17 · DISTRIBUCIÓN REAL: FORMULARIO + PLANTILLA A TODO EL ANCHO ===== */
+@media(min-width:901px){
+  #page-cotizador2 .c2-layout{
+    display:grid!important;
+    grid-template-columns:440px minmax(0,1fr)!important;
+    gap:14px!important;
+    align-items:start!important;
+    width:100%!important;
+  }
+  #page-cotizador2 .c2-form{
+    width:100%!important;
+    min-width:0!important;
+  }
+  #page-cotizador2 .c2-preview-wrap{
+    width:100%!important;
+    max-width:none!important;
+    overflow:visible!important;
+    display:block!important;
+  }
+  #page-cotizador2 .c2-master-sheet{
+    margin:0!important;
+    transform-origin:top left!important;
+  }
+}
+/* La foto de vehículo que venía impresa en la plantilla base queda tapada.
+   Esta misma zona se usa únicamente cuando el asesor carga una nueva foto. */
+#page-cotizador2 .c2-master-car{
+  left:63px!important;
+  top:1060px!important;
+  width:490px!important;
+  height:305px!important;
+  background:#fff!important;
+  z-index:3!important;
+}
+
 </style>
 
 <style>
@@ -549,8 +585,8 @@ function c2FitPreview(){
   const wrap=sheet.parentElement;
   if(!wrap)return;
   const naturalW=890,naturalH=1583;
-  const available=Math.max(320,wrap.clientWidth-2);
-  /* La vista previa llena el ancho de la columna derecha; puede alargarse hacia abajo. */
+  const available=Math.max(320,wrap.getBoundingClientRect().width-2);
+  /* La plantilla llena de verdad la columna derecha y conserva su proporción. */
   const scale=Math.min(available/naturalW,1);
   sheet.dataset.previewScale=String(scale);
   sheet.style.transform=`scale(${scale})`;
