@@ -210,6 +210,29 @@
   #page-cotizador2 .c2-preview-wrap{margin-top:14px!important;overflow:auto!important}
 }
 
+
+/* ===== V19 · LA PLANTILLA LLENA TODO EL ESPACIO DERECHO ===== */
+@media(min-width:981px){
+  #page-cotizador2 .c2-layout{
+    grid-template-columns:400px minmax(0,1fr)!important;
+    gap:8px!important;
+  }
+  #page-cotizador2 .c2-form{
+    width:400px!important;
+    max-width:400px!important;
+    min-width:400px!important;
+  }
+  #page-cotizador2 .c2-preview-wrap{
+    width:100%!important;
+    max-width:none!important;
+    overflow:visible!important;
+  }
+  #page-cotizador2 .c2-master-sheet{
+    transform-origin:top left!important;
+    margin:0!important;
+  }
+}
+
 </style>
 
 <style>
@@ -217,6 +240,318 @@
 @media(max-width:1250px){.c2-layout{grid-template-columns:1fr}.c2-preview-wrap{position:static}.c2-sheet{transform-origin:top left}}@media(max-width:800px){.c2-preview-wrap{overflow:auto}.c2-sheet{width:760px}}
 </style>
 
+<style>
+/* ===== V22 · CORRECCIÓN DEFINITIVA DE LA VISTA DEL COTIZADOR 2 =====
+   En escritorio NO se reduce la hoja: se muestra a sus 890 px reales.
+   Así ocupa el espacio derecho en vez de dejar la franja vacía.
+*/
+@media (min-width:981px){
+  #page-cotizador2 .c2-layout{
+    display:grid!important;
+    grid-template-columns:400px 890px!important;
+    gap:8px!important;
+    justify-content:start!important;
+    align-items:start!important;
+    width:max-content!important;
+    max-width:none!important;
+  }
+  #page-cotizador2 .c2-form{
+    width:400px!important;
+    min-width:400px!important;
+    max-width:400px!important;
+  }
+  #page-cotizador2 .c2-preview-wrap{
+    width:890px!important;
+    min-width:890px!important;
+    max-width:890px!important;
+    height:1583px!important;
+    min-height:1583px!important;
+    overflow:visible!important;
+    display:block!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  #page-cotizador2 #c2Sheet.c2-master-sheet{
+    width:890px!important;
+    height:1583px!important;
+    min-width:890px!important;
+    min-height:1583px!important;
+    transform:none!important;
+    zoom:1!important;
+    margin:0!important;
+    transform-origin:top left!important;
+  }
+}
+/* Si la ventana realmente es menor, permitimos desplazamiento sin deformar la plantilla. */
+@media (max-width:980px){
+  #page-cotizador2 .c2-layout{grid-template-columns:1fr!important;width:100%!important}
+  #page-cotizador2 .c2-form{width:100%!important;min-width:0!important;max-width:none!important}
+  #page-cotizador2 .c2-preview-wrap{width:100%!important;overflow:auto!important}
+}
+</style>
+<style>
+/* ===== V23 · AJUSTE EXACTO SIN DESPLAZAMIENTO HORIZONTAL =====
+   Formulario fijo; la cotización usa exactamente TODO el ancho restante.
+   La hoja conserva proporción y nunca obliga a scroll horizontal.
+*/
+html,body{max-width:100%;overflow-x:hidden!important}
+@media (min-width:981px){
+  #page-cotizador2{overflow-x:hidden!important}
+  #page-cotizador2 .c2-layout{
+    display:grid!important;
+    grid-template-columns:400px minmax(0,1fr)!important;
+    gap:8px!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    justify-content:stretch!important;
+    align-items:start!important;
+  }
+  #page-cotizador2 .c2-form{
+    width:400px!important;min-width:400px!important;max-width:400px!important;
+  }
+  #page-cotizador2 .c2-preview-wrap{
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    overflow:hidden!important;
+    margin:0!important;padding:0!important;
+    display:block!important;
+  }
+  #page-cotizador2 #c2Sheet.c2-master-sheet{
+    width:890px!important;
+    height:1583px!important;
+    min-width:890px!important;
+    min-height:1583px!important;
+    margin:0!important;
+    transform-origin:top left!important;
+  }
+}
+</style>
+<style>
+/* ===== V24 · HOJA COMPLETA, ANCHO EXACTO, CRECE HACIA ABAJO ===== */
+html,body{
+  max-width:100%!important;
+  overflow-x:auto!important;
+}
+@media (min-width:981px){
+  #page-cotizador2,
+  #page-cotizador2 .page-inner,
+  #page-cotizador2 .content,
+  #page-cotizador2 .c2-layout{
+    overflow:visible!important;
+  }
+  #page-cotizador2 .c2-layout{
+    display:grid!important;
+    grid-template-columns:400px minmax(0,1fr)!important;
+    gap:8px!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    align-items:start!important;
+  }
+  #page-cotizador2 .c2-form{
+    width:400px!important;
+    min-width:400px!important;
+    max-width:400px!important;
+  }
+  #page-cotizador2 .c2-preview-wrap{
+    position:relative!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    overflow:visible!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  #page-cotizador2 #c2Sheet.c2-master-sheet{
+    position:absolute!important;
+    left:0!important;
+    top:0!important;
+    width:890px!important;
+    height:1583px!important;
+    min-width:890px!important;
+    min-height:1583px!important;
+    max-width:none!important;
+    transform-origin:top left!important;
+    margin:0!important;
+  }
+}
+</style>
+<style>
+/* ===== V25 · AJUSTE REAL AL BORDE DERECHO, SIN CORTE ===== */
+html,body{max-width:100%!important;overflow-x:hidden!important}
+@media(min-width:981px){
+  #page-cotizador2 .c2-layout{
+    display:grid!important;
+    grid-template-columns:400px minmax(0,1fr)!important;
+    gap:8px!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    overflow:visible!important;
+    align-items:start!important;
+  }
+  #page-cotizador2 .c2-form{
+    width:400px!important;min-width:400px!important;max-width:400px!important;
+  }
+  #page-cotizador2 .c2-preview-wrap{
+    position:relative!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    overflow:visible!important;
+    margin:0!important;padding:0!important;
+  }
+  #page-cotizador2 #c2Sheet.c2-master-sheet{
+    position:absolute!important;
+    left:0!important;top:0!important;
+    width:890px!important;height:1583px!important;
+    min-width:890px!important;min-height:1583px!important;
+    max-width:none!important;
+    margin:0!important;
+    transform-origin:top left!important;
+  }
+}
+</style>
+
+<style id="v26-final-fit">
+@media(min-width:981px){
+  #page-cotizador2 .c2-layout{
+    display:grid!important;
+    grid-template-columns:400px minmax(0,1fr)!important;
+    column-gap:8px!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    overflow:visible!important;
+    align-items:start!important;
+  }
+  #page-cotizador2 .c2-preview-wrap{
+    position:relative!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:visible!important;
+    justify-self:start!important;
+  }
+  #page-cotizador2 #c2Sheet.c2-master-sheet{
+    position:absolute!important;
+    left:0!important;
+    top:0!important;
+    width:890px!important;
+    height:1583px!important;
+    min-width:890px!important;
+    min-height:1583px!important;
+    max-width:none!important;
+    margin:0!important;
+    transform-origin:top left!important;
+    overflow:hidden!important;
+  }
+}
+</style>
+
+
+<style id="v28-only-cotizador2-preview">
+@media (min-width:981px){
+  #page-cotizador2 .c2-layout{
+    grid-template-columns:400px minmax(0,1fr)!important;
+    column-gap:8px!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    overflow:visible!important;
+    align-items:start!important;
+  }
+  #page-cotizador2 .c2-preview-wrap{
+    position:relative!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:visible!important;
+    justify-self:start!important;
+  }
+  #page-cotizador2 #c2Sheet.c2-master-sheet{
+    position:absolute!important;
+    left:0!important;
+    top:0!important;
+    width:890px!important;
+    height:1583px!important;
+    min-width:890px!important;
+    min-height:1583px!important;
+    max-width:none!important;
+    transform-origin:top left!important;
+  }
+}
+</style>
+
+
+<style id="v29-cotizador2-fit-definitivo">
+html,body{max-width:100%;overflow-x:hidden!important}
+@media (min-width:981px){
+  #page-cotizador2{width:100%!important;max-width:100%!important;overflow:visible!important}
+  #page-cotizador2 .c2-layout{
+    display:grid!important;
+    grid-template-columns:400px minmax(0,1fr)!important;
+    gap:12px!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    align-items:start!important;
+    overflow:visible!important;
+  }
+  #page-cotizador2 .c2-form{width:400px!important;max-width:400px!important;min-width:0!important}
+  #page-cotizador2 .c2-preview-wrap{
+    position:relative!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:visible!important;
+  }
+  #page-cotizador2 #c2Sheet.c2-master-sheet{
+    position:absolute!important;
+    left:0!important;top:0!important;
+    width:890px!important;height:1583px!important;
+    min-width:890px!important;min-height:1583px!important;
+    max-width:none!important;
+    margin:0!important;
+    transform-origin:top left!important;
+  }
+}
+</style>
+
+<style id="v32-preview-fit-box">
+/* V32: la hoja completa se comprime EXACTAMENTE al ancho del recuadro derecho.
+   Conserva su proporción vertical y la página crece hacia abajo; no hay scroll horizontal. */
+@media (min-width:981px){
+  #page-cotizador2 .c2-preview-wrap{
+    position:relative!important;
+    top:auto!important;
+    width:100%!important;
+    min-width:0!important;
+    height:auto;
+    min-height:0!important;
+    padding:0!important;
+    margin:0!important;
+    overflow:hidden!important;
+    background:#eaf2f6!important;
+    border:1px solid #d6e5ec!important;
+    border-radius:16px!important;
+    box-shadow:0 10px 30px rgba(0,35,58,.08)!important;
+  }
+  #page-cotizador2 #c2Sheet.c2-master-sheet{
+    position:absolute!important;
+    left:0!important; top:0!important;
+    width:890px!important; height:1583px!important;
+    min-width:890px!important; min-height:1583px!important;
+    margin:0!important;
+    transform:scale(var(--c2-scale,1))!important;
+    transform-origin:top left!important;
+  }
+}
+</style>
 </head>
 <body>
 <section class="login" id="loginView"><div class="login-card"><div class="brand">MAX <span>INNOVA</span></div><h1>Panel de Asesor</h1><p class="muted">Acceso privado MAX INNOVA para cotizaciones, clientes, expedientes y seguimientos.</p><form id="loginForm"><div class="field"><label>USUARIO / CORREO</label><input id="loginEmail" type="text" autocomplete="username" required placeholder="ADMONGENERAL o correo"></div><div class="field"><label>CONTRASEÑA</label><input id="loginPassword" type="password" autocomplete="current-password" required placeholder="••••••••"></div><button class="btn btn-primary btn-block">INGRESAR</button><button class="btn btn-cyan btn-block" type="button" id="demoAccessBtn" style="margin-top:10px;display:none">ENTRAR EN MODO PRUEBA</button></form><div class="message" id="loginMessage"></div></div></section>
@@ -228,7 +563,7 @@
 
 <section class="page" id="page-cotizador2"><div class="c2-layout">
     <div class="card c2-form">
-      <div class="section-title"><div><h3>Datos de la cotización</h3><p class="muted">La plantilla visual no se edita directamente: se actualiza con este formulario.</p></div></div>
+      <div class="section-title"><div><h3>Datos de la cotización</h3></div></div>
       <div class="grid2">
         <div class="field"><label>CLIENTE</label><input id="c2Name" placeholder="Nombre del cliente"></div>
         <div class="field"><label>TELÉFONO</label><input id="c2Phone" placeholder="10 dígitos"></div>
@@ -339,7 +674,7 @@ async function enter(u){
   fillYears();
   await loadBrands();
 }
-$("logoutBtn").onclick=async()=>{await db.auth.signOut();location.reload()};function goPage(page){if(page!=="clientes"&&window.currentClientId)window.closeClientDetail?.();const b=document.querySelector(`.nav button[data-page="${page}"]`);if(!b)return;document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$("page-"+page).classList.add("active");$("pageTitle").textContent=b.textContent;if(page==="precios")loadPrices();if(page==="cotizaciones")loadQuotes();if(page==="tareas")loadTasks();window.scrollTo(0,0)}window.goPage=goPage;document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>goPage(b.dataset.page));
+$("logoutBtn").onclick=async()=>{await db.auth.signOut();location.reload()};function goPage(page){if(page!=="clientes"&&window.currentClientId)window.closeClientDetail?.();const b=document.querySelector(`.nav button[data-page="${page}"]`);if(!b)return;document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$("page-"+page).classList.add("active");$("pageTitle").textContent=b.textContent;if(page==="precios")loadPrices();if(page==="cotizaciones")loadQuotes();if(page==="tareas")loadTasks();if(page==="cotizador2")setTimeout(()=>{try{c2FitPreview();c2Update();}catch(e){console.error(e)}},60);window.scrollTo(0,0)}window.goPage=goPage;document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>goPage(b.dataset.page));
 async function refreshAll(){await Promise.all([loadClients(),loadFiles(),loadTasks(),loadQuotes()]);renderStats();fillSelectors()}
 async function loadClients(){let q=db.from("max_innova_clientes_asesor").select("*").order("updated_at",{ascending:false});const {data}=await q;clients=data||[];renderClients()}
 async function loadFiles(){const {data}=await db.from("max_innova_expedientes_asesor").select("*").order("ultima_actividad",{ascending:false});files=data||[]}
@@ -628,16 +963,35 @@ async function c2Qr(number,c){g('c2Qr').innerHTML='';const url=`https://maxinnov
 
 function c2FitPreview(){
   const sheet=g('c2Sheet');
-  if(!sheet)return;
-  const wrap=sheet.parentElement;
-  if(!wrap)return;
-  const naturalW=890,naturalH=1583;
-  const available=Math.max(360,wrap.getBoundingClientRect().width);
-  let scale=Math.min(available/naturalW,1);
-  if(window.innerWidth>980) scale=Math.max(scale,.68);
+  const wrap=sheet?.closest('.c2-preview-wrap');
+  if(!sheet||!wrap)return;
+
+  const masterW=890, masterH=1583;
+  sheet.style.zoom='1';
+  sheet.style.transformOrigin='top left';
+
+  if(window.innerWidth<=980){
+    sheet.style.position='relative';
+    sheet.style.left='0'; sheet.style.top='0';
+    sheet.style.setProperty('--c2-scale','1');
+    wrap.style.height='auto';
+    return;
+  }
+
+  // Ajuste únicamente por ANCHO: la hoja termina exactamente en el margen derecho
+  // del recuadro. La altura resultante se reserva completa para que nada se corte.
+  const availableW=wrap.clientWidth;
+  if(availableW<100)return;
+  const scale=availableW/masterW;
+  const visibleH=Math.ceil(masterH*scale);
+
+  sheet.style.position='absolute';
+  sheet.style.left='0'; sheet.style.top='0';
   sheet.style.setProperty('--c2-scale',String(scale));
-  wrap.style.height=Math.ceil(naturalH*scale)+'px';
+  wrap.style.height=visibleH+'px';
+  wrap.style.minHeight=visibleH+'px';
 }
+
 async function c2CaptureCanvas(){
   if(!window.html2canvas)throw new Error('No terminó de cargar el generador de imagen.');
   const sheet=g('c2Sheet');
@@ -669,6 +1023,139 @@ c2Render();
 
 window.addEventListener('resize',()=>setTimeout(c2FitPreview,50));
 setTimeout(c2FitPreview,120);
+})();
+</script>
+
+<script>
+(function(){
+  const run=()=>setTimeout(()=>{try{c2FitPreview()}catch(e){}},30);
+  window.addEventListener('load',run);
+  window.addEventListener('resize',run);
+  document.addEventListener('click',e=>{
+    const t=e.target.closest('[data-page],[data-target],button,a');
+    if(t) run();
+  });
+  if(window.ResizeObserver){
+    const boot=()=>{
+      const w=document.querySelector('#page-cotizador2 .c2-preview-wrap');
+      if(w){new ResizeObserver(run).observe(w);}
+    };
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);
+    else boot();
+  }
+})();
+</script>
+
+<style>
+/* V34 · visor interno vertical Cotizador 2 */
+@media (min-width:981px){
+  #page-cotizador2 .c2-preview-wrap{
+    height:calc(100vh - 220px)!important;
+    min-height:560px!important;
+    max-height:760px!important;
+    overflow-y:auto!important;
+    overflow-x:auto!important;
+    position:sticky!important;
+    top:18px!important;
+    align-self:start!important;
+    scrollbar-gutter:stable;
+    border-radius:16px;
+  }
+  #page-cotizador2 .c2-master-sheet{
+    transform-origin:top left!important;
+  }
+}
+@media (max-width:980px){
+  #page-cotizador2 .c2-preview-wrap{
+    max-height:75vh!important;
+    overflow-y:auto!important;
+    overflow-x:auto!important;
+  }
+}
+</style>
+
+<style>
+/* V35 · visor con desplazamiento en ambos ejes + vista ampliada */
+#page-cotizador2 .c2-preview-wrap{
+  overflow:auto!important;
+  cursor:zoom-in;
+  scrollbar-gutter:stable both-edges;
+}
+#c2FullscreenModal{
+  display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,20,34,.88);
+  padding:22px;overflow:auto;
+}
+#c2FullscreenModal.open{display:block}
+#c2FullscreenToolbar{
+  position:sticky;top:0;z-index:2;display:flex;justify-content:flex-end;gap:10px;
+  padding:0 0 12px;pointer-events:none;
+}
+#c2FullscreenToolbar button{pointer-events:auto}
+#c2FullscreenStage{
+  width:max-content;min-width:100%;display:flex;justify-content:center;align-items:flex-start;
+  padding:4px 12px 40px;
+}
+#c2FullscreenClone{
+  width:890px;height:1583px;min-width:890px;min-height:1583px;background:#fff;
+  box-shadow:0 20px 70px rgba(0,0,0,.4);position:relative;overflow:hidden;
+  transform:none!important;zoom:1!important;margin:0!important;
+}
+#c2FullscreenHint{
+  position:absolute;right:12px;bottom:12px;z-index:4;background:rgba(0,29,52,.82);color:#fff;
+  padding:7px 10px;border-radius:8px;font-size:10px;font-weight:800;pointer-events:none;
+}
+@media(max-width:980px){#c2FullscreenModal{padding:10px}}
+</style>
+<div id="c2FullscreenModal" aria-hidden="true">
+  <div id="c2FullscreenToolbar">
+    <button class="btn btn-cyan" type="button" id="c2FullDownload">DESCARGAR IMAGEN</button>
+    <button class="btn btn-cyan" type="button" id="c2FullCopy">COPIAR IMAGEN</button>
+    <button class="btn btn-soft" type="button" id="c2FullClose">CERRAR ✕</button>
+  </div>
+  <div id="c2FullscreenStage"><div id="c2FullscreenClone"></div></div>
+</div>
+<script>
+(function(){
+  const modal=document.getElementById('c2FullscreenModal');
+  const holder=document.getElementById('c2FullscreenClone');
+  const wrap=document.querySelector('#page-cotizador2 .c2-preview-wrap');
+  const sheet=document.getElementById('c2Sheet');
+  if(!modal||!holder||!wrap||!sheet)return;
+
+  const openFull=()=>{
+    const clone=sheet.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.style.setProperty('--c2-scale','1');
+    clone.style.transform='none';clone.style.zoom='1';clone.style.position='relative';
+    clone.style.left='0';clone.style.top='0';clone.style.margin='0';
+    holder.replaceChildren(...clone.childNodes);
+    modal.classList.add('open');modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';modal.scrollTop=0;modal.scrollLeft=0;
+  };
+  const closeFull=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';};
+
+  wrap.title='Haz clic en la cotización para verla completa en grande';
+  wrap.addEventListener('click',e=>{
+    if(e.target.closest('button,a,input,select,textarea'))return;
+    openFull();
+  });
+  document.getElementById('c2FullClose').onclick=closeFull;
+  document.getElementById('c2FullDownload').onclick=()=>document.getElementById('c2DownloadOnly')?.click();
+  document.getElementById('c2FullCopy').onclick=async()=>{
+    const btn=document.getElementById('c2FullCopy');
+    const original=btn.textContent;
+    try{
+      await c2CopyImage();
+      btn.textContent='✓ IMAGEN COPIADA';
+      btn.disabled=true;
+      setTimeout(()=>{btn.textContent=original;btn.disabled=false;},2200);
+    }catch(e){
+      btn.textContent='NO SE PUDO COPIAR';
+      setTimeout(()=>{btn.textContent=original;},2200);
+    }
+  };
+  modal.addEventListener('click',e=>{if(e.target===modal)closeFull();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeFull();});
 })();
 </script>
 
