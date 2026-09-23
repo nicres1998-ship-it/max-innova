@@ -78,6 +78,33 @@
   .c2-preview-wrap{height:auto!important;min-height:720px!important;overflow:auto!important}
 }
 
+
+/* ===== V15 · PREVISUALIZACIÓN GRANDE + SALIDA COMPLETA PARA WHATSAPP ===== */
+.c2-preview-wrap{
+  overflow:visible!important;
+  display:block!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:0!important;
+}
+.c2-master-sheet{
+  transform-origin:top left!important;
+  margin:0!important;
+}
+/* En escritorio, la hoja queda casi pegada al formulario y ocupa el ancho disponible.
+   La altura puede continuar hacia abajo con el scroll normal de la página. */
+@media(min-width:901px){
+  #view-quote2 .c2-grid{
+    grid-template-columns:minmax(400px, .82fr) minmax(540px, 1.18fr)!important;
+    gap:18px!important;
+    align-items:start!important;
+  }
+}
+/* En móvil/tablet se coloca debajo del formulario y conserva proporción. */
+@media(max-width:900px){
+  .c2-preview-wrap{overflow:auto!important}
+}
+
 </style>
 
 <style>
@@ -498,28 +525,30 @@ g('c2Drop').onclick=()=>g('c2PhotoInput').click();g('c2PhotoInput').onchange=e=>
 async function c2Qr(number,c){g('c2Qr').innerHTML='';const url=`https://maxinnova.mx/verificar.html?cotizacion=${encodeURIComponent(number)}&codigo=${encodeURIComponent(number.replace(/[^A-Z0-9]/gi,'').slice(-16))}&cliente=${encodeURIComponent(g('c2Name').value)}&vehiculo=${encodeURIComponent([g('c2Brand').value,g('c2Model').value,g('c2Year').value,g('c2Version').value].join(' '))}&credito=${encodeURIComponent(c.principal)}&operacion=${encodeURIComponent(c.price)}&aportacion_pct=${encodeURIComponent(c.pct)}&aportacion_monto=${encodeURIComponent(c.down+c.bonus)}&plazo=${encodeURIComponent(g('c2MainPlan').value)}&tasa=${encodeURIComponent(C2R[g('c2MainPlan').value])}&tipo=${encodeURIComponent('Automóvil')}&marca=${encodeURIComponent(g('c2Brand').value)}&modelo=${encodeURIComponent(g('c2Model').value)}&anio=${encodeURIComponent(g('c2Year').value)}&version=${encodeURIComponent(g('c2Version').value)}&transmision=${encodeURIComponent(g('c2Transmission').value)}&color=${encodeURIComponent(g('c2Color').value)}&origen=${encodeURIComponent('COTIZADOR 2')}`;new QRCode(g('c2Qr'),{text:url,width:140,height:140,correctLevel:QRCode.CorrectLevel.M});g('c2QrText').textContent=number;await new Promise(r=>setTimeout(r,80));}
 
 function c2FitPreview(){
-  const wrap=g('c2Sheet')&&g('c2Sheet').parentElement, sheet=g('c2Sheet');
-  if(!wrap||!sheet)return;
-  if(window.innerWidth<=900){sheet.style.transform='scale(.62)';return;}
+  const sheet=g('c2Sheet');
+  if(!sheet)return;
+  const wrap=sheet.parentElement;
+  if(!wrap)return;
   const naturalW=890,naturalH=1583;
-  const maxW=Math.max(300,wrap.clientWidth-12);
-  const maxH=Math.max(520,window.innerHeight-265);
-  const scale=Math.min(maxW/naturalW,maxH/naturalH,0.72);
+  const available=Math.max(320,wrap.clientWidth-2);
+  const maxScale=window.innerWidth>1450 ? 0.76 : 0.70;
+  const scale=Math.min(available/naturalW,maxScale);
   sheet.dataset.previewScale=String(scale);
   sheet.style.transform=`scale(${scale})`;
-  wrap.style.height=(naturalH*scale)+'px';
+  /* transform no ocupa espacio en el flujo: reservamos la altura visual real */
+  wrap.style.height=Math.ceil(naturalH*scale)+'px';
 }
 async function c2CaptureCanvas(){
   if(!window.html2canvas)throw new Error('No terminó de cargar el generador de imagen.');
   const sheet=g('c2Sheet'), previous=sheet.style.transform;
   sheet.style.transform='none';
   try{
-    return await html2canvas(sheet,{scale:2,useCORS:true,backgroundColor:'#ffffff'});
+    return await html2canvas(sheet,{scale:2,useCORS:true,backgroundColor:'#ffffff',width:890,height:1583,windowWidth:890,windowHeight:1583,scrollX:0,scrollY:0});
   }finally{
     sheet.style.transform=previous;
   }
 }
-async function c2Download(){try{const canvas=await c2CaptureCanvas(),a=document.createElement('a');a.download=`${g('c2FolioView').textContent||'COTIZACION-MAX-INNOVA'}.png`;a.href=canvas.toDataURL('image/png',1);a.click()}catch(err){msg('c2Message',err.message||'No fue posible generar la imagen.')}}
+async function c2Download(){try{const canvas=await c2CaptureCanvas(),a=document.createElement('a');a.download=`MAX-INNOVA-${g('c2FolioView').textContent||'COTIZACION'}.png`;a.href=canvas.toDataURL('image/png',1);a.click()}catch(err){msg('c2Message',err.message||'No fue posible generar la imagen.')}}
 async function c2CopyImage(){
   if(!window.html2canvas){msg('c2Message','No terminó de cargar el generador de imagen. Revisa tu conexión.');return}
   if(!navigator.clipboard||!window.ClipboardItem){msg('c2Message','Este navegador no permite copiar imágenes directamente. Usa DESCARGAR IMAGEN.');return}
