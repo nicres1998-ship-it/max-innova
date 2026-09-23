@@ -105,6 +105,25 @@
   .c2-preview-wrap{overflow:auto!important}
 }
 
+
+/* ===== V16 · COTIZADOR 2 OCUPA TODO EL ANCHO DISPONIBLE ===== */
+@media(min-width:901px){
+  #view-quote2 .c2-grid{
+    grid-template-columns:minmax(420px,440px) minmax(0,1fr)!important;
+    gap:12px!important;
+    align-items:start!important;
+  }
+  #view-quote2 .c2-preview-wrap{
+    width:100%!important;
+    max-width:none!important;
+    overflow:visible!important;
+  }
+  #view-quote2 .c2-master-sheet{
+    margin:0!important;
+    transform-origin:top left!important;
+  }
+}
+
 </style>
 
 <style>
@@ -531,8 +550,8 @@ function c2FitPreview(){
   if(!wrap)return;
   const naturalW=890,naturalH=1583;
   const available=Math.max(320,wrap.clientWidth-2);
-  const maxScale=window.innerWidth>1450 ? 0.76 : 0.70;
-  const scale=Math.min(available/naturalW,maxScale);
+  /* La vista previa llena el ancho de la columna derecha; puede alargarse hacia abajo. */
+  const scale=Math.min(available/naturalW,1);
   sheet.dataset.previewScale=String(scale);
   sheet.style.transform=`scale(${scale})`;
   /* transform no ocupa espacio en el flujo: reservamos la altura visual real */
