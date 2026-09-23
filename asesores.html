@@ -51,8 +51,8 @@
 .c2-master-folio{right:14px;top:15px;color:#fff;text-align:right;font-size:10px;line-height:1.25;z-index:4}
 .c2-master-folio span{display:block;font-size:8px;letter-spacing:1px}.c2-master-folio b{font-size:11px}
 .c2-master-verify{right:12px;bottom:39px;width:96px;height:115px;background:#fff;padding:5px;text-align:center;border:1px solid #ddd;z-index:5}
-.c2-master-verify .c2-qr{width:84px!important;height:84px!important;margin:0 auto 2px!important}
-.c2-master-verify .c2-qr img,.c2-master-verify .c2-qr canvas{width:84px!important;height:84px!important}
+.c2-master-verify .c2-qr{width:120px!important;height:120px!important;margin:0 auto 3px!important}
+.c2-master-verify .c2-qr img,.c2-master-verify .c2-qr canvas{width:120px!important;height:120px!important}
 .c2-master-verify #c2QrText{font-size:6px;line-height:1.05;overflow:hidden;max-height:16px}
 @media(max-width:1250px){.c2-master-sheet{transform-origin:top left;transform:scale(.78);margin-bottom:-348px!important}.c2-preview-wrap{min-height:1240px}}
 @media(max-width:900px){.c2-master-sheet{transform:scale(.62);margin-bottom:-602px!important}.c2-preview-wrap{min-height:1000px}}
@@ -959,7 +959,52 @@ function c2Render(){const c=c2Calc();[['c2NameView','c2Name'],['c2PhoneView','c2
 ['c2Name' ,'c2Phone','c2Year','c2Brand','c2Model','c2Version','c2Transmission','c2Color','c2Price','c2DownPct','c2Bonus','c2Promo'].forEach(id=>g(id).addEventListener('input',c2Render));
 function c2PhotoFile(file){if(!file||!file.type.startsWith('image/'))return;const r=new FileReader();r.onload=()=>{c2Photo=r.result;g('c2LowerPhoto').innerHTML=`<img src="${r.result}" alt="Vehículo">`};r.readAsDataURL(file)}
 g('c2Drop').onclick=()=>g('c2PhotoInput').click();g('c2PhotoInput').onchange=e=>c2PhotoFile(e.target.files[0]);['dragenter','dragover'].forEach(ev=>g('c2Drop').addEventListener(ev,e=>{e.preventDefault();g('c2Drop').classList.add('dragover')}));['dragleave','drop'].forEach(ev=>g('c2Drop').addEventListener(ev,e=>{e.preventDefault();g('c2Drop').classList.remove('dragover')}));g('c2Drop').addEventListener('drop',e=>c2PhotoFile(e.dataTransfer.files[0]));document.addEventListener('paste',e=>{if(!g('page-cotizador2').classList.contains('active'))return;const it=[...(e.clipboardData?.items||[])].find(x=>x.type?.startsWith('image/'));if(it){e.preventDefault();c2PhotoFile(it.getAsFile())}});
-async function c2Qr(number,c){g('c2Qr').innerHTML='';const url=`https://maxinnova.mx/verificar.html?cotizacion=${encodeURIComponent(number)}&codigo=${encodeURIComponent(number.replace(/[^A-Z0-9]/gi,'').slice(-16))}&cliente=${encodeURIComponent(g('c2Name').value)}&vehiculo=${encodeURIComponent([g('c2Brand').value,g('c2Model').value,g('c2Year').value,g('c2Version').value].join(' '))}&credito=${encodeURIComponent(c.principal)}&operacion=${encodeURIComponent(c.price)}&aportacion_pct=${encodeURIComponent(c.pct)}&aportacion_monto=${encodeURIComponent(c.down+c.bonus)}&plazo=${encodeURIComponent(g('c2MainPlan').value)}&tasa=${encodeURIComponent(C2R[g('c2MainPlan').value])}&tipo=${encodeURIComponent('Automóvil')}&marca=${encodeURIComponent(g('c2Brand').value)}&modelo=${encodeURIComponent(g('c2Model').value)}&anio=${encodeURIComponent(g('c2Year').value)}&version=${encodeURIComponent(g('c2Version').value)}&transmision=${encodeURIComponent(g('c2Transmission').value)}&color=${encodeURIComponent(g('c2Color').value)}&origen=${encodeURIComponent('COTIZADOR 2')}`;new QRCode(g('c2Qr'),{text:url,width:140,height:140,correctLevel:QRCode.CorrectLevel.M});g('c2QrText').textContent=number;await new Promise(r=>setTimeout(r,80));}
+async function c2Qr(number,c,savedRecord){
+  g('c2Qr').innerHTML='';
+  const saved=savedRecord||c2Saved||{};
+  const issued=saved.created_at?new Date(saved.created_at):new Date();
+  const valid=new Date(issued); valid.setDate(valid.getDate()+15);
+  const mainPlan=Number(saved.plazo_meses||g('c2MainPlan').value||60);
+  const scenario=(c.plans||[]).find(x=>Number(x.months)===mainPlan)||{};
+  const clientName=saved.cliente_nombre||g('c2Name').value||'';
+  const vehicle=[saved.marca||g('c2Brand').value,saved.modelo||g('c2Model').value,saved.anio||g('c2Year').value,saved.version||g('c2Version').value].filter(Boolean).join(' ');
+  // URL compacta: conserva los datos principales que usa verificar.html y hace el QR mucho más fácil de escanear.
+  const params=new URLSearchParams({
+    cotizacion:number,
+    cliente:clientName,
+    vehiculo:vehicle,
+    credito:String(saved.monto_financiado??c.principal??''),
+    operacion:String(saved.precio_unidad??c.price??''),
+    aportacion_pct:String(saved.aportacion_porcentaje??c.pct??''),
+    plazo:String(mainPlan),
+    tasa:String(saved.tasa_anual??scenario.rate??C2R[mainPlan]??''),
+    mensualidad:String(saved.mensualidad??scenario.monthly??''),
+    emision:issued.toISOString().slice(0,10),
+    vigencia:valid.toISOString().slice(0,10),
+    tipo:'Automóvil',
+    origen:'ASESOR',
+    formato:'COTIZADOR 2'
+  });
+  const url='https://maxinnova.mx/verificar.html?'+params.toString();
+  new QRCode(g('c2Qr'),{text:url,width:240,height:240,correctLevel:QRCode.CorrectLevel.L});
+  g('c2QrText').textContent=number;
+  await new Promise(r=>setTimeout(r,180));
+}
+function c2DraftNumber(){
+  const existing=(g('c2FolioView').textContent||'').trim();
+  if(existing && existing!=='BORRADOR')return existing;
+  const d=new Date(), pad=n=>String(n).padStart(2,'0');
+  const n=`C2-${String(d.getFullYear()).slice(-2)}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+  g('c2FolioView').textContent=n;
+  return n;
+}
+async function c2EnsureQr(){
+  const c=c2Calc();
+  if(!c.price){throw new Error('Captura el precio del vehículo antes de generar la imagen.');}
+  const number=c2Saved?.numero_cotizacion||c2Saved?.folio_cotizacion||c2DraftNumber();
+  await c2Qr(number,c,c2Saved||null);
+  return number;
+}
 
 function c2FitPreview(){
   const sheet=g('c2Sheet');
@@ -1003,11 +1048,12 @@ async function c2CaptureCanvas(){
     sheet.style.setProperty('--c2-scale',previousScale||'1');
   }
 }
-async function c2Download(){try{const canvas=await c2CaptureCanvas(),a=document.createElement('a');a.download=`MAX-INNOVA-${g('c2FolioView').textContent||'COTIZACION'}.png`;a.href=canvas.toDataURL('image/png',1);a.click()}catch(err){msg('c2Message',err.message||'No fue posible generar la imagen.')}}
+async function c2Download(){try{await c2EnsureQr();const canvas=await c2CaptureCanvas(),a=document.createElement('a');a.download=`MAX-INNOVA-${g('c2FolioView').textContent||'COTIZACION'}.png`;a.href=canvas.toDataURL('image/png',1);a.click()}catch(err){msg('c2Message',err.message||'No fue posible generar la imagen.')}}
 async function c2CopyImage(){
   if(!window.html2canvas){msg('c2Message','No terminó de cargar el generador de imagen. Revisa tu conexión.');return}
   if(!navigator.clipboard||!window.ClipboardItem){msg('c2Message','Este navegador no permite copiar imágenes directamente. Usa DESCARGAR IMAGEN.');return}
   try{
+    await c2EnsureQr();
     const canvas=await c2CaptureCanvas();
     const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('No se pudo generar la imagen.')),'image/png'));
     await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
@@ -1016,8 +1062,8 @@ async function c2CopyImage(){
     msg('c2Message','No fue posible copiar la imagen directamente. Usa DESCARGAR IMAGEN o permite acceso al portapapeles.');
   }
 }
-async function c2SaveForClient(client){const c=c2Calc();if(!g('c2Brand').value.trim()||!g('c2Model').value.trim()||!g('c2Version').value.trim()||!c.price){msg('c2Message','Captura marca, modelo, versión y precio.');return}const number=quoteNumber(),m=+g('c2MainPlan').value,sc=c.plans.find(x=>x.months===m),f=files.find(x=>String(x.cliente_id)===String(client.id));let saved={numero_cotizacion:number,folio_cotizacion:number,cliente_id:client.id,expediente_id:f?.id||null,asesor_id:user?.id||null,cliente_nombre:client.nombre,cliente_telefono:client.telefono,cliente_correo:client.correo||null,folio:client.folio_cliente||null,marca:g('c2Brand').value.trim(),modelo:g('c2Model').value.trim(),anio:+g('c2Year').value||null,version:g('c2Version').value.trim(),transmision:g('c2Transmission').value.trim()||null,color:g('c2Color').value.trim()||null,condicion:'NUEVO',precio_unidad:c.price,aportacion_porcentaje:c.pct,aportacion_importe:c.down,bono_importe:c.bonus,aportacion_total:c.down+c.bonus,monto_financiado:c.principal,tasa_anual:sc.rate,plazo_meses:m,mensualidad:sc.monthly,total_estimado:sc.total,estatus:'COTIZADO',vigencia_hasta:new Date(Date.now()+15*86400000).toISOString().slice(0,10),notas:null,datos_adicionales:{formato:'COTIZADOR 2',foto_cotizacion:c2Photo||null,promociones:g('c2Promo').value.trim()||null,asesor_nombre:profile?.nombre||'ASESOR',escenarios:c.plans,bono_importe:c.bonus,aportacion_total:c.down+c.bonus}};if(isDemo()){saved.created_at=new Date().toISOString();window.demoQuotes=window.demoQuotes||[];window.demoQuotes.unshift(saved);window.quoteCount=window.demoQuotes.length}else{const r=await db.from('max_innova_cotizaciones').insert(saved).select().single();if(r.error){msg('c2Message',r.error.message);return}saved=r.data;await loadQuotes()}c2Saved=saved;g('c2FolioView').textContent=number;g('c2Name').value=client.nombre||g('c2Name').value;g('c2Phone').value=client.telefono||g('c2Phone').value;c2Render();await c2Qr(number,c);msg('c2Message',`Cotización ${number} guardada. Generando imagen...`,'ok');await c2Download()}
-g('c2SaveDownload').onclick=()=>{if(g('c2Name').value.trim())g('qcName').value=g('c2Name').value.trim();if(g('c2Phone').value.trim())g('qcPhone').value=g('c2Phone').value.trim();ensureQuoteClient(c2SaveForClient)};g('c2DownloadOnly').onclick=async()=>{if(!g('c2FolioView').textContent||g('c2FolioView').textContent==='BORRADOR'){g('c2FolioView').textContent='BORRADOR'}await c2Download()};g('c2CopyImage').onclick=c2CopyImage;g('c2Clear').onclick=()=>{c2Saved=null;c2Photo=null;g('c2FolioView').textContent='BORRADOR';g('c2Qr').innerHTML='';g('c2QrText').textContent='El QR se genera al guardar.';g('c2Name').value='';g('c2Phone').value='';g('c2PhotoInput').value='';g('c2LowerPhoto').innerHTML='';c2Render()};
+async function c2SaveForClient(client){const c=c2Calc();if(!g('c2Brand').value.trim()||!g('c2Model').value.trim()||!g('c2Version').value.trim()||!c.price){msg('c2Message','Captura marca, modelo, versión y precio.');return}const number=quoteNumber(),m=+g('c2MainPlan').value,sc=c.plans.find(x=>x.months===m),f=files.find(x=>String(x.cliente_id)===String(client.id));let saved={numero_cotizacion:number,folio_cotizacion:number,cliente_id:client.id,expediente_id:f?.id||null,asesor_id:user?.id||null,cliente_nombre:client.nombre,cliente_telefono:client.telefono,cliente_correo:client.correo||null,folio:client.folio_cliente||null,marca:g('c2Brand').value.trim(),modelo:g('c2Model').value.trim(),anio:+g('c2Year').value||null,version:g('c2Version').value.trim(),transmision:g('c2Transmission').value.trim()||null,color:g('c2Color').value.trim()||null,condicion:'NUEVO',precio_unidad:c.price,aportacion_porcentaje:c.pct,aportacion_importe:c.down,bono_importe:c.bonus,aportacion_total:c.down+c.bonus,monto_financiado:c.principal,tasa_anual:sc.rate,plazo_meses:m,mensualidad:sc.monthly,total_estimado:sc.total,estatus:'COTIZADO',vigencia_hasta:new Date(Date.now()+15*86400000).toISOString().slice(0,10),notas:null,datos_adicionales:{formato:'COTIZADOR 2',foto_cotizacion:c2Photo||null,promociones:g('c2Promo').value.trim()||null,asesor_nombre:profile?.nombre||'ASESOR',escenarios:c.plans,bono_importe:c.bonus,aportacion_total:c.down+c.bonus}};if(isDemo()){saved.created_at=new Date().toISOString();window.demoQuotes=window.demoQuotes||[];window.demoQuotes.unshift(saved);window.quoteCount=window.demoQuotes.length}else{const r=await db.from('max_innova_cotizaciones').insert(saved).select().single();if(r.error){msg('c2Message',r.error.message);return}saved=r.data;await loadQuotes()}c2Saved=saved;g('c2FolioView').textContent=number;g('c2Name').value=client.nombre||g('c2Name').value;g('c2Phone').value=client.telefono||g('c2Phone').value;c2Render();await c2Qr(number,c,saved);msg('c2Message',`Cotización ${number} guardada. Generando imagen...`,'ok');await c2Download()}
+g('c2SaveDownload').onclick=()=>{if(g('c2Name').value.trim())g('qcName').value=g('c2Name').value.trim();if(g('c2Phone').value.trim())g('qcPhone').value=g('c2Phone').value.trim();ensureQuoteClient(c2SaveForClient)};g('c2DownloadOnly').onclick=async()=>{await c2Download()};g('c2CopyImage').onclick=c2CopyImage;g('c2Clear').onclick=()=>{c2Saved=null;c2Photo=null;g('c2FolioView').textContent='BORRADOR';g('c2Qr').innerHTML='';g('c2QrText').textContent='El QR se genera al copiar, descargar o guardar.';g('c2Name').value='';g('c2Phone').value='';g('c2PhotoInput').value='';g('c2LowerPhoto').innerHTML='';c2Render()};
 window.useCatalogVehicleC2=function(v){if(!v)return;g('c2Year').value=v.anio||'';g('c2Brand').value=v.marca||'';g('c2Model').value=v.modelo||'';g('c2Version').value=v.version||'';g('c2Transmission').value=v.transmision||'';const p=v.valor_comercial_actual||v.precio_promocional||v.precio_lista_original||v.precio_referencia;if(p)g('c2Price').value=p;c2Render()};
 c2Render();
 
