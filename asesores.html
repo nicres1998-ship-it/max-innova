@@ -57,6 +57,27 @@
 @media(max-width:1250px){.c2-master-sheet{transform-origin:top left;transform:scale(.78);margin-bottom:-348px!important}.c2-preview-wrap{min-height:1240px}}
 @media(max-width:900px){.c2-master-sheet{transform:scale(.62);margin-bottom:-602px!important}.c2-preview-wrap{min-height:1000px}}
 
+
+/* ===== V14 · VISTA COMPLETA DEL COTIZADOR 2 ===== */
+.c2-preview-wrap{
+  position:relative;
+  overflow:hidden!important;
+  display:flex!important;
+  justify-content:center!important;
+  align-items:flex-start!important;
+  min-height:0!important;
+  height:calc(100vh - 245px)!important;
+}
+.c2-master-sheet{
+  flex:0 0 auto!important;
+  transform-origin:top center!important;
+  margin:0!important;
+}
+/* JS sets the exact preview scale; export temporarily restores scale(1). */
+@media(max-width:900px){
+  .c2-preview-wrap{height:auto!important;min-height:720px!important;overflow:auto!important}
+}
+
 </style>
 
 <style>
@@ -475,12 +496,35 @@ function c2Render(){const c=c2Calc();[['c2NameView','c2Name'],['c2PhoneView','c2
 function c2PhotoFile(file){if(!file||!file.type.startsWith('image/'))return;const r=new FileReader();r.onload=()=>{c2Photo=r.result;g('c2LowerPhoto').innerHTML=`<img src="${r.result}" alt="Vehículo">`};r.readAsDataURL(file)}
 g('c2Drop').onclick=()=>g('c2PhotoInput').click();g('c2PhotoInput').onchange=e=>c2PhotoFile(e.target.files[0]);['dragenter','dragover'].forEach(ev=>g('c2Drop').addEventListener(ev,e=>{e.preventDefault();g('c2Drop').classList.add('dragover')}));['dragleave','drop'].forEach(ev=>g('c2Drop').addEventListener(ev,e=>{e.preventDefault();g('c2Drop').classList.remove('dragover')}));g('c2Drop').addEventListener('drop',e=>c2PhotoFile(e.dataTransfer.files[0]));document.addEventListener('paste',e=>{if(!g('page-cotizador2').classList.contains('active'))return;const it=[...(e.clipboardData?.items||[])].find(x=>x.type?.startsWith('image/'));if(it){e.preventDefault();c2PhotoFile(it.getAsFile())}});
 async function c2Qr(number,c){g('c2Qr').innerHTML='';const url=`https://maxinnova.mx/verificar.html?cotizacion=${encodeURIComponent(number)}&codigo=${encodeURIComponent(number.replace(/[^A-Z0-9]/gi,'').slice(-16))}&cliente=${encodeURIComponent(g('c2Name').value)}&vehiculo=${encodeURIComponent([g('c2Brand').value,g('c2Model').value,g('c2Year').value,g('c2Version').value].join(' '))}&credito=${encodeURIComponent(c.principal)}&operacion=${encodeURIComponent(c.price)}&aportacion_pct=${encodeURIComponent(c.pct)}&aportacion_monto=${encodeURIComponent(c.down+c.bonus)}&plazo=${encodeURIComponent(g('c2MainPlan').value)}&tasa=${encodeURIComponent(C2R[g('c2MainPlan').value])}&tipo=${encodeURIComponent('Automóvil')}&marca=${encodeURIComponent(g('c2Brand').value)}&modelo=${encodeURIComponent(g('c2Model').value)}&anio=${encodeURIComponent(g('c2Year').value)}&version=${encodeURIComponent(g('c2Version').value)}&transmision=${encodeURIComponent(g('c2Transmission').value)}&color=${encodeURIComponent(g('c2Color').value)}&origen=${encodeURIComponent('COTIZADOR 2')}`;new QRCode(g('c2Qr'),{text:url,width:140,height:140,correctLevel:QRCode.CorrectLevel.M});g('c2QrText').textContent=number;await new Promise(r=>setTimeout(r,80));}
-async function c2Download(){if(!window.html2canvas){alert('No terminó de cargar el generador de imagen. Revisa tu conexión.');return}const canvas=await html2canvas(g('c2Sheet'),{scale:2,useCORS:true,backgroundColor:'#ffffff'}),a=document.createElement('a');a.download=`${g('c2FolioView').textContent||'COTIZACION-MAX-INNOVA'}.png`;a.href=canvas.toDataURL('image/png',1);a.click()}
+
+function c2FitPreview(){
+  const wrap=g('c2Sheet')&&g('c2Sheet').parentElement, sheet=g('c2Sheet');
+  if(!wrap||!sheet)return;
+  if(window.innerWidth<=900){sheet.style.transform='scale(.62)';return;}
+  const naturalW=890,naturalH=1583;
+  const maxW=Math.max(300,wrap.clientWidth-12);
+  const maxH=Math.max(520,window.innerHeight-265);
+  const scale=Math.min(maxW/naturalW,maxH/naturalH,0.72);
+  sheet.dataset.previewScale=String(scale);
+  sheet.style.transform=`scale(${scale})`;
+  wrap.style.height=(naturalH*scale)+'px';
+}
+async function c2CaptureCanvas(){
+  if(!window.html2canvas)throw new Error('No terminó de cargar el generador de imagen.');
+  const sheet=g('c2Sheet'), previous=sheet.style.transform;
+  sheet.style.transform='none';
+  try{
+    return await html2canvas(sheet,{scale:2,useCORS:true,backgroundColor:'#ffffff'});
+  }finally{
+    sheet.style.transform=previous;
+  }
+}
+async function c2Download(){try{const canvas=await c2CaptureCanvas(),a=document.createElement('a');a.download=`${g('c2FolioView').textContent||'COTIZACION-MAX-INNOVA'}.png`;a.href=canvas.toDataURL('image/png',1);a.click()}catch(err){msg('c2Message',err.message||'No fue posible generar la imagen.')}}
 async function c2CopyImage(){
   if(!window.html2canvas){msg('c2Message','No terminó de cargar el generador de imagen. Revisa tu conexión.');return}
   if(!navigator.clipboard||!window.ClipboardItem){msg('c2Message','Este navegador no permite copiar imágenes directamente. Usa DESCARGAR IMAGEN.');return}
   try{
-    const canvas=await html2canvas(g('c2Sheet'),{scale:2,useCORS:true,backgroundColor:'#ffffff'});
+    const canvas=await c2CaptureCanvas();
     const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('No se pudo generar la imagen.')),'image/png'));
     await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
     msg('c2Message','✓ Imagen copiada. Ya puede pegarla directamente en WhatsApp con Ctrl + V.','ok');
@@ -492,6 +536,9 @@ async function c2SaveForClient(client){const c=c2Calc();if(!g('c2Brand').value.t
 g('c2SaveDownload').onclick=()=>{if(g('c2Name').value.trim())g('qcName').value=g('c2Name').value.trim();if(g('c2Phone').value.trim())g('qcPhone').value=g('c2Phone').value.trim();ensureQuoteClient(c2SaveForClient)};g('c2DownloadOnly').onclick=async()=>{if(!g('c2FolioView').textContent||g('c2FolioView').textContent==='BORRADOR'){g('c2FolioView').textContent='BORRADOR'}await c2Download()};g('c2CopyImage').onclick=c2CopyImage;g('c2Clear').onclick=()=>{c2Saved=null;c2Photo=null;g('c2FolioView').textContent='BORRADOR';g('c2Qr').innerHTML='';g('c2QrText').textContent='El QR se genera al guardar.';g('c2Name').value='';g('c2Phone').value='';g('c2PhotoInput').value='';g('c2LowerPhoto').innerHTML='';c2Render()};
 window.useCatalogVehicleC2=function(v){if(!v)return;g('c2Year').value=v.anio||'';g('c2Brand').value=v.marca||'';g('c2Model').value=v.modelo||'';g('c2Version').value=v.version||'';g('c2Transmission').value=v.transmision||'';const p=v.valor_comercial_actual||v.precio_promocional||v.precio_lista_original||v.precio_referencia;if(p)g('c2Price').value=p;c2Render()};
 c2Render();
+
+window.addEventListener('resize',()=>setTimeout(c2FitPreview,50));
+setTimeout(c2FitPreview,120);
 })();
 </script>
 
