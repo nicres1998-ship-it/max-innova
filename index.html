@@ -5025,7 +5025,15 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 </script>
 
-<div id="miContactModal" class="modal" aria-hidden="true"><div class="modal-card" style="max-width:620px"><button class="modal-close" type="button" onclick="closeContactRequest()" aria-label="Cerrar">×</button><div id="miContactEntry"><div class="kicker">ATENCIÓN MAX INNOVA</div><h2 id="miContactTitle">Solicitar contacto</h2><p class="help">Completa estos datos. Administración recibirá la solicitud para dar seguimiento.</p><form id="miContactForm"><input type="hidden" id="miContactType" value="CONTACTO"><div class="form-grid"><div class="field"><label>NOMBRE COMPLETO *</label><input id="miContactName" required></div><div class="field"><label>TELÉFONO / WHATSAPP *</label><input id="miContactPhone" inputmode="tel" required></div><div class="field"><label>CORREO</label><input id="miContactEmail" type="email"></div><div class="field"><label>CIUDAD / ESTADO</label><input id="miContactCity" placeholder="Ej. León, Guanajuato"></div><div class="field full" id="miAppointmentFields" style="display:none"><label>¿CUÁNDO PREFIERES TU CITA?</label><input id="miContactPreferred" type="datetime-local"><small class="help">La fecha y horario solicitados están sujetos a disponibilidad y confirmación por MAX INNOVA.</small></div><div class="field full"><label>COMENTARIO</label><textarea id="miContactComment" placeholder="Cuéntanos brevemente en qué podemos ayudarte"></textarea></div></div><div id="miContactMessage" class="help" style="margin:10px 0"></div><button class="btn btn-blue" id="miContactSubmit" type="submit">ENVIAR SOLICITUD</button></form></div><div id="miContactSuccess" style="display:none;text-align:center;padding:18px 8px 6px"><div style="width:72px;height:72px;border-radius:50%;margin:0 auto 18px;display:grid;place-items:center;background:linear-gradient(135deg,#e8f8fd,#d6f3fb);color:#058bb8;font-size:36px;font-weight:900">✓</div><div class="kicker">SOLICITUD RECIBIDA</div><h2 id="miSuccessTitle" style="margin:7px 0 12px">¡Gracias!</h2><div id="miSuccessText" style="max-width:500px;margin:0 auto;color:#536b7a;line-height:1.7;font-size:15px"></div><div id="miSuccessNotice" style="display:none;margin:18px auto 0;max-width:500px;padding:13px 16px;border-radius:14px;background:#eef9fd;border:1px solid #c9eaf5;color:#06486e;font-size:13px;font-weight:800;line-height:1.5"></div><button class="btn btn-blue" type="button" onclick="closeContactRequest()" style="margin-top:22px">ENTENDIDO</button></div></div></div>
+<div id="miContactModal" class="modal" aria-hidden="true"><div class="modal-card" style="max-width:620px"><button class="modal-close" type="button" onclick="closeContactRequest()" aria-label="Cerrar">×</button><div id="miContactEntry"><div class="kicker">ATENCIÓN MAX INNOVA</div><h2 id="miContactTitle">Solicitar contacto</h2><p class="help">Completa estos datos. Administración recibirá la solicitud para dar seguimiento.</p><form id="miContactForm"><input type="hidden" id="miContactType" value="CONTACTO"><div class="form-grid"><div class="field"><label>NOMBRE COMPLETO *</label><input id="miContactName" required></div><div class="field"><label>TELÉFONO / WHATSAPP *</label><input id="miContactPhone" inputmode="tel" required></div><div class="field"><label>CORREO</label><input id="miContactEmail" type="email"></div><div class="field"><label>CIUDAD / ESTADO</label><input id="miContactCity" placeholder="Ej. León, Guanajuato"></div><div class="field full" id="miAppointmentFields" style="display:none"><label>¿CUÁNDO PREFIERES TU CITA?</label>
+<div class="mi-easy-appointment">
+ <div class="field"><label>FECHA DE LA CITA</label><input id="miContactDay" type="date"></div>
+ <div class="field"><label>HORA</label><select id="miContactHour"><option value="">Selecciona</option></select></div>
+ <div class="field"><label>HORARIO</label><select id="miContactPeriod"><option value="AM">AM</option><option value="PM">PM</option></select></div>
+</div>
+<input id="miContactPreferred" type="hidden">
+<div id="miAppointmentPreview" class="mi-appointment-preview">Selecciona fecha y hora para solicitar tu cita.</div>
+<small class="help">La fecha y horario solicitados están sujetos a disponibilidad y confirmación por MAX INNOVA.</small></div><div class="field full"><label>COMENTARIO</label><textarea id="miContactComment" placeholder="Cuéntanos brevemente en qué podemos ayudarte"></textarea></div></div><div id="miContactMessage" class="help" style="margin:10px 0"></div><button class="btn btn-blue" id="miContactSubmit" type="submit">ENVIAR SOLICITUD</button></form></div><div id="miContactSuccess" style="display:none;text-align:center;padding:18px 8px 6px"><div style="width:72px;height:72px;border-radius:50%;margin:0 auto 18px;display:grid;place-items:center;background:linear-gradient(135deg,#e8f8fd,#d6f3fb);color:#058bb8;font-size:36px;font-weight:900">✓</div><div class="kicker">SOLICITUD RECIBIDA</div><h2 id="miSuccessTitle" style="margin:7px 0 12px">¡Gracias!</h2><div id="miSuccessText" style="max-width:500px;margin:0 auto;color:#536b7a;line-height:1.7;font-size:15px"></div><div id="miSuccessNotice" style="display:none;margin:18px auto 0;max-width:500px;padding:13px 16px;border-radius:14px;background:#eef9fd;border:1px solid #c9eaf5;color:#06486e;font-size:13px;font-weight:800;line-height:1.5"></div><button class="btn btn-blue" type="button" onclick="closeContactRequest()" style="margin-top:22px">ENTENDIDO</button></div></div></div>
 
 <script>
 function miLocalDateTimeValue(d){const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`}
@@ -5296,5 +5304,35 @@ document.addEventListener('DOMContentLoaded',()=>{
 }
 </style>
 
+
+<style id="mi-v164-appointment-ui">
+.mi-easy-appointment{display:grid;grid-template-columns:1.25fr .8fr .55fr;gap:10px;align-items:end;margin-top:7px}
+.mi-easy-appointment .field{min-width:0}.mi-easy-appointment input,.mi-easy-appointment select{min-height:48px}
+.mi-appointment-preview{margin-top:10px;padding:11px 13px;border:1px solid #cfe5ef;border-radius:10px;background:#f4fbfe;color:#164f6d;font-size:11px;font-weight:800;line-height:1.45}
+.mi-appointment-preview.ready{background:#eaf8fd;border-color:#83d2e9}.mi-appointment-preview.unavailable{background:#fff2f2;border-color:#efbcbc;color:#9b3030}
+@media(max-width:640px){.mi-easy-appointment{grid-template-columns:1fr 1fr}.mi-easy-appointment .field:first-child{grid-column:1/-1}.mi-easy-appointment input,.mi-easy-appointment select{min-height:50px;font-size:16px}}
+</style>
+<script id="mi-v164-appointment-logic">
+document.addEventListener('DOMContentLoaded',()=>{
+ const day=document.getElementById('miContactDay'),hour=document.getElementById('miContactHour'),period=document.getElementById('miContactPeriod'),hidden=document.getElementById('miContactPreferred'),preview=document.getElementById('miAppointmentPreview');
+ if(!day||!hour||!period||!hidden)return;
+ const AM=['09:00','09:30','10:00','10:30','11:00','11:30'],PM=['12:00','12:30','01:00','01:30','02:00','02:30','03:00','03:30','04:00','04:30','05:00','05:30','06:00'];
+ const pad=n=>String(n).padStart(2,'0');
+ const to24=(t,p)=>{let [h,m]=t.split(':').map(Number);if(p==='AM'){if(h===12)h=0}else if(h!==12)h+=12;return `${pad(h)}:${pad(m)}`};
+ const fill=()=>{const v=hour.value,list=period.value==='PM'?PM:AM;hour.innerHTML='<option value="">Selecciona</option>'+list.map(x=>`<option value="${x}">${x}</option>`).join('');if(list.includes(v))hour.value=v};
+ const update=()=>{
+  hidden.value='';preview.classList.remove('ready','unavailable');
+  if(!day.value||!hour.value){preview.textContent='Selecciona fecha y hora para solicitar tu cita.';return}
+  const t24=to24(hour.value,period.value),selected=new Date(`${day.value}T${t24}:00`),limit=new Date(Date.now()+30*60*60*1000);
+  if(selected<limit){preview.textContent='AGENDA LLENA · No contamos con espacios disponibles para ese horario. Selecciona una fecha y hora posterior.';preview.classList.add('unavailable');return}
+  hidden.value=`${day.value}T${t24}`;
+  const pretty=new Intl.DateTimeFormat('es-MX',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date(`${day.value}T12:00:00`));
+  preview.textContent=`Tu cita solicitada: ${pretty} · ${hour.value} ${period.value}. Sujeta a disponibilidad y confirmación por MAX INNOVA.`;preview.classList.add('ready');
+ };
+ const now=new Date();day.min=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+ fill();period.addEventListener('change',()=>{fill();update()});hour.addEventListener('change',update);day.addEventListener('change',update);
+ document.getElementById('miContactForm')?.addEventListener('reset',()=>setTimeout(()=>{period.value='AM';fill();hidden.value='';preview.className='mi-appointment-preview';preview.textContent='Selecciona fecha y hora para solicitar tu cita.'},0));
+});
+</script>
 </body>
 </html>
