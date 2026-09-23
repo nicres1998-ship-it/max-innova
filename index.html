@@ -5029,7 +5029,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 <div class="mi-easy-appointment">
  <div class="field"><label>FECHA DE LA CITA</label><input id="miContactDay" type="date"></div>
  <div class="field"><label>HORA</label><select id="miContactHour"><option value="">Selecciona</option></select></div>
- <div class="field"><label>HORARIO</label><select id="miContactPeriod"><option value="AM">AM</option><option value="PM">PM</option></select></div>
+ <div class="field"><label>HORARIO</label><input id="miContactPeriod" type="text" value="AUTOMÁTICO" readonly aria-label="AM o PM se asigna automáticamente"></div>
 </div>
 <input id="miContactPreferred" type="hidden">
 <div id="miAppointmentPreview" class="mi-appointment-preview">Selecciona fecha y hora para solicitar tu cita.</div>
@@ -5305,33 +5305,32 @@ document.addEventListener('DOMContentLoaded',()=>{
 </style>
 
 
-<style id="mi-v164-appointment-ui">
+<style id="mi-v165-appointment-ui">
 .mi-easy-appointment{display:grid;grid-template-columns:1.25fr .8fr .55fr;gap:10px;align-items:end;margin-top:7px}
 .mi-easy-appointment .field{min-width:0}.mi-easy-appointment input,.mi-easy-appointment select{min-height:48px}
 .mi-appointment-preview{margin-top:10px;padding:11px 13px;border:1px solid #cfe5ef;border-radius:10px;background:#f4fbfe;color:#164f6d;font-size:11px;font-weight:800;line-height:1.45}
 .mi-appointment-preview.ready{background:#eaf8fd;border-color:#83d2e9}.mi-appointment-preview.unavailable{background:#fff2f2;border-color:#efbcbc;color:#9b3030}
 @media(max-width:640px){.mi-easy-appointment{grid-template-columns:1fr 1fr}.mi-easy-appointment .field:first-child{grid-column:1/-1}.mi-easy-appointment input,.mi-easy-appointment select{min-height:50px;font-size:16px}}
 </style>
-<script id="mi-v164-appointment-logic">
+<script id="mi-v165-appointment-logic">
 document.addEventListener('DOMContentLoaded',()=>{
  const day=document.getElementById('miContactDay'),hour=document.getElementById('miContactHour'),period=document.getElementById('miContactPeriod'),hidden=document.getElementById('miContactPreferred'),preview=document.getElementById('miAppointmentPreview');
  if(!day||!hour||!period||!hidden)return;
- const AM=['09:00','09:30','10:00','10:30','11:00','11:30'],PM=['12:00','12:30','01:00','01:30','02:00','02:30','03:00','03:30','04:00','04:30','05:00','05:30','06:00'];
+ const WEEKDAY=['10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+ const SATURDAY=['10:00','11:00','12:00','13:00','14:00','15:00'];
  const pad=n=>String(n).padStart(2,'0');
- const to24=(t,p)=>{let [h,m]=t.split(':').map(Number);if(p==='AM'){if(h===12)h=0}else if(h!==12)h+=12;return `${pad(h)}:${pad(m)}`};
- const fill=()=>{const v=hour.value,list=period.value==='PM'?PM:AM;hour.innerHTML='<option value="">Selecciona</option>'+list.map(x=>`<option value="${x}">${x}</option>`).join('');if(list.includes(v))hour.value=v};
- const update=()=>{
-  hidden.value='';preview.classList.remove('ready','unavailable');
-  if(!day.value||!hour.value){preview.textContent='Selecciona fecha y hora para solicitar tu cita.';return}
-  const t24=to24(hour.value,period.value),selected=new Date(`${day.value}T${t24}:00`),limit=new Date(Date.now()+30*60*60*1000);
-  if(selected<limit){preview.textContent='AGENDA LLENA · No contamos con espacios disponibles para ese horario. Selecciona una fecha y hora posterior.';preview.classList.add('unavailable');return}
-  hidden.value=`${day.value}T${t24}`;
-  const pretty=new Intl.DateTimeFormat('es-MX',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date(`${day.value}T12:00:00`));
-  preview.textContent=`Tu cita solicitada: ${pretty} · ${hour.value} ${period.value}. Sujeta a disponibilidad y confirmación por MAX INNOVA.`;preview.classList.add('ready');
- };
- const now=new Date();day.min=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
- fill();period.addEventListener('change',()=>{fill();update()});hour.addEventListener('change',update);day.addEventListener('change',update);
- document.getElementById('miContactForm')?.addEventListener('reset',()=>setTimeout(()=>{period.value='AM';fill();hidden.value='';preview.className='mi-appointment-preview';preview.textContent='Selecciona fecha y hora para solicitar tu cita.'},0));
+ const displayTime=t=>{const [hh,mm]=t.split(':').map(Number),ampm=hh>=12?'PM':'AM',h=hh%12||12;return `${h}:${pad(mm)} ${ampm}`};
+ const localDate=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+ const minimum=()=>new Date(Date.now()+30*60*60*1000);
+ let occupied=new Set(),requestSeq=0;
+ function setPeriod(t){if(!t){period.value='AUTOMÁTICO';return}period.value=Number(t.slice(0,2))>=12?'PM':'AM'}
+ function baseSlots(){if(!day.value)return[];const d=new Date(`${day.value}T12:00:00`),dow=d.getDay();if(dow===0)return[];return dow===6?SATURDAY:WEEKDAY}
+ function validSlots(){const lim=minimum();return baseSlots().filter(t=>new Date(`${day.value}T${t}:00`)>=lim&&!occupied.has(t))}
+ function renderSlots(){const previous=hour.value,slots=validSlots();hour.innerHTML='<option value="">Selecciona una hora disponible</option>'+slots.map(t=>`<option value="${t}">${displayTime(t)}</option>`).join('');if(slots.includes(previous))hour.value=previous;else hour.value='';setPeriod(hour.value);return slots}
+ function update(){hidden.value='';preview.classList.remove('ready','unavailable');if(!day.value){preview.textContent='Selecciona una fecha para consultar los horarios disponibles.';return}const d=new Date(`${day.value}T12:00:00`);if(d.getDay()===0){preview.textContent='DOMINGO · Día de descanso. Selecciona otra fecha.';preview.classList.add('unavailable');return}if(!hour.value){preview.textContent=validSlots().length?'Selecciona uno de los horarios disponibles.':'AGENDA LLENA · No hay horarios disponibles para esta fecha. Selecciona otro día.';if(!validSlots().length)preview.classList.add('unavailable');return}const selected=new Date(`${day.value}T${hour.value}:00`);if(selected<minimum()||occupied.has(hour.value)){renderSlots();preview.textContent='AGENDA LLENA · Ese horario ya no está disponible. Selecciona otro horario.';preview.classList.add('unavailable');return}hidden.value=`${day.value}T${hour.value}`;const pretty=new Intl.DateTimeFormat('es-MX',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(d);preview.textContent=`Tu cita solicitada: ${pretty} · ${displayTime(hour.value)}. Sujeta a disponibilidad y confirmación por MAX INNOVA.`;preview.classList.add('ready')}
+ async function loadAvailability(){occupied=new Set();hidden.value='';hour.innerHTML='<option value="">Consultando horarios...</option>';setPeriod('');preview.className='mi-appointment-preview';if(!day.value){renderSlots();update();return}const d=new Date(`${day.value}T12:00:00`);if(d.getDay()===0){renderSlots();update();return}const seq=++requestSeq;try{if(typeof db!=='undefined'){const start=`${day.value}T00:00:00`,next=new Date(`${day.value}T12:00:00`);next.setDate(next.getDate()+1);const nextDay=localDate(next);const {data,error}=await db.from('max_innova_solicitudes_contacto').select('fecha_preferida,estatus').eq('tipo','CITA').gte('fecha_preferida',start).lt('fecha_preferida',`${nextDay}T00:00:00`);if(error)throw error;if(seq!==requestSeq)return;(data||[]).forEach(r=>{if(!r.fecha_preferida)return;const st=String(r.estatus||'').toUpperCase();if(st==='CANCELADO'||st==='CANCELADA')return;const dt=new Date(r.fecha_preferida);occupied.add(`${pad(dt.getHours())}:${pad(dt.getMinutes())}`)})}}catch(err){console.warn('No fue posible consultar disponibilidad en tiempo real:',err)}const slots=renderSlots();preview.className='mi-appointment-preview';preview.textContent=slots.length?'Selecciona uno de los horarios disponibles.':'AGENDA LLENA · No hay horarios disponibles para esta fecha. Selecciona otro día.';if(!slots.length)preview.classList.add('unavailable')}
+ const now=new Date();day.min=localDate(now);hour.innerHTML='<option value="">Primero selecciona una fecha</option>';period.value='AUTOMÁTICO';day.addEventListener('change',loadAvailability);hour.addEventListener('change',()=>{setPeriod(hour.value);update()});
+ document.getElementById('miContactForm')?.addEventListener('reset',()=>setTimeout(()=>{occupied=new Set();hour.innerHTML='<option value="">Primero selecciona una fecha</option>';period.value='AUTOMÁTICO';hidden.value='';preview.className='mi-appointment-preview';preview.textContent='Selecciona una fecha para consultar los horarios disponibles.'},0));
 });
 </script>
 </body>
