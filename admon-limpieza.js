@@ -11,7 +11,10 @@
  const previousTable=tableHtml;
  tableHtml=function(rows,fields,action){
   let table=sections[current];
+  if(rows?.length){const r=rows[0];if(r.storage_path)table=r.account_id?'max_portal_documents':r.cliente_id?'max_innova_documentos_cliente':'max_innova_documentos_asesor'; }
   if(rows?.length&&rows[0].account_id&&rows[0].storage_path)table='max_portal_documents';
+  if(!maxAccess?.owner&&table==='max_portal_accounts')return previousTable(rows,fields,action);
+  if(!maxAccess?.owner&&!maxCan(maxTableModule(table),'delete'))return previousTable(rows,fields,action);
   if(!table||!rows?.length)return previousTable(rows,fields,action);
   return previousTable(rows,fields,x=>{const original=action?action(x):'';if(!x.id||!/^[a-z0-9-]+$/i.test(String(x.id)))return original;
    if(table==='max_innova_usuarios'&&String(x.rol).toUpperCase()==='ADMIN')return original+' <span class="muted">ADMIN protegido</span>';
@@ -34,13 +37,14 @@
    return summary+' '+(selected==='max_innova_usuarios'&&String(x.rol).toUpperCase()==='ADMIN'?'<b>ADMIN protegido</b>':'<button class="btn bad" onclick="adminDeleteRecord(\''+selected+'\',\''+esc(String(x.id))+'\')">ELIMINAR</button>');});
   $('admCleanPrev').disabled=offset===0;$('admCleanNext').disabled=rows.length<100;
  }catch(e){$('admCleanRows').textContent=e.message;}}
- window.adminDeleteRecord=function(table,id){if(busy||!tables[table])return;
+ window.adminDeleteRecord=function(table,id){if(busy||!tables[table]||(!maxAccess?.owner&&!maxCan(maxTableModule(table),'delete'))||(!maxAccess?.owner&&['max_innova_usuarios','max_portal_accounts'].includes(table)))return;
   openModal('ELIMINAR · '+tables[table],'<p>Se eliminará este registro de forma permanente. Si tiene archivos o un acceso asociado, se procesarán también. Las dependencias se comprobarán antes de borrar.</p><p>ID: '+esc(String(id))+'</p><label>Escribe ELIMINAR<input id="admDeletePhrase" autocomplete="off"></label><button class="btn bad" id="admDeleteAccept">ELIMINAR DEFINITIVAMENTE</button><div id="admDeleteMsg" role="status"></div>');
   $('admDeleteAccept').onclick=async function(){if($('admDeletePhrase').value!=='ELIMINAR'){$('admDeleteMsg').textContent='Escribe ELIMINAR para confirmar.';return;}busy=true;this.disabled=true;
    try{await rpc('delete',{p_table:table,p_id:String(id),p_confirm:'ELIMINAR'});closeModal();const result=await drain();alert(result.pending?'Registro eliminado. Hay archivos o accesos pendientes: '+result.pending+'. Reintenta desde ELIMINAR / VACIAR DATOS.':'Registro eliminado; sin tareas pendientes de archivos o accesos.');await view(current);}
    catch(e){const m=$('admDeleteMsg');if(m)m.textContent=e.message;else alert(e.message);this.disabled=false;}finally{busy=false;}};
  };
  async function drain(){
+  if(!maxAccess?.owner)return {pending:'la cuenta principal completará los archivos desde ELIMINAR / VACIAR DATOS'};
   for(let i=0;i<50;i++){
    const {data,error}=await db.functions.invoke('max-admin-cleanup',{body:{action:'drain'}});
    if(error||!data){return {pending:'por comprobar; instala o revisa max-admin-cleanup'};}
@@ -59,3 +63,4 @@
    catch(e){const m=$('admResetMsg');if(m)m.textContent=e.message;else alert(e.message);this.disabled=false;}finally{busy=false;}};
  }catch(e){alert(e.message);}}
 })();
+
