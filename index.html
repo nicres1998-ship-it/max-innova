@@ -2381,7 +2381,9 @@ No sustituir el diseño base al hacer cambios posteriores.
    [25.6866,-100.3161,'Monterrey, N.L.','Atención, Ventas y Seguimiento']
   ].forEach(function(p){L.marker([p[0],p[1]]).addTo(map).bindPopup('<strong>'+p[2]+'</strong><br>'+p[3]);});
   var leonAddress="C. Valle de Señora 244-201, Valle del Campestre, C.P. 37150, León de los Aldama, Gto.";
-  fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=mx&q='+encodeURIComponent(leonAddress),{headers:{'Accept':'application/json'}}).then(function(r){return r.json();}).then(function(rows){if(rows&&rows[0])L.marker([Number(rows[0].lat),Number(rows[0].lon)]).addTo(map).bindPopup('<strong>MAX INNOVA · León</strong><br>'+leonAddress+'<br>Tel. 462 303 6732<br><a href="https://www.google.com/maps/search/?api=1&query=MAX%20INNOVA%20Servicios%20Financieros%2C%20Valle%20de%20Se%C3%B1ora%20244-201%2C%20Le%C3%B3n%2C%20Guanajuato" target="_blank" rel="noopener noreferrer">VER UBICACIÓN ↗</a>');}).catch(function(){});
+  var leonPopup='<strong>MAX INNOVA · León</strong><br>'+leonAddress+'<br>Tel. 462 303 6732<br><a href="https://www.google.com/maps/search/?api=1&query=MAX%20INNOVA%20Servicios%20Financieros%2C%20Valle%20de%20Se%C3%B1ora%20244-201%2C%20Le%C3%B3n%2C%20Guanajuato" target="_blank" rel="noopener noreferrer">VER UBICACIÓN ↗</a>';
+  var leonMarker=L.marker([21.125,-101.686],{title:'MAX INNOVA · León'}).addTo(map).bindPopup(leonPopup+'<br><small>Marcador de referencia de la ciudad; abre VER UBICACIÓN para localizar la oficina.</small>');
+  fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=mx&q='+encodeURIComponent(leonAddress),{headers:{'Accept':'application/json'}}).then(function(r){if(!r.ok)throw new Error('Geocodificación no disponible');return r.json();}).then(function(rows){if(rows&&rows[0]){var lat=Number(rows[0].lat),lon=Number(rows[0].lon);if(Number.isFinite(lat)&&Number.isFinite(lon)&&lat>20.9&&lat<21.4&&lon>-101.9&&lon<-101.4){leonMarker.setLatLng([lat,lon]).bindPopup(leonPopup+'<br><small>Ubicación obtenida a partir del domicilio.</small>');}}}).catch(function(){/* Se conserva el marcador de referencia visible. */});
   var fiscalAddress='Av. Uno No. 413, Depto. 7, Col. Benito Juárez, C.P. 93310, Poza Rica de Hidalgo, Veracruz.';
   var fiscalPopup='<strong>Ubicación Fiscal</strong><br>'+fiscalAddress+'<br><b>Sin atención al público</b><br>Acceso restringido a socios y administración autorizada.';
   fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=mx&q='+encodeURIComponent(fiscalAddress),{headers:{'Accept':'application/json'}})
@@ -5341,4 +5343,5 @@ document.addEventListener('DOMContentLoaded',()=>{
 (function(){var mode=new URLSearchParams(location.search).get('portal');if(mode==='consulta'||mode==='solicitud'){goPortal(mode==='consulta'?'consulta':'nuevo');}})();
 </script></body>
 </html>
+
 
