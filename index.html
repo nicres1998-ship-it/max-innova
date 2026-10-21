@@ -1887,7 +1887,7 @@ No sustituir el diseño base al hacer cambios posteriores.
 <a href="#informacion">INFORMACIÓN</a>
 <a href="#contacto">CONTACTO</a>
 </nav>
-<div><a class="advisor-access" href="asesores.html">PANEL DE ASESOR</a><button class="account" onclick="goPortal('consulta')">♙ MI CUENTA</button></div>
+<div><a class="advisor-access" href="asesores.html">PANEL DE ASESOR</a><a class="account" href="clientes.html">♙ MI CUENTA</a></div>
 </div>
 </header>
 <main>
@@ -2435,13 +2435,13 @@ function miIncomeGuide(){
 </script>
 <section class="section" id="contacto"><div class="container contact-grid">
 <div class="phone-image"><img alt="Contacto MAX INNOVA" src="telefono.png"/ loading="eager" decoding="async"></div>
-<div><div class="kicker">CONTACTO</div><h2>¿Quieres comenzar?</h2><p>Registra tu solicitud para obtener tu folio. Si ya tienes uno, consulta el seguimiento desde MI CUENTA.</p><p><strong>Sucursal León:</strong> C. Valle de Señora 244-201, Valle del Campestre, C.P. 37150, León de los Aldama, Gto.</p><p><strong>Teléfono oficial:</strong> <a href="tel:+524623036732">462 303 6732</a></p><p><a class="btn btn-blue mi-official-location" href="https://share.google/M7Et9imgsZssxtWwh" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">VER UBICACIÓN ↗</a></p><p><strong>Correo oficial:</strong> <a href="mailto:contacto@maxinnova.mx">contacto@maxinnova.mx</a></p><button class="btn btn-blue" onclick="goPortal('nuevo')">NUEVA SOLICITUD</button> <button class="btn btn-cyan" onclick="goPortal('consulta')">CONSULTAR FOLIO</button> <button class="btn btn-light" type="button" onclick="openContactRequest('CONTACTO')">HABLAR CON UN ASESOR</button></div>
+<div><div class="kicker">CONTACTO</div><h2>¿Quieres comenzar?</h2><p>Registra tu solicitud para obtener tu folio. Si ya tienes uno, consulta el seguimiento en CONSULTAR FOLIO. MI CUENTA es el acceso para clientes habilitados por Administración.</p><p><strong>Sucursal León:</strong> C. Valle de Señora 244-201, Valle del Campestre, C.P. 37150, León de los Aldama, Gto.</p><p><strong>Teléfono oficial:</strong> <a href="tel:+524623036732">462 303 6732</a></p><p><a class="btn btn-blue mi-official-location" href="https://share.google/M7Et9imgsZssxtWwh" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">VER UBICACIÓN ↗</a></p><p><strong>Correo oficial:</strong> <a href="mailto:contacto@maxinnova.mx">contacto@maxinnova.mx</a></p><button class="btn btn-blue" onclick="goPortal('nuevo')">NUEVA SOLICITUD</button> <button class="btn btn-cyan" onclick="goPortal('consulta')">CONSULTAR FOLIO</button> <button class="btn btn-light" type="button" onclick="openContactRequest('CONTACTO')">HABLAR CON UN ASESOR</button></div>
 </div></section>
 </main>
 <footer><div class="container">
 <div class="footer-grid">
 <div><img alt="MAX INNOVA" class="footer-logo" src="https://maxinnova.mx/logo%20maxinnova.png"/><p>Soluciones de financiamiento sujetas a evaluación, documentación, condiciones y viabilidad de cada solicitud.</p></div>
-<div><strong>NAVEGACIÓN</strong><a href="#inicio">Inicio</a><a href="#soluciones">Soluciones</a><a href="#sectores">Sectores</a><a href="#como-funciona">Cómo funciona</a><a href="#portal">Mi cuenta</a></div>
+<div><strong>NAVEGACIÓN</strong><a href="#inicio">Inicio</a><a href="#soluciones">Soluciones</a><a href="#sectores">Sectores</a><a href="#como-funciona">Cómo funciona</a><a href="clientes.html">Mi cuenta</a></div>
 <div><strong>INFORMACIÓN</strong><a href="#informacion">Información fiscal</a><a href="#" onclick="openPrivacy(event)">Aviso de privacidad</a><a href="#informacion">Información regulatoria</a><a href="mailto:contacto@maxinnova.mx">contacto@maxinnova.mx</a><a href="tel:+524623036732">Teléfono oficial: 462 303 6732</a><a href="https://share.google/M7Et9imgsZssxtWwh" target="_blank" rel="noopener noreferrer">Sucursal León · VER UBICACIÓN ↗</a><p style="font-size:11px;line-height:1.6;margin-top:10px">C. Valle de Señora 244-201, Valle del Campestre, C.P. 37150, León de los Aldama, Gto.</p><a href="#contacto">Contacto</a></div>
 </div>
 <div class="footer-bottom">MAX INNOVA · Servicios Financieros · Información general sujeta a validación.</div>
@@ -5337,5 +5337,8 @@ document.addEventListener('DOMContentLoaded',()=>{
  document.getElementById('miContactForm')?.addEventListener('reset',()=>setTimeout(()=>{occupied=new Set();hour.innerHTML='<option value="">Primero selecciona una fecha</option>';period.value='AUTOMÁTICO';hidden.value='';preview.className='mi-appointment-preview';preview.textContent='Selecciona una fecha para consultar los horarios disponibles.'},0));
 });
 </script>
-</body>
+<script>
+(function(){var mode=new URLSearchParams(location.search).get('portal');if(mode==='consulta'||mode==='solicitud'){goPortal(mode==='consulta'?'consulta':'nuevo');}})();
+</script></body>
 </html>
+
