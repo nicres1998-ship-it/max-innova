@@ -109,5 +109,7 @@ async function saveUserFull(id){const row={usuario:euUser.value.trim().toUpperCa
 async function reports(){setHead('Reportes','Resumen operativo');const [cl,qt,op,pa,us,ta]=await Promise.all(['max_innova_clientes_asesor','max_innova_cotizaciones','max_innova_operaciones','max_innova_pagos','max_innova_usuarios','max_innova_tareas_asesor'].map(count));content.innerHTML=`<div class="hero"><small>REPORTE GENERAL</small><h2>Indicadores operativos</h2><p>Conteos actuales de los módulos conectados a Supabase.</p></div><div class="kpis"><div class="kpi"><b>${cl}</b><span>CLIENTES</span></div><div class="kpi"><b>${qt}</b><span>COTIZACIONES</span></div><div class="kpi"><b>${op}</b><span>OPERACIONES</span></div><div class="kpi"><b>${pa}</b><span>PAGOS</span></div><div class="kpi"><b>${us}</b><span>USUARIOS</span></div></div><div class="card"><h3>SEGUIMIENTOS</h3><p><b>${ta}</b> tareas registradas.</p><p class="muted">Los importes y saldos se consultan desde los registros reales; este panel no calcula ni inventa saldos administrativos.</p></div>`}
 function openModal(t,h){modalTitle.textContent=t;modalBody.innerHTML=h;modal.classList.add('open')}function closeModal(){modal.classList.remove('open')}
 boot();
-</script><script src="portal-admon.js?v=1"></script></body></html>
+</script><script src="portal-admon.js?v=1"></script><script src="admon-limpieza.js?v=1"></script>
+</body></html>
+
 
